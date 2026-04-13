@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
 interface ModerationActionsProps {
-  targetType: "problem_templates" | "requirements" | "pilot_frameworks";
+  targetType: "problem_templates" | "requirements" | "pilot_frameworks" | "solution_approaches" | "success_reports" | "suggested_edits";
   targetId: string;
 }
 

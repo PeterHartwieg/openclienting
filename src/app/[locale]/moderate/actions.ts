@@ -2,8 +2,17 @@
 
 import { createClient } from "@/lib/supabase/server";
 
-type TargetType = "problem_templates" | "requirements" | "pilot_frameworks";
+import type { EditDiff, EditTargetType } from "@/lib/types/database";
+
+type TargetType = "problem_templates" | "requirements" | "pilot_frameworks" | "solution_approaches" | "success_reports" | "suggested_edits";
 type Action = "publish" | "reject";
+
+const targetTypeToTable: Record<EditTargetType, string> = {
+  problem_template: "problem_templates",
+  requirement: "requirements",
+  pilot_framework: "pilot_frameworks",
+  solution_approach: "solution_approaches",
+};
 
 export async function moderateItem(params: {
   targetType: TargetType;
@@ -94,5 +103,67 @@ export async function deleteTag(tagId: string) {
   const { error } = await supabase.from("tags").delete().eq("id", tagId);
 
   if (error) return { success: false, error: error.message };
+  return { success: true };
+}
+
+export async function applySuggestedEdit(editId: string) {
+  const supabase = await createClient();
+
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { success: false, error: "Unauthorized" };
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+
+  if (!profile || !["moderator", "admin"].includes(profile.role)) {
+    return { success: false, error: "Forbidden" };
+  }
+
+  // Fetch the suggested edit
+  const { data: edit } = await supabase
+    .from("suggested_edits")
+    .select("*")
+    .eq("id", editId)
+    .single();
+
+  if (!edit) return { success: false, error: "Edit not found" };
+  if (edit.status !== "submitted" && edit.status !== "in_review") {
+    return { success: false, error: "Edit already processed" };
+  }
+
+  const diff = edit.diff as EditDiff;
+  const tableName = targetTypeToTable[edit.target_type as EditTargetType];
+
+  // Apply the changes
+  const updateData: Record<string, string | null> = {};
+  for (const [key, val] of Object.entries(diff)) {
+    updateData[key] = val.new;
+  }
+
+  const { error: updateError } = await supabase
+    .from(tableName)
+    .update(updateData)
+    .eq("id", edit.target_id);
+
+  if (updateError) return { success: false, error: updateError.message };
+
+  // Log to edit_history
+  await supabase.from("edit_history").insert({
+    target_type: edit.target_type,
+    target_id: edit.target_id,
+    author_id: edit.author_id,
+    diff,
+  });
+
+  // Mark as published
+  const { error: statusError } = await supabase
+    .from("suggested_edits")
+    .update({ status: "published" })
+    .eq("id", editId);
+
+  if (statusError) return { success: false, error: statusError.message };
   return { success: true };
 }

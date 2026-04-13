@@ -45,9 +45,15 @@ export function ProblemFilters({ tagsByCategory, locale }: ProblemFiltersProps) 
     router.push(`/${locale}/problems`);
   }, [router, locale]);
 
-  const hasActiveFilters = ["industry", "function", "problem_category", "company_size"].some(
+  const hasActiveFilters = ["industry", "function", "problem_category", "company_size", "solution_status"].some(
     (cat) => searchParams.has(cat)
   );
+
+  const solutionStatusOptions = [
+    { slug: "unsolved", label: "Unsolved" },
+    { slug: "has_approaches", label: "Has Approaches" },
+    { slug: "successful_pilot", label: "Successful Pilot" },
+  ];
 
   return (
     <aside className="w-full space-y-6">
@@ -56,6 +62,24 @@ export function ProblemFilters({ tagsByCategory, locale }: ProblemFiltersProps) 
           Clear all filters
         </Button>
       )}
+
+      <div>
+        <h3 className="mb-2 text-sm font-semibold">Solution Status</h3>
+        <div className="flex flex-wrap gap-1.5">
+          {solutionStatusOptions.map((opt) => (
+            <Button
+              key={opt.slug}
+              variant={searchParams.get("solution_status") === opt.slug ? "default" : "outline"}
+              size="sm"
+              onClick={() => toggleFilter("solution_status", opt.slug)}
+              aria-pressed={searchParams.get("solution_status") === opt.slug}
+            >
+              {opt.label}
+            </Button>
+          ))}
+        </div>
+        <Separator className="mt-4" />
+      </div>
 
       {Object.entries(categoryLabels).map(([category, label]) => {
         const tags = tagsByCategory[category] ?? [];

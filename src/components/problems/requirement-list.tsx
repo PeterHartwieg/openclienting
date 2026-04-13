@@ -1,20 +1,23 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { UpvoteButton } from "@/components/shared/upvote-button";
+import { EditRequirementInline } from "@/components/problems/edit-requirement-inline";
 
 interface Requirement {
   id: string;
   body: string;
   anonymous: boolean;
   upvote_count: number;
+  author_id?: string;
   profiles?: { display_name: string | null } | null;
 }
 
 interface RequirementListProps {
   requirements: Requirement[];
   userVotes?: Set<string>;
+  currentUserId?: string;
 }
 
-export function RequirementList({ requirements, userVotes }: RequirementListProps) {
+export function RequirementList({ requirements, userVotes, currentUserId }: RequirementListProps) {
   if (requirements.length === 0) {
     return (
       <p className="text-sm text-muted-foreground">
@@ -36,11 +39,16 @@ export function RequirementList({ requirements, userVotes }: RequirementListProp
             />
             <div className="flex-1">
               <p className="text-sm">{req.body}</p>
-              <p className="mt-1 text-xs text-muted-foreground">
-                {req.anonymous
-                  ? "Anonymous"
-                  : req.profiles?.display_name ?? "Unknown"}
-              </p>
+              <div className="mt-1 flex items-center gap-2">
+                <p className="text-xs text-muted-foreground">
+                  {req.anonymous
+                    ? "Anonymous"
+                    : req.profiles?.display_name ?? "Unknown"}
+                </p>
+                {currentUserId && currentUserId === req.author_id && (
+                  <EditRequirementInline requirementId={req.id} currentBody={req.body} />
+                )}
+              </div>
             </div>
           </CardContent>
         </Card>

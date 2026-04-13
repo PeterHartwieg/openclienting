@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { UpvoteButton } from "@/components/shared/upvote-button";
+import { EditPilotFrameworkForm } from "@/components/problems/edit-pilot-framework-form";
 
 interface PilotFramework {
   id: string;
@@ -11,12 +12,14 @@ interface PilotFramework {
   resource_commitment: string | null;
   anonymous: boolean;
   upvote_count: number;
+  author_id?: string;
   profiles?: { display_name: string | null } | null;
 }
 
 interface PilotFrameworkListProps {
   frameworks: PilotFramework[];
   userVotes?: Set<string>;
+  currentUserId?: string;
 }
 
 function Field({ label, value }: { label: string; value: string | null }) {
@@ -29,7 +32,7 @@ function Field({ label, value }: { label: string; value: string | null }) {
   );
 }
 
-export function PilotFrameworkList({ frameworks, userVotes }: PilotFrameworkListProps) {
+export function PilotFrameworkList({ frameworks, userVotes, currentUserId }: PilotFrameworkListProps) {
   if (frameworks.length === 0) {
     return (
       <p className="text-sm text-muted-foreground">
@@ -67,6 +70,9 @@ export function PilotFrameworkList({ frameworks, userVotes }: PilotFrameworkList
               <Field label="Common Pitfalls" value={fw.common_pitfalls} />
               <Field label="Resource Commitment" value={fw.resource_commitment} />
             </dl>
+            {currentUserId && currentUserId === fw.author_id && (
+              <EditPilotFrameworkForm frameworkId={fw.id} current={fw} />
+            )}
           </CardContent>
         </Card>
       ))}

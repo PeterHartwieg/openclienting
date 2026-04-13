@@ -3,7 +3,7 @@
 import { createClient } from "@/lib/supabase/server";
 
 export async function submitComment(params: {
-  targetType: "problem_template";
+  targetType: "problem_template" | "solution_approach";
   targetId: string;
   body: string;
   anonymous: boolean;

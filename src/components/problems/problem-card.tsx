@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TagBadge } from "@/components/shared/tag-badge";
+import { SolutionStatusBadge } from "@/components/shared/solution-status-badge";
 
 interface ProblemTag {
   tag_id: string;
@@ -14,6 +15,7 @@ interface ProblemCardProps {
   anonymous: boolean;
   author?: { display_name: string | null } | null;
   problemTags: ProblemTag[];
+  solutionStatus?: string;
   locale: string;
 }
 
@@ -26,6 +28,7 @@ export function ProblemCard({
   anonymous,
   author,
   problemTags,
+  solutionStatus,
   locale,
 }: ProblemCardProps) {
   const validTags = problemTags.filter((pt) => pt.tags);
@@ -42,9 +45,12 @@ export function ProblemCard({
           <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors">
             {title}
           </CardTitle>
-          <p className="text-sm text-muted-foreground">
-            {anonymous ? "Anonymous" : author?.display_name ?? "Unknown"}
-          </p>
+          <div className="flex items-center gap-2 mt-1">
+            <p className="text-sm text-muted-foreground">
+              {anonymous ? "Anonymous" : author?.display_name ?? "Unknown"}
+            </p>
+            {solutionStatus && <SolutionStatusBadge status={solutionStatus} />}
+          </div>
         </CardHeader>
         <CardContent>
           <p className="text-sm text-muted-foreground line-clamp-3">

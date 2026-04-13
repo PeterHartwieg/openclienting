@@ -2,12 +2,17 @@ import { notFound } from "next/navigation";
 import { getProblemById } from "@/lib/queries/problems";
 import { createClient } from "@/lib/supabase/server";
 import { TagBadge } from "@/components/shared/tag-badge";
+import { SolutionStatusBadge } from "@/components/shared/solution-status-badge";
 import { RequirementList } from "@/components/problems/requirement-list";
 import { PilotFrameworkList } from "@/components/problems/pilot-framework-list";
 import { AddRequirementForm } from "@/components/problems/add-requirement-form";
 import { AddPilotFrameworkForm } from "@/components/problems/add-pilot-framework-form";
+import { SolutionApproachList } from "@/components/problems/solution-approach-list";
+import { AddSolutionApproachForm } from "@/components/problems/add-solution-approach-form";
 import { CommentThread } from "@/components/comments/comment-thread";
 import { CommentForm } from "@/components/comments/comment-form";
+import { EditProblemForm } from "@/components/problems/edit-problem-form";
+import { SuggestEditForm } from "@/components/problems/suggest-edit-form";
 import { Separator } from "@/components/ui/separator";
 
 export default async function ProblemDetailPage({
@@ -34,10 +39,12 @@ export default async function ProblemDetailPage({
 
   let userVotedRequirements = new Set<string>();
   let userVotedFrameworks = new Set<string>();
+  let userVotedApproaches = new Set<string>();
 
   if (user) {
     const reqIds = (problem.requirements ?? []).map((r: { id: string }) => r.id);
     const fwIds = (problem.pilot_frameworks ?? []).map((f: { id: string }) => f.id);
+    const saIds = (problem.solution_approaches ?? []).map((s: { id: string }) => s.id);
 
     if (reqIds.length > 0) {
       const { data: reqVotes } = await supabase
@@ -57,6 +64,16 @@ export default async function ProblemDetailPage({
         .eq("target_type", "pilot_framework")
         .in("target_id", fwIds);
       userVotedFrameworks = new Set(fwVotes?.map((v) => v.target_id) ?? []);
+    }
+
+    if (saIds.length > 0) {
+      const { data: saVotes } = await supabase
+        .from("votes")
+        .select("target_id")
+        .eq("user_id", user.id)
+        .eq("target_type", "solution_approach")
+        .in("target_id", saIds);
+      userVotedApproaches = new Set(saVotes?.map((v) => v.target_id) ?? []);
     }
   }
 
@@ -80,6 +97,10 @@ export default async function ProblemDetailPage({
     .filter((f: { status: string }) => f.status === "published")
     .sort((a: { upvote_count: number }, b: { upvote_count: number }) => b.upvote_count - a.upvote_count);
 
+  const publishedApproaches = (problem.solution_approaches ?? [])
+    .filter((s: { status: string }) => s.status === "published")
+    .sort((a: { upvote_count: number }, b: { upvote_count: number }) => b.upvote_count - a.upvote_count);
+
   // Normalize comments for the thread component
   const normalizedComments = (comments ?? []).map((c) => ({
     ...c,
@@ -90,7 +111,10 @@ export default async function ProblemDetailPage({
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">{problem.title}</h1>
+        <div className="flex items-center gap-3">
+          <h1 className="text-3xl font-bold tracking-tight">{problem.title}</h1>
+          <SolutionStatusBadge status={problem.solution_status ?? "unsolved"} />
+        </div>
         <p className="mt-2 text-sm text-muted-foreground">
           Submitted by{" "}
           {problem.anonymous
@@ -120,6 +144,27 @@ export default async function ProblemDetailPage({
         <div className="mt-4">
           <p className="whitespace-pre-wrap text-sm">{problem.description}</p>
         </div>
+        {user && user.id === problem.author_id && problem.status === "published" && (
+          <div className="mt-4">
+            <EditProblemForm
+              problemId={problem.id}
+              currentTitle={problem.title}
+              currentDescription={problem.description}
+            />
+          </div>
+        )}
+        {user && user.id !== problem.author_id && problem.status === "published" && (
+          <div className="mt-4">
+            <SuggestEditForm
+              targetType="problem_template"
+              targetId={problem.id}
+              fields={[
+                { key: "title", label: "Title", value: problem.title },
+                { key: "description", label: "Description", value: problem.description, multiline: true },
+              ]}
+            />
+          </div>
+        )}
       </section>
 
       <Separator className="my-8" />
@@ -133,6 +178,7 @@ export default async function ProblemDetailPage({
           <RequirementList
             requirements={publishedRequirements}
             userVotes={userVotedRequirements}
+            currentUserId={user?.id}
           />
         </div>
         {user && (
@@ -153,11 +199,34 @@ export default async function ProblemDetailPage({
           <PilotFrameworkList
             frameworks={publishedFrameworks}
             userVotes={userVotedFrameworks}
+            currentUserId={user?.id}
           />
         </div>
         {user && (
           <div className="mt-4">
             <AddPilotFrameworkForm problemId={problem.id} />
+          </div>
+        )}
+      </section>
+
+      <Separator className="my-8" />
+
+      {/* Solution Approaches */}
+      <section>
+        <h2 className="text-xl font-semibold">
+          Solution Approaches ({publishedApproaches.length})
+        </h2>
+        <div className="mt-4">
+          <SolutionApproachList
+            approaches={publishedApproaches}
+            userVotes={userVotedApproaches}
+            isAuthenticated={!!user}
+            currentUserId={user?.id}
+          />
+        </div>
+        {user && (
+          <div className="mt-4">
+            <AddSolutionApproachForm problemId={problem.id} />
           </div>
         )}
       </section>

@@ -23,6 +23,8 @@ export default async function BrowseProblemsPage({
     typeof sp.problem_category === "string" ? sp.problem_category : undefined;
   const companySize =
     typeof sp.company_size === "string" ? sp.company_size : undefined;
+  const solutionStatus =
+    typeof sp.solution_status === "string" ? sp.solution_status : undefined;
 
   const [problems, tagsByCategory] = await Promise.all([
     getPublishedProblems({
@@ -31,6 +33,7 @@ export default async function BrowseProblemsPage({
       function: func,
       problem_category: problemCategory,
       company_size: companySize,
+      solution_status: solutionStatus,
     }),
     getTagsGroupedByCategory(),
   ]);
@@ -78,6 +81,7 @@ export default async function BrowseProblemsPage({
                   anonymous={problem.anonymous}
                   author={problem.profiles}
                   problemTags={problem.problem_tags ?? []}
+                  solutionStatus={problem.solution_status}
                   locale={locale}
                 />
               ))}

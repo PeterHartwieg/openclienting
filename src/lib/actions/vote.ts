@@ -2,7 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 
-export async function toggleVote(targetType: "requirement" | "pilot_framework", targetId: string) {
+export async function toggleVote(targetType: "requirement" | "pilot_framework" | "solution_approach", targetId: string) {
   const supabase = await createClient();
 
   const {

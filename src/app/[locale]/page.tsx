@@ -4,6 +4,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
+import { createClient } from "@/lib/supabase/server";
 import { SearchBar } from "@/components/layout/search-bar";
 import { HowItWorks } from "@/components/home/how-it-works";
 import { FeaturedProblems } from "@/components/home/featured-problems";
@@ -28,18 +29,39 @@ const industries = [
   { name: "Healthcare", slug: "healthcare", icon: HeartPulse },
 ];
 
-const stats = [
-  { label: "Problems with successful pilots", value: "\u2014", icon: FileText },
-  { label: "Industries covered", value: "6", icon: Globe },
-  { label: "Solution approaches proposed", value: "\u2014", icon: Lightbulb },
-];
-
 export default async function HomePage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+
+  const supabase = await createClient();
+  const [
+    { count: successfulPilotCount },
+    { count: industryCount },
+    { count: approachCount },
+  ] = await Promise.all([
+    supabase
+      .from("problem_templates")
+      .select("*", { count: "exact", head: true })
+      .eq("status", "published")
+      .eq("solution_status", "successful_pilot"),
+    supabase
+      .from("tags")
+      .select("*", { count: "exact", head: true })
+      .eq("category", "industry"),
+    supabase
+      .from("solution_approaches")
+      .select("*", { count: "exact", head: true })
+      .eq("status", "published"),
+  ]);
+
+  const stats = [
+    { label: "Problems with successful pilots", value: String(successfulPilotCount ?? 0), icon: FileText },
+    { label: "Industries covered", value: String(industryCount ?? 0), icon: Globe },
+    { label: "Solution approaches proposed", value: String(approachCount ?? 0), icon: Lightbulb },
+  ];
 
   return (
     <div className="flex flex-col">

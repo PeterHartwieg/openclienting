@@ -7,7 +7,7 @@ import { ArrowBigUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface UpvoteButtonProps {
-  targetType: "requirement" | "pilot_framework";
+  targetType: "requirement" | "pilot_framework" | "solution_approach";
   targetId: string;
   initialCount: number;
   initialVoted: boolean;

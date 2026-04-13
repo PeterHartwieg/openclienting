@@ -4,6 +4,8 @@ import { requireRole } from "@/lib/auth/roles";
 import { createClient } from "@/lib/supabase/server";
 import { StatusBadge } from "@/components/shared/status-badge";
 import { ModerationActions } from "@/components/moderate/moderation-actions";
+import { SuggestedEditReview } from "@/components/moderate/suggested-edit-review";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { buttonVariants } from "@/components/ui/button";
@@ -24,7 +26,7 @@ export default async function ModerationPage({
 
   const supabase = await createClient();
 
-  const [{ data: problems }, { data: requirements }, { data: frameworks }] =
+  const [{ data: problems }, { data: requirements }, { data: frameworks }, { data: approaches }, { data: successReports }, { data: suggestedEdits }] =
     await Promise.all([
       supabase
         .from("problem_templates")
@@ -41,22 +43,48 @@ export default async function ModerationPage({
         .select("id, scope, status, created_at, problem_id, profiles!pilot_frameworks_author_id_fkey(display_name)")
         .in("status", ["submitted", "in_review"])
         .order("created_at", { ascending: true }),
+      supabase
+        .from("solution_approaches")
+        .select("id, title, status, created_at, problem_id, profiles!solution_approaches_author_id_fkey(display_name)")
+        .in("status", ["submitted", "in_review"])
+        .order("created_at", { ascending: true }),
+      supabase
+        .from("success_reports")
+        .select("id, body, status, created_at, solution_approach_id, profiles!success_reports_author_id_fkey(display_name)")
+        .in("status", ["submitted", "in_review"])
+        .order("created_at", { ascending: true }),
+      supabase
+        .from("suggested_edits")
+        .select("id, target_type, target_id, diff, status, created_at, profiles!suggested_edits_author_id_fkey(display_name)")
+        .in("status", ["submitted", "in_review"])
+        .order("created_at", { ascending: true }),
     ]);
 
   const problemCount = problems?.length ?? 0;
   const reqCount = requirements?.length ?? 0;
   const fwCount = frameworks?.length ?? 0;
+  const saCount = approaches?.length ?? 0;
+  const srCount = successReports?.length ?? 0;
+  const seCount = suggestedEdits?.length ?? 0;
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold tracking-tight">Moderation Queue</h1>
-        <Link
-          href={`/${locale}/moderate/tags`}
-          className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
-        >
-          Manage Tags
-        </Link>
+        <div className="flex gap-2">
+          <Link
+            href={`/${locale}/moderate/history`}
+            className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
+          >
+            Edit History
+          </Link>
+          <Link
+            href={`/${locale}/moderate/tags`}
+            className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
+          >
+            Manage Tags
+          </Link>
+        </div>
       </div>
 
       <Tabs defaultValue="problems" className="mt-8">
@@ -69,6 +97,15 @@ export default async function ModerationPage({
           </TabsTrigger>
           <TabsTrigger value="frameworks">
             Frameworks ({fwCount})
+          </TabsTrigger>
+          <TabsTrigger value="solutions">
+            Solutions ({saCount})
+          </TabsTrigger>
+          <TabsTrigger value="success-reports">
+            Success Reports ({srCount})
+          </TabsTrigger>
+          <TabsTrigger value="suggested-edits">
+            Edits ({seCount})
           </TabsTrigger>
         </TabsList>
 
@@ -152,6 +189,83 @@ export default async function ModerationPage({
                   <ModerationActions
                     targetType="pilot_frameworks"
                     targetId={f.id}
+                  />
+                </CardContent>
+              </Card>
+            ))
+          )}
+        </TabsContent>
+
+        <TabsContent value="solutions" className="mt-4 space-y-3">
+          {saCount === 0 ? (
+            <p className="text-muted-foreground">No pending solution approaches.</p>
+          ) : (
+            approaches!.map((sa) => (
+              <Card key={sa.id}>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-base">{sa.title}</CardTitle>
+                  <p className="text-xs text-muted-foreground">
+                    by {(sa.profiles as unknown as { display_name: string } | null)?.display_name ?? "Unknown"} ·{" "}
+                    {new Date(sa.created_at).toLocaleDateString()}
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <ModerationActions
+                    targetType="solution_approaches"
+                    targetId={sa.id}
+                  />
+                </CardContent>
+              </Card>
+            ))
+          )}
+        </TabsContent>
+
+        <TabsContent value="success-reports" className="mt-4 space-y-3">
+          {srCount === 0 ? (
+            <p className="text-muted-foreground">No pending success reports.</p>
+          ) : (
+            successReports!.map((sr) => (
+              <Card key={sr.id}>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-base">
+                    {sr.body.length > 100 ? sr.body.slice(0, 100) + "..." : sr.body}
+                  </CardTitle>
+                  <p className="text-xs text-muted-foreground">
+                    by {(sr.profiles as unknown as { display_name: string } | null)?.display_name ?? "Unknown"} ·{" "}
+                    {new Date(sr.created_at).toLocaleDateString()}
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <ModerationActions
+                    targetType="success_reports"
+                    targetId={sr.id}
+                  />
+                </CardContent>
+              </Card>
+            ))
+          )}
+        </TabsContent>
+
+        <TabsContent value="suggested-edits" className="mt-4 space-y-3">
+          {seCount === 0 ? (
+            <p className="text-muted-foreground">No pending suggested edits.</p>
+          ) : (
+            suggestedEdits!.map((se) => (
+              <Card key={se.id}>
+                <CardHeader className="pb-2">
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline">{se.target_type}</Badge>
+                    <span className="text-xs text-muted-foreground font-mono">{se.target_id.slice(0, 8)}...</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    by {(se.profiles as unknown as { display_name: string } | null)?.display_name ?? "Unknown"} ·{" "}
+                    {new Date(se.created_at).toLocaleDateString()}
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <SuggestedEditReview
+                    editId={se.id}
+                    diff={se.diff as Record<string, { old: string | null; new: string | null }>}
                   />
                 </CardContent>
               </Card>
