@@ -37,6 +37,9 @@ export default async function DashboardSettingsPage({
               emailStatusChanges: prefs?.email_status_changes ?? true,
               emailSuggestedEdits: prefs?.email_suggested_edits ?? true,
               emailCommentReplies: prefs?.email_comment_replies ?? true,
+              emailVerificationOutcomes: prefs?.email_verification_outcomes ?? true,
+              emailSuccessReportDecisions: prefs?.email_success_report_decisions ?? true,
+              emailRevisionReverted: prefs?.email_revision_reverted ?? true,
             }}
           />
         </div>

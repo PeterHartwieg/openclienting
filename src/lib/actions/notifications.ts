@@ -42,6 +42,9 @@ export async function updateNotificationPreferences(params: {
   emailStatusChanges?: boolean;
   emailSuggestedEdits?: boolean;
   emailCommentReplies?: boolean;
+  emailVerificationOutcomes?: boolean;
+  emailSuccessReportDecisions?: boolean;
+  emailRevisionReverted?: boolean;
 }) {
   const supabase = await createClient();
   const {
@@ -58,6 +61,9 @@ export async function updateNotificationPreferences(params: {
       ...(params.emailStatusChanges !== undefined && { email_status_changes: params.emailStatusChanges }),
       ...(params.emailSuggestedEdits !== undefined && { email_suggested_edits: params.emailSuggestedEdits }),
       ...(params.emailCommentReplies !== undefined && { email_comment_replies: params.emailCommentReplies }),
+      ...(params.emailVerificationOutcomes !== undefined && { email_verification_outcomes: params.emailVerificationOutcomes }),
+      ...(params.emailSuccessReportDecisions !== undefined && { email_success_report_decisions: params.emailSuccessReportDecisions }),
+      ...(params.emailRevisionReverted !== undefined && { email_revision_reverted: params.emailRevisionReverted }),
     });
 
   if (error) return { success: false, error: error.message };

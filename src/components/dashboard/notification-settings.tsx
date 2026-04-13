@@ -11,6 +11,9 @@ interface NotificationSettingsProps {
     emailStatusChanges: boolean;
     emailSuggestedEdits: boolean;
     emailCommentReplies: boolean;
+    emailVerificationOutcomes: boolean;
+    emailSuccessReportDecisions: boolean;
+    emailRevisionReverted: boolean;
   };
 }
 
@@ -25,6 +28,9 @@ export function NotificationSettings({ initialPrefs }: NotificationSettingsProps
         emailStatusChanges: prefs.emailStatusChanges,
         emailSuggestedEdits: prefs.emailSuggestedEdits,
         emailCommentReplies: prefs.emailCommentReplies,
+        emailVerificationOutcomes: prefs.emailVerificationOutcomes,
+        emailSuccessReportDecisions: prefs.emailSuccessReportDecisions,
+        emailRevisionReverted: prefs.emailRevisionReverted,
       });
       if (result.success) {
         setSaved(true);
@@ -63,6 +69,36 @@ export function NotificationSettings({ initialPrefs }: NotificationSettingsProps
         />
         <Label htmlFor="pref-comments" className="text-sm">
           Replies to your comments
+        </Label>
+      </div>
+      <div className="flex items-center gap-2">
+        <Checkbox
+          id="pref-verification"
+          checked={prefs.emailVerificationOutcomes}
+          onCheckedChange={(c) => setPrefs({ ...prefs, emailVerificationOutcomes: c === true })}
+        />
+        <Label htmlFor="pref-verification" className="text-sm">
+          Organization &amp; membership verification outcomes
+        </Label>
+      </div>
+      <div className="flex items-center gap-2">
+        <Checkbox
+          id="pref-success-report"
+          checked={prefs.emailSuccessReportDecisions}
+          onCheckedChange={(c) => setPrefs({ ...prefs, emailSuccessReportDecisions: c === true })}
+        />
+        <Label htmlFor="pref-success-report" className="text-sm">
+          Success report decisions (verified/rejected)
+        </Label>
+      </div>
+      <div className="flex items-center gap-2">
+        <Checkbox
+          id="pref-revision"
+          checked={prefs.emailRevisionReverted}
+          onCheckedChange={(c) => setPrefs({ ...prefs, emailRevisionReverted: c === true })}
+        />
+        <Label htmlFor="pref-revision" className="text-sm">
+          Reverted edits on your content
         </Label>
       </div>
       <div className="flex items-center gap-2">

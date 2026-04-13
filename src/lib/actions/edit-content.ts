@@ -31,6 +31,19 @@ async function logAndUpdate(params: {
 
   const supabase = await createClient();
 
+  // Abuse control: block editing if too many recent reverts
+  const { data: revertCount } = await supabase.rpc(
+    "count_recent_reverted_revisions",
+    { p_user_id: params.userId, p_window: "30 days" }
+  );
+  if (revertCount !== null && revertCount >= 3) {
+    return {
+      success: false,
+      error:
+        "Your recent edits have been reverted multiple times. Editing is temporarily restricted.",
+    };
+  }
+
   // Create revision record — goes live immediately, pending moderator recheck
   const { error: revisionError } = await supabase.from("content_revisions").insert({
     target_type: params.targetType,
