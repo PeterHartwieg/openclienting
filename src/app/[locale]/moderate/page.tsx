@@ -50,7 +50,7 @@ export default async function ModerationPage({
         .order("created_at", { ascending: true }),
       supabase
         .from("success_reports")
-        .select("id, report_summary, status, created_at, solution_approach_id, profiles!success_reports_submitted_by_user_id_fkey(display_name)")
+        .select("id, report_summary, status, created_at, solution_approach_id, profiles!success_reports_author_id_fkey(display_name)")
         .in("status", ["submitted", "in_review"])
         .order("created_at", { ascending: true }),
       supabase

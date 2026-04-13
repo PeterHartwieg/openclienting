@@ -87,7 +87,7 @@ export async function getProblemById(id: string) {
         profiles!solution_approaches_author_id_fkey (display_name),
         success_reports (
           id, report_summary, is_publicly_anonymous, status, verification_status, created_at,
-          profiles!success_reports_submitted_by_user_id_fkey (display_name)
+          profiles!success_reports_author_id_fkey (display_name)
         )
       )
     `)
