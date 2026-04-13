@@ -13,7 +13,9 @@ interface ProblemCardProps {
   title: string;
   description: string;
   is_publicly_anonymous: boolean;
+  is_org_anonymous?: boolean;
   author?: { display_name: string | null } | null;
+  organization?: { id: string; name: string } | null;
   problemTags: ProblemTag[];
   solutionStatus?: string;
   locale: string;
@@ -26,7 +28,9 @@ export function ProblemCard({
   title,
   description,
   is_publicly_anonymous,
+  is_org_anonymous,
   author,
+  organization,
   problemTags,
   solutionStatus,
   locale,
@@ -47,7 +51,10 @@ export function ProblemCard({
           </CardTitle>
           <div className="flex items-center gap-2 mt-1">
             <p className="text-sm text-muted-foreground">
-              {is_publicly_anonymous ? "Anonymous" : author?.display_name ?? "Unknown"}
+              {[
+                is_publicly_anonymous ? "Anonymous" : (author?.display_name ?? "Unknown"),
+                is_org_anonymous ? null : (organization?.name ?? null),
+              ].filter(Boolean).join(" · ")}
             </p>
             {solutionStatus && <SolutionStatusBadge status={solutionStatus} />}
           </div>

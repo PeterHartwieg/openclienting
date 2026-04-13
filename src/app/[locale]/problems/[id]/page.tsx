@@ -121,9 +121,10 @@ export default async function ProblemDetailPage({
         </div>
         <p className="mt-2 text-sm text-muted-foreground">
           Submitted by{" "}
-          {problem.is_publicly_anonymous
-            ? "Anonymous"
-            : problem.profiles?.display_name ?? "Unknown"}
+          {[
+            problem.is_publicly_anonymous ? "Anonymous" : (problem.profiles?.display_name ?? "Unknown"),
+            problem.is_org_anonymous ? null : ((problem.organizations as { id: string; name: string } | null)?.name ?? null),
+          ].filter(Boolean).join(" · ")}
           {" · "}
           {new Date(problem.created_at).toLocaleDateString("en-US", {
             year: "numeric",

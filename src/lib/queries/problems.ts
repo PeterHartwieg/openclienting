@@ -20,7 +20,8 @@ export async function getPublishedProblems(filters: ProblemFilters = {}) {
         tag_id,
         tags (id, name, slug, category)
       ),
-      profiles!problem_templates_author_id_fkey (display_name)
+      profiles!problem_templates_author_id_fkey (display_name),
+      organizations!problem_templates_author_organization_id_fkey (id, name)
     `)
     .eq("status", "published")
     .order("created_at", { ascending: false });
@@ -72,6 +73,7 @@ export async function getProblemById(id: string) {
         tags (id, name, slug, category)
       ),
       profiles!problem_templates_author_id_fkey (display_name),
+      organizations!problem_templates_author_organization_id_fkey (id, name),
       requirements (
         id, body, is_publicly_anonymous, is_org_anonymous, status, upvote_count, created_at, author_id,
         profiles!requirements_author_id_fkey (display_name),
