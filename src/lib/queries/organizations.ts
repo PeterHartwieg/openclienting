@@ -72,7 +72,7 @@ export async function getPendingVerifications() {
       description,
       verification_status,
       created_at,
-      profiles (display_name)
+      profiles (display_name, email)
     `)
     .eq("verification_status", "pending")
     .order("created_at", { ascending: true });

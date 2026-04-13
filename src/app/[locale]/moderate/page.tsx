@@ -320,7 +320,10 @@ export default async function ModerationPage({
                         {" · "}
                       </>
                     )}
-                    by {(org.profiles as unknown as { display_name: string } | null)?.display_name ?? "Unknown"} ·{" "}
+                    by {(org.profiles as unknown as { display_name: string | null; email: string | null } | null)?.display_name ?? "Unknown"}
+                    {" "}
+                    ({(org.profiles as unknown as { display_name: string | null; email: string | null } | null)?.email ?? "no email"})
+                    {" · "}
                     {new Date(org.created_at).toLocaleDateString()}
                   </p>
                   {org.description && (
