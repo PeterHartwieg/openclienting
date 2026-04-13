@@ -72,6 +72,7 @@ export function ProblemFilters({ tagsByCategory, locale }: ProblemFiltersProps) 
                   variant={activeSlug === tag.slug ? "default" : "outline"}
                   size="sm"
                   onClick={() => toggleFilter(category, tag.slug)}
+                  aria-pressed={activeSlug === tag.slug}
                 >
                   {tag.name}
                 </Button>

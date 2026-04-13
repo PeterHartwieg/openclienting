@@ -17,6 +17,8 @@ interface ProblemCardProps {
   locale: string;
 }
 
+const MAX_VISIBLE_TAGS = 3;
+
 export function ProblemCard({
   id,
   title,
@@ -26,11 +28,20 @@ export function ProblemCard({
   problemTags,
   locale,
 }: ProblemCardProps) {
+  const validTags = problemTags.filter((pt) => pt.tags);
+  const visibleTags = validTags.slice(0, MAX_VISIBLE_TAGS);
+  const overflowCount = validTags.length - MAX_VISIBLE_TAGS;
+
   return (
-    <Link href={`/${locale}/problems/${id}`}>
-      <Card className="hover:border-foreground/20 transition-colors cursor-pointer h-full">
+    <Link
+      href={`/${locale}/problems/${id}`}
+      className="group rounded-lg focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
+    >
+      <Card className="h-full border-l-2 border-l-primary/40 transition-all duration-200 group-hover:shadow-md group-hover:-translate-y-0.5 group-hover:border-l-primary">
         <CardHeader>
-          <CardTitle className="text-lg leading-tight">{title}</CardTitle>
+          <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors">
+            {title}
+          </CardTitle>
           <p className="text-sm text-muted-foreground">
             {anonymous ? "Anonymous" : author?.display_name ?? "Unknown"}
           </p>
@@ -39,17 +50,20 @@ export function ProblemCard({
           <p className="text-sm text-muted-foreground line-clamp-3">
             {description}
           </p>
-          {problemTags.length > 0 && (
-            <div className="mt-3 flex flex-wrap gap-1.5">
-              {problemTags
-                .filter((pt) => pt.tags)
-                .map((pt) => (
-                  <TagBadge
-                    key={pt.tag_id}
-                    name={pt.tags!.name}
-                    category={pt.tags!.category}
-                  />
-                ))}
+          {validTags.length > 0 && (
+            <div className="mt-3 flex flex-wrap items-center gap-1.5">
+              {visibleTags.map((pt) => (
+                <TagBadge
+                  key={pt.tag_id}
+                  name={pt.tags!.name}
+                  category={pt.tags!.category}
+                />
+              ))}
+              {overflowCount > 0 && (
+                <span className="text-xs text-muted-foreground">
+                  +{overflowCount} more
+                </span>
+              )}
             </div>
           )}
         </CardContent>

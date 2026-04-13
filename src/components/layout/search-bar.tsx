@@ -15,13 +15,14 @@ export function SearchBar({ locale, initialQuery }: { locale: string; initialQue
   }
 
   return (
-    <form onSubmit={handleSubmit} className="w-full">
+    <form onSubmit={handleSubmit} className="w-full" role="search">
       <Input
         type="search"
         placeholder="Search problems..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         className="w-full"
+        aria-label="Search problems"
       />
     </form>
   );

@@ -56,6 +56,11 @@ export default async function BrowseProblemsPage({
 
         {/* Problem grid */}
         <div className="flex-1">
+          {problems.length > 0 && (
+            <p className="mb-4 text-sm text-muted-foreground">
+              {problems.length} {problems.length === 1 ? "problem" : "problems"} found
+            </p>
+          )}
           {problems.length === 0 ? (
             <div className="rounded-lg border border-dashed p-12 text-center">
               <p className="text-muted-foreground">
@@ -63,7 +68,7 @@ export default async function BrowseProblemsPage({
               </p>
             </div>
           ) : (
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {problems.map((problem) => (
                 <ProblemCard
                   key={problem.id}
