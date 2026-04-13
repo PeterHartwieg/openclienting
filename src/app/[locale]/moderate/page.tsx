@@ -57,7 +57,7 @@ export default async function ModerationPage({
           id, report_summary, pilot_date_range, deployment_scope, kpi_summary, evidence_notes,
           status, verification_status, created_at, solution_approach_id,
           is_publicly_anonymous, is_org_anonymous,
-          profiles!success_reports_submitted_by_user_id_fkey (display_name),
+          profiles!success_reports_author_id_fkey (display_name),
           organizations!success_reports_submitted_by_organization_id_fkey (id, name)
         `)
         .in("status", ["submitted", "in_review"])

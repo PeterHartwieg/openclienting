@@ -89,7 +89,7 @@ export async function getProblemById(id: string) {
           id, report_summary, pilot_date_range, deployment_scope, kpi_summary, evidence_notes,
           is_publicly_anonymous, is_org_anonymous, status, verification_status, created_at,
           submitted_by_organization_id,
-          profiles!success_reports_submitted_by_user_id_fkey (display_name),
+          profiles!success_reports_author_id_fkey (display_name),
           organizations!success_reports_submitted_by_organization_id_fkey (id, name)
         )
       )
