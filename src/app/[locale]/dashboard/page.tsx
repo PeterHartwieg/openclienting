@@ -50,6 +50,12 @@ export default async function DashboardPage({
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
         <div className="flex gap-2">
           <Link
+            href={`/${locale}/dashboard/organizations`}
+            className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
+          >
+            Organizations
+          </Link>
+          <Link
             href={`/${locale}/dashboard/settings`}
             className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
           >

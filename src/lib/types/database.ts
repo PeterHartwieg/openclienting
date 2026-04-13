@@ -417,6 +417,8 @@ export interface Database {
           slug: string;
           description: string | null;
           website: string | null;
+          logo_url: string | null;
+          employee_count: number | null;
           verification_status: OrganizationVerificationStatus;
           created_by: string;
           created_at: string;
@@ -428,6 +430,8 @@ export interface Database {
           slug: string;
           description?: string | null;
           website?: string | null;
+          logo_url?: string | null;
+          employee_count?: number | null;
           verification_status?: OrganizationVerificationStatus;
           created_by: string;
           created_at?: string;
@@ -438,6 +442,8 @@ export interface Database {
           slug?: string;
           description?: string | null;
           website?: string | null;
+          logo_url?: string | null;
+          employee_count?: number | null;
           verification_status?: OrganizationVerificationStatus;
           updated_at?: string;
         };

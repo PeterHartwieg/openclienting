@@ -13,46 +13,64 @@ Open-source venture clienting knowledge base where SMEs crowdsource problem temp
 - **i18n**: Next.js i18n routing enabled (`[locale]/` prefix), English strings inline. No string extraction for MVP — add locale files when a second language is needed.
 - **Tier strategy**: Free tiers for Supabase and Vercel, upgrade when limits are hit.
 
-## Users & roles
+## Users, roles & trust
 
 | Role | Can do |
 |------|--------|
 | Viewer | Browse, search, read (no account needed) |
 | Contributor | Submit problems, requirements, pilot frameworks, solution approaches, comments (auto-granted on signup) |
-| Moderator | Approve/reject submissions, manage tags, review suggested edits |
+| Moderator | Approve/reject submissions, manage tags, review suggested edits, review verification requests, review live revisions |
 | Admin | Manage users, tags, site config |
 
 - Any authenticated user is automatically a Contributor. No vetting required.
-- No system-level distinction between SMEs and Startups — any contributor can submit anything.
-- Future: verified badges (similar to Twitter checkmarks) for trusted SMEs and startups with a product on the market.
+- No public product-facing distinction between SMEs and startups — any contributor can submit anything.
+- High-trust actions are controlled by a backend verification layer, not by the visible role label alone.
+- Trust-sensitive actions:
+  - Only users linked to a verified organization can submit a pilot success report
+  - Only verified success reports can promote a solution/problem to `successful_pilot`
+- Verification is available to both SMEs and startups, but verification means "real organization + real member", not endorsement of quality.
+- Public badges can be shown later, but trust must already exist in the data model and moderation workflow from day one.
 
 Auth: Google social login + email magic links via Supabase Auth.
+
+### Verification layer
+
+- Add `ORGANIZATION`, `ORGANIZATION_MEMBERSHIP`, and `VERIFICATION_REVIEW` entities behind the scenes.
+- A user can belong to zero or more organizations.
+- Organization verification is moderator-reviewed and may use company email domain, company website, business registry, LinkedIn/company profile, or manual review.
+- Membership verification confirms that a user actually represents that organization.
+- Public anonymity can hide both the person and the organization, but both are always stored server-side for moderation, abuse handling, and analytics.
 
 ## Data model
 
 ```
 PROBLEM_TEMPLATE (central entity)
 ├── title, description
-├── anonymous (boolean — author chooses per submission whether to show their identity)
+├── is_publicly_anonymous, is_org_anonymous
+├── author_user_id, author_organization_id (always stored server-side)
 ├── status: draft → submitted → in_review → published | rejected (draft optional)
 ├── solution_status (computed, automatic):
 │   ├── unsolved — no solution approaches
 │   ├── has_approaches — ≥1 published solution approach
-│   └── successful_pilot — ≥1 approved success report on any solution approach
+│   └── successful_pilot — ≥1 verified success report on any solution approach
 │
 ├── VOTE (junction table — enforces one vote per user per target)
 │   ├── user_id, target_type, target_id (unique constraint)
 │   └── upvote_count on targets is a cached computed value from VOTE records
 │
 ├── REQUIREMENT (N per problem, community-submitted, upvotable)
-│   ├── body, author_id, anonymous
+│   ├── body
+│   ├── is_publicly_anonymous, is_org_anonymous
+│   ├── author_user_id, author_organization_id
 │   ├── upvote_count (cached, derived from VOTE table)
 │   └── status (submitted → in_review → published | rejected)
 │
 ├── PILOT_FRAMEWORK (N per problem, community-submitted, upvotable)
 │   ├── scope, suggested_kpis, success_criteria, common_pitfalls
 │   ├── duration, resource_commitment
-│   ├── upvote_count (cached, derived from VOTE table), author_id, anonymous
+│   ├── is_publicly_anonymous, is_org_anonymous
+│   ├── author_user_id, author_organization_id
+│   ├── upvote_count (cached, derived from VOTE table)
 │   └── status (submitted → in_review → published | rejected)
 │
 ├── SOLUTION_APPROACH (N per problem, community-submitted)
@@ -60,31 +78,51 @@ PROBLEM_TEMPLATE (central entity)
 │   ├── technology_type (software, hardware, platform, service)
 │   ├── maturity (emerging, growing, established)
 │   ├── complexity, price_range
-│   ├── author_id, anonymous
+│   ├── is_publicly_anonymous, is_org_anonymous
+│   ├── author_user_id, author_organization_id
 │   └── status (draft → submitted → in_review → published | rejected)
 │
-├── SUCCESS_REPORT (N per solution approach, moderated, visible with attribution)
-│   ├── body (evidence/context), author_id, anonymous
-│   ├── solution_approach_id
-│   └── status (submitted → in_review → published | rejected)
+├── ORGANIZATION
+│   ├── name, website, domain
+│   ├── verification_status (unverified → pending → verified | rejected)
+│   └── verification_notes, verified_at
+│
+├── ORGANIZATION_MEMBERSHIP
+│   ├── user_id, organization_id
+│   ├── membership_status (pending → active | revoked)
+│   └── proof_type, proof_reference
+│
+├── SUCCESS_REPORT (N per solution approach, high-trust, moderated)
+│   ├── solution_approach_id, problem_template_id
+│   ├── submitted_by_user_id, submitted_by_organization_id
+│   ├── is_publicly_anonymous, is_org_anonymous
+│   ├── report_summary, pilot_date_range, deployment_scope
+│   ├── kpi_summary, evidence_notes, optional_attachment_refs
+│   ├── verification_status (submitted → in_review → verified | rejected)
+│   └── only allowed when submitter is an active member of a verified organization
 │
 ├── TAGS (M:N via PROBLEM_TAGS junction)
 │   ├── name, category (industry, technology, function, problem_category, company_size)
 │   └── Moderator-managed — no hardcoded enums. Seeded with initial values.
 │   └── Submission form enforces: pick ≥1 tag from each required category
 │
-├── SUGGESTED_EDIT (Wikipedia-style, full structured diffs)
+├── SUGGESTED_EDIT (Wikipedia-style, structured diffs)
 │   ├── target_type, target_id (problem, requirement, pilot framework, or solution approach)
-│   ├── diff (JSON patch: old value → new value for any field, including structured fields)
-│   ├── author_id
+│   ├── patch_document (JSON patch: field-level old value → new value, including structured fields)
+│   ├── author_user_id
 │   └── status (submitted → in_review → published | rejected)
 │
-├── EDIT_HISTORY (audit log for author edits on published content)
-│   ├── target_type, target_id, author_id, timestamp
-│   └── diff (JSON patch of what changed — moderators can view and revert)
+├── CONTENT_REVISION (audit log for all edits on published content)
+│   ├── target_type, target_id, revision_number
+│   ├── edited_by_user_id, edited_by_organization_id, timestamp
+│   ├── patch_document or full_snapshot
+│   ├── moderation_status (pending_recheck → approved | reverted)
+│   └── edits go live immediately, but moderators can review and revert
 │
 └── COMMENTS (one-level threading, attachable to problem or solution approach)
-    ├── body, author_id, anonymous
+    ├── body
+    ├── is_publicly_anonymous, is_org_anonymous
+    ├── author_user_id, author_organization_id
     └── parent_comment_id (null = top-level, non-null = reply, max 1 level deep)
 ```
 
@@ -105,6 +143,7 @@ PROBLEM_TEMPLATE (central entity)
 3. **Problem detail**: single scrollable page — description → requirements (upvotable) → pilot frameworks (upvotable) → solution approaches → discussion thread
 4. **Submit form**: single page, three sections (problem definition, requirements, pilot framework). Anonymity toggle. Save draft + submit for review
 5. **Dashboard**: contributor's submissions with status indicators, notification history
+6. **Moderator queue**: submissions, verification requests, live revisions pending recheck, and success reports
 
 ### Stats bar (homepage)
 
@@ -116,19 +155,40 @@ Outcome-oriented metrics:
 ## Contribution flow
 
 1. Contributor fills problem template (problem + initial requirements + initial pilot framework) in one form
-2. Chooses anonymous or public attribution per submission
+2. Chooses whether to hide personal identity and/or organization identity from the public UI
 3. Status set to `submitted` → moderator reviews → `published` or `rejected`
 4. Contributor notified via email on status change
 5. Once published:
    - Other contributors can add requirements and pilot frameworks (moderated, upvotable)
    - Contributors can propose solution approaches (moderated)
    - Anyone can suggest edits to existing content (Wikipedia-style structured diffs, moderator-approved)
-   - Any contributor can submit a success report on a solution approach (moderated, visible with attribution)
-6. Original author can edit their own published content freely (no re-moderation). All edits are logged in EDIT_HISTORY — moderators can view diffs and revert if needed.
+   - Only contributors who are active members of verified organizations can submit a success report on a solution approach
+6. Original author can edit their own published content instantly. Every live edit creates a `CONTENT_REVISION` record with `pending_recheck` moderation status.
+7. Moderators review live revisions after publication:
+   - approve = revision remains as-is and is marked approved
+   - revert = content returns to the last approved revision and the rejected revision remains in the audit trail
+
+### High-trust success reporting
+
+- A success report is not a normal comment or vote; it is a privileged claim.
+- Submission requires:
+  - authenticated user
+  - active membership in a verified organization
+  - moderation review
+  - enough structured evidence to make the claim meaningful
+- Public UI may still show the report anonymously if the contributor chose anonymity, but the backend always retains the real user and organization linkage.
+- `successful_pilot` is only computed from `SUCCESS_REPORT.verification_status = verified`.
 
 ### Unified lifecycle
 
 All moderated content follows one status flow: `submitted → in_review → published | rejected`. Problem templates and solution approaches additionally support a `draft` state before submission. This ensures one moderation queue, one set of notification rules, and one status component across the platform.
+
+### Live edit policy
+
+- Published edits go live immediately for speed.
+- Every live edit is automatically queued for moderator recheck.
+- Moderators can compare diffs, approve the revision, or revert to the last approved state.
+- Repeated abuse can disable instant editing for specific users or organizations.
 
 ### Future: post-first moderation
 
@@ -139,11 +199,15 @@ When platform traction is sufficient, switch from pre-publication moderation to 
 - Email notifications via Supabase on:
   - Submission status changes (approved/rejected)
   - Suggested edits on your content (for original authors)
+  - Verification request outcomes
+  - Success report decisions (verified/rejected)
+  - Live revision reverted after moderator review
   - Replies to your comments
 
 ## Design principles
 
 - Independent of 27pilots branding — neutral community platform
 - No specific startup names in solution approaches — technology categories only
-- Anonymized problem data — per-submission toggle, author identity always stored server-side for moderation
+- Public anonymity can hide both contributor identity and organization identity, but real attribution is always stored server-side for moderation, abuse handling, and analytics
+- Trust-sensitive platform signals must be backed by verification, audit trails, and reversible moderation decisions
 - English-only MVP, i18n routing in place for future languages

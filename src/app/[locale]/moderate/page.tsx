@@ -5,6 +5,8 @@ import { createClient } from "@/lib/supabase/server";
 import { StatusBadge } from "@/components/shared/status-badge";
 import { ModerationActions } from "@/components/moderate/moderation-actions";
 import { SuggestedEditReview } from "@/components/moderate/suggested-edit-review";
+import { VerificationActions } from "@/components/moderate/verification-actions";
+import { getPendingVerifications, getPendingMemberships } from "@/lib/queries/organizations";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -26,7 +28,7 @@ export default async function ModerationPage({
 
   const supabase = await createClient();
 
-  const [{ data: problems }, { data: requirements }, { data: frameworks }, { data: approaches }, { data: successReports }, { data: suggestedEdits }] =
+  const [{ data: problems }, { data: requirements }, { data: frameworks }, { data: approaches }, { data: successReports }, { data: suggestedEdits }, pendingOrgs, pendingMemberships] =
     await Promise.all([
       supabase
         .from("problem_templates")
@@ -58,6 +60,8 @@ export default async function ModerationPage({
         .select("id, target_type, target_id, diff, status, created_at, profiles!suggested_edits_author_id_fkey(display_name)")
         .in("status", ["submitted", "in_review"])
         .order("created_at", { ascending: true }),
+      getPendingVerifications(),
+      getPendingMemberships(),
     ]);
 
   const problemCount = problems?.length ?? 0;
@@ -66,6 +70,8 @@ export default async function ModerationPage({
   const saCount = approaches?.length ?? 0;
   const srCount = successReports?.length ?? 0;
   const seCount = suggestedEdits?.length ?? 0;
+  const orgVerifCount = pendingOrgs.length;
+  const memberVerifCount = pendingMemberships.length;
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
@@ -106,6 +112,12 @@ export default async function ModerationPage({
           </TabsTrigger>
           <TabsTrigger value="suggested-edits">
             Edits ({seCount})
+          </TabsTrigger>
+          <TabsTrigger value="org-verification">
+            Org Verification ({orgVerifCount})
+          </TabsTrigger>
+          <TabsTrigger value="memberships">
+            Memberships ({memberVerifCount})
           </TabsTrigger>
         </TabsList>
 
@@ -266,6 +278,60 @@ export default async function ModerationPage({
                   <SuggestedEditReview
                     editId={se.id}
                     diff={se.diff as Record<string, { old: string | null; new: string | null }>}
+                  />
+                </CardContent>
+              </Card>
+            ))
+          )}
+        </TabsContent>
+        <TabsContent value="org-verification" className="mt-4 space-y-3">
+          {orgVerifCount === 0 ? (
+            <p className="text-muted-foreground">No pending organization verifications.</p>
+          ) : (
+            pendingOrgs.map((org) => (
+              <Card key={org.id}>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-base">{org.name}</CardTitle>
+                  <p className="text-xs text-muted-foreground">
+                    {org.website && <>{org.website} · </>}
+                    by {(org.profiles as unknown as { display_name: string } | null)?.display_name ?? "Unknown"} ·{" "}
+                    {new Date(org.created_at).toLocaleDateString()}
+                  </p>
+                  {org.description && (
+                    <p className="text-sm text-muted-foreground mt-1">{org.description}</p>
+                  )}
+                </CardHeader>
+                <CardContent>
+                  <VerificationActions
+                    targetType="organization"
+                    targetId={org.id}
+                  />
+                </CardContent>
+              </Card>
+            ))
+          )}
+        </TabsContent>
+
+        <TabsContent value="memberships" className="mt-4 space-y-3">
+          {memberVerifCount === 0 ? (
+            <p className="text-muted-foreground">No pending membership requests.</p>
+          ) : (
+            pendingMemberships.map((m) => (
+              <Card key={m.id}>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-base">
+                    {(m.profiles as unknown as { display_name: string } | null)?.display_name ?? "Unknown"}
+                  </CardTitle>
+                  <p className="text-xs text-muted-foreground">
+                    wants to join{" "}
+                    {(m.organizations as unknown as { name: string } | null)?.name ?? "Unknown org"} ·{" "}
+                    {new Date(m.created_at).toLocaleDateString()}
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <VerificationActions
+                    targetType="membership"
+                    targetId={m.id}
                   />
                 </CardContent>
               </Card>
