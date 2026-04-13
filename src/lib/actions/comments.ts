@@ -22,7 +22,7 @@ export async function submitComment(params: {
     target_id: params.targetId,
     body: params.body.trim(),
     author_id: user.id,
-    anonymous: params.anonymous,
+    is_publicly_anonymous: params.anonymous,
     parent_comment_id: params.parentCommentId ?? null,
   });
 

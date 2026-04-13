@@ -5,7 +5,7 @@ import { EditRequirementInline } from "@/components/problems/edit-requirement-in
 interface Requirement {
   id: string;
   body: string;
-  anonymous: boolean;
+  is_publicly_anonymous: boolean;
   upvote_count: number;
   author_id?: string;
   profiles?: { display_name: string | null } | null;
@@ -41,7 +41,7 @@ export function RequirementList({ requirements, userVotes, currentUserId }: Requ
               <p className="text-sm">{req.body}</p>
               <div className="mt-1 flex items-center gap-2">
                 <p className="text-xs text-muted-foreground">
-                  {req.anonymous
+                  {req.is_publicly_anonymous
                     ? "Anonymous"
                     : req.profiles?.display_name ?? "Unknown"}
                 </p>

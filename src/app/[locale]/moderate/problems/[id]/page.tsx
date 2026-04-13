@@ -37,7 +37,7 @@ export default async function ModerateProblemPage({
         <StatusBadge status={problem.status} />
         <span className="text-sm text-muted-foreground">
           by {problem.profiles?.display_name ?? "Unknown"} (
-          {problem.anonymous ? "anonymous submission" : "public"})
+          {problem.is_publicly_anonymous ? "anonymous submission" : "public"})
         </span>
       </div>
 

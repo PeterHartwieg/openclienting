@@ -17,9 +17,9 @@ export async function submitSuccessReport(params: {
 
   const { error } = await supabase.from("success_reports").insert({
     solution_approach_id: params.solutionApproachId,
-    body: params.body.trim(),
-    author_id: user.id,
-    anonymous: params.anonymous,
+    report_summary: params.body.trim(),
+    submitted_by_user_id: user.id,
+    is_publicly_anonymous: params.anonymous,
     status: "submitted",
   });
 

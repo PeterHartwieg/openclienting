@@ -2,8 +2,8 @@ import { Card, CardContent } from "@/components/ui/card";
 
 interface SuccessReport {
   id: string;
-  body: string;
-  anonymous: boolean;
+  report_summary: string;
+  is_publicly_anonymous: boolean;
   created_at: string;
   profiles?: { display_name: string | null } | null;
 }
@@ -23,9 +23,9 @@ export function SuccessReportList({ reports }: SuccessReportListProps) {
       {reports.map((report) => (
         <Card key={report.id} className="border-green-500/20 bg-green-500/5">
           <CardContent className="pt-3">
-            <p className="text-sm whitespace-pre-wrap">{report.body}</p>
+            <p className="text-sm whitespace-pre-wrap">{report.report_summary}</p>
             <p className="mt-1 text-xs text-muted-foreground">
-              {report.anonymous
+              {report.is_publicly_anonymous
                 ? "Anonymous"
                 : report.profiles?.display_name ?? "Unknown"}
               {" · "}

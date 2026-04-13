@@ -31,7 +31,7 @@ export async function submitSolutionApproach(params: {
     complexity: params.complexity?.trim() || null,
     price_range: params.priceRange?.trim() || null,
     author_id: user.id,
-    anonymous: params.anonymous,
+    is_publicly_anonymous: params.anonymous,
     status: "submitted",
   });
 

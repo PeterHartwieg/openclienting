@@ -27,8 +27,9 @@ Deno.serve(async (req) => {
 
   const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
-  // Get author email
-  const { data: authUser } = await supabase.auth.admin.getUserById(record.author_id);
+  // Get author user ID (success_reports uses submitted_by_user_id, others use author_id)
+  const authorId = record.author_id ?? record.submitted_by_user_id;
+  const { data: authUser } = await supabase.auth.admin.getUserById(authorId);
   if (!authUser?.user?.email) {
     return new Response("No email", { status: 200 });
   }
@@ -37,7 +38,7 @@ Deno.serve(async (req) => {
   const { data: prefs } = await supabase
     .from("notification_preferences")
     .select("email_status_changes")
-    .eq("user_id", record.author_id)
+    .eq("user_id", authorId)
     .maybeSingle();
 
   const shouldEmail = prefs?.email_status_changes ?? true;
@@ -47,11 +48,11 @@ Deno.serve(async (req) => {
     ? `Your ${contentType} has been approved`
     : `Your ${contentType} has been rejected`;
 
-  const body = record.title ?? record.body?.slice(0, 100) ?? "";
+  const body = record.title ?? record.report_summary?.slice(0, 100) ?? record.body?.slice(0, 100) ?? "";
 
   // Log notification
   await supabase.from("notifications").insert({
-    user_id: record.author_id,
+    user_id: authorId,
     type: "status_change",
     title,
     body,

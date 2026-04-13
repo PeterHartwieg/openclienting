@@ -9,7 +9,22 @@ export type Maturity = "emerging" | "growing" | "established";
 export type SolutionStatus = "unsolved" | "has_approaches" | "successful_pilot";
 export type EditTargetType = "problem_template" | "requirement" | "pilot_framework" | "solution_approach";
 export type EditDiff = Record<string, { old: string | null; new: string | null }>;
-export type NotificationType = "status_change" | "suggested_edit" | "comment_reply";
+export type NotificationType =
+  | "status_change"
+  | "suggested_edit"
+  | "comment_reply"
+  | "verification_outcome"
+  | "success_report_decision"
+  | "revision_reverted";
+
+// --- New trust-model types ---
+export type OrganizationVerificationStatus = "unverified" | "pending" | "verified" | "rejected";
+export type MembershipStatus = "pending" | "active" | "rejected" | "revoked";
+export type MembershipRole = "member" | "admin";
+export type VerificationTargetType = "organization" | "membership";
+export type VerificationDecision = "approved" | "rejected";
+export type SuccessReportVerificationStatus = "submitted" | "under_review" | "verified" | "rejected";
+export type RevisionStatus = "pending_recheck" | "approved" | "reverted";
 
 export interface Database {
   public: {
@@ -63,7 +78,9 @@ export interface Database {
           title: string;
           description: string;
           author_id: string;
-          anonymous: boolean;
+          is_publicly_anonymous: boolean;
+          is_org_anonymous: boolean;
+          author_organization_id: string | null;
           status: ProblemStatus;
           solution_status: SolutionStatus;
           rejection_reason: string | null;
@@ -75,7 +92,9 @@ export interface Database {
           title: string;
           description: string;
           author_id: string;
-          anonymous?: boolean;
+          is_publicly_anonymous?: boolean;
+          is_org_anonymous?: boolean;
+          author_organization_id?: string | null;
           status?: ProblemStatus;
           rejection_reason?: string | null;
           created_at?: string;
@@ -84,7 +103,9 @@ export interface Database {
         Update: {
           title?: string;
           description?: string;
-          anonymous?: boolean;
+          is_publicly_anonymous?: boolean;
+          is_org_anonymous?: boolean;
+          author_organization_id?: string | null;
           status?: ProblemStatus;
           rejection_reason?: string | null;
           updated_at?: string;
@@ -110,7 +131,9 @@ export interface Database {
           problem_id: string;
           body: string;
           author_id: string;
-          anonymous: boolean;
+          is_publicly_anonymous: boolean;
+          is_org_anonymous: boolean;
+          author_organization_id: string | null;
           status: ContentStatus;
           upvote_count: number;
           created_at: string;
@@ -121,7 +144,9 @@ export interface Database {
           problem_id: string;
           body: string;
           author_id: string;
-          anonymous?: boolean;
+          is_publicly_anonymous?: boolean;
+          is_org_anonymous?: boolean;
+          author_organization_id?: string | null;
           status?: ContentStatus;
           upvote_count?: number;
           created_at?: string;
@@ -129,7 +154,9 @@ export interface Database {
         };
         Update: {
           body?: string;
-          anonymous?: boolean;
+          is_publicly_anonymous?: boolean;
+          is_org_anonymous?: boolean;
+          author_organization_id?: string | null;
           status?: ContentStatus;
           upvote_count?: number;
           updated_at?: string;
@@ -146,7 +173,9 @@ export interface Database {
           duration: string | null;
           resource_commitment: string | null;
           author_id: string;
-          anonymous: boolean;
+          is_publicly_anonymous: boolean;
+          is_org_anonymous: boolean;
+          author_organization_id: string | null;
           status: ContentStatus;
           upvote_count: number;
           created_at: string;
@@ -162,7 +191,9 @@ export interface Database {
           duration?: string | null;
           resource_commitment?: string | null;
           author_id: string;
-          anonymous?: boolean;
+          is_publicly_anonymous?: boolean;
+          is_org_anonymous?: boolean;
+          author_organization_id?: string | null;
           status?: ContentStatus;
           upvote_count?: number;
           created_at?: string;
@@ -175,7 +206,9 @@ export interface Database {
           common_pitfalls?: string | null;
           duration?: string | null;
           resource_commitment?: string | null;
-          anonymous?: boolean;
+          is_publicly_anonymous?: boolean;
+          is_org_anonymous?: boolean;
+          author_organization_id?: string | null;
           status?: ContentStatus;
           upvote_count?: number;
           updated_at?: string;
@@ -192,7 +225,9 @@ export interface Database {
           complexity: string | null;
           price_range: string | null;
           author_id: string;
-          anonymous: boolean;
+          is_publicly_anonymous: boolean;
+          is_org_anonymous: boolean;
+          author_organization_id: string | null;
           status: ProblemStatus;
           upvote_count: number;
           created_at: string;
@@ -208,7 +243,9 @@ export interface Database {
           complexity?: string | null;
           price_range?: string | null;
           author_id: string;
-          anonymous?: boolean;
+          is_publicly_anonymous?: boolean;
+          is_org_anonymous?: boolean;
+          author_organization_id?: string | null;
           status?: ProblemStatus;
           upvote_count?: number;
           created_at?: string;
@@ -221,7 +258,9 @@ export interface Database {
           maturity?: Maturity;
           complexity?: string | null;
           price_range?: string | null;
-          anonymous?: boolean;
+          is_publicly_anonymous?: boolean;
+          is_org_anonymous?: boolean;
+          author_organization_id?: string | null;
           status?: ProblemStatus;
           upvote_count?: number;
           updated_at?: string;
@@ -231,29 +270,100 @@ export interface Database {
         Row: {
           id: string;
           solution_approach_id: string;
-          body: string;
-          author_id: string;
-          anonymous: boolean;
+          report_summary: string;
+          pilot_date_range: string | null;
+          deployment_scope: string | null;
+          kpi_summary: string | null;
+          evidence_notes: string | null;
+          optional_attachment_refs: Json;
+          submitted_by_user_id: string;
+          submitted_by_organization_id: string | null;
+          is_publicly_anonymous: boolean;
+          is_org_anonymous: boolean;
           status: ContentStatus;
+          verification_status: SuccessReportVerificationStatus;
           created_at: string;
           updated_at: string;
         };
         Insert: {
           id?: string;
           solution_approach_id: string;
-          body: string;
-          author_id: string;
-          anonymous?: boolean;
+          report_summary: string;
+          pilot_date_range?: string | null;
+          deployment_scope?: string | null;
+          kpi_summary?: string | null;
+          evidence_notes?: string | null;
+          optional_attachment_refs?: Json;
+          submitted_by_user_id: string;
+          submitted_by_organization_id?: string | null;
+          is_publicly_anonymous?: boolean;
+          is_org_anonymous?: boolean;
           status?: ContentStatus;
+          verification_status?: SuccessReportVerificationStatus;
           created_at?: string;
           updated_at?: string;
         };
         Update: {
-          body?: string;
-          anonymous?: boolean;
+          report_summary?: string;
+          pilot_date_range?: string | null;
+          deployment_scope?: string | null;
+          kpi_summary?: string | null;
+          evidence_notes?: string | null;
+          optional_attachment_refs?: Json;
+          submitted_by_organization_id?: string | null;
+          is_publicly_anonymous?: boolean;
+          is_org_anonymous?: boolean;
           status?: ContentStatus;
+          verification_status?: SuccessReportVerificationStatus;
           updated_at?: string;
         };
+      };
+      comments: {
+        Row: {
+          id: string;
+          problem_id: string;
+          body: string;
+          author_id: string;
+          is_publicly_anonymous: boolean;
+          is_org_anonymous: boolean;
+          author_organization_id: string | null;
+          parent_comment_id: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          problem_id: string;
+          body: string;
+          author_id: string;
+          is_publicly_anonymous?: boolean;
+          is_org_anonymous?: boolean;
+          author_organization_id?: string | null;
+          parent_comment_id?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          body?: string;
+          is_publicly_anonymous?: boolean;
+          is_org_anonymous?: boolean;
+          author_organization_id?: string | null;
+        };
+      };
+      votes: {
+        Row: {
+          id: string;
+          user_id: string;
+          target_type: string;
+          target_id: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          target_type: string;
+          target_id: string;
+          created_at?: string;
+        };
+        Update: never;
       };
       suggested_edits: {
         Row: {
@@ -300,12 +410,127 @@ export interface Database {
         };
         Update: never;
       };
+      organizations: {
+        Row: {
+          id: string;
+          name: string;
+          slug: string;
+          description: string | null;
+          website: string | null;
+          verification_status: OrganizationVerificationStatus;
+          created_by: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          slug: string;
+          description?: string | null;
+          website?: string | null;
+          verification_status?: OrganizationVerificationStatus;
+          created_by: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          name?: string;
+          slug?: string;
+          description?: string | null;
+          website?: string | null;
+          verification_status?: OrganizationVerificationStatus;
+          updated_at?: string;
+        };
+      };
+      organization_memberships: {
+        Row: {
+          id: string;
+          organization_id: string;
+          user_id: string;
+          role: MembershipRole;
+          membership_status: MembershipStatus;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          organization_id: string;
+          user_id: string;
+          role?: MembershipRole;
+          membership_status?: MembershipStatus;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          role?: MembershipRole;
+          membership_status?: MembershipStatus;
+          updated_at?: string;
+        };
+      };
+      verification_reviews: {
+        Row: {
+          id: string;
+          target_type: VerificationTargetType;
+          target_id: string;
+          reviewer_id: string;
+          decision: VerificationDecision;
+          notes: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          target_type: VerificationTargetType;
+          target_id: string;
+          reviewer_id: string;
+          decision: VerificationDecision;
+          notes?: string | null;
+          created_at?: string;
+        };
+        Update: never;
+      };
+      content_revisions: {
+        Row: {
+          id: string;
+          target_type: EditTargetType;
+          target_id: string;
+          author_id: string;
+          diff: EditDiff;
+          snapshot: Json | null;
+          revision_status: RevisionStatus;
+          reviewer_id: string | null;
+          reviewed_at: string | null;
+          reviewer_notes: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          target_type: EditTargetType;
+          target_id: string;
+          author_id: string;
+          diff: EditDiff;
+          snapshot?: Json | null;
+          revision_status?: RevisionStatus;
+          reviewer_id?: string | null;
+          reviewed_at?: string | null;
+          reviewer_notes?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          revision_status?: RevisionStatus;
+          reviewer_id?: string | null;
+          reviewed_at?: string | null;
+          reviewer_notes?: string | null;
+        };
+      };
       notification_preferences: {
         Row: {
           user_id: string;
           email_status_changes: boolean;
           email_suggested_edits: boolean;
           email_comment_replies: boolean;
+          email_verification_outcomes: boolean;
+          email_success_report_decisions: boolean;
+          email_revision_reverted: boolean;
           updated_at: string;
         };
         Insert: {
@@ -313,11 +538,17 @@ export interface Database {
           email_status_changes?: boolean;
           email_suggested_edits?: boolean;
           email_comment_replies?: boolean;
+          email_verification_outcomes?: boolean;
+          email_success_report_decisions?: boolean;
+          email_revision_reverted?: boolean;
         };
         Update: {
           email_status_changes?: boolean;
           email_suggested_edits?: boolean;
           email_comment_replies?: boolean;
+          email_verification_outcomes?: boolean;
+          email_success_report_decisions?: boolean;
+          email_revision_reverted?: boolean;
         };
       };
       notifications: {

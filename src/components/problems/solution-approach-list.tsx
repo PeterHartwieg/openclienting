@@ -7,8 +7,8 @@ import { EditSolutionApproachForm } from "@/components/problems/edit-solution-ap
 
 interface SuccessReport {
   id: string;
-  body: string;
-  anonymous: boolean;
+  report_summary: string;
+  is_publicly_anonymous: boolean;
   status: string;
   created_at: string;
   profiles?: { display_name: string | null } | null;
@@ -22,7 +22,7 @@ interface SolutionApproach {
   maturity: string;
   complexity: string | null;
   price_range: string | null;
-  anonymous: boolean;
+  is_publicly_anonymous: boolean;
   upvote_count: number;
   author_id?: string;
   profiles?: { display_name: string | null } | null;
@@ -96,7 +96,7 @@ export function SolutionApproachList({ approaches, userVotes, isAuthenticated, c
           <CardContent className="pl-[4.5rem]">
             <p className="text-sm whitespace-pre-wrap">{sa.description}</p>
             <p className="mt-2 text-xs text-muted-foreground">
-              {sa.anonymous
+              {sa.is_publicly_anonymous
                 ? "Anonymous"
                 : sa.profiles?.display_name ?? "Unknown"}
             </p>

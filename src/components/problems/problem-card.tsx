@@ -12,7 +12,7 @@ interface ProblemCardProps {
   id: string;
   title: string;
   description: string;
-  anonymous: boolean;
+  is_publicly_anonymous: boolean;
   author?: { display_name: string | null } | null;
   problemTags: ProblemTag[];
   solutionStatus?: string;
@@ -25,7 +25,7 @@ export function ProblemCard({
   id,
   title,
   description,
-  anonymous,
+  is_publicly_anonymous,
   author,
   problemTags,
   solutionStatus,
@@ -47,7 +47,7 @@ export function ProblemCard({
           </CardTitle>
           <div className="flex items-center gap-2 mt-1">
             <p className="text-sm text-muted-foreground">
-              {anonymous ? "Anonymous" : author?.display_name ?? "Unknown"}
+              {is_publicly_anonymous ? "Anonymous" : author?.display_name ?? "Unknown"}
             </p>
             {solutionStatus && <SolutionStatusBadge status={solutionStatus} />}
           </div>

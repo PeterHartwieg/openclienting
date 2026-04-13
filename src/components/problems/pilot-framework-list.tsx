@@ -10,7 +10,7 @@ interface PilotFramework {
   common_pitfalls: string | null;
   duration: string | null;
   resource_commitment: string | null;
-  anonymous: boolean;
+  is_publicly_anonymous: boolean;
   upvote_count: number;
   author_id?: string;
   profiles?: { display_name: string | null } | null;
@@ -56,7 +56,7 @@ export function PilotFrameworkList({ frameworks, userVotes, currentUserId }: Pil
               />
             </div>
             <p className="text-xs text-muted-foreground">
-              {fw.anonymous
+              {fw.is_publicly_anonymous
                 ? "Anonymous"
                 : fw.profiles?.display_name ?? "Unknown"}
             </p>

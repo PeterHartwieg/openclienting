@@ -42,7 +42,7 @@ export async function FeaturedProblems({ locale }: { locale: string }) {
               id={problem.id}
               title={problem.title}
               description={problem.description}
-              anonymous={problem.anonymous}
+              is_publicly_anonymous={problem.is_publicly_anonymous}
               author={problem.profiles}
               problemTags={problem.problem_tags ?? []}
               locale={locale}

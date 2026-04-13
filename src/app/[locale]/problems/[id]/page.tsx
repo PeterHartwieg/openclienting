@@ -80,7 +80,7 @@ export default async function ProblemDetailPage({
   // Fetch comments
   const { data: comments } = await supabase
     .from("comments")
-    .select("id, body, anonymous, parent_comment_id, created_at, profiles!comments_author_id_fkey(display_name)")
+    .select("id, body, is_publicly_anonymous, parent_comment_id, created_at, profiles!comments_author_id_fkey(display_name)")
     .eq("target_type", "problem_template")
     .eq("target_id", id)
     .order("created_at", { ascending: true });
@@ -117,7 +117,7 @@ export default async function ProblemDetailPage({
         </div>
         <p className="mt-2 text-sm text-muted-foreground">
           Submitted by{" "}
-          {problem.anonymous
+          {problem.is_publicly_anonymous
             ? "Anonymous"
             : problem.profiles?.display_name ?? "Unknown"}
           {" · "}

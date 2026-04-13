@@ -19,7 +19,7 @@ export async function submitRequirement(params: {
     problem_id: params.problemId,
     body: params.body.trim(),
     author_id: user.id,
-    anonymous: params.anonymous,
+    is_publicly_anonymous: params.anonymous,
     status: "submitted",
   });
 

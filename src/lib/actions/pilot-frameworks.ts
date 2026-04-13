@@ -28,7 +28,7 @@ export async function submitPilotFramework(params: {
     duration: params.duration.trim() || null,
     resource_commitment: params.resourceCommitment.trim() || null,
     author_id: user.id,
-    anonymous: params.anonymous,
+    is_publicly_anonymous: params.anonymous,
     status: "submitted",
   });
 

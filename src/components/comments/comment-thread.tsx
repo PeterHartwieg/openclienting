@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 interface Comment {
   id: string;
   body: string;
-  anonymous: boolean;
+  is_publicly_anonymous: boolean;
   parent_comment_id: string | null;
   created_at: string;
   profiles?: { display_name: string | null } | null;
@@ -17,7 +17,7 @@ function CommentItem({ comment }: { comment: Comment }) {
         <CardContent className="pt-4">
           <p className="text-sm">{comment.body}</p>
           <p className="mt-1 text-xs text-muted-foreground">
-            {comment.anonymous
+            {comment.is_publicly_anonymous
               ? "Anonymous"
               : comment.profiles?.display_name ?? "Unknown"}{" "}
             ·{" "}
@@ -36,7 +36,7 @@ function CommentItem({ comment }: { comment: Comment }) {
               <CardContent className="pt-4">
                 <p className="text-sm">{reply.body}</p>
                 <p className="mt-1 text-xs text-muted-foreground">
-                  {reply.anonymous
+                  {reply.is_publicly_anonymous
                     ? "Anonymous"
                     : reply.profiles?.display_name ?? "Unknown"}{" "}
                   ·{" "}

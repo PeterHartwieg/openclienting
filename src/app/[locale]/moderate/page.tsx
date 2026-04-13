@@ -50,7 +50,7 @@ export default async function ModerationPage({
         .order("created_at", { ascending: true }),
       supabase
         .from("success_reports")
-        .select("id, body, status, created_at, solution_approach_id, profiles!success_reports_author_id_fkey(display_name)")
+        .select("id, report_summary, status, created_at, solution_approach_id, profiles!success_reports_submitted_by_user_id_fkey(display_name)")
         .in("status", ["submitted", "in_review"])
         .order("created_at", { ascending: true }),
       supabase
@@ -228,7 +228,7 @@ export default async function ModerationPage({
               <Card key={sr.id}>
                 <CardHeader className="pb-2">
                   <CardTitle className="text-base">
-                    {sr.body.length > 100 ? sr.body.slice(0, 100) + "..." : sr.body}
+                    {sr.report_summary.length > 100 ? sr.report_summary.slice(0, 100) + "..." : sr.report_summary}
                   </CardTitle>
                   <p className="text-xs text-muted-foreground">
                     by {(sr.profiles as unknown as { display_name: string } | null)?.display_name ?? "Unknown"} ·{" "}
