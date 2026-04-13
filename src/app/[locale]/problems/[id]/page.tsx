@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getProblemById } from "@/lib/queries/problems";
+import { getUserVerifiedMemberships } from "@/lib/queries/organizations";
 import { createClient } from "@/lib/supabase/server";
 import { TagBadge } from "@/components/shared/tag-badge";
 import { SolutionStatusBadge } from "@/components/shared/solution-status-badge";
@@ -40,8 +41,10 @@ export default async function ProblemDetailPage({
   let userVotedRequirements = new Set<string>();
   let userVotedFrameworks = new Set<string>();
   let userVotedApproaches = new Set<string>();
+  let verifiedOrgs: { membershipId: string; role: string; orgId: string; orgName: string }[] = [];
 
   if (user) {
+    verifiedOrgs = await getUserVerifiedMemberships(user.id);
     const reqIds = (problem.requirements ?? []).map((r: { id: string }) => r.id);
     const fwIds = (problem.pilot_frameworks ?? []).map((f: { id: string }) => f.id);
     const saIds = (problem.solution_approaches ?? []).map((s: { id: string }) => s.id);
@@ -222,6 +225,7 @@ export default async function ProblemDetailPage({
             userVotes={userVotedApproaches}
             isAuthenticated={!!user}
             currentUserId={user?.id}
+            verifiedOrgs={verifiedOrgs}
           />
         </div>
         {user && (

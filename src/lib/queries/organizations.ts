@@ -123,3 +123,33 @@ export async function getVerifiedOrganizations() {
   }
   return data ?? [];
 }
+
+// Returns orgs where the current user has active membership AND the org is verified.
+// Used to gate success report submission.
+export async function getUserVerifiedMemberships(userId: string) {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("organization_memberships")
+    .select(`
+      id,
+      role,
+      organizations!inner (
+        id,
+        name
+      )
+    `)
+    .eq("user_id", userId)
+    .eq("membership_status", "active")
+    .eq("organizations.verification_status", "verified");
+
+  if (error) {
+    console.error("getUserVerifiedMemberships error:", error);
+    return [];
+  }
+
+  return (data ?? []).map((m) => {
+    const org = m.organizations as unknown as { id: string; name: string };
+    return { membershipId: m.id, role: m.role, orgId: org.id, orgName: org.name };
+  });
+}

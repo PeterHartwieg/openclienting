@@ -97,6 +97,46 @@ export async function createTag(params: {
   return { success: true };
 }
 
+// Dedicated action for success reports — sets both status and verification_status atomically.
+// "verify" → published + verified (triggers successful_pilot if warranted)
+// "reject" → rejected + rejected
+export async function moderateSuccessReport(params: {
+  reportId: string;
+  decision: "verify" | "reject";
+  reviewerNotes?: string;
+}) {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { success: false, error: "Unauthorized" };
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+
+  if (!profile || !["moderator", "admin"].includes(profile.role)) {
+    return { success: false, error: "Forbidden" };
+  }
+
+  const newStatus = params.decision === "verify" ? "published" : "rejected";
+  const newVerificationStatus = params.decision === "verify" ? "verified" : "rejected";
+
+  const { error } = await supabase
+    .from("success_reports")
+    .update({
+      status: newStatus,
+      verification_status: newVerificationStatus,
+    })
+    .eq("id", params.reportId);
+
+  if (error) return { success: false, error: error.message };
+  return { success: true };
+}
+
 export async function deleteTag(tagId: string) {
   const supabase = await createClient();
 

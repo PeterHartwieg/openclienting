@@ -8,10 +8,18 @@ import { EditSolutionApproachForm } from "@/components/problems/edit-solution-ap
 interface SuccessReport {
   id: string;
   report_summary: string;
+  pilot_date_range?: string | null;
+  deployment_scope?: string | null;
+  kpi_summary?: string | null;
+  evidence_notes?: string | null;
   is_publicly_anonymous: boolean;
+  is_org_anonymous?: boolean;
   status: string;
+  verification_status?: string;
+  submitted_by_organization_id?: string | null;
   created_at: string;
   profiles?: { display_name: string | null } | null;
+  organizations?: { id: string; name: string } | null;
 }
 
 interface SolutionApproach {
@@ -29,11 +37,19 @@ interface SolutionApproach {
   success_reports?: SuccessReport[];
 }
 
+interface VerifiedOrg {
+  membershipId: string;
+  role: string;
+  orgId: string;
+  orgName: string;
+}
+
 interface SolutionApproachListProps {
   approaches: SolutionApproach[];
   userVotes?: Set<string>;
   isAuthenticated?: boolean;
   currentUserId?: string;
+  verifiedOrgs?: VerifiedOrg[];
 }
 
 const technologyLabels: Record<string, string> = {
@@ -49,7 +65,7 @@ const maturityLabels: Record<string, string> = {
   established: "Established",
 };
 
-export function SolutionApproachList({ approaches, userVotes, isAuthenticated, currentUserId }: SolutionApproachListProps) {
+export function SolutionApproachList({ approaches, userVotes, isAuthenticated, currentUserId, verifiedOrgs = [] }: SolutionApproachListProps) {
   if (approaches.length === 0) {
     return (
       <p className="text-sm text-muted-foreground">
@@ -110,7 +126,10 @@ export function SolutionApproachList({ approaches, userVotes, isAuthenticated, c
             )}
             {isAuthenticated && (
               <div className="mt-3">
-                <AddSuccessReportForm solutionApproachId={sa.id} />
+                <AddSuccessReportForm
+                  solutionApproachId={sa.id}
+                  verifiedOrgs={verifiedOrgs}
+                />
               </div>
             )}
           </CardContent>

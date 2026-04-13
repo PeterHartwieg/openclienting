@@ -6,6 +6,7 @@ import { StatusBadge } from "@/components/shared/status-badge";
 import { ModerationActions } from "@/components/moderate/moderation-actions";
 import { SuggestedEditReview } from "@/components/moderate/suggested-edit-review";
 import { VerificationActions } from "@/components/moderate/verification-actions";
+import { SuccessReportReview } from "@/components/moderate/success-report-review";
 import { getPendingVerifications, getPendingMemberships } from "@/lib/queries/organizations";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -52,7 +53,13 @@ export default async function ModerationPage({
         .order("created_at", { ascending: true }),
       supabase
         .from("success_reports")
-        .select("id, report_summary, status, created_at, solution_approach_id, profiles!success_reports_author_id_fkey(display_name)")
+        .select(`
+          id, report_summary, pilot_date_range, deployment_scope, kpi_summary, evidence_notes,
+          status, verification_status, created_at, solution_approach_id,
+          is_publicly_anonymous, is_org_anonymous,
+          profiles!success_reports_submitted_by_user_id_fkey (display_name),
+          organizations!success_reports_submitted_by_organization_id_fkey (id, name)
+        `)
         .in("status", ["submitted", "in_review"])
         .order("created_at", { ascending: true }),
       supabase
@@ -236,25 +243,37 @@ export default async function ModerationPage({
           {srCount === 0 ? (
             <p className="text-muted-foreground">No pending success reports.</p>
           ) : (
-            successReports!.map((sr) => (
-              <Card key={sr.id}>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base">
-                    {sr.report_summary.length > 100 ? sr.report_summary.slice(0, 100) + "..." : sr.report_summary}
-                  </CardTitle>
-                  <p className="text-xs text-muted-foreground">
-                    by {(sr.profiles as unknown as { display_name: string } | null)?.display_name ?? "Unknown"} ·{" "}
-                    {new Date(sr.created_at).toLocaleDateString()}
-                  </p>
-                </CardHeader>
-                <CardContent>
-                  <ModerationActions
-                    targetType="success_reports"
-                    targetId={sr.id}
-                  />
-                </CardContent>
-              </Card>
-            ))
+            successReports!.map((sr) => {
+              const profiles = sr.profiles as unknown as { display_name: string | null } | null;
+              const org = sr.organizations as unknown as { id: string; name: string } | null;
+              return (
+                <Card key={sr.id}>
+                  <CardHeader className="pb-2">
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-base text-sm font-medium">
+                        Success report · {new Date(sr.created_at).toLocaleDateString()}
+                      </CardTitle>
+                      <StatusBadge status={sr.verification_status ?? sr.status} />
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <SuccessReportReview
+                      reportId={sr.id}
+                      reportSummary={sr.report_summary}
+                      pilotDateRange={(sr as unknown as { pilot_date_range?: string | null }).pilot_date_range}
+                      deploymentScope={(sr as unknown as { deployment_scope?: string | null }).deployment_scope}
+                      kpiSummary={(sr as unknown as { kpi_summary?: string | null }).kpi_summary}
+                      evidenceNotes={(sr as unknown as { evidence_notes?: string | null }).evidence_notes}
+                      submitterName={profiles?.display_name ?? null}
+                      organizationName={org?.name ?? null}
+                      isPubliclyAnonymous={(sr as unknown as { is_publicly_anonymous: boolean }).is_publicly_anonymous}
+                      isOrgAnonymous={(sr as unknown as { is_org_anonymous: boolean }).is_org_anonymous}
+                      verificationStatus={sr.verification_status ?? "submitted"}
+                    />
+                  </CardContent>
+                </Card>
+              );
+            })
           )}
         </TabsContent>
 

@@ -86,8 +86,11 @@ export async function getProblemById(id: string) {
         is_publicly_anonymous, status, upvote_count, created_at, author_id,
         profiles!solution_approaches_author_id_fkey (display_name),
         success_reports (
-          id, report_summary, is_publicly_anonymous, status, verification_status, created_at,
-          profiles!success_reports_author_id_fkey (display_name)
+          id, report_summary, pilot_date_range, deployment_scope, kpi_summary, evidence_notes,
+          is_publicly_anonymous, is_org_anonymous, status, verification_status, created_at,
+          submitted_by_organization_id,
+          profiles!success_reports_submitted_by_user_id_fkey (display_name),
+          organizations!success_reports_submitted_by_organization_id_fkey (id, name)
         )
       )
     `)
