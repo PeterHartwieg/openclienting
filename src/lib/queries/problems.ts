@@ -26,8 +26,14 @@ export async function getPublishedProblems(filters: ProblemFilters = {}) {
 
   // Simple ILIKE search for MVP
   if (filters.q) {
+    const escaped = filters.q
+      .replace(/\\/g, "\\\\")
+      .replace(/%/g, "\\%")
+      .replace(/_/g, "\\_")
+      .replace(/,/g, "\\,")
+      .replace(/\./g, "\\.");
     query = query.or(
-      `title.ilike.%${filters.q}%,description.ilike.%${filters.q}%`
+      `title.ilike.%${escaped}%,description.ilike.%${escaped}%`
     );
   }
 

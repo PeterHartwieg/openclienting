@@ -35,7 +35,7 @@ export async function Header({ locale }: { locale: string }) {
               locale={locale}
             />
           ) : (
-            <LoginDialog>{null}</LoginDialog>
+            <LoginDialog />
           )}
         </nav>
       </div>
