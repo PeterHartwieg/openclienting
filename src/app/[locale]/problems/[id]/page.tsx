@@ -83,7 +83,7 @@ export default async function ProblemDetailPage({
   // Fetch comments
   const { data: comments } = await supabase
     .from("comments")
-    .select("id, body, is_publicly_anonymous, parent_comment_id, created_at, profiles!comments_author_id_fkey(display_name)")
+    .select("id, body, is_publicly_anonymous, is_org_anonymous, parent_comment_id, created_at, profiles!comments_author_id_fkey(display_name), organizations!comments_author_organization_id_fkey(id, name)")
     .eq("target_type", "problem_template")
     .eq("target_id", id)
     .order("created_at", { ascending: true });
@@ -108,6 +108,7 @@ export default async function ProblemDetailPage({
   const normalizedComments = (comments ?? []).map((c) => ({
     ...c,
     profiles: c.profiles as unknown as { display_name: string | null } | null,
+    organizations: c.organizations as unknown as { id: string; name: string } | null,
   }));
 
   return (

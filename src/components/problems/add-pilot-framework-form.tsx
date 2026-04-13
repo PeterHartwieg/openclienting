@@ -12,7 +12,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 export function AddPilotFrameworkForm({ problemId }: { problemId: string }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [anonymous, setAnonymous] = useState(false);
+  const [isPubliclyAnonymous, setIsPubliclyAnonymous] = useState(false);
+  const [isOrgAnonymous, setIsOrgAnonymous] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [form, setForm] = useState({
     scope: "",
@@ -34,7 +35,7 @@ export function AddPilotFrameworkForm({ problemId }: { problemId: string }) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     startTransition(async () => {
-      const result = await submitPilotFramework({ problemId, ...form, anonymous });
+      const result = await submitPilotFramework({ problemId, ...form, isPubliclyAnonymous, isOrgAnonymous });
       if (result.success) {
         setForm({
           scope: "",
@@ -78,9 +79,15 @@ export function AddPilotFrameworkForm({ problemId }: { problemId: string }) {
           <Textarea value={form.resourceCommitment} onChange={(e) => setForm({ ...form, resourceCommitment: e.target.value })} rows={2} />
         </div>
       </div>
-      <div className="flex items-center gap-2">
-        <Checkbox id="fw-anon" checked={anonymous} onCheckedChange={(c) => setAnonymous(c === true)} />
-        <Label htmlFor="fw-anon" className="text-sm">Submit anonymously</Label>
+      <div className="space-y-2">
+        <div className="flex items-center gap-2">
+          <Checkbox id="fw-anon-person" checked={isPubliclyAnonymous} onCheckedChange={(c) => setIsPubliclyAnonymous(c === true)} />
+          <Label htmlFor="fw-anon-person" className="text-sm">Hide my personal identity publicly</Label>
+        </div>
+        <div className="flex items-center gap-2">
+          <Checkbox id="fw-anon-org" checked={isOrgAnonymous} onCheckedChange={(c) => setIsOrgAnonymous(c === true)} />
+          <Label htmlFor="fw-anon-org" className="text-sm">Hide my organization identity publicly</Label>
+        </div>
       </div>
       <div className="flex gap-2">
         <Button type="submit" size="sm" disabled={isPending}>

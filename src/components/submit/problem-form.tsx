@@ -30,7 +30,8 @@ export function ProblemForm({ tagsByCategory, locale }: ProblemFormProps) {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [anonymous, setAnonymous] = useState(false);
+  const [isPubliclyAnonymous, setIsPubliclyAnonymous] = useState(false);
+  const [isOrgAnonymous, setIsOrgAnonymous] = useState(false);
   const [selectedTagIds, setSelectedTagIds] = useState<string[]>([]);
   const [requirements, setRequirements] = useState<string[]>([""]);
   const [pilotFramework, setPilotFramework] = useState({
@@ -65,7 +66,8 @@ export function ProblemForm({ tagsByCategory, locale }: ProblemFormProps) {
     const result = await submitProblem({
       title,
       description,
-      anonymous,
+      isPubliclyAnonymous,
+      isOrgAnonymous,
       tagIds: selectedTagIds,
       requirements,
       pilotFramework,
@@ -255,15 +257,31 @@ export function ProblemForm({ tagsByCategory, locale }: ProblemFormProps) {
 
       {/* Anonymity & Submit */}
       <section className="space-y-4">
-        <div className="flex items-center gap-2">
-          <Checkbox
-            id="anonymous"
-            checked={anonymous}
-            onCheckedChange={(checked) => setAnonymous(checked === true)}
-          />
-          <Label htmlFor="anonymous">
-            Submit anonymously (your identity is stored but not shown publicly)
-          </Label>
+        <div className="space-y-2 rounded-md bg-muted/50 p-4">
+          <p className="text-sm font-medium">Public visibility</p>
+          <div className="flex items-center gap-2">
+            <Checkbox
+              id="anon-person"
+              checked={isPubliclyAnonymous}
+              onCheckedChange={(checked) => setIsPubliclyAnonymous(checked === true)}
+            />
+            <Label htmlFor="anon-person" className="text-sm font-normal">
+              Hide my personal identity publicly
+            </Label>
+          </div>
+          <div className="flex items-center gap-2">
+            <Checkbox
+              id="anon-org"
+              checked={isOrgAnonymous}
+              onCheckedChange={(checked) => setIsOrgAnonymous(checked === true)}
+            />
+            <Label htmlFor="anon-org" className="text-sm font-normal">
+              Hide my organization identity publicly
+            </Label>
+          </div>
+          <p className="text-xs text-muted-foreground">
+            Your identity is always stored and visible to moderators.
+          </p>
         </div>
 
         <Button type="submit" size="lg" disabled={loading} className="w-full sm:w-auto">

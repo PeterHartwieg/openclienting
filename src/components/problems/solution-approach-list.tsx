@@ -31,9 +31,11 @@ interface SolutionApproach {
   complexity: string | null;
   price_range: string | null;
   is_publicly_anonymous: boolean;
+  is_org_anonymous?: boolean;
   upvote_count: number;
   author_id?: string;
   profiles?: { display_name: string | null } | null;
+  organizations?: { id: string; name: string } | null;
   success_reports?: SuccessReport[];
 }
 
@@ -112,9 +114,10 @@ export function SolutionApproachList({ approaches, userVotes, isAuthenticated, c
           <CardContent className="pl-[4.5rem]">
             <p className="text-sm whitespace-pre-wrap">{sa.description}</p>
             <p className="mt-2 text-xs text-muted-foreground">
-              {sa.is_publicly_anonymous
-                ? "Anonymous"
-                : sa.profiles?.display_name ?? "Unknown"}
+              {[
+                sa.is_publicly_anonymous ? "Anonymous" : (sa.profiles?.display_name ?? "Unknown"),
+                sa.is_org_anonymous ? null : (sa.organizations?.name ?? null),
+              ].filter(Boolean).join(" · ")}
             </p>
             {currentUserId && currentUserId === sa.author_id && (
               <div className="mt-2">

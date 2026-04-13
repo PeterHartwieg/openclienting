@@ -26,7 +26,8 @@ const maturityOptions: { value: Maturity; label: string }[] = [
 export function AddSolutionApproachForm({ problemId }: { problemId: string }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [anonymous, setAnonymous] = useState(false);
+  const [isPubliclyAnonymous, setIsPubliclyAnonymous] = useState(false);
+  const [isOrgAnonymous, setIsOrgAnonymous] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [form, setForm] = useState({
     title: "",
@@ -48,7 +49,7 @@ export function AddSolutionApproachForm({ problemId }: { problemId: string }) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     startTransition(async () => {
-      const result = await submitSolutionApproach({ problemId, ...form, anonymous });
+      const result = await submitSolutionApproach({ problemId, ...form, isPubliclyAnonymous, isOrgAnonymous });
       if (result.success) {
         setForm({
           title: "",
@@ -127,9 +128,15 @@ export function AddSolutionApproachForm({ problemId }: { problemId: string }) {
           />
         </div>
       </div>
-      <div className="flex items-center gap-2">
-        <Checkbox id="sa-anon" checked={anonymous} onCheckedChange={(c) => setAnonymous(c === true)} />
-        <Label htmlFor="sa-anon" className="text-sm">Submit anonymously</Label>
+      <div className="space-y-2">
+        <div className="flex items-center gap-2">
+          <Checkbox id="sa-anon-person" checked={isPubliclyAnonymous} onCheckedChange={(c) => setIsPubliclyAnonymous(c === true)} />
+          <Label htmlFor="sa-anon-person" className="text-sm">Hide my personal identity publicly</Label>
+        </div>
+        <div className="flex items-center gap-2">
+          <Checkbox id="sa-anon-org" checked={isOrgAnonymous} onCheckedChange={(c) => setIsOrgAnonymous(c === true)} />
+          <Label htmlFor="sa-anon-org" className="text-sm">Hide my organization identity publicly</Label>
+        </div>
       </div>
       <div className="flex gap-2">
         <Button type="submit" size="sm" disabled={isPending}>

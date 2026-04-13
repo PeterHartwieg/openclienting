@@ -11,9 +11,11 @@ interface PilotFramework {
   duration: string | null;
   resource_commitment: string | null;
   is_publicly_anonymous: boolean;
+  is_org_anonymous?: boolean;
   upvote_count: number;
   author_id?: string;
   profiles?: { display_name: string | null } | null;
+  organizations?: { id: string; name: string } | null;
 }
 
 interface PilotFrameworkListProps {
@@ -56,9 +58,10 @@ export function PilotFrameworkList({ frameworks, userVotes, currentUserId }: Pil
               />
             </div>
             <p className="text-xs text-muted-foreground">
-              {fw.is_publicly_anonymous
-                ? "Anonymous"
-                : fw.profiles?.display_name ?? "Unknown"}
+              {[
+                fw.is_publicly_anonymous ? "Anonymous" : (fw.profiles?.display_name ?? "Unknown"),
+                fw.is_org_anonymous ? null : (fw.organizations?.name ?? null),
+              ].filter(Boolean).join(" · ")}
             </p>
           </CardHeader>
           <CardContent>

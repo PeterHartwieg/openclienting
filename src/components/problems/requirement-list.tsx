@@ -6,9 +6,11 @@ interface Requirement {
   id: string;
   body: string;
   is_publicly_anonymous: boolean;
+  is_org_anonymous?: boolean;
   upvote_count: number;
   author_id?: string;
   profiles?: { display_name: string | null } | null;
+  organizations?: { id: string; name: string } | null;
 }
 
 interface RequirementListProps {
@@ -41,9 +43,10 @@ export function RequirementList({ requirements, userVotes, currentUserId }: Requ
               <p className="text-sm">{req.body}</p>
               <div className="mt-1 flex items-center gap-2">
                 <p className="text-xs text-muted-foreground">
-                  {req.is_publicly_anonymous
-                    ? "Anonymous"
-                    : req.profiles?.display_name ?? "Unknown"}
+                  {[
+                    req.is_publicly_anonymous ? "Anonymous" : (req.profiles?.display_name ?? "Unknown"),
+                    req.is_org_anonymous ? null : (req.organizations?.name ?? null),
+                  ].filter(Boolean).join(" · ")}
                 </p>
                 {currentUserId && currentUserId === req.author_id && (
                   <EditRequirementInline requirementId={req.id} currentBody={req.body} />

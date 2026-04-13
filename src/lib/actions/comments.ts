@@ -6,7 +6,8 @@ export async function submitComment(params: {
   targetType: "problem_template" | "solution_approach";
   targetId: string;
   body: string;
-  anonymous: boolean;
+  isPubliclyAnonymous: boolean;
+  isOrgAnonymous: boolean;
   parentCommentId?: string;
 }) {
   const supabase = await createClient();
@@ -22,7 +23,8 @@ export async function submitComment(params: {
     target_id: params.targetId,
     body: params.body.trim(),
     author_id: user.id,
-    is_publicly_anonymous: params.anonymous,
+    is_publicly_anonymous: params.isPubliclyAnonymous,
+    is_org_anonymous: params.isOrgAnonymous,
     parent_comment_id: params.parentCommentId ?? null,
   });
 

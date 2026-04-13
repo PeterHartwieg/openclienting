@@ -12,7 +12,8 @@ export function AddRequirementForm({ problemId }: { problemId: string }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [body, setBody] = useState("");
-  const [anonymous, setAnonymous] = useState(false);
+  const [isPubliclyAnonymous, setIsPubliclyAnonymous] = useState(false);
+  const [isOrgAnonymous, setIsOrgAnonymous] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   if (!open) {
@@ -26,7 +27,7 @@ export function AddRequirementForm({ problemId }: { problemId: string }) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     startTransition(async () => {
-      const result = await submitRequirement({ problemId, body, anonymous });
+      const result = await submitRequirement({ problemId, body, isPubliclyAnonymous, isOrgAnonymous });
       if (result.success) {
         setBody("");
         setOpen(false);
@@ -44,13 +45,23 @@ export function AddRequirementForm({ problemId }: { problemId: string }) {
         rows={3}
         required
       />
-      <div className="flex items-center gap-2">
-        <Checkbox
-          id="req-anon"
-          checked={anonymous}
-          onCheckedChange={(c) => setAnonymous(c === true)}
-        />
-        <Label htmlFor="req-anon" className="text-sm">Submit anonymously</Label>
+      <div className="space-y-2">
+        <div className="flex items-center gap-2">
+          <Checkbox
+            id="req-anon-person"
+            checked={isPubliclyAnonymous}
+            onCheckedChange={(c) => setIsPubliclyAnonymous(c === true)}
+          />
+          <Label htmlFor="req-anon-person" className="text-sm">Hide my personal identity publicly</Label>
+        </div>
+        <div className="flex items-center gap-2">
+          <Checkbox
+            id="req-anon-org"
+            checked={isOrgAnonymous}
+            onCheckedChange={(c) => setIsOrgAnonymous(c === true)}
+          />
+          <Label htmlFor="req-anon-org" className="text-sm">Hide my organization identity publicly</Label>
+        </div>
       </div>
       <div className="flex gap-2">
         <Button type="submit" size="sm" disabled={isPending}>

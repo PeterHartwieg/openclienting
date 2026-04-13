@@ -5,7 +5,8 @@ import { createClient } from "@/lib/supabase/server";
 export async function submitRequirement(params: {
   problemId: string;
   body: string;
-  anonymous: boolean;
+  isPubliclyAnonymous: boolean;
+  isOrgAnonymous: boolean;
 }) {
   const supabase = await createClient();
   const {
@@ -19,7 +20,8 @@ export async function submitRequirement(params: {
     problem_id: params.problemId,
     body: params.body.trim(),
     author_id: user.id,
-    is_publicly_anonymous: params.anonymous,
+    is_publicly_anonymous: params.isPubliclyAnonymous,
+    is_org_anonymous: params.isOrgAnonymous,
     status: "submitted",
   });
 

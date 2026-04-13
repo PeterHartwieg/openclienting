@@ -73,18 +73,21 @@ export async function getProblemById(id: string) {
       ),
       profiles!problem_templates_author_id_fkey (display_name),
       requirements (
-        id, body, is_publicly_anonymous, status, upvote_count, created_at, author_id,
-        profiles!requirements_author_id_fkey (display_name)
+        id, body, is_publicly_anonymous, is_org_anonymous, status, upvote_count, created_at, author_id,
+        profiles!requirements_author_id_fkey (display_name),
+        organizations!requirements_author_organization_id_fkey (id, name)
       ),
       pilot_frameworks (
         id, scope, suggested_kpis, success_criteria, common_pitfalls,
-        duration, resource_commitment, is_publicly_anonymous, status, upvote_count, created_at, author_id,
-        profiles!pilot_frameworks_author_id_fkey (display_name)
+        duration, resource_commitment, is_publicly_anonymous, is_org_anonymous, status, upvote_count, created_at, author_id,
+        profiles!pilot_frameworks_author_id_fkey (display_name),
+        organizations!pilot_frameworks_author_organization_id_fkey (id, name)
       ),
       solution_approaches (
         id, title, description, technology_type, maturity, complexity, price_range,
-        is_publicly_anonymous, status, upvote_count, created_at, author_id,
+        is_publicly_anonymous, is_org_anonymous, status, upvote_count, created_at, author_id,
         profiles!solution_approaches_author_id_fkey (display_name),
+        organizations!solution_approaches_author_organization_id_fkey (id, name),
         success_reports (
           id, report_summary, pilot_date_range, deployment_scope, kpi_summary, evidence_notes,
           is_publicly_anonymous, is_org_anonymous, status, verification_status, created_at,

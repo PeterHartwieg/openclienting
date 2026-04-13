@@ -10,7 +10,8 @@ export async function submitPilotFramework(params: {
   commonPitfalls: string;
   duration: string;
   resourceCommitment: string;
-  anonymous: boolean;
+  isPubliclyAnonymous: boolean;
+  isOrgAnonymous: boolean;
 }) {
   const supabase = await createClient();
   const {
@@ -28,7 +29,8 @@ export async function submitPilotFramework(params: {
     duration: params.duration.trim() || null,
     resource_commitment: params.resourceCommitment.trim() || null,
     author_id: user.id,
-    is_publicly_anonymous: params.anonymous,
+    is_publicly_anonymous: params.isPubliclyAnonymous,
+    is_org_anonymous: params.isOrgAnonymous,
     status: "submitted",
   });
 

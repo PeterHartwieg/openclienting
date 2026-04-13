@@ -5,7 +5,8 @@ import { createClient } from "@/lib/supabase/server";
 interface ProblemSubmission {
   title: string;
   description: string;
-  anonymous: boolean;
+  isPubliclyAnonymous: boolean;
+  isOrgAnonymous: boolean;
   tagIds: string[];
   requirements: string[];
   pilotFramework: {
@@ -47,7 +48,8 @@ export async function submitProblem(data: ProblemSubmission) {
       title: data.title.trim(),
       description: data.description.trim(),
       author_id: user.id,
-      is_publicly_anonymous: data.anonymous,
+      is_publicly_anonymous: data.isPubliclyAnonymous,
+      is_org_anonymous: data.isOrgAnonymous,
       status: "submitted",
     })
     .select("id")
@@ -78,7 +80,8 @@ export async function submitProblem(data: ProblemSubmission) {
         problem_id: problem.id,
         body: body.trim(),
         author_id: user.id,
-        is_publicly_anonymous: data.anonymous,
+        is_publicly_anonymous: data.isPubliclyAnonymous,
+        is_org_anonymous: data.isOrgAnonymous,
         status: "submitted" as const,
       }))
     );
@@ -100,7 +103,8 @@ export async function submitProblem(data: ProblemSubmission) {
       duration: pf.duration.trim() || null,
       resource_commitment: pf.resource_commitment.trim() || null,
       author_id: user.id,
-      is_publicly_anonymous: data.anonymous,
+      is_publicly_anonymous: data.isPubliclyAnonymous,
+      is_org_anonymous: data.isOrgAnonymous,
       status: "submitted" as const,
     });
     if (pfError) {
