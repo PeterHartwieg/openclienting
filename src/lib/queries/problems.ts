@@ -11,7 +11,7 @@ export interface ProblemFilters {
 export async function getPublishedProblems(filters: ProblemFilters = {}) {
   const supabase = await createClient();
 
-  let query = supabase
+  const query = supabase
     .from("problem_templates")
     .select(`
       *,
@@ -24,31 +24,22 @@ export async function getPublishedProblems(filters: ProblemFilters = {}) {
     .eq("status", "published")
     .order("created_at", { ascending: false });
 
-  // Simple ILIKE search for MVP — strip PostgREST structural chars (,.()) that
-  // cannot be escaped in filter values, then collapse whitespace.
-  if (filters.q) {
-    const sanitized = filters.q.replace(/[,.*()\\]/g, " ").replace(/\s+/g, " ").trim();
-    if (sanitized) {
-      query = query.or(
-        `title.ilike.%${sanitized}%,description.ilike.%${sanitized}%`
-      );
-    }
-  }
-
-  // Tag-based filters: filter problems that have a tag with the given slug in the given category
-  const tagFilters: string[] = [];
-  for (const category of ["industry", "function", "problem_category", "company_size"] as const) {
-    const slug = filters[category];
-    if (slug) {
-      tagFilters.push(slug);
-    }
-  }
-
   const { data, error } = await query;
   if (error) throw error;
 
-  // Client-side tag filtering (Supabase doesn't support nested relation filters well)
+  // Client-side filtering — avoids interpolating user input into PostgREST
+  // filter strings, which have no reliable escape mechanism for structural
+  // characters (commas, dots, parens).
   let results = data ?? [];
+
+  if (filters.q) {
+    const q = filters.q.toLowerCase();
+    results = results.filter(
+      (p) =>
+        p.title.toLowerCase().includes(q) ||
+        p.description.toLowerCase().includes(q)
+    );
+  }
   for (const category of ["industry", "function", "problem_category", "company_size"] as const) {
     const slug = filters[category];
     if (slug) {
