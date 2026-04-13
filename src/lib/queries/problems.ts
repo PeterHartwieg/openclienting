@@ -24,17 +24,15 @@ export async function getPublishedProblems(filters: ProblemFilters = {}) {
     .eq("status", "published")
     .order("created_at", { ascending: false });
 
-  // Simple ILIKE search for MVP
+  // Simple ILIKE search for MVP — strip PostgREST structural chars (,.()) that
+  // cannot be escaped in filter values, then collapse whitespace.
   if (filters.q) {
-    const escaped = filters.q
-      .replace(/\\/g, "\\\\")
-      .replace(/%/g, "\\%")
-      .replace(/_/g, "\\_")
-      .replace(/,/g, "\\,")
-      .replace(/\./g, "\\.");
-    query = query.or(
-      `title.ilike.%${escaped}%,description.ilike.%${escaped}%`
-    );
+    const sanitized = filters.q.replace(/[,.*()\\]/g, " ").replace(/\s+/g, " ").trim();
+    if (sanitized) {
+      query = query.or(
+        `title.ilike.%${sanitized}%,description.ilike.%${sanitized}%`
+      );
+    }
   }
 
   // Tag-based filters: filter problems that have a tag with the given slug in the given category
