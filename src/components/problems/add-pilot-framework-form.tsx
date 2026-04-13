@@ -9,9 +9,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 
-export function AddPilotFrameworkForm({ problemId }: { problemId: string }) {
+interface VerifiedOrg { orgId: string; orgName: string; }
+
+export function AddPilotFrameworkForm({ problemId, verifiedOrgs = [] }: { problemId: string; verifiedOrgs?: VerifiedOrg[] }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [selectedOrgId, setSelectedOrgId] = useState("");
   const [isPubliclyAnonymous, setIsPubliclyAnonymous] = useState(false);
   const [isOrgAnonymous, setIsOrgAnonymous] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -35,7 +38,7 @@ export function AddPilotFrameworkForm({ problemId }: { problemId: string }) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     startTransition(async () => {
-      const result = await submitPilotFramework({ problemId, ...form, isPubliclyAnonymous, isOrgAnonymous });
+      const result = await submitPilotFramework({ problemId, ...form, isPubliclyAnonymous, isOrgAnonymous, organizationId: selectedOrgId || undefined });
       if (result.success) {
         setForm({
           scope: "",
@@ -80,14 +83,26 @@ export function AddPilotFrameworkForm({ problemId }: { problemId: string }) {
         </div>
       </div>
       <div className="space-y-2">
+        {verifiedOrgs.length > 0 && (
+          <select
+            value={selectedOrgId}
+            onChange={(e) => { setSelectedOrgId(e.target.value); if (!e.target.value) setIsOrgAnonymous(false); }}
+            className="flex h-8 w-full rounded-lg border border-input bg-transparent px-2.5 py-1.5 text-sm outline-none focus-visible:border-ring dark:bg-input/30"
+          >
+            <option value="">No organization</option>
+            {verifiedOrgs.map((org) => <option key={org.orgId} value={org.orgId}>{org.orgName}</option>)}
+          </select>
+        )}
         <div className="flex items-center gap-2">
           <Checkbox id="fw-anon-person" checked={isPubliclyAnonymous} onCheckedChange={(c) => setIsPubliclyAnonymous(c === true)} />
           <Label htmlFor="fw-anon-person" className="text-sm">Hide my personal identity publicly</Label>
         </div>
-        <div className="flex items-center gap-2">
-          <Checkbox id="fw-anon-org" checked={isOrgAnonymous} onCheckedChange={(c) => setIsOrgAnonymous(c === true)} />
-          <Label htmlFor="fw-anon-org" className="text-sm">Hide my organization identity publicly</Label>
-        </div>
+        {selectedOrgId && (
+          <div className="flex items-center gap-2">
+            <Checkbox id="fw-anon-org" checked={isOrgAnonymous} onCheckedChange={(c) => setIsOrgAnonymous(c === true)} />
+            <Label htmlFor="fw-anon-org" className="text-sm">Hide my organization identity publicly</Label>
+          </div>
+        )}
       </div>
       <div className="flex gap-2">
         <Button type="submit" size="sm" disabled={isPending}>

@@ -8,6 +8,7 @@ export async function submitComment(params: {
   body: string;
   isPubliclyAnonymous: boolean;
   isOrgAnonymous: boolean;
+  organizationId?: string;
   parentCommentId?: string;
 }) {
   const supabase = await createClient();
@@ -23,6 +24,7 @@ export async function submitComment(params: {
     target_id: params.targetId,
     body: params.body.trim(),
     author_id: user.id,
+    author_organization_id: params.organizationId ?? null,
     is_publicly_anonymous: params.isPubliclyAnonymous,
     is_org_anonymous: params.isOrgAnonymous,
     parent_comment_id: params.parentCommentId ?? null,

@@ -187,7 +187,7 @@ export default async function ProblemDetailPage({
         </div>
         {user && (
           <div className="mt-4">
-            <AddRequirementForm problemId={problem.id} />
+            <AddRequirementForm problemId={problem.id} verifiedOrgs={verifiedOrgs} />
           </div>
         )}
       </section>
@@ -208,7 +208,7 @@ export default async function ProblemDetailPage({
         </div>
         {user && (
           <div className="mt-4">
-            <AddPilotFrameworkForm problemId={problem.id} />
+            <AddPilotFrameworkForm problemId={problem.id} verifiedOrgs={verifiedOrgs} />
           </div>
         )}
       </section>
@@ -231,7 +231,7 @@ export default async function ProblemDetailPage({
         </div>
         {user && (
           <div className="mt-4">
-            <AddSolutionApproachForm problemId={problem.id} />
+            <AddSolutionApproachForm problemId={problem.id} verifiedOrgs={verifiedOrgs} />
           </div>
         )}
       </section>
@@ -248,7 +248,7 @@ export default async function ProblemDetailPage({
         </div>
         {user && (
           <div className="mt-4">
-            <CommentForm targetId={problem.id} />
+            <CommentForm targetId={problem.id} verifiedOrgs={verifiedOrgs} />
           </div>
         )}
       </section>

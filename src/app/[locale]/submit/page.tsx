@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth/roles";
 import { getTagsGroupedByCategory } from "@/lib/queries/tags";
+import { getUserVerifiedMemberships } from "@/lib/queries/organizations";
 import { ProblemForm } from "@/components/submit/problem-form";
 
 export default async function SubmitPage({
@@ -15,7 +16,10 @@ export default async function SubmitPage({
     redirect(`/${locale}`);
   }
 
-  const tagsByCategory = await getTagsGroupedByCategory();
+  const [tagsByCategory, verifiedOrgs] = await Promise.all([
+    getTagsGroupedByCategory(),
+    getUserVerifiedMemberships(user.id),
+  ]);
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
@@ -26,7 +30,7 @@ export default async function SubmitPage({
       </p>
 
       <div className="mt-8">
-        <ProblemForm tagsByCategory={tagsByCategory} locale={locale} />
+        <ProblemForm tagsByCategory={tagsByCategory} locale={locale} verifiedOrgs={verifiedOrgs} />
       </div>
     </div>
   );

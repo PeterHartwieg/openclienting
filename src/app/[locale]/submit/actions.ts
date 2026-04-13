@@ -7,6 +7,7 @@ interface ProblemSubmission {
   description: string;
   isPubliclyAnonymous: boolean;
   isOrgAnonymous: boolean;
+  organizationId?: string;
   tagIds: string[];
   requirements: string[];
   pilotFramework: {
@@ -48,6 +49,7 @@ export async function submitProblem(data: ProblemSubmission) {
       title: data.title.trim(),
       description: data.description.trim(),
       author_id: user.id,
+      author_organization_id: data.organizationId ?? null,
       is_publicly_anonymous: data.isPubliclyAnonymous,
       is_org_anonymous: data.isOrgAnonymous,
       status: "submitted",
@@ -80,6 +82,7 @@ export async function submitProblem(data: ProblemSubmission) {
         problem_id: problem.id,
         body: body.trim(),
         author_id: user.id,
+        author_organization_id: data.organizationId ?? null,
         is_publicly_anonymous: data.isPubliclyAnonymous,
         is_org_anonymous: data.isOrgAnonymous,
         status: "submitted" as const,
@@ -103,6 +106,7 @@ export async function submitProblem(data: ProblemSubmission) {
       duration: pf.duration.trim() || null,
       resource_commitment: pf.resource_commitment.trim() || null,
       author_id: user.id,
+      author_organization_id: data.organizationId ?? null,
       is_publicly_anonymous: data.isPubliclyAnonymous,
       is_org_anonymous: data.isOrgAnonymous,
       status: "submitted" as const,

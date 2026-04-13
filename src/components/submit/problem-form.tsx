@@ -18,18 +18,25 @@ interface TagOption {
   category: string;
 }
 
+interface VerifiedOrg {
+  orgId: string;
+  orgName: string;
+}
+
 interface ProblemFormProps {
   tagsByCategory: Record<string, TagOption[]>;
   locale: string;
+  verifiedOrgs?: VerifiedOrg[];
 }
 
-export function ProblemForm({ tagsByCategory, locale }: ProblemFormProps) {
+export function ProblemForm({ tagsByCategory, locale, verifiedOrgs = [] }: ProblemFormProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [selectedOrgId, setSelectedOrgId] = useState("");
   const [isPubliclyAnonymous, setIsPubliclyAnonymous] = useState(false);
   const [isOrgAnonymous, setIsOrgAnonymous] = useState(false);
   const [selectedTagIds, setSelectedTagIds] = useState<string[]>([]);
@@ -68,6 +75,7 @@ export function ProblemForm({ tagsByCategory, locale }: ProblemFormProps) {
       description,
       isPubliclyAnonymous,
       isOrgAnonymous,
+      organizationId: selectedOrgId || undefined,
       tagIds: selectedTagIds,
       requirements,
       pilotFramework,
@@ -257,8 +265,27 @@ export function ProblemForm({ tagsByCategory, locale }: ProblemFormProps) {
 
       {/* Anonymity & Submit */}
       <section className="space-y-4">
-        <div className="space-y-2 rounded-md bg-muted/50 p-4">
-          <p className="text-sm font-medium">Public visibility</p>
+        <div className="space-y-3 rounded-md bg-muted/50 p-4">
+          <p className="text-sm font-medium">Attribution & visibility</p>
+          {verifiedOrgs.length > 0 && (
+            <div className="space-y-1.5">
+              <Label htmlFor="org-select" className="text-sm font-normal">Attribute to organization (optional)</Label>
+              <select
+                id="org-select"
+                value={selectedOrgId}
+                onChange={(e) => {
+                  setSelectedOrgId(e.target.value);
+                  if (!e.target.value) setIsOrgAnonymous(false);
+                }}
+                className="flex h-8 w-full rounded-lg border border-input bg-transparent px-2.5 py-1.5 text-sm outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
+              >
+                <option value="">None</option>
+                {verifiedOrgs.map((org) => (
+                  <option key={org.orgId} value={org.orgId}>{org.orgName}</option>
+                ))}
+              </select>
+            </div>
+          )}
           <div className="flex items-center gap-2">
             <Checkbox
               id="anon-person"
@@ -269,16 +296,18 @@ export function ProblemForm({ tagsByCategory, locale }: ProblemFormProps) {
               Hide my personal identity publicly
             </Label>
           </div>
-          <div className="flex items-center gap-2">
-            <Checkbox
-              id="anon-org"
-              checked={isOrgAnonymous}
-              onCheckedChange={(checked) => setIsOrgAnonymous(checked === true)}
-            />
-            <Label htmlFor="anon-org" className="text-sm font-normal">
-              Hide my organization identity publicly
-            </Label>
-          </div>
+          {selectedOrgId && (
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="anon-org"
+                checked={isOrgAnonymous}
+                onCheckedChange={(checked) => setIsOrgAnonymous(checked === true)}
+              />
+              <Label htmlFor="anon-org" className="text-sm font-normal">
+                Hide my organization identity publicly
+              </Label>
+            </div>
+          )}
           <p className="text-xs text-muted-foreground">
             Your identity is always stored and visible to moderators.
           </p>

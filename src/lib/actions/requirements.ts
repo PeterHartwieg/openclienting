@@ -7,6 +7,7 @@ export async function submitRequirement(params: {
   body: string;
   isPubliclyAnonymous: boolean;
   isOrgAnonymous: boolean;
+  organizationId?: string;
 }) {
   const supabase = await createClient();
   const {
@@ -20,6 +21,7 @@ export async function submitRequirement(params: {
     problem_id: params.problemId,
     body: params.body.trim(),
     author_id: user.id,
+    author_organization_id: params.organizationId ?? null,
     is_publicly_anonymous: params.isPubliclyAnonymous,
     is_org_anonymous: params.isOrgAnonymous,
     status: "submitted",

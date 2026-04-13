@@ -13,6 +13,7 @@ export async function submitSolutionApproach(params: {
   priceRange?: string;
   isPubliclyAnonymous: boolean;
   isOrgAnonymous: boolean;
+  organizationId?: string;
 }) {
   const supabase = await createClient();
   const {
@@ -32,6 +33,7 @@ export async function submitSolutionApproach(params: {
     complexity: params.complexity?.trim() || null,
     price_range: params.priceRange?.trim() || null,
     author_id: user.id,
+    author_organization_id: params.organizationId ?? null,
     is_publicly_anonymous: params.isPubliclyAnonymous,
     is_org_anonymous: params.isOrgAnonymous,
     status: "submitted",
