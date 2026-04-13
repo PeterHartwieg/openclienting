@@ -14,6 +14,7 @@ import { RequestVerificationButton } from "@/components/dashboard/request-verifi
 import { LeaveOrgButton } from "@/components/dashboard/leave-org-button";
 import { OrgLogoUpload } from "@/components/dashboard/org-logo-upload";
 import { EditOrgForm } from "@/components/dashboard/edit-org-form";
+import { MembershipActions } from "@/components/dashboard/membership-actions";
 
 const verificationColors: Record<string, string> = {
   unverified: "bg-muted text-muted-foreground",
@@ -148,24 +149,29 @@ export default async function OrganizationDetailPage({
               members.map((m) => (
                 <Card key={m.id}>
                   <CardHeader className="py-3">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between gap-4">
                       <CardTitle className="text-sm font-medium">
                         {(m.profiles as unknown as { display_name: string } | null)?.display_name ?? "Unknown"}
                       </CardTitle>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2 shrink-0">
                         <Badge variant="outline" className="capitalize text-xs">
                           {m.role}
                         </Badge>
-                        <Badge
-                          variant="outline"
-                          className={cn(
-                            "capitalize text-xs",
-                            m.membership_status === "active" && "text-green-700",
-                            m.membership_status === "pending" && "text-yellow-700"
-                          )}
-                        >
-                          {m.membership_status}
-                        </Badge>
+                        {m.membership_status === "pending" ? (
+                          <MembershipActions membershipId={m.id} />
+                        ) : (
+                          <Badge
+                            variant="outline"
+                            className={cn(
+                              "capitalize text-xs",
+                              m.membership_status === "active" && "text-green-700",
+                              m.membership_status === "rejected" && "text-destructive",
+                              m.membership_status === "revoked" && "text-muted-foreground"
+                            )}
+                          >
+                            {m.membership_status}
+                          </Badge>
+                        )}
                       </div>
                     </div>
                   </CardHeader>

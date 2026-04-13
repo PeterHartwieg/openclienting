@@ -264,3 +264,48 @@ export async function leaveOrganization(organizationId: string) {
   if (error) return { success: false as const, error: error.message };
   return { success: true as const };
 }
+
+// Org admins approve or reject pending membership requests for their own org.
+export async function reviewMembership(params: {
+  membershipId: string;
+  decision: "approved" | "rejected";
+}) {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { success: false as const, error: "Sign in required" };
+
+  // Resolve the org this membership belongs to
+  const { data: membership } = await supabase
+    .from("organization_memberships")
+    .select("organization_id")
+    .eq("id", params.membershipId)
+    .single();
+
+  if (!membership) return { success: false as const, error: "Membership not found" };
+
+  // Caller must be an active admin of that org
+  const { data: callerMembership } = await supabase
+    .from("organization_memberships")
+    .select("role, membership_status")
+    .eq("organization_id", membership.organization_id)
+    .eq("user_id", user.id)
+    .single();
+
+  if (!callerMembership || callerMembership.role !== "admin" || callerMembership.membership_status !== "active") {
+    return { success: false as const, error: "Only org admins can approve or reject members" };
+  }
+
+  const newStatus = params.decision === "approved" ? "active" : "rejected";
+
+  const { error } = await supabase
+    .from("organization_memberships")
+    .update({ membership_status: newStatus })
+    .eq("id", params.membershipId);
+
+  if (error) return { success: false as const, error: error.message };
+  return { success: true as const };
+}
+

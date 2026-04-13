@@ -2,43 +2,26 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { reviewOrganizationVerification, reviewMembership } from "@/lib/actions/moderate-organizations";
+import { reviewOrganizationVerification } from "@/lib/actions/moderate-organizations";
 import type { VerificationDecision } from "@/lib/types/database";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
-interface VerificationActionsProps {
-  targetType: "organization" | "membership";
-  targetId: string;
-}
-
-export function VerificationActions({ targetType, targetId }: VerificationActionsProps) {
+export function VerificationActions({ organizationId }: { organizationId: string }) {
   const router = useRouter();
   const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function handleAction(decision: VerificationDecision) {
     setLoading(true);
-
-    const result =
-      targetType === "organization"
-        ? await reviewOrganizationVerification({
-            organizationId: targetId,
-            decision,
-            notes: notes.trim() || undefined,
-          })
-        : await reviewMembership({
-            membershipId: targetId,
-            decision,
-            notes: notes.trim() || undefined,
-          });
-
+    const result = await reviewOrganizationVerification({
+      organizationId,
+      decision,
+      notes: notes.trim() || undefined,
+    });
     setLoading(false);
-
-    if (result.success) {
-      router.refresh();
-    }
+    if (result.success) router.refresh();
   }
 
   return (
@@ -53,19 +36,10 @@ export function VerificationActions({ targetType, targetId }: VerificationAction
         />
       </div>
       <div className="flex gap-2">
-        <Button
-          onClick={() => handleAction("approved")}
-          disabled={loading}
-          size="sm"
-        >
+        <Button onClick={() => handleAction("approved")} disabled={loading} size="sm">
           {loading ? "..." : "Approve"}
         </Button>
-        <Button
-          variant="destructive"
-          size="sm"
-          onClick={() => handleAction("rejected")}
-          disabled={loading}
-        >
+        <Button variant="destructive" size="sm" onClick={() => handleAction("rejected")} disabled={loading}>
           {loading ? "..." : "Reject"}
         </Button>
       </div>

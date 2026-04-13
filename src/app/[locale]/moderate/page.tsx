@@ -7,7 +7,7 @@ import { ModerationActions } from "@/components/moderate/moderation-actions";
 import { SuggestedEditReview } from "@/components/moderate/suggested-edit-review";
 import { VerificationActions } from "@/components/moderate/verification-actions";
 import { SuccessReportReview } from "@/components/moderate/success-report-review";
-import { getPendingVerifications, getPendingMemberships } from "@/lib/queries/organizations";
+import { getPendingVerifications } from "@/lib/queries/organizations";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -29,7 +29,7 @@ export default async function ModerationPage({
 
   const supabase = await createClient();
 
-  const [{ data: problems }, { data: requirements }, { data: frameworks }, { data: approaches }, { data: successReports }, { data: suggestedEdits }, pendingOrgs, pendingMemberships] =
+  const [{ data: problems }, { data: requirements }, { data: frameworks }, { data: approaches }, { data: successReports }, { data: suggestedEdits }, pendingOrgs] =
     await Promise.all([
       supabase
         .from("problem_templates")
@@ -68,7 +68,6 @@ export default async function ModerationPage({
         .in("status", ["submitted", "in_review"])
         .order("created_at", { ascending: true }),
       getPendingVerifications(),
-      getPendingMemberships(),
     ]);
 
   const problemCount = problems?.length ?? 0;
@@ -78,7 +77,6 @@ export default async function ModerationPage({
   const srCount = successReports?.length ?? 0;
   const seCount = suggestedEdits?.length ?? 0;
   const orgVerifCount = pendingOrgs.length;
-  const memberVerifCount = pendingMemberships.length;
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
@@ -122,9 +120,6 @@ export default async function ModerationPage({
           </TabsTrigger>
           <TabsTrigger value="org-verification">
             Org Verification ({orgVerifCount})
-          </TabsTrigger>
-          <TabsTrigger value="memberships">
-            Memberships ({memberVerifCount})
           </TabsTrigger>
         </TabsList>
 
@@ -352,37 +347,7 @@ export default async function ModerationPage({
                       <span>Organization is a genuine business entity, not a personal project</span>
                     </label>
                   </div>
-                  <VerificationActions
-                    targetType="organization"
-                    targetId={org.id}
-                  />
-                </CardContent>
-              </Card>
-            ))
-          )}
-        </TabsContent>
-
-        <TabsContent value="memberships" className="mt-4 space-y-3">
-          {memberVerifCount === 0 ? (
-            <p className="text-muted-foreground">No pending membership requests.</p>
-          ) : (
-            pendingMemberships.map((m) => (
-              <Card key={m.id}>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base">
-                    {(m.profiles as unknown as { display_name: string } | null)?.display_name ?? "Unknown"}
-                  </CardTitle>
-                  <p className="text-xs text-muted-foreground">
-                    wants to join{" "}
-                    {(m.organizations as unknown as { name: string } | null)?.name ?? "Unknown org"} ·{" "}
-                    {new Date(m.created_at).toLocaleDateString()}
-                  </p>
-                </CardHeader>
-                <CardContent>
-                  <VerificationActions
-                    targetType="membership"
-                    targetId={m.id}
-                  />
+                  <VerificationActions organizationId={org.id} />
                 </CardContent>
               </Card>
             ))
