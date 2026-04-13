@@ -6,6 +6,7 @@ import { reviewOrganizationVerification, reviewMembership } from "@/lib/actions/
 import type { VerificationDecision } from "@/lib/types/database";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 
 interface VerificationActionsProps {
   targetType: "organization" | "membership";
@@ -14,7 +15,6 @@ interface VerificationActionsProps {
 
 export function VerificationActions({ targetType, targetId }: VerificationActionsProps) {
   const router = useRouter();
-  const [showReject, setShowReject] = useState(false);
   const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -26,12 +26,12 @@ export function VerificationActions({ targetType, targetId }: VerificationAction
         ? await reviewOrganizationVerification({
             organizationId: targetId,
             decision,
-            notes: notes || undefined,
+            notes: notes.trim() || undefined,
           })
         : await reviewMembership({
             membershipId: targetId,
             decision,
-            notes: notes || undefined,
+            notes: notes.trim() || undefined,
           });
 
     setLoading(false);
@@ -43,42 +43,32 @@ export function VerificationActions({ targetType, targetId }: VerificationAction
 
   return (
     <div className="space-y-3">
+      <div className="space-y-1.5">
+        <Label className="text-xs text-muted-foreground">Notes (optional — stored in audit log regardless of decision)</Label>
+        <Textarea
+          placeholder="Reason for approval or rejection..."
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          rows={2}
+        />
+      </div>
       <div className="flex gap-2">
         <Button
           onClick={() => handleAction("approved")}
           disabled={loading}
           size="sm"
         >
-          Approve
+          {loading ? "..." : "Approve"}
         </Button>
         <Button
           variant="destructive"
           size="sm"
-          onClick={() => setShowReject(!showReject)}
+          onClick={() => handleAction("rejected")}
           disabled={loading}
         >
-          Reject
+          {loading ? "..." : "Reject"}
         </Button>
       </div>
-
-      {showReject && (
-        <div className="space-y-2">
-          <Textarea
-            placeholder="Notes (optional)"
-            value={notes}
-            onChange={(e) => setNotes(e.target.value)}
-            rows={2}
-          />
-          <Button
-            variant="destructive"
-            size="sm"
-            onClick={() => handleAction("rejected")}
-            disabled={loading}
-          >
-            Confirm Rejection
-          </Button>
-        </div>
-      )}
     </div>
   );
 }

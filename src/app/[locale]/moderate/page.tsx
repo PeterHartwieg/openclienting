@@ -312,7 +312,19 @@ export default async function ModerationPage({
                 <CardHeader className="pb-2">
                   <CardTitle className="text-base">{org.name}</CardTitle>
                   <p className="text-xs text-muted-foreground">
-                    {org.website && <>{org.website} · </>}
+                    {org.website && (
+                      <>
+                        <a
+                          href={org.website.startsWith("http") ? org.website : `https://${org.website}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline hover:text-foreground"
+                        >
+                          {org.website}
+                        </a>
+                        {" · "}
+                      </>
+                    )}
                     by {(org.profiles as unknown as { display_name: string } | null)?.display_name ?? "Unknown"} ·{" "}
                     {new Date(org.created_at).toLocaleDateString()}
                   </p>
@@ -320,7 +332,26 @@ export default async function ModerationPage({
                     <p className="text-sm text-muted-foreground mt-1">{org.description}</p>
                   )}
                 </CardHeader>
-                <CardContent>
+                <CardContent className="space-y-4">
+                  <div className="rounded-md border bg-muted/30 px-3 py-2 text-xs space-y-1.5">
+                    <p className="font-medium text-muted-foreground uppercase tracking-wide mb-2">Verification checklist</p>
+                    <label className="flex items-start gap-2 cursor-pointer">
+                      <input type="checkbox" className="mt-0.5 shrink-0" />
+                      <span>Website is reachable and represents a real organization</span>
+                    </label>
+                    <label className="flex items-start gap-2 cursor-pointer">
+                      <input type="checkbox" className="mt-0.5 shrink-0" />
+                      <span>Organization name matches the website / public registration</span>
+                    </label>
+                    <label className="flex items-start gap-2 cursor-pointer">
+                      <input type="checkbox" className="mt-0.5 shrink-0" />
+                      <span>Requester appears plausibly connected (email domain, LinkedIn, etc.)</span>
+                    </label>
+                    <label className="flex items-start gap-2 cursor-pointer">
+                      <input type="checkbox" className="mt-0.5 shrink-0" />
+                      <span>Organization is a genuine business entity, not a personal project</span>
+                    </label>
+                  </div>
                   <VerificationActions
                     targetType="organization"
                     targetId={org.id}
