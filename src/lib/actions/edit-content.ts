@@ -31,14 +31,15 @@ async function logAndUpdate(params: {
 
   const supabase = await createClient();
 
-  // Log the edit
-  const { error: historyError } = await supabase.from("edit_history").insert({
+  // Create revision record — goes live immediately, pending moderator recheck
+  const { error: revisionError } = await supabase.from("content_revisions").insert({
     target_type: params.targetType,
     target_id: params.targetId,
     author_id: params.userId,
     diff,
+    snapshot: params.oldValues, // pre-edit state; used for revert
   });
-  if (historyError) return { success: false, error: historyError.message };
+  if (revisionError) return { success: false, error: revisionError.message };
 
   // Apply the update
   const updateData: Record<string, string | null> = {};

@@ -7,6 +7,7 @@ import { ModerationActions } from "@/components/moderate/moderation-actions";
 import { SuggestedEditReview } from "@/components/moderate/suggested-edit-review";
 import { VerificationActions } from "@/components/moderate/verification-actions";
 import { SuccessReportReview } from "@/components/moderate/success-report-review";
+import { RevisionActions } from "@/components/moderate/revision-actions";
 import { getPendingVerifications } from "@/lib/queries/organizations";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -29,7 +30,7 @@ export default async function ModerationPage({
 
   const supabase = await createClient();
 
-  const [{ data: problems }, { data: requirements }, { data: frameworks }, { data: approaches }, { data: successReports }, { data: suggestedEdits }, pendingOrgs] =
+  const [{ data: problems }, { data: requirements }, { data: frameworks }, { data: approaches }, { data: successReports }, { data: suggestedEdits }, pendingOrgs, { data: pendingRevisions }] =
     await Promise.all([
       supabase
         .from("problem_templates")
@@ -68,6 +69,11 @@ export default async function ModerationPage({
         .in("status", ["submitted", "in_review"])
         .order("created_at", { ascending: true }),
       getPendingVerifications(),
+      supabase
+        .from("content_revisions")
+        .select("id, target_type, target_id, diff, created_at, profiles!content_revisions_author_id_fkey(display_name)")
+        .eq("revision_status", "pending_recheck")
+        .order("created_at", { ascending: true }),
     ]);
 
   const problemCount = problems?.length ?? 0;
@@ -77,6 +83,7 @@ export default async function ModerationPage({
   const srCount = successReports?.length ?? 0;
   const seCount = suggestedEdits?.length ?? 0;
   const orgVerifCount = pendingOrgs.length;
+  const revisionCount = pendingRevisions?.length ?? 0;
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
@@ -120,6 +127,9 @@ export default async function ModerationPage({
           </TabsTrigger>
           <TabsTrigger value="org-verification">
             Org Verification ({orgVerifCount})
+          </TabsTrigger>
+          <TabsTrigger value="live-revisions">
+            Live Revisions ({revisionCount})
           </TabsTrigger>
         </TabsList>
 
@@ -351,6 +361,32 @@ export default async function ModerationPage({
                     </label>
                   </div>
                   <VerificationActions organizationId={org.id} />
+                </CardContent>
+              </Card>
+            ))
+          )}
+        </TabsContent>
+        <TabsContent value="live-revisions" className="mt-4 space-y-3">
+          {revisionCount === 0 ? (
+            <p className="text-muted-foreground">No pending live revisions.</p>
+          ) : (
+            pendingRevisions!.map((rev) => (
+              <Card key={rev.id}>
+                <CardHeader className="pb-2">
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline">{rev.target_type}</Badge>
+                    <span className="text-xs text-muted-foreground font-mono">{rev.target_id.slice(0, 8)}...</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    by {(rev.profiles as unknown as { display_name: string } | null)?.display_name ?? "Unknown"} ·{" "}
+                    {new Date(rev.created_at).toLocaleString()}
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <RevisionActions
+                    revisionId={rev.id}
+                    diff={rev.diff as Record<string, { old: string | null; new: string | null }>}
+                  />
                 </CardContent>
               </Card>
             ))

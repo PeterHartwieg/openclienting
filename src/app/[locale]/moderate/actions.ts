@@ -137,6 +137,93 @@ export async function moderateSuccessReport(params: {
   return { success: true };
 }
 
+export async function approveRevision(revisionId: string, reviewerNotes?: string) {
+  const supabase = await createClient();
+
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { success: false, error: "Unauthorized" };
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+
+  if (!profile || !["moderator", "admin"].includes(profile.role)) {
+    return { success: false, error: "Forbidden" };
+  }
+
+  const { error } = await supabase
+    .from("content_revisions")
+    .update({
+      revision_status: "approved",
+      reviewer_id: user.id,
+      reviewed_at: new Date().toISOString(),
+      reviewer_notes: reviewerNotes ?? null,
+    })
+    .eq("id", revisionId);
+
+  if (error) return { success: false, error: error.message };
+  return { success: true };
+}
+
+export async function revertRevision(revisionId: string, reviewerNotes?: string) {
+  const supabase = await createClient();
+
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { success: false, error: "Unauthorized" };
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+
+  if (!profile || !["moderator", "admin"].includes(profile.role)) {
+    return { success: false, error: "Forbidden" };
+  }
+
+  const { data: revision } = await supabase
+    .from("content_revisions")
+    .select("target_type, target_id, diff, snapshot")
+    .eq("id", revisionId)
+    .single();
+
+  if (!revision) return { success: false, error: "Revision not found" };
+
+  // Restore pre-edit state from snapshot (preferred) or diff old-values
+  const restoreData: Record<string, string | null> = {};
+  if (revision.snapshot) {
+    Object.assign(restoreData, revision.snapshot as Record<string, string | null>);
+  } else {
+    const diff = revision.diff as EditDiff;
+    for (const [key, val] of Object.entries(diff)) {
+      restoreData[key] = val.old;
+    }
+  }
+
+  const tableName = targetTypeToTable[revision.target_type as EditTargetType];
+  const { error: restoreError } = await supabase
+    .from(tableName)
+    .update(restoreData)
+    .eq("id", revision.target_id);
+
+  if (restoreError) return { success: false, error: restoreError.message };
+
+  const { error: revisionError } = await supabase
+    .from("content_revisions")
+    .update({
+      revision_status: "reverted",
+      reviewer_id: user.id,
+      reviewed_at: new Date().toISOString(),
+      reviewer_notes: reviewerNotes ?? null,
+    })
+    .eq("id", revisionId);
+
+  if (revisionError) return { success: false, error: revisionError.message };
+  return { success: true };
+}
+
 export async function deleteTag(tagId: string) {
   const supabase = await createClient();
 
