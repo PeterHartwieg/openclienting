@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CookieSettingsButton } from "./cookie-settings-button";
 
 export function Footer() {
   return (
@@ -64,16 +65,29 @@ export function Footer() {
             </nav>
           </div>
 
-          {/* About */}
+          {/* Legal */}
           <div>
-            <h4 className="text-sm font-semibold">About</h4>
+            <h4 className="text-sm font-semibold">Legal</h4>
             <nav className="mt-3 flex flex-col gap-2">
-              <span className="text-sm text-muted-foreground">
-                Independent community platform
-              </span>
-              <span className="text-sm text-muted-foreground">
-                Not affiliated with any vendor
-              </span>
+              <Link
+                href="/en/impressum"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Impressum
+              </Link>
+              <Link
+                href="/en/privacy"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                href="/en/terms"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Terms of Service
+              </Link>
+              <CookieSettingsButton />
             </nav>
           </div>
         </div>
