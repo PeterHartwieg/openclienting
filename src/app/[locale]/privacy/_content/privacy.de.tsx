@@ -93,9 +93,10 @@ export function PrivacyDe() {
             des Dienstes essenziell und erfordern keine Einwilligung.
           </p>
           <p className="mt-1">
-            <strong>Analyse-Cookies</strong> (Google Analytics) werden nur dann
-            gesetzt, wenn du über unser Cookie-Banner ausdrücklich einwilligst.
-            Details siehe Abschnitt 5.
+            <strong>Analyse-Cookies</strong> (geladen über Google Tag Manager,
+            einschließlich Google Analytics 4) werden nur dann gesetzt, wenn du
+            über unser Cookie-Banner ausdrücklich einwilligst. Details siehe
+            Abschnitt 5.
           </p>
 
           <h3 className="mt-4 font-medium">2.5 Google OAuth</h3>
@@ -133,7 +134,8 @@ export function PrivacyDe() {
             </li>
             <li>
               <strong>Google LLC</strong> &mdash; OAuth-Authentifizierung und,
-              falls du einwilligst, Google Analytics (GA4).
+              falls du einwilligst, Google Tag Manager und das darüber geladene
+              Google Analytics 4.
             </li>
             <li>
               <strong>Resend / SendGrid</strong> (geplant) &mdash; transaktionale
@@ -160,19 +162,30 @@ export function PrivacyDe() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold">5. Google Analytics</h2>
+          <h2 className="text-lg font-semibold">
+            5. Google Analytics &amp; Google Tag Manager
+          </h2>
           <p className="mt-2">
-            Wir nutzen Google Analytics 4 (GA4), um zu verstehen, wie
-            Besucher:innen unsere Website verwenden (besuchte Seiten,
-            Verweildauer, Gerätetyp, Land). GA4 anonymisiert IP-Adressen für
-            EU-Datenverkehr standardmäßig.
+            Wir verwenden <strong>Google Tag Manager (GTM)</strong>, um Google
+            Analytics 4 (GA4) auf unserer Website zu laden. GTM selbst erhebt
+            keine Analysedaten, sendet jedoch beim Laden eine Anfrage an Server
+            von Google, bei der die IP-Adresse und der User-Agent deines
+            Browsers protokolliert werden.
           </p>
           <p className="mt-2">
-            Google-Analytics-Cookies (<code>_ga</code>, <code>_gid</code>) werden{" "}
+            Google Analytics 4 ist als Tag innerhalb unseres GTM-Containers
+            konfiguriert, um zu verstehen, wie Besucher:innen unsere Website
+            verwenden (besuchte Seiten, Verweildauer, Gerätetyp, Land). GA4
+            anonymisiert IP-Adressen für EU-Datenverkehr standardmäßig.
+          </p>
+          <p className="mt-2">
+            Sowohl GTM als auch die Cookies, die durch darüber geladene Tags
+            gesetzt werden (<code>_ga</code>, <code>_gid</code>,{" "}
+            <code>_gcl_*</code>), werden{" "}
             <strong>nur nach deiner ausdrücklichen Einwilligung</strong> über
-            unser Cookie-Banner gesetzt. Lehnst du ab, werden keine
-            Analysedaten erfasst und keine Analyse-Cookies auf deinem Gerät
-            gespeichert.
+            unser Cookie-Banner geladen. Lehnst du ab, wird GTM gar nicht erst
+            geladen, es werden keine Analysedaten erfasst und keine
+            Analyse-Cookies auf deinem Gerät gespeichert.
           </p>
           <p className="mt-2">
             Du kannst deine Einwilligung jederzeit widerrufen, indem du im

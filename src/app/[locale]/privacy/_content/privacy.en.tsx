@@ -89,9 +89,9 @@ export function PrivacyEn() {
             function and do not require your consent.
           </p>
           <p className="mt-1">
-            <strong>Analytics cookies</strong> (Google Analytics) are only set if
-            you give explicit consent via our cookie banner. See Section 5 for
-            details.
+            <strong>Analytics cookies</strong> (loaded via Google Tag Manager,
+            including Google Analytics 4) are only set if you give explicit
+            consent via our cookie banner. See Section 5 for details.
           </p>
 
           <h3 className="mt-4 font-medium">2.5 Google OAuth</h3>
@@ -126,7 +126,8 @@ export function PrivacyEn() {
             </li>
             <li>
               <strong>Google LLC</strong> &mdash; OAuth authentication and, if
-              you consent, Google Analytics (GA4).
+              you consent, Google Tag Manager and Google Analytics 4 loaded
+              through it.
             </li>
             <li>
               <strong>Resend / SendGrid</strong> (planned) &mdash; transactional
@@ -152,17 +153,29 @@ export function PrivacyEn() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold">5. Google Analytics</h2>
+          <h2 className="text-lg font-semibold">
+            5. Google Analytics &amp; Google Tag Manager
+          </h2>
           <p className="mt-2">
-            We use Google Analytics 4 (GA4) to understand how visitors use our
-            website (pages visited, time on site, device type, country). GA4
-            anonymises IP addresses by default for traffic from the EU.
+            We use <strong>Google Tag Manager (GTM)</strong> to load Google
+            Analytics 4 (GA4) on our website. GTM itself does not collect
+            analytics data, but when it is loaded it makes a request to
+            Google&apos;s servers, which logs the IP address and user agent of
+            your browser.
           </p>
           <p className="mt-2">
-            Google Analytics cookies (<code>_ga</code>, <code>_gid</code>) are{" "}
-            <strong>only set after you give explicit consent</strong> via our
-            cookie banner. If you decline, no analytics data is collected and no
-            analytics cookies are placed on your device.
+            Google Analytics 4 is configured as a tag inside our GTM container
+            to understand how visitors use our website (pages visited, time on
+            site, device type, country). GA4 anonymises IP addresses by default
+            for traffic from the EU.
+          </p>
+          <p className="mt-2">
+            Both GTM and the cookies set by tags loaded through it (
+            <code>_ga</code>, <code>_gid</code>, <code>_gcl_*</code>) are{" "}
+            <strong>only loaded after you give explicit consent</strong> via
+            our cookie banner. If you decline, GTM is never loaded, no
+            analytics data is collected, and no analytics cookies are placed on
+            your device.
           </p>
           <p className="mt-2">
             You can withdraw your consent at any time by clicking{" "}

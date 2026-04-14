@@ -70,31 +70,35 @@ function getServerConsentSnapshot(): string {
   return SSR_SNAPSHOT;
 }
 
-/** Load GA4 script dynamically — only called after consent */
-function loadGA(measurementId: string) {
-  if (document.querySelector(`script[src*="gtag"]`)) return;
-
-  const script = document.createElement("script");
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
-  script.async = true;
-  document.head.appendChild(script);
+/**
+ * Load Google Tag Manager — only called after consent. GA4 is configured as a
+ * tag inside the GTM container; there is no separate gtag.js loader.
+ */
+function loadGTM(containerId: string) {
+  if (document.querySelector(`script[src*="gtm.js"]`)) return;
 
   window.dataLayer = window.dataLayer || [];
-  function gtag(...args: unknown[]) {
-    window.dataLayer!.push(args);
-  }
-  gtag("js", new Date());
-  gtag("config", measurementId, {
-    anonymize_ip: true,
+  window.dataLayer.push({
+    "gtm.start": Date.now(),
+    event: "gtm.js",
   });
+
+  const script = document.createElement("script");
+  script.src = `https://www.googletagmanager.com/gtm.js?id=${containerId}`;
+  script.async = true;
+  document.head.appendChild(script);
 }
 
-/** Remove GA cookies when consent is withdrawn */
-function removeGACookies() {
+/** Remove GA / GTM cookies when consent is withdrawn */
+function removeAnalyticsCookies() {
   const cookies = document.cookie.split(";");
   for (const cookie of cookies) {
     const name = cookie.split("=")[0].trim();
-    if (name.startsWith("_ga") || name.startsWith("_gid")) {
+    if (
+      name.startsWith("_ga") ||
+      name.startsWith("_gid") ||
+      name.startsWith("_gcl_")
+    ) {
       document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=${window.location.hostname}`;
       document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;`;
     }
@@ -128,16 +132,15 @@ export function CookieConsent() {
   const t = useTranslations("consent");
   const tCommon = useTranslations("common");
 
-  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
 
-  // Load GA whenever the stored consent allows it. The effect mutates the DOM
-  // (script tag injection) but doesn't touch React state, so the React 19
+  // Load GTM whenever the stored consent allows it. The effect mutates the
+  // DOM (script tag injection) but doesn't touch React state, so the React 19
   // set-state-in-effect rule is satisfied.
   useEffect(() => {
-    if (!isSSR && consent?.analytics && gaId) {
-      loadGA(gaId);
-    }
-  }, [isSSR, consent?.analytics, gaId]);
+    if (isSSR || !consent?.analytics) return;
+    if (gtmId) loadGTM(gtmId);
+  }, [isSSR, consent?.analytics, gtmId]);
 
   // Reserve space at the bottom of the page so the fixed banner doesn't
   // overlay the footer. Tracks the dialog's actual height (which changes
@@ -165,23 +168,23 @@ export function CookieConsent() {
 
   const handleAcceptAll = useCallback(() => {
     writeConsent(true);
-    if (gaId) loadGA(gaId);
-  }, [gaId]);
+    if (gtmId) loadGTM(gtmId);
+  }, [gtmId]);
 
   const handleRejectAll = useCallback(() => {
     writeConsent(false);
-    removeGACookies();
+    removeAnalyticsCookies();
   }, []);
 
   const handleSavePreferences = useCallback(() => {
     writeConsent(analyticsChecked);
-    if (analyticsChecked && gaId) {
-      loadGA(gaId);
+    if (analyticsChecked) {
+      if (gtmId) loadGTM(gtmId);
     } else {
-      removeGACookies();
+      removeAnalyticsCookies();
     }
     setShowDetails(false);
-  }, [analyticsChecked, gaId]);
+  }, [analyticsChecked, gtmId]);
 
   if (!visible) return null;
 
