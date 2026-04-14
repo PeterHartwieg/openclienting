@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
 
 const CONSENT_KEY = "oc_cookie_consent";
@@ -78,6 +78,7 @@ export function CookieConsent() {
   const [visible, setVisible] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [analyticsChecked, setAnalyticsChecked] = useState(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
@@ -89,6 +90,30 @@ export function CookieConsent() {
       loadGA(gaId);
     }
   }, [gaId]);
+
+  // Reserve space at the bottom of the page so the fixed banner doesn't
+  // overlay the footer. Tracks the dialog's actual height (which changes
+  // when the user expands "Manage preferences" or resizes the viewport).
+  useEffect(() => {
+    if (!visible) {
+      document.body.style.paddingBottom = "";
+      return;
+    }
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    const update = () => {
+      document.body.style.paddingBottom = `${dialog.offsetHeight}px`;
+    };
+    update();
+
+    const ro = new ResizeObserver(update);
+    ro.observe(dialog);
+    return () => {
+      ro.disconnect();
+      document.body.style.paddingBottom = "";
+    };
+  }, [visible, showDetails]);
 
   const handleAcceptAll = useCallback(() => {
     setConsent(true);
@@ -117,6 +142,7 @@ export function CookieConsent() {
 
   return (
     <div
+      ref={dialogRef}
       role="dialog"
       aria-label="Cookie consent"
       className="fixed inset-x-0 bottom-0 z-50 border-t bg-background p-4 shadow-lg sm:p-6"
