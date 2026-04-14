@@ -1,19 +1,22 @@
 import Link from "next/link";
+import { cookies } from "next/headers";
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/server";
-import { SearchBar } from "@/components/layout/search-bar";
+import { PERSONA_COOKIE, parsePersona } from "@/lib/persona";
+import { PersonaHero } from "@/components/home/persona-hero";
 import { HowItWorks } from "@/components/home/how-it-works";
 import { FeaturedProblems } from "@/components/home/featured-problems";
+import { FeaturedSuccessStory } from "@/components/home/featured-success-story";
+import { ForSmes } from "@/components/home/for-smes";
+import { ForStartups } from "@/components/home/for-startups";
 import { getTagLabel, sortTagsByLocaleLabel } from "@/lib/i18n/tags";
 import {
   FileText,
-  Globe,
+  BadgeCheck,
   Lightbulb,
   Factory,
   Truck,
@@ -58,10 +61,15 @@ export default async function HomePage({
   setRequestLocale(locale);
   const t = await getTranslations("home");
 
+  // Read persona cookie so the first render matches what the user chose last
+  // visit. Client component takes over after hydration and can still toggle.
+  const cookieStore = await cookies();
+  const initialPersona = parsePersona(cookieStore.get(PERSONA_COOKIE)?.value);
+
   const supabase = await createClient();
   const [
     { count: successfulPilotCount },
-    { count: industryCount },
+    { count: verifiedReportCount },
     { count: approachCount },
     { data: industryTagsData },
   ] = await Promise.all([
@@ -71,9 +79,9 @@ export default async function HomePage({
       .eq("status", "published")
       .eq("solution_status", "successful_pilot"),
     supabase
-      .from("tags")
+      .from("success_reports")
       .select("*", { count: "exact", head: true })
-      .eq("category", "industry"),
+      .eq("verification_status", "verified"),
     supabase
       .from("solution_approaches")
       .select("*", { count: "exact", head: true })
@@ -90,56 +98,43 @@ export default async function HomePage({
   );
 
   const stats = [
-    { label: t("statSuccessfulPilots"), value: String(successfulPilotCount ?? 0), icon: FileText },
-    { label: t("statIndustries"), value: String(industryCount ?? 0), icon: Globe },
-    { label: t("statApproaches"), value: String(approachCount ?? 0), icon: Lightbulb },
+    {
+      label: t("statSuccessfulPilots"),
+      value: String(successfulPilotCount ?? 0),
+      icon: FileText,
+    },
+    {
+      label: t("statVerifiedReports"),
+      value: String(verifiedReportCount ?? 0),
+      icon: BadgeCheck,
+    },
+    {
+      label: t("statApproaches"),
+      value: String(approachCount ?? 0),
+      icon: Lightbulb,
+    },
   ];
 
   return (
     <div className="flex flex-col">
-      {/* Hero */}
-      <section className="relative overflow-hidden py-24 sm:py-32">
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
-        <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-          <h1 className="text-display font-bold leading-display tracking-tighter">
-            {t("heroTitle1")}{" "}
-            <span className="text-primary">{t("heroTitle2")}</span>
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-            {t("heroDescription")}
-          </p>
-          <div className="mx-auto mt-8 max-w-md">
-            <SearchBar locale={locale} />
-          </div>
-          <div className="mt-6 flex items-center justify-center gap-4">
-            <Link
-              href={`/${locale}/problems`}
-              className={cn(buttonVariants({ size: "lg" }))}
-            >
-              {t("ctaBrowse")}
-            </Link>
-            <Link
-              href={`/${locale}/submit`}
-              className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
-            >
-              {t("ctaSubmit")}
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Hero with persona toggle */}
+      <PersonaHero locale={locale} initialPersona={initialPersona} />
 
       {/* Stats */}
-      <section className="border-y bg-muted/40 py-10">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 sm:grid-cols-3 sm:px-6 lg:px-8">
+      <section className="border-y bg-muted/40 py-12">
+        <div className="mx-auto grid max-w-md grid-cols-1 gap-5 px-4 sm:px-6 md:max-w-6xl md:grid-cols-3 md:gap-6 lg:px-8">
           {stats.map((stat) => (
-            <div key={stat.label} className="flex items-center justify-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <div
+              key={stat.label}
+              className="flex items-center gap-4 md:justify-center"
+            >
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <stat.icon className="h-5 w-5" />
               </div>
-              <div>
-                <p className="text-2xl font-bold text-primary">{stat.value}</p>
-                <p className="text-sm text-muted-foreground">{stat.label}</p>
-              </div>
+              <p className="text-3xl font-bold text-primary leading-none">
+                {stat.value}
+              </p>
+              <p className="text-sm text-muted-foreground">{stat.label}</p>
             </div>
           ))}
         </div>
@@ -197,28 +192,14 @@ export default async function HomePage({
         <FeaturedProblems locale={locale} />
       </Suspense>
 
-      {/* For Startups CTA */}
-      <section className="border-t bg-gradient-to-br from-primary/5 via-background to-accent/5 py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-h2 font-semibold tracking-tight leading-heading">
-              {t("forStartups")}
-            </h2>
-            <p className="mt-4 text-muted-foreground leading-relaxed">
-              {t("forStartupsDescription")}
-            </p>
-            <Link
-              href={`/${locale}/problems`}
-              className={cn(
-                buttonVariants({ variant: "outline", size: "lg" }),
-                "mt-8"
-              )}
-            >
-              {t("exploreChallenges")}
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Featured Success Story (feature-flagged) */}
+      <FeaturedSuccessStory locale={locale} />
+
+      {/* For SMEs */}
+      <ForSmes locale={locale} />
+
+      {/* For Startups */}
+      <ForStartups locale={locale} />
     </div>
   );
 }

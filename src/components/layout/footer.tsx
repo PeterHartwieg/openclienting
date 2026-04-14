@@ -41,6 +41,12 @@ export async function Footer({ locale }: { locale: string }) {
                 {t("submitProblem")}
               </Link>
               <Link
+                href={`/${locale}/venture-clienting`}
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {t("ventureClienting")}
+              </Link>
+              <Link
                 href={`/${locale}/dashboard`}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
