@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,15 +18,30 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 
 export function LoginDialog() {
+  const t = useTranslations("auth");
+  const tErrors = useTranslations("errors");
+  const locale = useLocale();
+  const pathname = usePathname();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+
+  // Build the post-auth destination so OAuth and magic-link flows preserve
+  // the locale (and current page) the user signed in from. usePathname() in
+  // the [locale] route group returns the locale-prefixed path, e.g.
+  // "/de/problems/abc". Fall back to the locale homepage if pathname is
+  // missing or doesn't start with a slash.
+  function buildCallbackUrl() {
+    const safeNext = pathname && pathname.startsWith("/") ? pathname : `/${locale}`;
+    const next = encodeURIComponent(safeNext);
+    return `${window.location.origin}/auth/callback?next=${next}`;
+  }
 
   async function handleGoogleLogin() {
     const supabase = createClient();
     await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: `${window.location.origin}/auth/callback` },
+      options: { redirectTo: buildCallbackUrl() },
     });
   }
 
@@ -38,27 +55,29 @@ export function LoginDialog() {
     const supabase = createClient();
     const { error } = await supabase.auth.signInWithOtp({
       email: email.trim(),
-      options: { emailRedirectTo: `${window.location.origin}/auth/callback` },
+      options: { emailRedirectTo: buildCallbackUrl() },
     });
 
     setLoading(false);
     if (error) {
-      setMessage(error.message);
+      // Auth provider error messages aren't part of our message catalog;
+      // fall back to a generic translated error if present.
+      setMessage(error.message || tErrors("generic"));
     } else {
-      setMessage("Check your email for the login link!");
+      setMessage(t("magicLinkSent"));
     }
   }
 
   return (
     <Dialog>
       <DialogTrigger render={<Button variant="ghost" size="sm" />}>
-        Sign in
+        {t("signIn")}
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Sign in</DialogTitle>
+          <DialogTitle>{t("signIn")}</DialogTitle>
           <DialogDescription>
-            Sign in to submit problems and contribute to the community.
+            {t("signInRequired")}
           </DialogDescription>
         </DialogHeader>
 
@@ -68,29 +87,29 @@ export function LoginDialog() {
             className="w-full"
             onClick={handleGoogleLogin}
           >
-            Continue with Google
+            {t("signInWithGoogle")}
           </Button>
 
           <div className="flex items-center gap-4">
             <Separator className="flex-1" />
-            <span className="text-xs text-muted-foreground">or</span>
+            <span className="text-xs text-muted-foreground">{t("or")}</span>
             <Separator className="flex-1" />
           </div>
 
           <form onSubmit={handleMagicLink} className="space-y-3">
             <div>
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t("emailLabel")}</Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="you@example.com"
+                placeholder={t("emailPlaceholder")}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Sending..." : "Send magic link"}
+              {loading ? t("magicLinkSending") : t("magicLinkSend")}
             </Button>
           </form>
 

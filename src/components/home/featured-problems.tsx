@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { getPublishedProblems } from "@/lib/queries/problems";
 import { ProblemCard } from "@/components/problems/problem-card";
 import { buttonVariants } from "@/components/ui/button";
@@ -6,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
 
 export async function FeaturedProblems({ locale }: { locale: string }) {
+  const t = await getTranslations("home");
   const problems = await getPublishedProblems();
   const featured = problems.slice(0, 4);
 
@@ -17,10 +19,10 @@ export async function FeaturedProblems({ locale }: { locale: string }) {
         <div className="flex items-end justify-between">
           <div>
             <h2 className="text-h2 font-semibold tracking-tight leading-heading">
-              Recent Problems
+              {t("recentProblems")}
             </h2>
             <p className="mt-2 text-muted-foreground">
-              Latest challenges submitted by the community.
+              {t("recentProblemsSubtitle")}
             </p>
           </div>
           <Link
@@ -30,7 +32,7 @@ export async function FeaturedProblems({ locale }: { locale: string }) {
               "hidden sm:inline-flex"
             )}
           >
-            View all
+            {t("viewAll")}
             <ArrowRight className="ml-1 h-4 w-4" />
           </Link>
         </div>
@@ -57,7 +59,7 @@ export async function FeaturedProblems({ locale }: { locale: string }) {
             href={`/${locale}/problems`}
             className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
           >
-            View all problems
+            {t("viewAllProblems")}
             <ArrowRight className="ml-1 h-4 w-4" />
           </Link>
         </div>

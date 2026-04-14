@@ -1,10 +1,22 @@
 import { Suspense } from "react";
+import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getPublishedProblems } from "@/lib/queries/problems";
 import { getTagsGroupedByCategory } from "@/lib/queries/tags";
 import { ProblemCard } from "@/components/problems/problem-card";
 import { ProblemFilters } from "@/components/problems/problem-filters";
 import { SearchBar } from "@/components/layout/search-bar";
 import { Skeleton } from "@/components/ui/skeleton";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "problemsList" });
+  return { title: t("metaTitle"), description: t("metaDescription") };
+}
 
 export default async function BrowseProblemsPage({
   params,
@@ -14,6 +26,8 @@ export default async function BrowseProblemsPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("problemsList");
   const sp = await searchParams;
 
   const q = typeof sp.q === "string" ? sp.q : undefined;
@@ -35,13 +49,14 @@ export default async function BrowseProblemsPage({
       company_size: companySize,
       solution_status: solutionStatus,
     }),
-    getTagsGroupedByCategory(),
+    getTagsGroupedByCategory(locale),
   ]);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight">Browse Problems</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
+        <p className="mt-1 text-sm text-muted-foreground">{t("subtitle")}</p>
         <div className="mt-4 max-w-xl">
           <Suspense fallback={<Skeleton className="h-10 w-full" />}>
             <SearchBar locale={locale} initialQuery={q} />
@@ -59,16 +74,9 @@ export default async function BrowseProblemsPage({
 
         {/* Problem grid */}
         <div className="flex-1">
-          {problems.length > 0 && (
-            <p className="mb-4 text-sm text-muted-foreground">
-              {problems.length} {problems.length === 1 ? "problem" : "problems"} found
-            </p>
-          )}
           {problems.length === 0 ? (
             <div className="rounded-lg border border-dashed p-12 text-center">
-              <p className="text-muted-foreground">
-                No problems found. {q && "Try a different search term."}
-              </p>
+              <p className="text-muted-foreground">{t("noResults")}</p>
             </div>
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">

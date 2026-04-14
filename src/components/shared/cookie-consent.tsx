@@ -8,22 +8,8 @@ import {
   useSyncExternalStore,
 } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
-
-// Locales the app actively serves. Keep in sync with src/middleware.ts. If the
-// path's first segment matches one of these we use it; otherwise we fall back
-// to "en" so the privacy link doesn't force users out of their current locale.
-const SUPPORTED_LOCALES = ["en"] as const;
-const DEFAULT_LOCALE = "en";
-
-function useCurrentLocale(): string {
-  const pathname = usePathname();
-  const segment = pathname?.split("/")[1] ?? "";
-  return (SUPPORTED_LOCALES as readonly string[]).includes(segment)
-    ? segment
-    : DEFAULT_LOCALE;
-}
 
 const CONSENT_KEY = "oc_cookie_consent";
 const CONSENT_VERSION = 1;
@@ -138,7 +124,9 @@ export function CookieConsent() {
   const [showDetails, setShowDetails] = useState(false);
   const [analyticsChecked, setAnalyticsChecked] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
-  const locale = useCurrentLocale();
+  const locale = useLocale();
+  const t = useTranslations("consent");
+  const tCommon = useTranslations("common");
 
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
@@ -178,8 +166,6 @@ export function CookieConsent() {
   const handleAcceptAll = useCallback(() => {
     writeConsent(true);
     if (gaId) loadGA(gaId);
-    // No setVisible — writeConsent dispatches CONSENT_EVENT, which the
-    // useSyncExternalStore subscription picks up and hides the banner.
   }, [gaId]);
 
   const handleRejectAll = useCallback(() => {
@@ -203,41 +189,38 @@ export function CookieConsent() {
     <div
       ref={dialogRef}
       role="dialog"
-      aria-label="Cookie consent"
+      aria-label={t("title")}
       className="fixed inset-x-0 bottom-0 z-50 border-t bg-background p-4 shadow-lg sm:p-6"
     >
       <div className="mx-auto max-w-4xl">
         {!showDetails ? (
           <>
             <p className="text-sm leading-relaxed text-foreground/90">
-              We use cookies to keep you logged in (strictly necessary) and, with
-              your consent, Google Analytics to understand how the site is used.
-              You can change your preferences at any time via &ldquo;Cookie
-              Settings&rdquo; in the footer.{" "}
+              {t("body")}{" "}
               <Link
                 href={`/${locale}/privacy#5-google-analytics`}
                 className="text-primary underline underline-offset-4 hover:text-primary/80"
               >
-                Learn more
+                {tCommon("edit")}
               </Link>
             </p>
             <div className="mt-4 flex flex-wrap items-center gap-3">
-              <Button onClick={handleAcceptAll}>Accept all</Button>
+              <Button onClick={handleAcceptAll}>{t("accept")}</Button>
               <Button variant="outline" onClick={handleRejectAll}>
-                Reject all
+                {t("decline")}
               </Button>
               <Button
                 variant="ghost"
                 onClick={() => setShowDetails(true)}
                 className="text-muted-foreground"
               >
-                Manage preferences
+                {t("settings")}
               </Button>
             </div>
           </>
         ) : (
           <>
-            <h3 className="text-sm font-semibold">Cookie preferences</h3>
+            <h3 className="text-sm font-semibold">{t("settings")}</h3>
             <div className="mt-4 space-y-3">
               <label className="flex items-start gap-3">
                 <input
@@ -247,13 +230,8 @@ export function CookieConsent() {
                   className="mt-0.5 h-4 w-4 rounded border-border"
                 />
                 <div>
-                  <p className="text-sm font-medium">
-                    Strictly necessary
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    Authentication cookies required for the platform to function.
-                    Cannot be disabled.
-                  </p>
+                  <p className="text-sm font-medium">{t("title")}</p>
+                  <p className="text-xs text-muted-foreground">{t("body")}</p>
                 </div>
               </label>
               <label className="flex items-start gap-3 cursor-pointer">
@@ -264,25 +242,19 @@ export function CookieConsent() {
                   className="mt-0.5 h-4 w-4 rounded border-border"
                 />
                 <div>
-                  <p className="text-sm font-medium">
-                    Analytics (Google Analytics)
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    Help us understand how visitors use the site. Data is
-                    anonymised and sent to Google. Cookies: _ga, _gid (retention:
-                    up to 2 months).
-                  </p>
+                  <p className="text-sm font-medium">Google Analytics</p>
+                  <p className="text-xs text-muted-foreground">{t("body")}</p>
                 </div>
               </label>
             </div>
             <div className="mt-4 flex flex-wrap items-center gap-3">
-              <Button onClick={handleSavePreferences}>Save preferences</Button>
+              <Button onClick={handleSavePreferences}>{tCommon("save")}</Button>
               <Button
                 variant="ghost"
                 onClick={() => setShowDetails(false)}
                 className="text-muted-foreground"
               >
-                Back
+                {tCommon("back")}
               </Button>
             </div>
           </>

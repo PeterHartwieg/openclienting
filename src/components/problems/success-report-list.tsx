@@ -8,6 +8,7 @@ import {
   Clock,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { formatDate } from "@/lib/i18n/format";
 
 interface SuccessReport {
   id: string;
@@ -26,9 +27,10 @@ interface SuccessReport {
 
 interface SuccessReportListProps {
   reports: SuccessReport[];
+  locale?: string;
 }
 
-export function SuccessReportList({ reports }: SuccessReportListProps) {
+export function SuccessReportList({ reports, locale = "en" }: SuccessReportListProps) {
   if (reports.length === 0) return null;
 
   return (
@@ -40,13 +42,13 @@ export function SuccessReportList({ reports }: SuccessReportListProps) {
         </p>
       </div>
       {reports.map((report) => (
-        <SuccessReportCard key={report.id} report={report} />
+        <SuccessReportCard key={report.id} report={report} locale={locale} />
       ))}
     </div>
   );
 }
 
-function SuccessReportCard({ report }: { report: SuccessReport }) {
+function SuccessReportCard({ report, locale }: { report: SuccessReport; locale: string }) {
   const isVerified = report.verification_status === "verified";
 
   const authorLabel = report.is_publicly_anonymous
@@ -61,11 +63,7 @@ function SuccessReportCard({ report }: { report: SuccessReport }) {
 
   const kpiItems = parseKpis(report.kpi_summary);
 
-  const formattedDate = new Date(report.created_at).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
+  const formattedDate = formatDate(report.created_at, locale, "medium");
 
   return (
     <div

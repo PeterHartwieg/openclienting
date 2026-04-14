@@ -1,21 +1,16 @@
 "use client";
 
+import { useLocale, useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
+import { getTagLabel } from "@/lib/i18n/tags";
 
 interface TagOption {
   id: string;
   name: string;
+  name_de?: string | null;
   slug: string;
   category: string;
 }
-
-const categoryLabels: Record<string, string> = {
-  industry: "Industry",
-  function: "Function",
-  problem_category: "Problem Category",
-  company_size: "Company Size",
-  technology: "Technology",
-};
 
 interface TagSelectorProps {
   tagsByCategory: Record<string, TagOption[]>;
@@ -28,6 +23,15 @@ export function TagSelector({
   selectedIds,
   onChange,
 }: TagSelectorProps) {
+  const locale = useLocale();
+  const tTags = useTranslations("tags");
+  const categoryLabels: Record<string, string> = {
+    industry: tTags("categoryIndustry"),
+    function: tTags("categoryFunction"),
+    problem_category: tTags("categoryProblemCategory"),
+    company_size: tTags("categoryCompanySize"),
+    technology: tTags("categoryTechnology"),
+  };
   function toggle(tagId: string) {
     if (selectedIds.includes(tagId)) {
       onChange(selectedIds.filter((id) => id !== tagId));
@@ -55,7 +59,7 @@ export function TagSelector({
                     className="cursor-pointer select-none"
                     onClick={() => toggle(tag.id)}
                   >
-                    {tag.name}
+                    {getTagLabel(tag, locale)}
                   </Badge>
                 );
               })}

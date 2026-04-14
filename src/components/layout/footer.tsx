@@ -1,7 +1,12 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { CookieSettingsButton } from "./cookie-settings-button";
+import { LanguageSwitcher } from "./language-switcher";
 
-export function Footer() {
+export async function Footer({ locale }: { locale: string }) {
+  const t = await getTranslations("footer");
+  const tCommon = await getTranslations("common");
+
   return (
     <footer className="border-t bg-muted/30">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -9,42 +14,44 @@ export function Footer() {
           {/* Brand — full width on mobile */}
           <div className="col-span-2 md:col-span-1">
             <p className="text-lg font-bold tracking-tight text-primary">
-              OpenClienting
+              {tCommon("appName")}
             </p>
             <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-              Open-source venture clienting knowledge base. Crowdsourced by the
-              community, for the community.
+              {t("tagline")}
             </p>
+            <div className="mt-4">
+              <LanguageSwitcher />
+            </div>
           </div>
 
           {/* Platform */}
           <div>
-            <h4 className="text-sm font-semibold">Platform</h4>
+            <h4 className="text-sm font-semibold">{t("platform")}</h4>
             <nav className="mt-3 flex flex-col gap-2">
               <Link
-                href="/en/problems"
+                href={`/${locale}/problems`}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                Browse Problems
+                {t("browseProblems")}
               </Link>
               <Link
-                href="/en/submit"
+                href={`/${locale}/submit`}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                Submit a Problem
+                {t("submitProblem")}
               </Link>
               <Link
-                href="/en/dashboard"
+                href={`/${locale}/dashboard`}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                Dashboard
+                {t("howItWorks")}
               </Link>
             </nav>
           </div>
 
           {/* Community */}
           <div>
-            <h4 className="text-sm font-semibold">Community</h4>
+            <h4 className="text-sm font-semibold">{t("community")}</h4>
             <nav className="mt-3 flex flex-col gap-2">
               <a
                 href="https://github.com/PeterHartwieg/openclienting"
@@ -52,7 +59,7 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                GitHub
+                {t("github")}
               </a>
               <a
                 href="https://github.com/PeterHartwieg/openclienting/issues"
@@ -60,32 +67,32 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                Contributing
+                {t("contact")}
               </a>
             </nav>
           </div>
 
           {/* Legal */}
           <div>
-            <h4 className="text-sm font-semibold">Legal</h4>
+            <h4 className="text-sm font-semibold">{t("legal")}</h4>
             <nav className="mt-3 flex flex-col gap-2">
               <Link
-                href="/en/impressum"
+                href={`/${locale}/impressum`}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                Impressum
+                {t("impressum")}
               </Link>
               <Link
-                href="/en/privacy"
+                href={`/${locale}/privacy`}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                Privacy Policy
+                {t("privacy")}
               </Link>
               <Link
-                href="/en/terms"
+                href={`/${locale}/terms`}
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                Terms of Service
+                {t("terms")}
               </Link>
               <CookieSettingsButton />
             </nav>
@@ -94,7 +101,7 @@ export function Footer() {
 
         <div className="mt-10 border-t pt-6 text-center">
           <p className="text-xs text-muted-foreground">
-            OpenClienting.org &mdash; Open source &middot; Community driven
+            OpenClienting.org &mdash; {t("rights")}
           </p>
         </div>
       </div>

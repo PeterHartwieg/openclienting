@@ -1,37 +1,25 @@
 import { Search, PenLine, Rocket } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-const steps = [
-  {
-    icon: Search,
-    title: "Browse Real Problems",
-    description:
-      "Explore validated business challenges from SMEs across industries, complete with requirements and success criteria.",
-  },
-  {
-    icon: PenLine,
-    title: "Contribute Solutions",
-    description:
-      "Submit problem templates, add requirements, propose pilot frameworks, and share your domain expertise.",
-  },
-  {
-    icon: Rocket,
-    title: "Pilot Together",
-    description:
-      "Use structured pilot playbooks to test solutions. Report success stories and help the community learn.",
-  },
-];
+export async function HowItWorks() {
+  const t = await getTranslations("home");
 
-export function HowItWorks() {
+  const steps = [
+    { icon: Search, title: t("step1Title"), description: t("step1Body") },
+    { icon: PenLine, title: t("step2Title"), description: t("step2Body") },
+    { icon: Rocket, title: t("step3Title"), description: t("step3Body") },
+  ];
+
   return (
     <section className="py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="text-h2 font-semibold tracking-tight leading-heading">
-            How It Works
+            {t("howItWorksTitle")}
           </h2>
           <p className="mt-3 text-muted-foreground">
-            From problem discovery to successful pilots — in three steps.
+            {t("howItWorksSubtitle")}
           </p>
         </div>
         <div className="mt-12 grid gap-8 sm:grid-cols-3">

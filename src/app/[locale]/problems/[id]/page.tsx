@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import {
   AlignLeft,
   FileText,
@@ -28,7 +29,9 @@ export default async function ProblemDetailPage({
 }: {
   params: Promise<{ locale: string; id: string }>;
 }) {
-  const { id } = await params;
+  const { locale, id } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("problemDetail");
 
   let problem;
   try {
@@ -96,7 +99,17 @@ export default async function ProblemDetailPage({
     .order("created_at", { ascending: true });
 
   const tags = (problem.problem_tags ?? [])
-    .map((pt: { tags: { id: string; name: string; slug: string; category: string } | null }) => pt.tags)
+    .map(
+      (pt: {
+        tags: {
+          id: string;
+          name: string;
+          name_de?: string | null;
+          slug: string;
+          category: string;
+        } | null;
+      }) => pt.tags,
+    )
     .filter(Boolean);
 
   const publishedRequirements = (problem.requirements ?? [])
@@ -151,7 +164,7 @@ export default async function ProblemDetailPage({
     profile: { display_name: string | null } | null | undefined,
     org: { id: string; name: string } | null | undefined,
   ) => {
-    const displayName = isPublicAnon ? "Anonymous" : profile?.display_name ?? "Unknown";
+    const displayName = isPublicAnon ? t("anonymous") : profile?.display_name ?? t("unknown");
     const orgIdShown = isOrgAnon ? null : org?.id ?? null;
     const orgNameShown = isOrgAnon ? null : org?.name ?? null;
     const stableAuthor = authorId ?? "unknown";
@@ -209,16 +222,16 @@ export default async function ProblemDetailPage({
     .slice(0, 8);
 
   const tocItems = [
-    { id: "description", label: "Description", icon: AlignLeft },
-    { id: "requirements", label: "Requirements", icon: FileText, count: requirementCount },
-    { id: "pilot-frameworks", label: "Pilot Frameworks", icon: Beaker, count: frameworkCount },
-    { id: "solution-approaches", label: "Solution Approaches", icon: Lightbulb, count: approachCount },
-    { id: "discussion", label: "Discussion", icon: MessageCircle, count: topLevelCommentCount },
+    { id: "description", label: t("description"), icon: AlignLeft },
+    { id: "requirements", label: t("requirements"), icon: FileText, count: requirementCount },
+    { id: "pilot-frameworks", label: t("pilotFrameworks"), icon: Beaker, count: frameworkCount },
+    { id: "solution-approaches", label: t("approaches"), icon: Lightbulb, count: approachCount },
+    { id: "discussion", label: t("discussion"), icon: MessageCircle, count: topLevelCommentCount },
   ];
 
   const heroAuthorName = problem.is_publicly_anonymous
-    ? "Anonymous"
-    : problem.profiles?.display_name ?? "Unknown";
+    ? t("anonymous")
+    : problem.profiles?.display_name ?? t("unknown");
   const heroOrgName = problem.is_org_anonymous
     ? null
     : (problem.organizations as { id: string; name: string } | null)?.name ?? null;
@@ -232,6 +245,7 @@ export default async function ProblemDetailPage({
         orgName={heroOrgName}
         createdAt={problem.created_at}
         tags={tags}
+        locale={locale}
         stats={{
           requirements: requirementCount,
           frameworks: frameworkCount,
@@ -246,7 +260,7 @@ export default async function ProblemDetailPage({
           <ProblemSection
             id="description"
             icon={AlignLeft}
-            title="Description"
+            title={t("description")}
             accent="primary"
           >
             <p className="whitespace-pre-wrap text-base leading-relaxed">
@@ -267,8 +281,8 @@ export default async function ProblemDetailPage({
                   targetType="problem_template"
                   targetId={problem.id}
                   fields={[
-                    { key: "title", label: "Title", value: problem.title },
-                    { key: "description", label: "Description", value: problem.description, multiline: true },
+                    { key: "title", label: t("fieldTitle"), value: problem.title },
+                    { key: "description", label: t("fieldDescription"), value: problem.description, multiline: true },
                   ]}
                 />
               </div>
@@ -278,7 +292,7 @@ export default async function ProblemDetailPage({
           <ProblemSection
             id="requirements"
             icon={FileText}
-            title="Requirements"
+            title={t("requirements")}
             count={requirementCount}
             accent="blue"
           >
@@ -297,7 +311,7 @@ export default async function ProblemDetailPage({
           <ProblemSection
             id="pilot-frameworks"
             icon={Beaker}
-            title="Pilot Frameworks"
+            title={t("pilotFrameworks")}
             count={frameworkCount}
             accent="violet"
           >
@@ -316,7 +330,7 @@ export default async function ProblemDetailPage({
           <ProblemSection
             id="solution-approaches"
             icon={Lightbulb}
-            title="Solution Approaches"
+            title={t("approaches")}
             count={approachCount}
             accent="amber"
           >
@@ -337,7 +351,7 @@ export default async function ProblemDetailPage({
           <ProblemSection
             id="discussion"
             icon={MessageCircle}
-            title="Discussion"
+            title={t("discussion")}
             count={topLevelCommentCount}
             accent="slate"
           >
@@ -350,7 +364,7 @@ export default async function ProblemDetailPage({
           </ProblemSection>
         </div>
 
-        <ProblemTocSidebar items={tocItems} contributors={contributors} />
+        <ProblemTocSidebar items={tocItems} contributors={contributors} locale={locale} />
       </div>
     </div>
   );

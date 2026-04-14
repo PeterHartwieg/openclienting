@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createTag, deleteTag } from "@/app/[locale]/moderate/actions";
+import { useTranslations } from "next-intl";
+import { createTag, deleteTag, updateTagTranslation } from "@/app/[locale]/moderate/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,16 +18,17 @@ import {
 interface Tag {
   id: string;
   name: string;
+  name_de?: string | null;
   slug: string;
   category: string;
 }
 
-const categories = [
-  { value: "industry", label: "Industry" },
-  { value: "function", label: "Function" },
-  { value: "problem_category", label: "Problem Category" },
-  { value: "company_size", label: "Company Size" },
-  { value: "technology", label: "Technology" },
+const categoryOrder = [
+  "industry",
+  "function",
+  "problem_category",
+  "company_size",
+  "technology",
 ];
 
 export function TagManager({
@@ -35,10 +37,26 @@ export function TagManager({
   tagsByCategory: Record<string, Tag[]>;
 }) {
   const router = useRouter();
+  const t = useTranslations("moderate");
+  const tCommon = useTranslations("common");
+  const tTags = useTranslations("tags");
+  const tErrors = useTranslations("errors");
+
+  const categoryLabels: Record<string, string> = {
+    industry: tTags("categoryIndustry"),
+    function: tTags("categoryFunction"),
+    problem_category: tTags("categoryProblemCategory"),
+    company_size: tTags("categoryCompanySize"),
+    technology: tTags("categoryTechnology"),
+  };
+
   const [name, setName] = useState("");
+  const [nameDe, setNameDe] = useState("");
   const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [editingTagId, setEditingTagId] = useState<string | null>(null);
+  const [editingValue, setEditingValue] = useState("");
 
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
@@ -53,14 +71,20 @@ export function TagManager({
       .replace(/\s+/g, "_")
       .replace(/[^a-z0-9_]/g, "");
 
-    const result = await createTag({ name: name.trim(), slug, category });
+    const result = await createTag({
+      name: name.trim(),
+      name_de: nameDe.trim() || null,
+      slug,
+      category,
+    });
     setLoading(false);
 
     if (result.success) {
       setName("");
+      setNameDe("");
       router.refresh();
     } else {
-      setError(result.error ?? "Failed to create tag.");
+      setError(result.error ?? tErrors("generic"));
     }
   }
 
@@ -71,69 +95,141 @@ export function TagManager({
     }
   }
 
+  async function handleSaveTranslation(tagId: string) {
+    const result = await updateTagTranslation({
+      tagId,
+      name_de: editingValue.trim() || null,
+    });
+    if (result.success) {
+      setEditingTagId(null);
+      setEditingValue("");
+      router.refresh();
+    }
+  }
+
   return (
     <div className="space-y-8">
       {/* Add tag form */}
       <form onSubmit={handleCreate} className="space-y-3">
-        <h3 className="text-lg font-semibold">Add Tag</h3>
-        <div className="flex gap-3 items-end">
+        <h3 className="text-lg font-semibold">{t("addTag")}</h3>
+        <div className="flex flex-wrap gap-3 items-end">
           <div className="space-y-1">
-            <Label htmlFor="tag-name">Name</Label>
+            <Label htmlFor="tag-name">{t("tagName")}</Label>
             <Input
               id="tag-name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Tag name"
+              placeholder={t("tagName")}
               required
             />
           </div>
           <div className="space-y-1">
-            <Label>Category</Label>
+            <Label htmlFor="tag-name-de">{t("tagNameDe")}</Label>
+            <Input
+              id="tag-name-de"
+              value={nameDe}
+              onChange={(e) => setNameDe(e.target.value)}
+              placeholder={t("tagNameDe")}
+            />
+          </div>
+          <div className="space-y-1">
+            <Label>{t("tagCategory")}</Label>
             <Select value={category} onValueChange={(val) => setCategory(val ?? "")} required>
               <SelectTrigger className="w-48">
-                <SelectValue placeholder="Select category" />
+                <SelectValue placeholder={t("tagCategory")} />
               </SelectTrigger>
               <SelectContent>
-                {categories.map((cat) => (
-                  <SelectItem key={cat.value} value={cat.value}>
-                    {cat.label}
+                {categoryOrder.map((value) => (
+                  <SelectItem key={value} value={value}>
+                    {categoryLabels[value] ?? value}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
           <Button type="submit" disabled={loading}>
-            {loading ? "Adding..." : "Add"}
+            {loading ? tCommon("loading") : t("addTag")}
           </Button>
         </div>
         {error && <p className="text-sm text-red-600">{error}</p>}
       </form>
 
       {/* Tag list by category */}
-      {categories.map(({ value, label }) => {
+      {categoryOrder.map((value) => {
         const tags = tagsByCategory[value] ?? [];
+        const label = categoryLabels[value] ?? value;
         return (
           <div key={value}>
             <h3 className="text-lg font-semibold">{label}</h3>
             {tags.length === 0 ? (
-              <p className="text-sm text-muted-foreground mt-1">No tags.</p>
+              <p className="text-sm text-muted-foreground mt-1">{t("noPending")}</p>
             ) : (
-              <div className="mt-2 flex flex-wrap gap-2">
-                {tags.map((tag) => (
-                  <div
-                    key={tag.id}
-                    className="flex items-center gap-1 rounded-md border px-2 py-1 text-sm"
-                  >
-                    <span>{tag.name}</span>
-                    <button
-                      onClick={() => handleDelete(tag.id)}
-                      className="ml-1 text-muted-foreground hover:text-destructive"
-                      title="Delete tag"
+              <div className="mt-2 flex flex-col gap-1">
+                {tags.map((tag) => {
+                  const isEditing = editingTagId === tag.id;
+                  return (
+                    <div
+                      key={tag.id}
+                      className="flex flex-wrap items-center gap-2 rounded-md border px-3 py-2 text-sm"
                     >
-                      x
-                    </button>
-                  </div>
-                ))}
+                      <span className="font-medium">{tag.name}</span>
+                      <span className="text-muted-foreground">·</span>
+                      {isEditing ? (
+                        <>
+                          <Input
+                            value={editingValue}
+                            onChange={(e) => setEditingValue(e.target.value)}
+                            placeholder={t("tagNameDe")}
+                            className="h-7 w-40"
+                          />
+                          <Button
+                            size="sm"
+                            type="button"
+                            onClick={() => handleSaveTranslation(tag.id)}
+                          >
+                            {tCommon("save")}
+                          </Button>
+                          <Button
+                            size="sm"
+                            type="button"
+                            variant="ghost"
+                            onClick={() => {
+                              setEditingTagId(null);
+                              setEditingValue("");
+                            }}
+                          >
+                            {tCommon("cancel")}
+                          </Button>
+                        </>
+                      ) : (
+                        <>
+                          <span className="text-muted-foreground italic">
+                            {tag.name_de || "—"}
+                          </span>
+                          <Button
+                            size="sm"
+                            type="button"
+                            variant="ghost"
+                            onClick={() => {
+                              setEditingTagId(tag.id);
+                              setEditingValue(tag.name_de ?? "");
+                            }}
+                          >
+                            {tCommon("edit")}
+                          </Button>
+                        </>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(tag.id)}
+                        className="ml-auto text-muted-foreground hover:text-destructive"
+                        title={tCommon("delete")}
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>

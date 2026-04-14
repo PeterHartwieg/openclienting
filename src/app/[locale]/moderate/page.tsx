@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { requireRole } from "@/lib/auth/roles";
 import { createClient } from "@/lib/supabase/server";
 import { StatusBadge } from "@/components/shared/status-badge";
@@ -14,6 +16,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { formatDate } from "@/lib/i18n/format";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "moderate" });
+  return { title: t("metaTitle") };
+}
 
 export default async function ModerationPage({
   params,
@@ -21,6 +34,8 @@ export default async function ModerationPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("moderate");
 
   try {
     await requireRole("moderator");
@@ -88,54 +103,38 @@ export default async function ModerationPage({
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">Moderation Queue</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
         <div className="flex gap-2">
           <Link
             href={`/${locale}/moderate/history`}
             className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
           >
-            Edit History
+            {t("editHistory")}
           </Link>
           <Link
             href={`/${locale}/moderate/tags`}
             className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
           >
-            Manage Tags
+            {t("manageTags")}
           </Link>
         </div>
       </div>
 
       <Tabs defaultValue="problems" className="mt-8">
         <TabsList>
-          <TabsTrigger value="problems">
-            Problems ({problemCount})
-          </TabsTrigger>
-          <TabsTrigger value="requirements">
-            Requirements ({reqCount})
-          </TabsTrigger>
-          <TabsTrigger value="frameworks">
-            Frameworks ({fwCount})
-          </TabsTrigger>
-          <TabsTrigger value="solutions">
-            Solutions ({saCount})
-          </TabsTrigger>
-          <TabsTrigger value="success-reports">
-            Success Reports ({srCount})
-          </TabsTrigger>
-          <TabsTrigger value="suggested-edits">
-            Edits ({seCount})
-          </TabsTrigger>
-          <TabsTrigger value="org-verification">
-            Org Verification ({orgVerifCount})
-          </TabsTrigger>
-          <TabsTrigger value="live-revisions">
-            Live Revisions ({revisionCount})
-          </TabsTrigger>
+          <TabsTrigger value="problems">{t("tabProblems")} ({problemCount})</TabsTrigger>
+          <TabsTrigger value="requirements">{t("tabRequirements")} ({reqCount})</TabsTrigger>
+          <TabsTrigger value="frameworks">{t("tabFrameworks")} ({fwCount})</TabsTrigger>
+          <TabsTrigger value="solutions">{t("tabSolutions")} ({saCount})</TabsTrigger>
+          <TabsTrigger value="success-reports">{t("tabSuccessReports")} ({srCount})</TabsTrigger>
+          <TabsTrigger value="suggested-edits">{t("tabEdits")} ({seCount})</TabsTrigger>
+          <TabsTrigger value="org-verification">{t("tabOrgVerification")} ({orgVerifCount})</TabsTrigger>
+          <TabsTrigger value="live-revisions">{t("tabLiveRevisions")} ({revisionCount})</TabsTrigger>
         </TabsList>
 
         <TabsContent value="problems" className="mt-4 space-y-3">
           {problemCount === 0 ? (
-            <p className="text-muted-foreground">No pending problems.</p>
+            <p className="text-muted-foreground">{t("noPendingProblems")}</p>
           ) : (
             problems!.map((p) => (
               <Card key={p.id}>
@@ -149,8 +148,8 @@ export default async function ModerationPage({
                     <StatusBadge status={p.status} />
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    by {(p.profiles as unknown as { display_name: string } | null)?.display_name ?? "Unknown"} ·{" "}
-                    {new Date(p.created_at).toLocaleDateString()}
+                    {t("byUser", { name: (p.profiles as unknown as { display_name: string } | null)?.display_name ?? t("unknown") })} ·{" "}
+                    {formatDate(p.created_at, locale, "medium")}
                   </p>
                 </CardHeader>
                 <CardContent>
@@ -166,7 +165,7 @@ export default async function ModerationPage({
 
         <TabsContent value="requirements" className="mt-4 space-y-3">
           {reqCount === 0 ? (
-            <p className="text-muted-foreground">No pending requirements.</p>
+            <p className="text-muted-foreground">{t("noPendingRequirements")}</p>
           ) : (
             requirements!.map((r) => (
               <Card key={r.id}>
@@ -175,8 +174,8 @@ export default async function ModerationPage({
                     {r.body.length > 100 ? r.body.slice(0, 100) + "..." : r.body}
                   </CardTitle>
                   <p className="text-xs text-muted-foreground">
-                    by {(r.profiles as unknown as { display_name: string } | null)?.display_name ?? "Unknown"} ·{" "}
-                    {new Date(r.created_at).toLocaleDateString()}
+                    {t("byUser", { name: (r.profiles as unknown as { display_name: string } | null)?.display_name ?? t("unknown") })} ·{" "}
+                    {formatDate(r.created_at, locale, "medium")}
                   </p>
                 </CardHeader>
                 <CardContent>
@@ -192,7 +191,7 @@ export default async function ModerationPage({
 
         <TabsContent value="frameworks" className="mt-4 space-y-3">
           {fwCount === 0 ? (
-            <p className="text-muted-foreground">No pending frameworks.</p>
+            <p className="text-muted-foreground">{t("noPendingFrameworks")}</p>
           ) : (
             frameworks!.map((f) => (
               <Card key={f.id}>
@@ -202,11 +201,11 @@ export default async function ModerationPage({
                       ? f.scope.length > 100
                         ? f.scope.slice(0, 100) + "..."
                         : f.scope
-                      : "Pilot Framework"}
+                      : t("pilotFrameworkPlaceholder")}
                   </CardTitle>
                   <p className="text-xs text-muted-foreground">
-                    by {(f.profiles as unknown as { display_name: string } | null)?.display_name ?? "Unknown"} ·{" "}
-                    {new Date(f.created_at).toLocaleDateString()}
+                    {t("byUser", { name: (f.profiles as unknown as { display_name: string } | null)?.display_name ?? t("unknown") })} ·{" "}
+                    {formatDate(f.created_at, locale, "medium")}
                   </p>
                 </CardHeader>
                 <CardContent>
@@ -222,15 +221,15 @@ export default async function ModerationPage({
 
         <TabsContent value="solutions" className="mt-4 space-y-3">
           {saCount === 0 ? (
-            <p className="text-muted-foreground">No pending solution approaches.</p>
+            <p className="text-muted-foreground">{t("noPendingSolutions")}</p>
           ) : (
             approaches!.map((sa) => (
               <Card key={sa.id}>
                 <CardHeader className="pb-2">
                   <CardTitle className="text-base">{sa.title}</CardTitle>
                   <p className="text-xs text-muted-foreground">
-                    by {(sa.profiles as unknown as { display_name: string } | null)?.display_name ?? "Unknown"} ·{" "}
-                    {new Date(sa.created_at).toLocaleDateString()}
+                    {t("byUser", { name: (sa.profiles as unknown as { display_name: string } | null)?.display_name ?? t("unknown") })} ·{" "}
+                    {formatDate(sa.created_at, locale, "medium")}
                   </p>
                 </CardHeader>
                 <CardContent>
@@ -246,7 +245,7 @@ export default async function ModerationPage({
 
         <TabsContent value="success-reports" className="mt-4 space-y-3">
           {srCount === 0 ? (
-            <p className="text-muted-foreground">No pending success reports.</p>
+            <p className="text-muted-foreground">{t("noPendingSuccessReports")}</p>
           ) : (
             successReports!.map((sr) => {
               const profiles = sr.profiles as unknown as { display_name: string | null } | null;
@@ -256,7 +255,7 @@ export default async function ModerationPage({
                   <CardHeader className="pb-2">
                     <div className="flex items-center justify-between">
                       <CardTitle className="text-base text-sm font-medium">
-                        Success report · {new Date(sr.created_at).toLocaleDateString()}
+                        {t("successReportLabel")} · {formatDate(sr.created_at, locale, "medium")}
                       </CardTitle>
                       <StatusBadge status={sr.verification_status ?? sr.status} />
                     </div>
@@ -284,7 +283,7 @@ export default async function ModerationPage({
 
         <TabsContent value="suggested-edits" className="mt-4 space-y-3">
           {seCount === 0 ? (
-            <p className="text-muted-foreground">No pending suggested edits.</p>
+            <p className="text-muted-foreground">{t("noPendingEdits")}</p>
           ) : (
             suggestedEdits!.map((se) => (
               <Card key={se.id}>
@@ -294,8 +293,8 @@ export default async function ModerationPage({
                     <span className="text-xs text-muted-foreground font-mono">{se.target_id.slice(0, 8)}...</span>
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    by {(se.profiles as unknown as { display_name: string } | null)?.display_name ?? "Unknown"} ·{" "}
-                    {new Date(se.created_at).toLocaleDateString()}
+                    {t("byUser", { name: (se.profiles as unknown as { display_name: string } | null)?.display_name ?? t("unknown") })} ·{" "}
+                    {formatDate(se.created_at, locale, "medium")}
                   </p>
                 </CardHeader>
                 <CardContent>
@@ -310,7 +309,7 @@ export default async function ModerationPage({
         </TabsContent>
         <TabsContent value="org-verification" className="mt-4 space-y-3">
           {orgVerifCount === 0 ? (
-            <p className="text-muted-foreground">No pending organization verifications.</p>
+            <p className="text-muted-foreground">{t("noPendingOrgs")}</p>
           ) : (
             pendingOrgs.map((org) => (
               <Card key={org.id}>
@@ -330,11 +329,11 @@ export default async function ModerationPage({
                         {" · "}
                       </>
                     )}
-                    by {(org.profiles as unknown as { display_name: string | null; email: string | null } | null)?.display_name ?? "Unknown"}
+                    {t("byUser", { name: (org.profiles as unknown as { display_name: string | null; email: string | null } | null)?.display_name ?? t("unknown") })}
                     {" "}
-                    ({(org.profiles as unknown as { display_name: string | null; email: string | null } | null)?.email ?? "no email"})
+                    ({(org.profiles as unknown as { display_name: string | null; email: string | null } | null)?.email ?? t("noEmail")})
                     {" · "}
-                    {new Date(org.created_at).toLocaleDateString()}
+                    {formatDate(org.created_at, locale, "medium")}
                   </p>
                   {org.description && (
                     <p className="text-sm text-muted-foreground mt-1">{org.description}</p>
@@ -342,22 +341,22 @@ export default async function ModerationPage({
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="rounded-md border bg-muted/30 px-3 py-2 text-xs space-y-1.5">
-                    <p className="font-medium text-muted-foreground uppercase tracking-wide mb-2">Verification checklist</p>
+                    <p className="font-medium text-muted-foreground uppercase tracking-wide mb-2">{t("verificationChecklist")}</p>
                     <label className="flex items-start gap-2 cursor-pointer">
                       <input type="checkbox" className="mt-0.5 shrink-0" />
-                      <span>Website is reachable and represents a real organization</span>
+                      <span>{t("checkWebsiteReachable")}</span>
                     </label>
                     <label className="flex items-start gap-2 cursor-pointer">
                       <input type="checkbox" className="mt-0.5 shrink-0" />
-                      <span>Organization name matches the website / public registration</span>
+                      <span>{t("checkOrgNameMatches")}</span>
                     </label>
                     <label className="flex items-start gap-2 cursor-pointer">
                       <input type="checkbox" className="mt-0.5 shrink-0" />
-                      <span>Requester appears plausibly connected (email domain, LinkedIn, etc.)</span>
+                      <span>{t("checkRequesterPlausible")}</span>
                     </label>
                     <label className="flex items-start gap-2 cursor-pointer">
                       <input type="checkbox" className="mt-0.5 shrink-0" />
-                      <span>Organization is a genuine business entity, not a personal project</span>
+                      <span>{t("checkGenuineBusiness")}</span>
                     </label>
                   </div>
                   <VerificationActions organizationId={org.id} />
@@ -368,7 +367,7 @@ export default async function ModerationPage({
         </TabsContent>
         <TabsContent value="live-revisions" className="mt-4 space-y-3">
           {revisionCount === 0 ? (
-            <p className="text-muted-foreground">No pending live revisions.</p>
+            <p className="text-muted-foreground">{t("noPendingRevisions")}</p>
           ) : (
             pendingRevisions!.map((rev) => (
               <Card key={rev.id}>
@@ -378,8 +377,8 @@ export default async function ModerationPage({
                     <span className="text-xs text-muted-foreground font-mono">{rev.target_id.slice(0, 8)}...</span>
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    by {(rev.profiles as unknown as { display_name: string } | null)?.display_name ?? "Unknown"} ·{" "}
-                    {new Date(rev.created_at).toLocaleString()}
+                    {t("byUser", { name: (rev.profiles as unknown as { display_name: string } | null)?.display_name ?? t("unknown") })} ·{" "}
+                    {formatDate(rev.created_at, locale, "long")}
                   </p>
                 </CardHeader>
                 <CardContent>

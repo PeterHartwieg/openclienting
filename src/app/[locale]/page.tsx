@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Suspense } from "react";
+import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -8,6 +10,7 @@ import { createClient } from "@/lib/supabase/server";
 import { SearchBar } from "@/components/layout/search-bar";
 import { HowItWorks } from "@/components/home/how-it-works";
 import { FeaturedProblems } from "@/components/home/featured-problems";
+import { getTagLabel, sortTagsByLocaleLabel } from "@/lib/i18n/tags";
 import {
   FileText,
   Globe,
@@ -18,16 +21,33 @@ import {
   Zap,
   HardHat,
   HeartPulse,
+  Tag as TagIcon,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
-const industries = [
-  { name: "Manufacturing", slug: "manufacturing", icon: Factory },
-  { name: "Logistics", slug: "logistics", icon: Truck },
-  { name: "Retail", slug: "retail", icon: ShoppingCart },
-  { name: "Energy", slug: "energy", icon: Zap },
-  { name: "Construction", slug: "construction", icon: HardHat },
-  { name: "Healthcare", slug: "healthcare", icon: HeartPulse },
-];
+// Icon mapping for known industry slugs. Falls back to a generic Tag icon for
+// any new industry tag added by moderators.
+const INDUSTRY_ICONS: Record<string, LucideIcon> = {
+  manufacturing: Factory,
+  logistics: Truck,
+  retail: ShoppingCart,
+  energy: Zap,
+  construction: HardHat,
+  healthcare: HeartPulse,
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "home" });
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+  };
+}
 
 export default async function HomePage({
   params,
@@ -35,12 +55,15 @@ export default async function HomePage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("home");
 
   const supabase = await createClient();
   const [
     { count: successfulPilotCount },
     { count: industryCount },
     { count: approachCount },
+    { data: industryTagsData },
   ] = await Promise.all([
     supabase
       .from("problem_templates")
@@ -55,12 +78,21 @@ export default async function HomePage({
       .from("solution_approaches")
       .select("*", { count: "exact", head: true })
       .eq("status", "published"),
+    supabase.from("tags").select("*").eq("category", "industry"),
   ]);
 
+  const industries = sortTagsByLocaleLabel(industryTagsData ?? [], locale).map(
+    (tag) => ({
+      slug: tag.slug,
+      label: getTagLabel(tag, locale),
+      icon: INDUSTRY_ICONS[tag.slug] ?? TagIcon,
+    }),
+  );
+
   const stats = [
-    { label: "Problems with successful pilots", value: String(successfulPilotCount ?? 0), icon: FileText },
-    { label: "Industries covered", value: String(industryCount ?? 0), icon: Globe },
-    { label: "Solution approaches proposed", value: String(approachCount ?? 0), icon: Lightbulb },
+    { label: t("statSuccessfulPilots"), value: String(successfulPilotCount ?? 0), icon: FileText },
+    { label: t("statIndustries"), value: String(industryCount ?? 0), icon: Globe },
+    { label: t("statApproaches"), value: String(approachCount ?? 0), icon: Lightbulb },
   ];
 
   return (
@@ -70,12 +102,11 @@ export default async function HomePage({
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
         <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
           <h1 className="text-display font-bold leading-display tracking-tighter">
-            Real Problems.{" "}
-            <span className="text-primary">Open Solutions.</span>
+            {t("heroTitle1")}{" "}
+            <span className="text-primary">{t("heroTitle2")}</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-            SMEs crowdsource problem templates and pilot playbooks. Startups
-            discover unsolved challenges to position their solutions against.
+            {t("heroDescription")}
           </p>
           <div className="mx-auto mt-8 max-w-md">
             <SearchBar locale={locale} />
@@ -85,13 +116,13 @@ export default async function HomePage({
               href={`/${locale}/problems`}
               className={cn(buttonVariants({ size: "lg" }))}
             >
-              Browse Problems
+              {t("ctaBrowse")}
             </Link>
             <Link
               href={`/${locale}/submit`}
               className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
             >
-              Submit a Problem
+              {t("ctaSubmit")}
             </Link>
           </div>
         </div>
@@ -121,10 +152,10 @@ export default async function HomePage({
       <section className="border-t bg-muted/20 py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-h2 font-semibold tracking-tight leading-heading">
-            Explore by Industry
+            {t("exploreByIndustry")}
           </h2>
           <p className="mt-2 text-muted-foreground">
-            Find real challenges specific to your sector.
+            {t("exploreByIndustrySubtitle")}
           </p>
           <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
             {industries.map((industry) => (
@@ -138,7 +169,7 @@ export default async function HomePage({
                       <industry.icon className="h-5 w-5" />
                     </div>
                     <CardTitle className="mt-2 text-sm font-medium">
-                      {industry.name}
+                      {industry.label}
                     </CardTitle>
                   </CardHeader>
                 </Card>
@@ -171,12 +202,10 @@ export default async function HomePage({
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-h2 font-semibold tracking-tight leading-heading">
-              For Startups
+              {t("forStartups")}
             </h2>
             <p className="mt-4 text-muted-foreground leading-relaxed">
-              Discover real, unsolved challenges from SMEs. Position your
-              solution against validated problem templates with clear
-              requirements and success criteria.
+              {t("forStartupsDescription")}
             </p>
             <Link
               href={`/${locale}/problems`}
@@ -185,7 +214,7 @@ export default async function HomePage({
                 "mt-8"
               )}
             >
-              Explore Challenges
+              {t("exploreChallenges")}
             </Link>
           </div>
         </div>

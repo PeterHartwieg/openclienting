@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getCurrentUser } from "@/lib/auth/roles";
 import { createClient } from "@/lib/supabase/server";
 import { StatusBadge } from "@/components/shared/status-badge";
@@ -11,6 +13,17 @@ import {
 } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { formatDate } from "@/lib/i18n/format";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "dashboard" });
+  return { title: t("metaTitle") };
+}
 
 export default async function DashboardPage({
   params,
@@ -18,6 +31,8 @@ export default async function DashboardPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("dashboard");
   const user = await getCurrentUser();
 
   if (!user) {
@@ -44,28 +59,30 @@ export default async function DashboardPage({
       .limit(20),
   ]);
 
+  const unreadCount = (notifications ?? []).filter((n) => !n.read).length;
+
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
         <div className="flex gap-2">
           <Link
             href={`/${locale}/dashboard/organizations`}
             className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
           >
-            Organizations
+            {t("organizations")}
           </Link>
           <Link
             href={`/${locale}/dashboard/settings`}
             className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
           >
-            Settings
+            {t("settings")}
           </Link>
           <Link
             href={`/${locale}/submit`}
             className={cn(buttonVariants({ size: "sm" }))}
           >
-            Submit Problem
+            {t("submitProblem")}
           </Link>
         </div>
       </div>
@@ -74,7 +91,7 @@ export default async function DashboardPage({
       {notifications && notifications.length > 0 && (
         <div className="mt-8">
           <h2 className="text-xl font-semibold">
-            Notifications ({notifications.filter((n) => !n.read).length} unread)
+            {t("notifications")} ({t("unread", { count: unreadCount })})
           </h2>
           <div className="mt-4 space-y-2">
             {notifications.map((n) => (
@@ -94,7 +111,7 @@ export default async function DashboardPage({
                     {n.body && <p className="text-xs text-muted-foreground truncate">{n.body}</p>}
                   </div>
                   <span className="text-xs text-muted-foreground shrink-0">
-                    {new Date(n.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                    {formatDate(n.created_at, locale, "short")}
                   </span>
                 </CardContent>
               </Card>
@@ -104,13 +121,11 @@ export default async function DashboardPage({
       )}
 
       <div className="mt-8">
-        <h2 className="text-xl font-semibold">Your Submissions</h2>
+        <h2 className="text-xl font-semibold">{t("yourSubmissions")}</h2>
 
         {!submissions || submissions.length === 0 ? (
           <div className="mt-4 rounded-lg border border-dashed p-12 text-center">
-            <p className="text-muted-foreground">
-              You haven&apos;t submitted any problems yet.
-            </p>
+            <p className="text-muted-foreground">{t("noProblems")}</p>
           </div>
         ) : (
           <div className="mt-4 space-y-3">
@@ -125,12 +140,7 @@ export default async function DashboardPage({
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      Submitted{" "}
-                      {new Date(sub.created_at).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      })}
+                      {t("submittedAt", { date: formatDate(sub.created_at, locale, "medium") })}
                     </p>
                   </CardContent>
                 </Card>
@@ -141,13 +151,11 @@ export default async function DashboardPage({
       </div>
 
       <div className="mt-8">
-        <h2 className="text-xl font-semibold">Your Solution Approaches</h2>
+        <h2 className="text-xl font-semibold">{t("yourSolutionApproaches")}</h2>
 
         {!solutionApproaches || solutionApproaches.length === 0 ? (
           <div className="mt-4 rounded-lg border border-dashed p-12 text-center">
-            <p className="text-muted-foreground">
-              You haven&apos;t proposed any solution approaches yet.
-            </p>
+            <p className="text-muted-foreground">{t("noApproaches")}</p>
           </div>
         ) : (
           <div className="mt-4 space-y-3">
@@ -162,12 +170,7 @@ export default async function DashboardPage({
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground">
-                      Submitted{" "}
-                      {new Date(sa.created_at).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      })}
+                      {t("submittedAt", { date: formatDate(sa.created_at, locale, "medium") })}
                     </p>
                   </CardContent>
                 </Card>

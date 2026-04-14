@@ -16,7 +16,7 @@ export default async function TagManagementPage({
     redirect(`/${locale}`);
   }
 
-  const tagsByCategory = await getTagsGroupedByCategory();
+  const tagsByCategory = await getTagsGroupedByCategory(locale);
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">

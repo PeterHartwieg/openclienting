@@ -9,12 +9,16 @@ import {
   MessageCircle,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { TagBadge } from "@/components/shared/tag-badge";
 import { SolutionStatusBadge } from "@/components/shared/solution-status-badge";
+import { getTagLabel } from "@/lib/i18n/tags";
+import { formatDate } from "@/lib/i18n/format";
 
 interface Tag {
   id: string;
   name: string;
+  name_de?: string | null;
   category: string;
 }
 
@@ -25,6 +29,7 @@ interface ProblemHeroProps {
   orgName: string | null;
   createdAt: string;
   tags: Tag[];
+  locale: string;
   stats: {
     requirements: number;
     frameworks: number;
@@ -34,20 +39,18 @@ interface ProblemHeroProps {
   };
 }
 
-export function ProblemHero({
+export async function ProblemHero({
   title,
   status,
   authorName,
   orgName,
   createdAt,
   tags,
+  locale,
   stats,
 }: ProblemHeroProps) {
-  const formattedDate = new Date(createdAt).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const t = await getTranslations({ locale, namespace: "problemDetail" });
+  const formattedDate = formatDate(createdAt, locale, "long");
 
   return (
     <div className="relative overflow-hidden rounded-2xl border bg-gradient-to-br from-primary/[0.06] via-background to-background p-6 sm:p-8">
@@ -79,17 +82,21 @@ export function ProblemHero({
       {tags.length > 0 && (
         <div className="mt-4 flex flex-wrap gap-1.5">
           {tags.map((tag) => (
-            <TagBadge key={tag.id} name={tag.name} category={tag.category} />
+            <TagBadge
+              key={tag.id}
+              name={getTagLabel(tag, locale)}
+              category={tag.category}
+            />
           ))}
         </div>
       )}
 
       <div className="mt-6 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
-        <StatPill icon={FileText} label="Requirements" value={stats.requirements} accent="blue" />
-        <StatPill icon={Beaker} label="Frameworks" value={stats.frameworks} accent="violet" />
-        <StatPill icon={Lightbulb} label="Approaches" value={stats.approaches} accent="amber" />
-        <StatPill icon={CheckCircle2} label="Successful Pilots" value={stats.successfulPilots} accent="green" />
-        <StatPill icon={MessageCircle} label="Comments" value={stats.discussions} accent="slate" />
+        <StatPill icon={FileText} label={t("statRequirements")} value={stats.requirements} accent="blue" />
+        <StatPill icon={Beaker} label={t("statFrameworks")} value={stats.frameworks} accent="violet" />
+        <StatPill icon={Lightbulb} label={t("statApproaches")} value={stats.approaches} accent="amber" />
+        <StatPill icon={CheckCircle2} label={t("statSuccessfulPilots")} value={stats.successfulPilots} accent="green" />
+        <StatPill icon={MessageCircle} label={t("statComments")} value={stats.discussions} accent="slate" />
       </div>
     </div>
   );

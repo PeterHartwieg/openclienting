@@ -1,4 +1,5 @@
 import type { LucideIcon } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 interface TocItem {
   id: string;
@@ -16,15 +17,17 @@ interface Contributor {
 interface ProblemTocSidebarProps {
   items: TocItem[];
   contributors: Contributor[];
+  locale: string;
 }
 
-export function ProblemTocSidebar({ items, contributors }: ProblemTocSidebarProps) {
+export async function ProblemTocSidebar({ items, contributors, locale }: ProblemTocSidebarProps) {
+  const t = await getTranslations({ locale, namespace: "problemDetail" });
   return (
     <aside className="hidden lg:block w-72 shrink-0">
       <div className="sticky top-24 space-y-4">
         <div className="rounded-xl border bg-card p-4">
           <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            On this page
+            {t("onThisPage")}
           </h3>
           <nav className="mt-3 space-y-0.5">
             {items.map((item) => (
@@ -50,7 +53,7 @@ export function ProblemTocSidebar({ items, contributors }: ProblemTocSidebarProp
         {contributors.length > 0 && (
           <div className="rounded-xl border bg-card p-4">
             <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              Contributors
+              {t("contributors")}
             </h3>
             <ul className="mt-3 space-y-2.5">
               {contributors.map((c, i) => (

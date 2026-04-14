@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,6 +20,8 @@ interface UserMenuProps {
 
 export function UserMenu({ displayName, role, locale }: UserMenuProps) {
   const router = useRouter();
+  const t = useTranslations("nav");
+  const tAuth = useTranslations("auth");
 
   async function handleLogout() {
     const supabase = createClient();
@@ -29,19 +32,21 @@ export function UserMenu({ displayName, role, locale }: UserMenuProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger render={<Button variant="ghost" size="sm" />}>
-        {displayName ?? "Account"}
+        {displayName ?? tAuth("profile")}
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => router.push(`/${locale}/dashboard`)}>
-          Dashboard
+          {t("dashboard")}
         </DropdownMenuItem>
         {(role === "moderator" || role === "admin") && (
           <DropdownMenuItem onClick={() => router.push(`/${locale}/moderate`)}>
-            Moderation
+            {t("moderate")}
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleLogout}>Sign out</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout}>
+          {tAuth("signOut")}
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

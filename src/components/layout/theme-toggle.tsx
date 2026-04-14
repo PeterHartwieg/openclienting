@@ -2,6 +2,7 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Sun, Moon, Monitor } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -16,6 +17,7 @@ const cycle = ["light", "dark", "system"] as const;
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const t = useTranslations("nav");
 
   useEffect(() => setMounted(true), []);
 
@@ -23,7 +25,7 @@ export function ThemeToggle() {
     return (
       <Button variant="ghost" size="sm" className="h-8 w-8 px-0" disabled>
         <Monitor className="h-4 w-4" />
-        <span className="sr-only">Toggle theme</span>
+        <span className="sr-only">{t("themeToggle")}</span>
       </Button>
     );
   }
@@ -38,11 +40,10 @@ export function ThemeToggle() {
       size="sm"
       className="h-8 w-8 px-0"
       onClick={() => setTheme(cycle[nextIndex])}
+      aria-label={t("themeToggle")}
     >
       <Icon className="h-4 w-4" />
-      <span className="sr-only">
-        Switch to {cycle[nextIndex]} theme
-      </span>
+      <span className="sr-only">{t("themeToggle")}</span>
     </Button>
   );
 }

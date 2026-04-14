@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { getLocale } from "next-intl/server";
 import { ThemeProvider } from "@/components/theme-provider";
-import { CookieConsentWrapper } from "@/components/shared/cookie-consent";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -18,24 +18,29 @@ export const metadata: Metadata = {
   title: "OpenClienting.org",
   description:
     "Open-source venture clienting knowledge base — crowdsource problem templates and pilot playbooks for SMEs and startups.",
+  alternates: {
+    languages: {
+      en: "/en",
+      de: "/de",
+    },
+  },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col">
-        <ThemeProvider>
-          {children}
-          <CookieConsentWrapper />
-        </ThemeProvider>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { submitSuggestedEdit } from "@/lib/actions/suggested-edits";
 import type { EditTargetType, EditDiff } from "@/lib/types/database";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,7 @@ interface SuggestEditFormProps {
 
 export function SuggestEditForm({ targetType, targetId, fields }: SuggestEditFormProps) {
   const router = useRouter();
+  const t = useTranslations("problemDetail");
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [form, setForm] = useState<Record<string, string>>(
@@ -26,7 +28,7 @@ export function SuggestEditForm({ targetType, targetId, fields }: SuggestEditFor
   if (!open) {
     return (
       <Button variant="ghost" size="sm" onClick={() => setOpen(true)} className="text-xs">
-        Suggest Edit
+        {t("suggestEditOpen")}
       </Button>
     );
   }
@@ -56,7 +58,7 @@ export function SuggestEditForm({ targetType, targetId, fields }: SuggestEditFor
 
   return (
     <form onSubmit={handleSubmit} className="mt-2 space-y-3 rounded-lg border border-dashed p-4">
-      <p className="text-xs font-medium text-muted-foreground">Suggest changes (moderator approval required)</p>
+      <p className="text-xs font-medium text-muted-foreground">{t("suggestEditHeader")}</p>
       {fields.map((field) => (
         <div key={field.key} className="space-y-1">
           <Label className="text-sm">{field.label}</Label>
@@ -76,10 +78,10 @@ export function SuggestEditForm({ targetType, targetId, fields }: SuggestEditFor
       ))}
       <div className="flex gap-2">
         <Button type="submit" size="sm" disabled={isPending}>
-          {isPending ? "Submitting..." : "Submit Suggestion"}
+          {isPending ? t("suggestEditSubmitting") : t("suggestEditSubmit")}
         </Button>
         <Button type="button" variant="ghost" size="sm" onClick={() => setOpen(false)}>
-          Cancel
+          {t("suggestEditCancel")}
         </Button>
       </div>
     </form>

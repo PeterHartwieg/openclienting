@@ -4,6 +4,8 @@ import { createClient } from "@/lib/supabase/server";
 
 import type { EditDiff, EditTargetType } from "@/lib/types/database";
 
+type SupabaseServer = Awaited<ReturnType<typeof createClient>>;
+
 type TargetType = "problem_templates" | "requirements" | "pilot_frameworks" | "solution_approaches" | "success_reports" | "suggested_edits";
 type Action = "publish" | "reject";
 
@@ -13,6 +15,31 @@ const targetTypeToTable: Record<EditTargetType, string> = {
   pilot_framework: "pilot_frameworks",
   solution_approach: "solution_approaches",
 };
+
+// Server actions are not a security boundary on their own — any caller who
+// can hit the action endpoint can invoke them. RLS protects most tables, but
+// the `tags` taxonomy is editable by the service role used by these actions,
+// so we must enforce moderator/admin role here before any tag mutation.
+async function requireModerator(
+  supabase: SupabaseServer,
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { ok: false, error: "Unauthorized" };
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+
+  if (!profile || !["moderator", "admin"].includes(profile.role)) {
+    return { ok: false, error: "Forbidden" };
+  }
+
+  return { ok: true };
+}
 
 export async function moderateItem(params: {
   targetType: TargetType;
@@ -82,16 +109,42 @@ export async function moderateItem(params: {
 
 export async function createTag(params: {
   name: string;
+  name_de?: string | null;
   slug: string;
   category: string;
 }) {
   const supabase = await createClient();
 
+  const auth = await requireModerator(supabase);
+  if (!auth.ok) return { success: false, error: auth.error };
+
+  const trimmedDe = params.name_de?.trim();
+
   const { error } = await supabase.from("tags").insert({
     name: params.name.trim(),
+    name_de: trimmedDe ? trimmedDe : null,
     slug: params.slug.trim().toLowerCase(),
     category: params.category,
   });
+
+  if (error) return { success: false, error: error.message };
+  return { success: true };
+}
+
+export async function updateTagTranslation(params: {
+  tagId: string;
+  name_de: string | null;
+}) {
+  const supabase = await createClient();
+
+  const auth = await requireModerator(supabase);
+  if (!auth.ok) return { success: false, error: auth.error };
+
+  const trimmed = params.name_de?.trim();
+  const { error } = await supabase
+    .from("tags")
+    .update({ name_de: trimmed ? trimmed : null })
+    .eq("id", params.tagId);
 
   if (error) return { success: false, error: error.message };
   return { success: true };
@@ -226,6 +279,9 @@ export async function revertRevision(revisionId: string, reviewerNotes?: string)
 
 export async function deleteTag(tagId: string) {
   const supabase = await createClient();
+
+  const auth = await requireModerator(supabase);
+  if (!auth.ok) return { success: false, error: auth.error };
 
   const { error } = await supabase.from("tags").delete().eq("id", tagId);
 

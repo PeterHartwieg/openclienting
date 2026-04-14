@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button";
@@ -14,6 +15,8 @@ interface MobileNavProps {
 
 export function MobileNav({ locale, authSlot }: MobileNavProps) {
   const [open, setOpen] = useState(false);
+  const t = useTranslations("nav");
+  const tCommon = useTranslations("common");
 
   return (
     <>
@@ -22,7 +25,7 @@ export function MobileNav({ locale, authSlot }: MobileNavProps) {
         size="sm"
         className="h-8 w-8 px-0 md:hidden"
         onClick={() => setOpen(!open)}
-        aria-label={open ? "Close menu" : "Open menu"}
+        aria-label={open ? tCommon("close") : t("openMenu")}
         aria-expanded={open}
       >
         {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -36,18 +39,16 @@ export function MobileNav({ locale, authSlot }: MobileNavProps) {
               className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
               onClick={() => setOpen(false)}
             >
-              Browse Problems
+              {t("browseProblems")}
             </Link>
             <Link
               href={`/${locale}/submit`}
               className={cn(buttonVariants({ size: "sm" }), "w-fit")}
               onClick={() => setOpen(false)}
             >
-              Submit Problem
+              {t("submitProblem")}
             </Link>
-            <div className="mt-2 border-t pt-2">
-              {authSlot}
-            </div>
+            <div className="mt-2 border-t pt-2">{authSlot}</div>
           </nav>
         </div>
       )}

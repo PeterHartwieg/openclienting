@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getCurrentUser } from "@/lib/auth/roles";
@@ -8,7 +9,11 @@ import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { MobileNav } from "@/components/layout/mobile-nav";
 
 export async function Header({ locale }: { locale: string }) {
-  const user = await getCurrentUser();
+  const [user, t, tCommon] = await Promise.all([
+    getCurrentUser(),
+    getTranslations("nav"),
+    getTranslations("common"),
+  ]);
 
   const authSlot = user ? (
     <UserMenu
@@ -27,7 +32,7 @@ export async function Header({ locale }: { locale: string }) {
           href={`/${locale}`}
           className="text-xl font-bold tracking-tight text-primary"
         >
-          OpenClienting
+          {tCommon("appName")}
         </Link>
 
         {/* Desktop nav */}
@@ -36,14 +41,14 @@ export async function Header({ locale }: { locale: string }) {
             href={`/${locale}/problems`}
             className="py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
-            Browse Problems
+            {t("browseProblems")}
           </Link>
           <ThemeToggle />
           <Link
             href={`/${locale}/submit`}
             className={cn(buttonVariants({ size: "sm" }))}
           >
-            Submit Problem
+            {t("submitProblem")}
           </Link>
           {authSlot}
         </nav>

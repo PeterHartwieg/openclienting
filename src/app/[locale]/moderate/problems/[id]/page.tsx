@@ -5,6 +5,7 @@ import { TagBadge } from "@/components/shared/tag-badge";
 import { StatusBadge } from "@/components/shared/status-badge";
 import { ModerationActions } from "@/components/moderate/moderation-actions";
 import { Separator } from "@/components/ui/separator";
+import { getTagLabel } from "@/lib/i18n/tags";
 
 export default async function ModerateProblemPage({
   params,
@@ -28,7 +29,17 @@ export default async function ModerateProblemPage({
   if (!problem) notFound();
 
   const tags = (problem.problem_tags ?? [])
-    .map((pt: { tags: { id: string; name: string; slug: string; category: string } | null }) => pt.tags)
+    .map(
+      (pt: {
+        tags: {
+          id: string;
+          name: string;
+          name_de?: string | null;
+          slug: string;
+          category: string;
+        } | null;
+      }) => pt.tags,
+    )
     .filter(Boolean);
 
   return (
@@ -48,9 +59,20 @@ export default async function ModerateProblemPage({
 
       {tags.length > 0 && (
         <div className="mt-3 flex flex-wrap gap-1.5">
-          {tags.map((tag: { id: string; name: string; category: string }) => (
-            <TagBadge key={tag.id} name={tag.name} category={tag.category} />
-          ))}
+          {tags.map(
+            (tag: {
+              id: string;
+              name: string;
+              name_de?: string | null;
+              category: string;
+            }) => (
+              <TagBadge
+                key={tag.id}
+                name={getTagLabel(tag, locale)}
+                category={tag.category}
+              />
+            ),
+          )}
         </div>
       )}
 

@@ -1,11 +1,19 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TagBadge } from "@/components/shared/tag-badge";
 import { SolutionStatusBadge } from "@/components/shared/solution-status-badge";
+import { getTagLabel } from "@/lib/i18n/tags";
 
 interface ProblemTag {
   tag_id: string;
-  tags: { id: string; name: string; slug: string; category: string } | null;
+  tags: {
+    id: string;
+    name: string;
+    name_de?: string | null;
+    slug: string;
+    category: string;
+  } | null;
 }
 
 interface ProblemCardProps {
@@ -23,7 +31,7 @@ interface ProblemCardProps {
 
 const MAX_VISIBLE_TAGS = 3;
 
-export function ProblemCard({
+export async function ProblemCard({
   id,
   title,
   description,
@@ -35,6 +43,7 @@ export function ProblemCard({
   solutionStatus,
   locale,
 }: ProblemCardProps) {
+  const t = await getTranslations({ locale, namespace: "problemDetail" });
   const validTags = problemTags.filter((pt) => pt.tags);
   const visibleTags = validTags.slice(0, MAX_VISIBLE_TAGS);
   const overflowCount = validTags.length - MAX_VISIBLE_TAGS;
@@ -52,7 +61,7 @@ export function ProblemCard({
           <div className="flex items-center gap-2 mt-1">
             <p className="text-sm text-muted-foreground">
               {[
-                is_publicly_anonymous ? "Anonymous" : (author?.display_name ?? "Unknown"),
+                is_publicly_anonymous ? t("anonymous") : (author?.display_name ?? t("unknown")),
                 is_org_anonymous ? null : (organization?.name ?? null),
               ].filter(Boolean).join(" · ")}
             </p>
@@ -68,13 +77,13 @@ export function ProblemCard({
               {visibleTags.map((pt) => (
                 <TagBadge
                   key={pt.tag_id}
-                  name={pt.tags!.name}
+                  name={getTagLabel(pt.tags!, locale)}
                   category={pt.tags!.category}
                 />
               ))}
               {overflowCount > 0 && (
                 <span className="text-xs text-muted-foreground">
-                  +{overflowCount} more
+                  {t("moreTags", { count: overflowCount })}
                 </span>
               )}
             </div>

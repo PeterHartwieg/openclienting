@@ -2,10 +2,12 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Input } from "@/components/ui/input";
 
 export function SearchBar({ locale, initialQuery }: { locale: string; initialQuery?: string }) {
   const router = useRouter();
+  const t = useTranslations("common");
   const [query, setQuery] = useState(initialQuery ?? "");
 
   function handleSubmit(e: React.FormEvent) {
@@ -18,11 +20,11 @@ export function SearchBar({ locale, initialQuery }: { locale: string; initialQue
     <form onSubmit={handleSubmit} className="w-full" role="search">
       <Input
         type="search"
-        placeholder="Search problems..."
+        placeholder={t("searchPlaceholder")}
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         className="w-full"
-        aria-label="Search problems"
+        aria-label={t("search")}
       />
     </form>
   );

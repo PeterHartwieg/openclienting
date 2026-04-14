@@ -1,13 +1,9 @@
 import { type NextRequest, NextResponse } from "next/server";
+import createMiddleware from "next-intl/middleware";
+import { routing } from "@/i18n/routing";
 import { updateSession } from "@/lib/supabase/middleware";
 
-const defaultLocale = "en";
-const locales = [defaultLocale];
-
-function getLocaleFromPath(pathname: string): string | null {
-  const segment = pathname.split("/")[1];
-  return locales.includes(segment) ? segment : null;
-}
+const intlMiddleware = createMiddleware(routing);
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -22,16 +18,18 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Redirect bare paths to default locale
-  const locale = getLocaleFromPath(pathname);
-  if (!locale) {
-    const url = request.nextUrl.clone();
-    url.pathname = `/${defaultLocale}${pathname}`;
-    return NextResponse.redirect(url);
+  // Let next-intl handle locale detection & redirects first.
+  const intlResponse = intlMiddleware(request);
+
+  // If next-intl issued a redirect or rewrite, return it as-is — Supabase
+  // session refresh will run on the next request after the redirect lands.
+  if (intlResponse.status !== 200) {
+    return intlResponse;
   }
 
-  // Refresh Supabase auth session
-  return updateSession(request);
+  // Otherwise, refresh the Supabase session, seeding the response with the
+  // headers next-intl already set (rewrite headers, locale cookie, etc.).
+  return updateSession(request, intlResponse);
 }
 
 export const config = {

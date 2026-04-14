@@ -2,12 +2,15 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { getTagLabel } from "@/lib/i18n/tags";
 
 interface TagOption {
   id: string;
   name: string;
+  name_de?: string | null;
   slug: string;
   category: string;
 }
@@ -17,16 +20,17 @@ interface ProblemFiltersProps {
   locale: string;
 }
 
-const categoryLabels: Record<string, string> = {
-  industry: "Industry",
-  function: "Function",
-  problem_category: "Problem Category",
-  company_size: "Company Size",
-};
-
 export function ProblemFilters({ tagsByCategory, locale }: ProblemFiltersProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const t = useTranslations("problemsList");
+
+  const categoryLabels: Record<string, string> = {
+    industry: t("filterIndustry"),
+    function: t("filterFunction"),
+    problem_category: t("filterCategory"),
+    company_size: t("filterCompanySize"),
+  };
 
   const toggleFilter = useCallback(
     (category: string, slug: string) => {
@@ -50,21 +54,21 @@ export function ProblemFilters({ tagsByCategory, locale }: ProblemFiltersProps) 
   );
 
   const solutionStatusOptions = [
-    { slug: "unsolved", label: "Unsolved" },
-    { slug: "has_approaches", label: "Has Approaches" },
-    { slug: "successful_pilot", label: "Successful Pilot" },
+    { slug: "unsolved", label: t("statusUnsolved") },
+    { slug: "has_approaches", label: t("statusHasApproaches") },
+    { slug: "successful_pilot", label: t("statusSuccessfulPilot") },
   ];
 
   return (
     <aside className="w-full space-y-6">
       {hasActiveFilters && (
         <Button variant="ghost" size="sm" onClick={clearFilters}>
-          Clear all filters
+          {t("filterClear")}
         </Button>
       )}
 
       <div>
-        <h3 className="mb-2 text-sm font-semibold">Solution Status</h3>
+        <h3 className="mb-2 text-sm font-semibold">{t("filterSolutionStatus")}</h3>
         <div className="flex flex-wrap gap-1.5">
           {solutionStatusOptions.map((opt) => (
             <Button
@@ -98,7 +102,7 @@ export function ProblemFilters({ tagsByCategory, locale }: ProblemFiltersProps) 
                   onClick={() => toggleFilter(category, tag.slug)}
                   aria-pressed={activeSlug === tag.slug}
                 >
-                  {tag.name}
+                  {getTagLabel(tag, locale)}
                 </Button>
               ))}
             </div>

@@ -58,6 +58,7 @@ export interface Database {
         Row: {
           id: string;
           name: string;
+          name_de: string | null;
           slug: string;
           category: TagCategory;
           created_at: string;
@@ -65,12 +66,14 @@ export interface Database {
         Insert: {
           id?: string;
           name: string;
+          name_de?: string | null;
           slug: string;
           category: TagCategory;
           created_at?: string;
         };
         Update: {
           name?: string;
+          name_de?: string | null;
           slug?: string;
           category?: TagCategory;
         };

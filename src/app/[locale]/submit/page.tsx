@@ -1,8 +1,20 @@
 import { redirect } from "next/navigation";
+import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getCurrentUser } from "@/lib/auth/roles";
 import { getTagsGroupedByCategory } from "@/lib/queries/tags";
 import { getUserVerifiedMemberships } from "@/lib/queries/organizations";
 import { ProblemForm } from "@/components/submit/problem-form";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "submit" });
+  return { title: t("metaTitle") };
+}
 
 export default async function SubmitPage({
   params,
@@ -10,6 +22,8 @@ export default async function SubmitPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("submit");
   const user = await getCurrentUser();
 
   if (!user) {
@@ -17,17 +31,14 @@ export default async function SubmitPage({
   }
 
   const [tagsByCategory, verifiedOrgs] = await Promise.all([
-    getTagsGroupedByCategory(),
+    getTagsGroupedByCategory(locale),
     getUserVerifiedMemberships(user.id),
   ]);
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold tracking-tight">Submit a Problem</h1>
-      <p className="mt-2 text-muted-foreground">
-        Describe a real challenge your organization faces. Include requirements
-        and a pilot framework to help the community understand and address it.
-      </p>
+      <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
+      <p className="mt-2 text-muted-foreground">{t("subtitle")}</p>
 
       <div className="mt-8">
         <ProblemForm tagsByCategory={tagsByCategory} locale={locale} verifiedOrgs={verifiedOrgs} />
