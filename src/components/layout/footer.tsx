@@ -47,7 +47,7 @@ export function Footer() {
             <h4 className="text-sm font-semibold">Community</h4>
             <nav className="mt-3 flex flex-col gap-2">
               <a
-                href="https://github.com/PeterHartwieg/openclientorg"
+                href="https://github.com/PeterHartwieg/openclienting"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -55,7 +55,7 @@ export function Footer() {
                 GitHub
               </a>
               <a
-                href="https://github.com/PeterHartwieg/openclientorg/blob/master/CONTRIBUTING.md"
+                href="https://github.com/PeterHartwieg/openclienting/issues"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
