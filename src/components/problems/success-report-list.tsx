@@ -55,7 +55,9 @@ function SuccessReportCard({ report }: { report: SuccessReport }) {
   const orgLabel = report.is_org_anonymous
     ? null
     : report.organizations?.name ?? null;
-  const attribution = [authorLabel, orgLabel].filter(Boolean).join(" · ");
+  // Use a Unicode escape for the middle dot so the source stays pure ASCII
+  // and the separator can't be mangled by tools that mis-detect file encoding.
+  const attribution = [authorLabel, orgLabel].filter(Boolean).join(" \u00B7 ");
 
   const kpiItems = parseKpis(report.kpi_summary);
 
@@ -135,7 +137,7 @@ function SuccessReportCard({ report }: { report: SuccessReport }) {
                 <div
                   className={`font-semibold tabular-nums ${
                     kpi.label ? "mt-0.5 text-lg" : "text-sm"
-                  } ${highlightClass(kpi.value)}`}
+                  } ${highlightClass(kpi.value, kpi.label)}`}
                 >
                   {kpi.value}
                 </div>
@@ -217,8 +219,10 @@ function MetaCell({
 function parseKpis(raw: string | null | undefined): { label: string | null; value: string }[] {
   if (!raw) return [];
 
+  // Use a Unicode escape for the bullet so the source stays pure ASCII and
+  // the regex can't silently match mojibake instead of the real character.
   const delimiters: RegExp[] = [
-    /\s*[\n•]\s*/,         // newlines or bullets
+    /\s*[\n\u2022]\s*/,    // newlines or bullets
     /\s*;\s*/,             // semicolons
     /,\s*(?=[A-Z])/,       // comma + capital (avoid splitting "1,000")
     /\.\s+(?=[A-Z])/,      // sentence boundary: period + space + capital
@@ -248,15 +252,39 @@ function parseKpis(raw: string | null | undefined): { label: string | null; valu
   });
 }
 
-// Highlight numeric / percentage values in green if positive change, red if negative.
-// We treat any "-X%" as an improvement (cost/time reduction) so it gets the green
-// treatment. This matches the most common KPI pattern.
-function highlightClass(value: string): string {
-  if (/-\s*\d/.test(value) || /reduced|saved|improved|faster/i.test(value)) {
-    return "text-green-700 dark:text-green-400";
+// Highlight a KPI value by direction (good vs bad). The direction depends on
+// the metric: for "lower-is-better" metrics (cost, time, errors, churn) a drop
+// is good; for "higher-is-better" metrics (revenue, NPS, CSAT, adoption) a
+// drop is bad. Without a label we can't tell, so we stay neutral rather than
+// risk presenting a regression as a success.
+const GREEN = "text-green-700 dark:text-green-400";
+const RED = "text-red-700 dark:text-red-400";
+
+const LOWER_IS_BETTER =
+  /\b(cost|spend|expense|price|time|duration|latency|delay|wait|error|bug|defect|incident|downtime|churn|attrition|complaint|risk|loss|waste|backlog|ttr|mttr|tta)\b/i;
+
+const HIGHER_IS_BETTER =
+  /\b(revenue|sales|profit|margin|arr|mrr|gmv|nps|csat|ces|adoption|conversion|retention|growth|engagement|satisfaction|throughput|efficiency|productivity|signups?|sign-?ups?|subscribers?|users?|customers?|leads?|installs?|downloads?|active|uptime|accuracy|recall|precision|score|rating|deliveries)\b/i;
+
+function valueDirection(value: string): "up" | "down" | null {
+  if (/(^|[^\d])-\s*\d/.test(value) || /\b(reduced|reduction|decreased?|down|fewer|less|drop(?:ped)?|cut|saved?|faster|shorter)\b/i.test(value)) {
+    return "down";
   }
-  if (/\+\s*\d/.test(value) || /increased|gained|added/i.test(value)) {
-    return "text-green-700 dark:text-green-400";
+  if (/\+\s*\d/.test(value) || /\b(increased?|gained?|grew|growth|added|up|higher|more|boost(?:ed)?|improved?)\b/i.test(value)) {
+    return "up";
+  }
+  return null;
+}
+
+function highlightClass(value: string, label: string | null): string {
+  const direction = valueDirection(value);
+  if (!direction || !label) return "";
+
+  if (LOWER_IS_BETTER.test(label)) {
+    return direction === "down" ? GREEN : RED;
+  }
+  if (HIGHER_IS_BETTER.test(label)) {
+    return direction === "up" ? GREEN : RED;
   }
   return "";
 }

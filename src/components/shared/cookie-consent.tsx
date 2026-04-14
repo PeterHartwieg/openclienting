@@ -1,7 +1,23 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
+
+// Locales the app actively serves. Keep in sync with src/middleware.ts. If the
+// path's first segment matches one of these we use it; otherwise we fall back
+// to "en" so the privacy link doesn't force users out of their current locale.
+const SUPPORTED_LOCALES = ["en"] as const;
+const DEFAULT_LOCALE = "en";
+
+function useCurrentLocale(): string {
+  const pathname = usePathname();
+  const segment = pathname?.split("/")[1] ?? "";
+  return (SUPPORTED_LOCALES as readonly string[]).includes(segment)
+    ? segment
+    : DEFAULT_LOCALE;
+}
 
 const CONSENT_KEY = "oc_cookie_consent";
 const CONSENT_VERSION = 1;
@@ -79,6 +95,7 @@ export function CookieConsent() {
   const [showDetails, setShowDetails] = useState(false);
   const [analyticsChecked, setAnalyticsChecked] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
+  const locale = useCurrentLocale();
 
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
@@ -155,12 +172,12 @@ export function CookieConsent() {
               your consent, Google Analytics to understand how the site is used.
               You can change your preferences at any time via &ldquo;Cookie
               Settings&rdquo; in the footer.{" "}
-              <a
-                href="/en/privacy#5-google-analytics"
+              <Link
+                href={`/${locale}/privacy#5-google-analytics`}
                 className="text-primary underline underline-offset-4 hover:text-primary/80"
               >
                 Learn more
-              </a>
+              </Link>
             </p>
             <div className="mt-4 flex flex-wrap items-center gap-3">
               <Button onClick={handleAcceptAll}>Accept all</Button>

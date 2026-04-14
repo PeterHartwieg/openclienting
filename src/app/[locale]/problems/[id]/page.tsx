@@ -134,29 +134,42 @@ export default async function ProblemDetailPage({
     0
   );
 
-  // Build contributor list (problem author first, then aggregated from contributions)
+  // Build contributor list (problem author first, then aggregated from contributions).
+  // Keyed by stable identity (author_id + org_id) so that:
+  //  - Two distinct anonymous users don't collapse into one "Anonymous" bucket.
+  //  - Two distinct members who happen to share a display name aren't merged.
+  // The display label ("Anonymous" / real name) is still derived per the
+  // submission's anonymity flags — anon and named contributions from the same
+  // author stay in separate buckets so we never re-attribute anonymous work.
   type ContribRow = { name: string; org: string | null; count: number };
   const contributorMap = new Map<string, ContribRow>();
 
   const addContributor = (
+    authorId: string | null | undefined,
     isPublicAnon: boolean,
     isOrgAnon: boolean,
     profile: { display_name: string | null } | null | undefined,
     org: { id: string; name: string } | null | undefined,
   ) => {
-    const name = isPublicAnon ? "Anonymous" : profile?.display_name ?? "Unknown";
-    const orgName = isOrgAnon ? null : org?.name ?? null;
-    const key = `${name}|${orgName ?? ""}`;
+    const displayName = isPublicAnon ? "Anonymous" : profile?.display_name ?? "Unknown";
+    const orgIdShown = isOrgAnon ? null : org?.id ?? null;
+    const orgNameShown = isOrgAnon ? null : org?.name ?? null;
+    const stableAuthor = authorId ?? "unknown";
+    // Prefix discriminates anon vs named so an author who chose anonymity for
+    // some contributions doesn't end up displayed under their real name.
+    const prefix = isPublicAnon ? "anon" : "named";
+    const key = `${prefix}:${stableAuthor}|${orgIdShown ?? ""}`;
     const existing = contributorMap.get(key);
     if (existing) {
       existing.count += 1;
     } else {
-      contributorMap.set(key, { name, org: orgName, count: 1 });
+      contributorMap.set(key, { name: displayName, org: orgNameShown, count: 1 });
     }
   };
 
   // Problem author goes first
   addContributor(
+    problem.author_id,
     problem.is_publicly_anonymous,
     problem.is_org_anonymous,
     problem.profiles,
@@ -164,28 +177,31 @@ export default async function ProblemDetailPage({
   );
 
   for (const r of publishedRequirements as Array<{
+    author_id: string | null;
     is_publicly_anonymous: boolean;
     is_org_anonymous?: boolean;
     profiles?: { display_name: string | null } | null;
     organizations?: { id: string; name: string } | null;
   }>) {
-    addContributor(r.is_publicly_anonymous, r.is_org_anonymous ?? false, r.profiles, r.organizations);
+    addContributor(r.author_id, r.is_publicly_anonymous, r.is_org_anonymous ?? false, r.profiles, r.organizations);
   }
   for (const f of publishedFrameworks as Array<{
+    author_id: string | null;
     is_publicly_anonymous: boolean;
     is_org_anonymous?: boolean;
     profiles?: { display_name: string | null } | null;
     organizations?: { id: string; name: string } | null;
   }>) {
-    addContributor(f.is_publicly_anonymous, f.is_org_anonymous ?? false, f.profiles, f.organizations);
+    addContributor(f.author_id, f.is_publicly_anonymous, f.is_org_anonymous ?? false, f.profiles, f.organizations);
   }
   for (const a of publishedApproaches as Array<{
+    author_id: string | null;
     is_publicly_anonymous: boolean;
     is_org_anonymous?: boolean;
     profiles?: { display_name: string | null } | null;
     organizations?: { id: string; name: string } | null;
   }>) {
-    addContributor(a.is_publicly_anonymous, a.is_org_anonymous ?? false, a.profiles, a.organizations);
+    addContributor(a.author_id, a.is_publicly_anonymous, a.is_org_anonymous ?? false, a.profiles, a.organizations);
   }
 
   const contributors = Array.from(contributorMap.values())
