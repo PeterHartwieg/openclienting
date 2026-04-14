@@ -1,6 +1,12 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import {
+  useState,
+  useEffect,
+  useCallback,
+  useRef,
+  useSyncExternalStore,
+} from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -21,6 +27,13 @@ function useCurrentLocale(): string {
 
 const CONSENT_KEY = "oc_cookie_consent";
 const CONSENT_VERSION = 1;
+// Sentinel returned by the server snapshot. We can't read localStorage during
+// SSR, and we also can't render the banner during hydration without causing a
+// mismatch. The component treats this value as "don't render anything yet".
+const SSR_SNAPSHOT = "__ssr__";
+// Custom event so writes from the same tab trigger re-renders. The native
+// "storage" event only fires for *other* tabs.
+const CONSENT_EVENT = "oc-consent-changed";
 
 type ConsentState = {
   version: number;
@@ -28,11 +41,9 @@ type ConsentState = {
   timestamp: number;
 };
 
-function getConsent(): ConsentState | null {
-  if (typeof window === "undefined") return null;
+function parseConsent(raw: string | null): ConsentState | null {
+  if (!raw) return null;
   try {
-    const raw = localStorage.getItem(CONSENT_KEY);
-    if (!raw) return null;
     const parsed = JSON.parse(raw) as ConsentState;
     if (parsed.version !== CONSENT_VERSION) return null;
     // Re-prompt after 6 months
@@ -44,13 +55,33 @@ function getConsent(): ConsentState | null {
   }
 }
 
-function setConsent(analytics: boolean) {
+function writeConsent(analytics: boolean) {
   const state: ConsentState = {
     version: CONSENT_VERSION,
     analytics,
     timestamp: Date.now(),
   };
   localStorage.setItem(CONSENT_KEY, JSON.stringify(state));
+  window.dispatchEvent(new Event(CONSENT_EVENT));
+}
+
+// useSyncExternalStore wiring. Returns the raw localStorage string (or the
+// SSR sentinel) so React's snapshot equality stays primitive-cheap.
+function subscribeConsent(callback: () => void): () => void {
+  window.addEventListener("storage", callback);
+  window.addEventListener(CONSENT_EVENT, callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener(CONSENT_EVENT, callback);
+  };
+}
+
+function getConsentSnapshot(): string {
+  return localStorage.getItem(CONSENT_KEY) ?? "";
+}
+
+function getServerConsentSnapshot(): string {
+  return SSR_SNAPSHOT;
 }
 
 /** Load GA4 script dynamically — only called after consent */
@@ -91,7 +122,19 @@ declare global {
 }
 
 export function CookieConsent() {
-  const [visible, setVisible] = useState(false);
+  // Subscribe to the consent value in localStorage. During SSR/hydration this
+  // returns the SSR sentinel so we render nothing — no hydration mismatch and,
+  // crucially, no setState-in-effect needed to flip a "mounted" or "visible"
+  // flag. Re-renders happen automatically when consent is written or cleared.
+  const rawConsent = useSyncExternalStore(
+    subscribeConsent,
+    getConsentSnapshot,
+    getServerConsentSnapshot,
+  );
+  const isSSR = rawConsent === SSR_SNAPSHOT;
+  const consent = isSSR ? null : parseConsent(rawConsent || null);
+  const visible = !isSSR && consent === null;
+
   const [showDetails, setShowDetails] = useState(false);
   const [analyticsChecked, setAnalyticsChecked] = useState(false);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -99,14 +142,14 @@ export function CookieConsent() {
 
   const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
+  // Load GA whenever the stored consent allows it. The effect mutates the DOM
+  // (script tag injection) but doesn't touch React state, so the React 19
+  // set-state-in-effect rule is satisfied.
   useEffect(() => {
-    const existing = getConsent();
-    if (!existing) {
-      setVisible(true);
-    } else if (existing.analytics && gaId) {
+    if (!isSSR && consent?.analytics && gaId) {
       loadGA(gaId);
     }
-  }, [gaId]);
+  }, [isSSR, consent?.analytics, gaId]);
 
   // Reserve space at the bottom of the page so the fixed banner doesn't
   // overlay the footer. Tracks the dialog's actual height (which changes
@@ -133,25 +176,24 @@ export function CookieConsent() {
   }, [visible, showDetails]);
 
   const handleAcceptAll = useCallback(() => {
-    setConsent(true);
+    writeConsent(true);
     if (gaId) loadGA(gaId);
-    setVisible(false);
+    // No setVisible — writeConsent dispatches CONSENT_EVENT, which the
+    // useSyncExternalStore subscription picks up and hides the banner.
   }, [gaId]);
 
   const handleRejectAll = useCallback(() => {
-    setConsent(false);
+    writeConsent(false);
     removeGACookies();
-    setVisible(false);
   }, []);
 
   const handleSavePreferences = useCallback(() => {
-    setConsent(analyticsChecked);
+    writeConsent(analyticsChecked);
     if (analyticsChecked && gaId) {
       loadGA(gaId);
     } else {
       removeGACookies();
     }
-    setVisible(false);
     setShowDetails(false);
   }, [analyticsChecked, gaId]);
 
@@ -253,18 +295,18 @@ export function CookieConsent() {
 /** Re-open cookie consent — used by footer "Cookie Settings" link */
 export function openCookieSettings() {
   localStorage.removeItem(CONSENT_KEY);
-  window.dispatchEvent(new Event("oc-reopen-consent"));
+  // Same custom event the writers fire so the useSyncExternalStore subscription
+  // re-reads localStorage and brings the banner back without a key remount.
+  window.dispatchEvent(new Event(CONSENT_EVENT));
 }
 
-/** Wrapper that listens for reopen events */
+/**
+ * Kept as a named export for backwards compatibility with imports in the root
+ * layout. The previous implementation wrapped the consent banner in a
+ * key-resetting parent so a "reopen" event would force a fresh mount; with
+ * useSyncExternalStore the subscription picks up the reset on its own and the
+ * wrapper can just forward to the component.
+ */
 export function CookieConsentWrapper() {
-  const [key, setKey] = useState(0);
-
-  useEffect(() => {
-    const handler = () => setKey((k) => k + 1);
-    window.addEventListener("oc-reopen-consent", handler);
-    return () => window.removeEventListener("oc-reopen-consent", handler);
-  }, []);
-
-  return <CookieConsent key={key} />;
+  return <CookieConsent />;
 }

@@ -66,7 +66,8 @@ export function ProblemTocSidebar({ items, contributors }: ProblemTocSidebarProp
                   </div>
                   {c.count > 1 && (
                     <span className="text-xs text-muted-foreground tabular-nums">
-                      {c.count}×
+                      {c.count}
+                      {"\u00D7"}
                     </span>
                   )}
                 </li>
