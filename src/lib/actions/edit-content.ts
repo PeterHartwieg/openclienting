@@ -1,5 +1,6 @@
 "use server";
 
+import { updateTag } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import type { EditTargetType, EditDiff } from "@/lib/types/database";
 
@@ -92,7 +93,7 @@ export async function editProblem(params: {
   if (params.title !== undefined) newValues.title = params.title.trim();
   if (params.description !== undefined) newValues.description = params.description.trim();
 
-  return logAndUpdate({
+  const result = await logAndUpdate({
     targetType: "problem_template",
     tableName: "problem_templates",
     targetId: params.problemId,
@@ -100,6 +101,9 @@ export async function editProblem(params: {
     newValues,
     userId: user.id,
   });
+  // Title/description appear in the cached public problems list.
+  if (result.success) updateTag("problem_templates");
+  return result;
 }
 
 export async function editRequirement(params: {

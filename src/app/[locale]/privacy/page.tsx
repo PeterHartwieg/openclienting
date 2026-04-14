@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { LegalShell } from "@/components/layout/legal-shell";
+import { getLanguageAlternates } from "@/lib/site";
 import { PrivacyEn } from "./_content/privacy.en";
 import { PrivacyDe } from "./_content/privacy.de";
 
@@ -11,7 +12,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "legal.privacy" });
-  return { title: t("metaTitle"), description: t("metaDescription") };
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    alternates: getLanguageAlternates(locale, "/privacy"),
+  };
 }
 
 export default async function PrivacyPage({

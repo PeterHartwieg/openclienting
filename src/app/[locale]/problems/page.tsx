@@ -7,6 +7,7 @@ import { ProblemCard } from "@/components/problems/problem-card";
 import { ProblemFilters } from "@/components/problems/problem-filters";
 import { SearchBar } from "@/components/layout/search-bar";
 import { Skeleton } from "@/components/ui/skeleton";
+import { getLanguageAlternates } from "@/lib/site";
 
 export async function generateMetadata({
   params,
@@ -15,7 +16,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "problemsList" });
-  return { title: t("metaTitle"), description: t("metaDescription") };
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    alternates: getLanguageAlternates(locale, "/problems"),
+  };
 }
 
 export default async function BrowseProblemsPage({

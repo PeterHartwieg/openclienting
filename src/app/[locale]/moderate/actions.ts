@@ -1,5 +1,6 @@
 "use server";
 
+import { updateTag } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
 import type { EditDiff, EditTargetType } from "@/lib/types/database";
@@ -15,6 +16,23 @@ const targetTypeToTable: Record<EditTargetType, string> = {
   pilot_framework: "pilot_frameworks",
   solution_approach: "solution_approaches",
 };
+
+// Map an edit target type to the unstable_cache tags that must be revalidated
+// when that target's rows change. Keep in sync with cache definitions in
+// `src/lib/queries/*.ts` and `src/lib/queries/home.ts`.
+function tagsForEditTarget(target: EditTargetType): string[] {
+  switch (target) {
+    case "problem_template":
+      return ["problem_templates"];
+    case "solution_approach":
+      return ["solution_approaches"];
+    // requirements and pilot_frameworks aren't in any cached list query; they
+    // live on problem detail, which is React.cache per request only.
+    case "requirement":
+    case "pilot_framework":
+      return [];
+  }
+}
 
 // Server actions are not a security boundary on their own — any caller who
 // can hit the action endpoint can invoke them. RLS protects most tables, but
@@ -104,6 +122,13 @@ export async function moderateItem(params: {
     }
   }
 
+  // Invalidate any unstable_cache entries affected by this mutation.
+  if (params.targetType === "problem_templates") {
+    updateTag("problem_templates");
+  } else if (params.targetType === "solution_approaches") {
+    updateTag("solution_approaches");
+  }
+
   return { success: true };
 }
 
@@ -128,6 +153,10 @@ export async function createTag(params: {
   });
 
   if (error) return { success: false, error: error.message };
+  updateTag("tags");
+  // Problems list embeds tag metadata via problem_tags join, so the tag tag
+  // alone isn't enough — also bust the problem list cache.
+  updateTag("problem_templates");
   return { success: true };
 }
 
@@ -147,6 +176,8 @@ export async function updateTagTranslation(params: {
     .eq("id", params.tagId);
 
   if (error) return { success: false, error: error.message };
+  updateTag("tags");
+  updateTag("problem_templates");
   return { success: true };
 }
 
@@ -187,6 +218,11 @@ export async function moderateSuccessReport(params: {
     .eq("id", params.reportId);
 
   if (error) return { success: false, error: error.message };
+
+  updateTag("success_reports");
+  // A verified report can flip the parent problem's solution_status to
+  // successful_pilot, so the problems list and home stats must refresh too.
+  updateTag("problem_templates");
   return { success: true };
 }
 
@@ -255,7 +291,8 @@ export async function revertRevision(revisionId: string, reviewerNotes?: string)
     }
   }
 
-  const tableName = targetTypeToTable[revision.target_type as EditTargetType];
+  const targetType = revision.target_type as EditTargetType;
+  const tableName = targetTypeToTable[targetType];
   const { error: restoreError } = await supabase
     .from(tableName)
     .update(restoreData)
@@ -274,6 +311,8 @@ export async function revertRevision(revisionId: string, reviewerNotes?: string)
     .eq("id", revisionId);
 
   if (revisionError) return { success: false, error: revisionError.message };
+
+  for (const tag of tagsForEditTarget(targetType)) updateTag(tag);
   return { success: true };
 }
 
@@ -286,6 +325,8 @@ export async function deleteTag(tagId: string) {
   const { error } = await supabase.from("tags").delete().eq("id", tagId);
 
   if (error) return { success: false, error: error.message };
+  updateTag("tags");
+  updateTag("problem_templates");
   return { success: true };
 }
 
@@ -318,7 +359,8 @@ export async function applySuggestedEdit(editId: string) {
   }
 
   const diff = edit.diff as EditDiff;
-  const tableName = targetTypeToTable[edit.target_type as EditTargetType];
+  const targetType = edit.target_type as EditTargetType;
+  const tableName = targetTypeToTable[targetType];
 
   // Apply the changes
   const updateData: Record<string, string | null> = {};
@@ -348,5 +390,7 @@ export async function applySuggestedEdit(editId: string) {
     .eq("id", editId);
 
   if (statusError) return { success: false, error: statusError.message };
+
+  for (const tag of tagsForEditTarget(targetType)) updateTag(tag);
   return { success: true };
 }

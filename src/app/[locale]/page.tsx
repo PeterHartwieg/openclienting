@@ -5,7 +5,6 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { createClient } from "@/lib/supabase/server";
 import { PERSONA_COOKIE, parsePersona } from "@/lib/persona";
 import { PersonaHero } from "@/components/home/persona-hero";
 import { HowItWorks } from "@/components/home/how-it-works";
@@ -14,6 +13,8 @@ import { FeaturedSuccessStory } from "@/components/home/featured-success-story";
 import { ForSmes } from "@/components/home/for-smes";
 import { ForStartups } from "@/components/home/for-startups";
 import { getTagLabel, sortTagsByLocaleLabel } from "@/lib/i18n/tags";
+import { getHomePageStats } from "@/lib/queries/home";
+import { getLanguageAlternates } from "@/lib/site";
 import {
   FileText,
   BadgeCheck,
@@ -49,6 +50,7 @@ export async function generateMetadata({
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
+    alternates: getLanguageAlternates(locale, ""),
   };
 }
 
@@ -66,28 +68,12 @@ export default async function HomePage({
   const cookieStore = await cookies();
   const initialPersona = parsePersona(cookieStore.get(PERSONA_COOKIE)?.value);
 
-  const supabase = await createClient();
-  const [
-    { count: successfulPilotCount },
-    { count: verifiedReportCount },
-    { count: approachCount },
-    { data: industryTagsData },
-  ] = await Promise.all([
-    supabase
-      .from("problem_templates")
-      .select("*", { count: "exact", head: true })
-      .eq("status", "published")
-      .eq("solution_status", "successful_pilot"),
-    supabase
-      .from("success_reports")
-      .select("*", { count: "exact", head: true })
-      .eq("verification_status", "verified"),
-    supabase
-      .from("solution_approaches")
-      .select("*", { count: "exact", head: true })
-      .eq("status", "published"),
-    supabase.from("tags").select("*").eq("category", "industry"),
-  ]);
+  const {
+    successfulPilotCount,
+    verifiedReportCount,
+    approachCount,
+    industryTagsData,
+  } = await getHomePageStats();
 
   const industries = sortTagsByLocaleLabel(industryTagsData ?? [], locale).map(
     (tag) => ({

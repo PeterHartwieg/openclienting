@@ -1,5 +1,6 @@
 "use server";
 
+import { updateTag } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
 export async function createOrganization(params: {
@@ -187,6 +188,12 @@ export async function updateOrganization(params: {
     .eq("id", params.organizationId);
 
   if (error) return { success: false as const, error: error.message };
+
+  // The public problems list embeds `organizations.name` via a join. Bust the
+  // cache if the visible name changed; other fields aren't in the list query.
+  if (params.name !== undefined) {
+    updateTag("problem_templates");
+  }
   return { success: true as const };
 }
 

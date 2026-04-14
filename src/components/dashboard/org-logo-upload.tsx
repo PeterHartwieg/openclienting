@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { uploadOrgLogo } from "@/lib/actions/organizations";
@@ -54,9 +55,12 @@ export function OrgLogoUpload({
     <div className="space-y-3">
       <div className="flex items-center gap-4">
         {preview ? (
-          <img
+          <Image
             src={preview}
             alt="Organization logo"
+            width={64}
+            height={64}
+            unoptimized
             className="h-16 w-16 rounded-lg object-cover border"
           />
         ) : (
@@ -76,7 +80,9 @@ export function OrgLogoUpload({
               className="hidden"
             />
           </label>
-          <p className="text-xs text-muted-foreground mt-1">Max 512 KB, image files only</p>
+          <p className="text-xs text-muted-foreground mt-1">
+            Max 512 KB, image files only
+          </p>
         </div>
       </div>
       {error && <p className="text-sm text-destructive">{error}</p>}

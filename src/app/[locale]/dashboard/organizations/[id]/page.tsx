@@ -1,14 +1,10 @@
+import Image from "next/image";
 import { redirect, notFound } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth/roles";
 import { getOrganizationWithMembers } from "@/lib/queries/organizations";
 import { getOrgSizeTier } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { RequestVerificationButton } from "@/components/dashboard/request-verification-button";
 import { LeaveOrgButton } from "@/components/dashboard/leave-org-button";
@@ -60,9 +56,11 @@ export default async function OrganizationDetailPage({
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-4">
           {org.logo_url ? (
-            <img
+            <Image
               src={org.logo_url}
               alt={`${org.name} logo`}
+              width={64}
+              height={64}
               className="h-16 w-16 rounded-lg object-cover border shrink-0"
             />
           ) : (
@@ -76,7 +74,7 @@ export default async function OrganizationDetailPage({
               {org.website && <span>{org.website}</span>}
               {org.employee_count != null && (
                 <span>
-                  {org.website && " · "}
+                  {org.website && " - "}
                   {org.employee_count.toLocaleString()} employees
                 </span>
               )}
@@ -89,7 +87,12 @@ export default async function OrganizationDetailPage({
               {sizeTier}
             </Badge>
           )}
-          <Badge className={cn("capitalize text-sm", verificationColors[org.verification_status])}>
+          <Badge
+            className={cn(
+              "capitalize text-sm",
+              verificationColors[org.verification_status],
+            )}
+          >
             {org.verification_status}
           </Badge>
         </div>
@@ -108,7 +111,6 @@ export default async function OrganizationDetailPage({
         )}
       </div>
 
-      {/* Admin section: logo upload + edit form */}
       {isAdmin && (
         <>
           <div className="mt-10">
@@ -138,7 +140,6 @@ export default async function OrganizationDetailPage({
         </>
       )}
 
-      {/* Members list — visible to org admins */}
       {isAdmin && (
         <div className="mt-10">
           <h2 className="text-xl font-semibold">Members</h2>
@@ -151,7 +152,8 @@ export default async function OrganizationDetailPage({
                   <CardHeader className="py-3">
                     <div className="flex items-center justify-between gap-4">
                       <CardTitle className="text-sm font-medium">
-                        {(m.profiles as unknown as { display_name: string } | null)?.display_name ?? "Unknown"}
+                        {(m.profiles as unknown as { display_name: string } | null)
+                          ?.display_name ?? "Unknown"}
                       </CardTitle>
                       <div className="flex items-center gap-2 shrink-0">
                         <Badge variant="outline" className="capitalize text-xs">
@@ -166,7 +168,7 @@ export default async function OrganizationDetailPage({
                               "capitalize text-xs",
                               m.membership_status === "active" && "text-green-700",
                               m.membership_status === "rejected" && "text-destructive",
-                              m.membership_status === "revoked" && "text-muted-foreground"
+                              m.membership_status === "revoked" && "text-muted-foreground",
                             )}
                           >
                             {m.membership_status}

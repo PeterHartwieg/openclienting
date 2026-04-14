@@ -1,4 +1,7 @@
+import { cache } from "react";
+import { unstable_cache } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/public";
 
 export interface ProblemFilters {
   q?: string;
@@ -9,59 +12,75 @@ export interface ProblemFilters {
   solution_status?: string;
 }
 
+const getPublishedProblemsCached = unstable_cache(
+  async () => {
+    const supabase = createPublicClient();
+
+    const { data, error } = await supabase
+      .from("problem_templates")
+      .select(`
+        *,
+        problem_tags (
+          tag_id,
+          tags (id, name, slug, category)
+        ),
+        profiles!problem_templates_author_id_fkey (display_name),
+        organizations!problem_templates_author_organization_id_fkey (id, name)
+      `)
+      .eq("status", "published")
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+    return data ?? [];
+  },
+  ["problems:published"],
+  { revalidate: 300, tags: ["problem_templates", "tags"] },
+);
+
 export async function getPublishedProblems(filters: ProblemFilters = {}) {
-  const supabase = await createClient();
-
-  const query = supabase
-    .from("problem_templates")
-    .select(`
-      *,
-      problem_tags (
-        tag_id,
-        tags (id, name, slug, category)
-      ),
-      profiles!problem_templates_author_id_fkey (display_name),
-      organizations!problem_templates_author_organization_id_fkey (id, name)
-    `)
-    .eq("status", "published")
-    .order("created_at", { ascending: false });
-
-  const { data, error } = await query;
-  if (error) throw error;
-
-  // Client-side filtering — avoids interpolating user input into PostgREST
+  // Client-side filtering avoids interpolating user input into PostgREST
   // filter strings, which have no reliable escape mechanism for structural
-  // characters (commas, dots, parens).
-  let results = data ?? [];
+  // characters such as commas, dots, and parentheses.
+  let results = await getPublishedProblemsCached();
 
   if (filters.q) {
     const q = filters.q.toLowerCase();
     results = results.filter(
       (p) =>
         p.title.toLowerCase().includes(q) ||
-        p.description.toLowerCase().includes(q)
+        p.description.toLowerCase().includes(q),
     );
   }
-  for (const category of ["industry", "function", "problem_category", "company_size"] as const) {
+  for (const category of [
+    "industry",
+    "function",
+    "problem_category",
+    "company_size",
+  ] as const) {
     const slug = filters[category];
     if (slug) {
       results = results.filter((problem) =>
         problem.problem_tags?.some(
           (pt: { tags: { slug: string; category: string } | null }) =>
-            pt.tags?.slug === slug && pt.tags?.category === category
-        )
+            pt.tags?.slug === slug && pt.tags?.category === category,
+        ),
       );
     }
   }
 
   if (filters.solution_status) {
-    results = results.filter((p) => p.solution_status === filters.solution_status);
+    results = results.filter(
+      (p) => p.solution_status === filters.solution_status,
+    );
   }
 
   return results;
 }
 
-export async function getProblemById(id: string) {
+// Wrapped in React.cache so generateMetadata and the page body share one
+// round-trip per request. Without this, the deep join below runs twice per
+// problem-detail request.
+export const getProblemById = cache(async (id: string) => {
   const supabase = await createClient();
 
   const { data: problem, error } = await supabase
@@ -104,4 +123,4 @@ export async function getProblemById(id: string) {
 
   if (error) throw error;
   return problem;
-}
+});

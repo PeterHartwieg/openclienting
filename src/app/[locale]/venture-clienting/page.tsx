@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { getLanguageAlternates } from "@/lib/site";
 
 export async function generateMetadata({
   params,
@@ -14,6 +15,7 @@ export async function generateMetadata({
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
+    alternates: getLanguageAlternates(locale, "/venture-clienting"),
   };
 }
 

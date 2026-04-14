@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { LegalShell } from "@/components/layout/legal-shell";
+import { getLanguageAlternates } from "@/lib/site";
 import { ImpressumEn } from "./_content/impressum.en";
 import { ImpressumDe } from "./_content/impressum.de";
 
@@ -11,7 +12,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "legal.impressum" });
-  return { title: t("metaTitle"), description: t("metaDescription") };
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    alternates: getLanguageAlternates(locale, "/impressum"),
+  };
 }
 
 export default async function ImpressumPage({

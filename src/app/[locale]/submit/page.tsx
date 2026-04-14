@@ -5,6 +5,7 @@ import { getCurrentUser } from "@/lib/auth/roles";
 import { getTagsGroupedByCategory } from "@/lib/queries/tags";
 import { getUserVerifiedMemberships } from "@/lib/queries/organizations";
 import { ProblemForm } from "@/components/submit/problem-form";
+import { getLanguageAlternates } from "@/lib/site";
 
 export async function generateMetadata({
   params,
@@ -13,7 +14,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "submit" });
-  return { title: t("metaTitle") };
+  return {
+    title: t("metaTitle"),
+    alternates: getLanguageAlternates(locale, "/submit"),
+  };
 }
 
 export default async function SubmitPage({

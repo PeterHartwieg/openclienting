@@ -1,24 +1,27 @@
-import { createClient } from "@/lib/supabase/server";
+import { unstable_cache } from "next/cache";
 import type { TagCategory } from "@/lib/types/database";
 import { sortTagsByLocaleLabel } from "@/lib/i18n/tags";
+import { createPublicClient } from "@/lib/supabase/public";
+
+const getAllTagsCached = unstable_cache(
+  async () => {
+    const supabase = createPublicClient();
+    const { data, error } = await supabase.from("tags").select("*");
+
+    if (error) throw error;
+    return data;
+  },
+  ["tags:all"],
+  { revalidate: 3600, tags: ["tags"] },
+);
 
 export async function getAllTags() {
-  const supabase = await createClient();
-  const { data, error } = await supabase.from("tags").select("*");
-
-  if (error) throw error;
-  return data;
+  return getAllTagsCached();
 }
 
 export async function getTagsByCategory(category: TagCategory) {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("tags")
-    .select("*")
-    .eq("category", category);
-
-  if (error) throw error;
-  return data;
+  const tags = await getAllTagsCached();
+  return tags.filter((tag) => tag.category === category);
 }
 
 /**

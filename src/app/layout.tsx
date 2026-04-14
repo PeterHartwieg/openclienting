@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import { getLocale } from "next-intl/server";
 import { ThemeProvider } from "@/components/theme-provider";
+import { getSiteUrl, siteConfig } from "@/lib/site";
 import "./globals.css";
 
 const plexSans = IBM_Plex_Sans({
@@ -21,14 +22,46 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "OpenClienting.org",
-  description:
-    "Open-source venture clienting knowledge base — crowdsource problem templates and pilot playbooks for SMEs and startups.",
-  alternates: {
-    languages: {
-      en: "/en",
-      de: "/de",
-    },
+  metadataBase: getSiteUrl(),
+  applicationName: siteConfig.name,
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  keywords: [
+    "venture clienting",
+    "open innovation",
+    "startup pilots",
+    "SME innovation",
+    "problem templates",
+    "pilot frameworks",
+  ],
+  // No root-level `alternates` — each public page sets its own canonical and
+  // hreflang via `getLanguageAlternates(path)`. A root default would leak a
+  // wrong canonical (e.g. /en) onto every page that forgets to override it.
+  openGraph: {
+    type: "website",
+    siteName: siteConfig.name,
+    title: siteConfig.name,
+    description: siteConfig.description,
+    url: getSiteUrl(),
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.name,
+    description: siteConfig.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  category: "technology",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
   },
 };
 

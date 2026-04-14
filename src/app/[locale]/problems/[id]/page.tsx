@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import {
@@ -23,6 +24,16 @@ import { SuggestEditForm } from "@/components/problems/suggest-edit-form";
 import { ProblemHero } from "@/components/problems/problem-hero";
 import { ProblemSection } from "@/components/problems/problem-section";
 import { ProblemTocSidebar } from "@/components/problems/problem-toc-sidebar";
+import { generateProblemMetadata } from "./page.metadata";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; id: string }>;
+}): Promise<Metadata> {
+  const { locale, id } = await params;
+  return generateProblemMetadata(locale, id);
+}
 
 export default async function ProblemDetailPage({
   params,

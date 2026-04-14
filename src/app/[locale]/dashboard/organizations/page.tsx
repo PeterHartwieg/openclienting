@@ -1,14 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth/roles";
 import { getUserOrganizations } from "@/lib/queries/organizations";
 import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { buttonVariants } from "@/components/ui/button";
 import { cn, getOrgSizeTier } from "@/lib/utils";
 
@@ -78,9 +74,11 @@ export default async function OrganizationsPage({
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
                         {org.logo_url ? (
-                          <img
+                          <Image
                             src={org.logo_url}
                             alt=""
+                            width={32}
+                            height={32}
                             className="h-8 w-8 rounded object-cover border shrink-0"
                           />
                         ) : (
@@ -99,7 +97,12 @@ export default async function OrganizationsPage({
                         <Badge variant="outline" className="capitalize">
                           {m.role}
                         </Badge>
-                        <Badge className={cn("capitalize", verificationColors[org.verification_status])}>
+                        <Badge
+                          className={cn(
+                            "capitalize",
+                            verificationColors[org.verification_status],
+                          )}
+                        >
                           {org.verification_status}
                         </Badge>
                       </div>
@@ -110,7 +113,8 @@ export default async function OrganizationsPage({
                       {m.membership_status === "pending"
                         ? "Membership pending approval"
                         : "Active member"}
-                      {org.employee_count != null && ` · ${org.employee_count.toLocaleString()} employees`}
+                      {org.employee_count != null &&
+                        ` - ${org.employee_count.toLocaleString()} employees`}
                     </p>
                   </CardContent>
                 </Card>

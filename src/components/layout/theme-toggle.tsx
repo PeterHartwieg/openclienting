@@ -1,7 +1,7 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { Sun, Moon, Monitor } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -16,10 +16,12 @@ const cycle = ["light", "dark", "system"] as const;
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
   const t = useTranslations("nav");
-
-  useEffect(() => setMounted(true), []);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
 
   if (!mounted) {
     return (
