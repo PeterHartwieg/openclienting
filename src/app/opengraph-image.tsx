@@ -27,17 +27,36 @@ export default async function OgImage() {
           fontFamily: "sans-serif",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            fontSize: 32,
-            fontWeight: 600,
-            letterSpacing: "-0.02em",
-            color: "#94a3b8",
-          }}
-        >
-          {siteConfig.name.toLowerCase()}.org
+        {/* Logo mark — dark-mode palette on dark background */}
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <svg
+            width={64}
+            height={64}
+            viewBox="0 0 48 48"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="og-t" x1="20" y1="8" x2="20" y2="40" gradientUnits="userSpaceOnUse">
+                <stop offset="0%"   stopColor="#80c8e8" />
+                <stop offset="50%"  stopColor="#5aa0cc" />
+                <stop offset="100%" stopColor="#2e78a8" />
+              </linearGradient>
+              <linearGradient id="og-a" x1="28" y1="8" x2="28" y2="40" gradientUnits="userSpaceOnUse">
+                <stop offset="0%"   stopColor="#f8d878" />
+                <stop offset="50%"  stopColor="#e0a85a" />
+                <stop offset="100%" stopColor="#b87030" />
+              </linearGradient>
+            </defs>
+            <rect x="1" y="1" width="46" height="46" rx="10" fill="#1f3044" />
+            <polyline points="20,8 8,24 20,40"  fill="none" stroke="url(#og-t)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+            <polyline points="28,8 40,24 28,40" fill="none" stroke="url(#og-a)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="24" cy="24" r="2.8" fill="#a0b8cc" opacity="0.55" />
+          </svg>
+          <div style={{ display: "flex", alignItems: "baseline", gap: 0 }}>
+            <span style={{ fontSize: 32, fontWeight: 600, letterSpacing: "-0.02em", color: "#5aa0cc" }}>Open</span>
+            <span style={{ fontSize: 32, fontWeight: 600, letterSpacing: "-0.02em", color: "#eceae6" }}>Clienting</span>
+            <span style={{ fontSize: 21, fontWeight: 400, color: "#9a9baf", marginLeft: 2 }}>.org</span>
+          </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
           <div
