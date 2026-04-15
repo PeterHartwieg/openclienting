@@ -132,7 +132,8 @@
     "section5Title": "Why an open knowledge base",
     "section5Body": "Most venture clienting programs today are closed inside big-company innovation teams. The problem templates, requirements, and pilot playbooks they build get locked behind NDAs and never benefit anyone else. OpenClienting is the opposite bet: make the knowledge base open, let smaller SMEs tap into proven startup solutions, and let top startups be discovered by the companies that actually need them.",
     "ctaBrowse": "Browse Problems",
-    "ctaSubmit": "Submit a Problem"
+    "ctaSubmit": "Submit a Problem",
+    "spokeIndexTitle": "Explore the knowledge base"
   },
   "ventureClientingCluster": {
     "whatIsVentureClienting": {

@@ -5,6 +5,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { cn } from "@/lib/utils";
 import { getLanguageAlternates } from "@/lib/site";
+import { SPOKES } from "@/lib/venture-clienting-cluster/config";
 
 export async function generateMetadata({
   params,
@@ -50,6 +51,19 @@ export default async function VentureClientingPage({
     { title: t("section5Title"), body: t("section5Body") },
   ];
 
+  const spokeLinks = await Promise.all(
+    SPOKES.map(async (spoke) => {
+      const st = await getTranslations({
+        locale,
+        namespace: `ventureClientingCluster.${spoke.i18nKey}`,
+      });
+      return {
+        href: `/${locale}/venture-clienting/${spoke.slug}`,
+        label: st("shortLabel"),
+      };
+    }),
+  );
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
       <Breadcrumbs items={breadcrumbItems} className="mb-8 text-sm text-muted-foreground" />
@@ -73,6 +87,21 @@ export default async function VentureClientingPage({
             </section>
           ))}
         </div>
+
+        <section className="mt-10">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+            {t("spokeIndexTitle")}
+          </h2>
+          <ul className="mt-3 space-y-2">
+            {spokeLinks.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="text-primary hover:underline">
+                  → {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
 
         <div className="mt-14 flex flex-wrap items-center gap-4 border-t pt-10">
           <Link

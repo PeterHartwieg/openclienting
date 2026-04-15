@@ -132,7 +132,8 @@
     "section5Title": "Warum eine offene Wissensdatenbank",
     "section5Body": "Die meisten Venture-Clienting-Programme heute sind in Innovationsabteilungen großer Konzerne eingeschlossen. Die Problemvorlagen, Anforderungen und Pilot-Playbooks, die sie erarbeiten, landen hinter NDAs und nützen sonst niemandem. OpenClienting setzt auf das Gegenteil: die Wissensdatenbank öffnen, kleineren KMU den Zugang zu bewährten Startup-Lösungen ermöglichen — und Top-Startups von den Unternehmen entdecken lassen, die sie tatsächlich brauchen.",
     "ctaBrowse": "Probleme entdecken",
-    "ctaSubmit": "Problem einreichen"
+    "ctaSubmit": "Problem einreichen",
+    "spokeIndexTitle": "Die Wissensdatenbank erkunden"
   },
   "ventureClientingCluster": {
     "_translationStatus": "PENDING — content mirrored from en.json, needs German translation. Grep for this key to find untranslated blocks.",
