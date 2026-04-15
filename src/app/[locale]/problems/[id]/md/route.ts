@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { getProblemById } from "@/lib/queries/problems";
+import { getPublishedProblemForMarkdown } from "@/lib/queries/problems";
 import { getSiteUrl } from "@/lib/site";
 import { getTagLabel } from "@/lib/i18n/tags";
 import { problemToMarkdown, type ResolvedTag } from "@/lib/seo/markdown";
@@ -19,7 +19,28 @@ import { locales, type Locale } from "@/i18n/config";
  * top-level problem and every nested entity. This handler does NOT do any
  * top-level anonymity short-circuit — mixing named and anonymous rows under
  * one problem is a supported case and must render correctly.
+ *
+ * Caching is layered:
+ *   1. Edge: the `s-maxage=3600` in the response `Cache-Control` header
+ *      tells Vercel's CDN to hold the response for an hour. Vercel strips
+ *      `s-maxage` from the downstream header so browsers see
+ *      `public, max-age=0` and don't cache — while the edge still serves
+ *      `x-vercel-cache: HIT` for repeat crawler requests. This is the
+ *      actual caching that saves DB round-trips for answer-engine crawlers.
+ *   2. Data layer: `getPublishedProblemForMarkdown` wraps the Supabase
+ *      query in `unstable_cache` with a 1h window, so any cache miss at
+ *      the edge lands on a function invocation that still shares one DB
+ *      round-trip with concurrent misses. Shares the
+ *      `["problem_templates", "tags"]` cache tags with
+ *      `getPublishedProblemsCached` so existing revalidation
+ *      (on problem publish/edit) busts both caches together.
+ *
+ * `revalidate = 3600` below is ignored for this route (the proxy middleware
+ * runs Supabase session refresh which reads cookies, marking downstream
+ * routes dynamic), but is kept as a signal of intent.
  */
+export const revalidate = 3600;
+
 export async function GET(
   _req: Request,
   { params }: { params: Promise<{ locale: string; id: string }> },
@@ -30,12 +51,7 @@ export async function GET(
   }
   const locale = rawLocale as Locale;
 
-  let problem;
-  try {
-    problem = await getProblemById(id);
-  } catch {
-    return new Response("Not found", { status: 404 });
-  }
+  const problem = await getPublishedProblemForMarkdown(id);
   if (!problem) {
     return new Response("Not found", { status: 404 });
   }
@@ -101,9 +117,11 @@ export async function GET(
   return new Response(md, {
     headers: {
       "Content-Type": "text/markdown; charset=utf-8",
-      // Crawlers don't need fresher data than the HTML page shows.
-      // `s-maxage` lets Vercel's edge cache hold it for an hour with SWR
-      // revalidation for a day, absorbing bursts without DB hits.
+      // `s-maxage` is the operative directive: Vercel's edge caches for
+      // an hour with a day of stale-while-revalidate. `max-age=0` keeps
+      // browsers from caching the response locally. Vercel strips
+      // `s-maxage` from the downstream header, so browsers see
+      // `public, max-age=0` while the edge still serves HITs.
       "Cache-Control": "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",
       "X-Robots-Tag": "index, follow",
     },

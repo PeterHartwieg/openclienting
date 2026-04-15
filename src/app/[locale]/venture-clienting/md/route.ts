@@ -9,7 +9,15 @@ import { locales, type Locale } from "@/i18n/config";
  * Exposed at `/{locale}/venture-clienting/md`. Mirrors the same
  * `ventureClienting.*` i18n namespace the HTML page reads so the prose stays
  * in lockstep with what human visitors see — no separate copy to maintain.
+ *
+ * Cached at the edge via `Cache-Control: s-maxage=3600` — Vercel strips
+ * the directive from the downstream header (so browsers see
+ * `public, max-age=0`) while still serving HITs from the CDN for an hour.
+ * `revalidate = 3600` below is ignored (the proxy middleware forces
+ * downstream routes dynamic) but kept as a signal of intent.
  */
+export const revalidate = 3600;
+
 export async function GET(
   _req: Request,
   { params }: { params: Promise<{ locale: string }> },
@@ -29,8 +37,11 @@ export async function GET(
   const md = ventureClientingToMarkdown({
     canonicalUrl,
     licenseName: mt("license"),
-    // Build time is good enough — the page is editorial content, not
-    // user-generated, so it changes with deploys.
+    // Cache-warm time rather than request time — every cached response
+    // within the revalidate window shares the same `updated` stamp, which
+    // is what we want (the content itself only changes on deploy). A new
+    // `new Date()` per request would be invisible anyway since the response
+    // body is frozen inside the cache.
     updatedAt: new Date().toISOString(),
     labels: {
       title: t("title"),
