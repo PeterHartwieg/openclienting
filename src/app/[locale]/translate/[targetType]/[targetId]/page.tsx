@@ -55,14 +55,17 @@ export default async function ProposeTranslationPage({
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) {
-    redirect(`/${locale}/login?next=/${locale}/translate/${targetType}/${targetId}`);
+    // App has no dedicated login page — sign-in lives in the header menu.
+    // Match the submit page's convention: bounce signed-out users back to
+    // the locale root and let them sign in from there.
+    redirect(`/${locale}`);
   }
 
-  const sourceFields = await getSourceFields(
+  const source = await getSourceFields(
     targetType as TranslationTargetType,
     targetId,
   );
-  if (!sourceFields) notFound();
+  if (!source) notFound();
 
   const spec = TRANSLATABLE_FIELDS[targetType as TranslationTargetType];
   const targetLabel = TARGET_TYPE_LABELS[targetType as TranslationTargetType];
@@ -84,9 +87,10 @@ export default async function ProposeTranslationPage({
       <TranslationForm
         targetType={targetType as TranslationTargetType}
         targetId={targetId}
-        sourceFields={sourceFields}
+        sourceFields={source.fields}
+        sourceLanguage={source.sourceLanguage}
         spec={spec}
-        defaultLanguage={locale === "en" ? "" : locale}
+        defaultLanguage={locale === source.sourceLanguage ? "" : locale}
       />
     </div>
   );

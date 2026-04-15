@@ -88,11 +88,6 @@ export async function proposeTranslation(params: {
   if (!LANGUAGE_CODES.includes(language)) {
     return { success: false, error: "Unsupported language" };
   }
-  if (language === "en") {
-    // English is the source — translating to English makes no sense
-    // and would collide with the source row.
-    return { success: false, error: "Source language is English" };
-  }
   const fields = sanitizeFields(params.targetType, params.fields);
   if (Object.keys(fields).length === 0) {
     return { success: false, error: "No fields provided" };
@@ -100,6 +95,29 @@ export async function proposeTranslation(params: {
 
   const auth = await requireSignedIn();
   if (!auth.ok) return { success: false, error: auth.error };
+
+  // Reject proposals that "translate" a row into its own source
+  // language — that would collide with the source row and makes no
+  // sense. The row's source_language is detected on submission
+  // (detectLanguage) so this check adapts automatically when a
+  // German-authored problem appears.
+  const table =
+    params.targetType === "problem_template" ? "problem_templates"
+    : params.targetType === "requirement" ? "requirements"
+    : params.targetType === "pilot_framework" ? "pilot_frameworks"
+    : "solution_approaches";
+  const { data: row, error: rowError } = await auth.supabase
+    .from(table)
+    .select("source_language")
+    .eq("id", params.targetId)
+    .maybeSingle();
+  if (rowError || !row) {
+    return { success: false, error: "Target not found" };
+  }
+  const sourceLanguage = (row as { source_language: string | null }).source_language ?? "en";
+  if (language === sourceLanguage) {
+    return { success: false, error: "This is the source language" };
+  }
 
   const { error } = await auth.supabase.from("content_translations").insert({
     target_type: params.targetType,

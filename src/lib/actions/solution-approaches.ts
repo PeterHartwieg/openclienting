@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { detectLanguage } from "@/lib/i18n/detect-language";
 import type { TechnologyType, Maturity } from "@/lib/types/database";
 
 export async function submitSolutionApproach(params: {
@@ -37,6 +38,11 @@ export async function submitSolutionApproach(params: {
     is_publicly_anonymous: params.isPubliclyAnonymous,
     is_org_anonymous: params.isOrgAnonymous,
     status: "submitted",
+    // Description is usually long enough for franc to classify;
+    // prepend the title for a little extra signal.
+    source_language: detectLanguage(
+      `${params.title.trim()}\n\n${params.description.trim()}`,
+    ),
   });
 
   if (error) return { success: false, error: error.message };

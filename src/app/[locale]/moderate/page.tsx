@@ -116,7 +116,10 @@ export default async function ModerationPage({
   // can show side-by-side EN vs. target. Batched by (target_type, target_id)
   // pair; in practice the queue is small (dozens, not thousands), so the
   // per-row fetch cost is negligible.
-  const translationSources = new Map<string, Record<string, string>>();
+  const translationSources = new Map<
+    string,
+    { fields: Record<string, string>; sourceLanguage: string }
+  >();
   for (const tr of pendingTranslations ?? []) {
     const key = `${tr.target_type}:${tr.target_id}`;
     if (translationSources.has(key)) continue;
@@ -450,13 +453,17 @@ export default async function ModerationPage({
             pendingTranslations!.map((tr) => {
               const targetType = tr.target_type as TranslationTargetType;
               const key = `${tr.target_type}:${tr.target_id}`;
-              const sourceFields = translationSources.get(key) ?? {};
+              const source = translationSources.get(key);
+              const sourceFields = source?.fields ?? {};
+              const sourceLanguage = source?.sourceLanguage ?? "en";
               return (
                 <Card key={tr.id}>
                   <CardHeader className="pb-2">
                     <div className="flex items-center gap-2 flex-wrap">
                       <Badge variant="outline">{TARGET_TYPE_LABELS[targetType]}</Badge>
-                      <Badge variant="outline">{getLanguageLabel(tr.language)}</Badge>
+                      <Badge variant="outline">
+                        {getLanguageLabel(sourceLanguage)} → {getLanguageLabel(tr.language)}
+                      </Badge>
                       <span className="text-xs text-muted-foreground font-mono">{tr.target_id.slice(0, 8)}…</span>
                     </div>
                     <p className="text-xs text-muted-foreground">

@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { detectLanguage } from "@/lib/i18n/detect-language";
 
 interface ProblemSubmission {
   title: string;
@@ -42,6 +43,12 @@ export async function submitProblem(data: ProblemSubmission) {
     return { success: false, error: "At least one tag is required." };
   }
 
+  // Detect source language from the problem body. Title alone is usually
+  // too short to classify reliably, so we concatenate with the description.
+  const problemSourceLanguage = detectLanguage(
+    `${data.title.trim()}\n\n${data.description.trim()}`,
+  );
+
   // Insert problem
   const { data: problem, error: problemError } = await supabase
     .from("problem_templates")
@@ -53,6 +60,7 @@ export async function submitProblem(data: ProblemSubmission) {
       is_publicly_anonymous: data.isPubliclyAnonymous,
       is_org_anonymous: data.isOrgAnonymous,
       status: "submitted",
+      source_language: problemSourceLanguage,
     })
     .select("id")
     .single();
@@ -86,6 +94,11 @@ export async function submitProblem(data: ProblemSubmission) {
         is_publicly_anonymous: data.isPubliclyAnonymous,
         is_org_anonymous: data.isOrgAnonymous,
         status: "submitted" as const,
+        // Each requirement is short on its own, so fall back to the
+        // parent problem's detected language rather than re-detecting
+        // per item (where detection would almost always hit the
+        // too-short-to-classify fallback).
+        source_language: problemSourceLanguage,
       }))
     );
     if (reqError) {
@@ -110,6 +123,22 @@ export async function submitProblem(data: ProblemSubmission) {
       is_publicly_anonymous: data.isPubliclyAnonymous,
       is_org_anonymous: data.isOrgAnonymous,
       status: "submitted" as const,
+      // Detect from the pilot framework's own aggregate body so a
+      // framework written in German against an English problem gets
+      // tagged correctly.
+      source_language: detectLanguage(
+        [
+          pf.scope,
+          pf.suggested_kpis,
+          pf.success_criteria,
+          pf.common_pitfalls,
+          pf.duration,
+          pf.resource_commitment,
+        ]
+          .map((f) => f.trim())
+          .filter(Boolean)
+          .join("\n\n"),
+      ),
     });
     if (pfError) {
       return { success: false, error: pfError.message };

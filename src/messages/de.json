@@ -402,6 +402,7 @@
     "languagePlaceholder": "Sprache auswählen",
     "languageHelp": "Wähle die Sprache, in die du übersetzt.",
     "sourceLabel": "Original (Englisch)",
+    "sourceLabelPrefix": "Original",
     "targetLabel": "Deine Übersetzung",
     "sourceEmpty": "(leer)",
     "fieldPlaceholder": "Übersetzung hier eintragen…",

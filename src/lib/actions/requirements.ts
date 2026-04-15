@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { detectLanguage } from "@/lib/i18n/detect-language";
 
 export async function submitRequirement(params: {
   problemId: string;
@@ -17,6 +18,9 @@ export async function submitRequirement(params: {
   if (!user) return { success: false, error: "Sign in to contribute" };
   if (!params.body.trim()) return { success: false, error: "Body is required" };
 
+  // Standalone requirement contribution (not part of the initial problem
+  // submission) — detect from its own body. Short bodies fall back to "en"
+  // inside detectLanguage's min-length guard.
   const { error } = await supabase.from("requirements").insert({
     problem_id: params.problemId,
     body: params.body.trim(),
@@ -25,6 +29,7 @@ export async function submitRequirement(params: {
     is_publicly_anonymous: params.isPubliclyAnonymous,
     is_org_anonymous: params.isOrgAnonymous,
     status: "submitted",
+    source_language: detectLanguage(params.body.trim()),
   });
 
   if (error) return { success: false, error: error.message };

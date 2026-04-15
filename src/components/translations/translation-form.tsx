@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { LANGUAGES } from "@/i18n/languages";
+import { LANGUAGES, getLanguageLabel } from "@/i18n/languages";
 import type { TranslatableFieldSpec } from "@/lib/content-translations/fields";
 import type { TranslationTargetType } from "@/lib/types/database";
 
@@ -23,8 +23,10 @@ interface TranslationFormProps {
   targetType: TranslationTargetType;
   targetId: string;
   sourceFields: Record<string, string>;
+  /** The row's own source language code (ISO 639-1). Determines the source column label and is excluded from the target picker. */
+  sourceLanguage: string;
   spec: readonly TranslatableFieldSpec[];
-  /** Pre-filled language if the user is already browsing in a non-English locale. */
+  /** Pre-filled language if the user is already browsing in a non-source locale. */
   defaultLanguage: string;
 }
 
@@ -42,6 +44,7 @@ export function TranslationForm({
   targetType,
   targetId,
   sourceFields,
+  sourceLanguage,
   spec,
   defaultLanguage,
 }: TranslationFormProps) {
@@ -49,7 +52,7 @@ export function TranslationForm({
   const router = useRouter();
   const locale = useLocale();
   const [language, setLanguage] = useState<string>(
-    defaultLanguage === "en" ? "" : defaultLanguage,
+    defaultLanguage === sourceLanguage ? "" : defaultLanguage,
   );
   const [values, setValues] = useState<Record<string, string>>(() =>
     Object.fromEntries(spec.map((s) => [s.name, ""])),
@@ -58,7 +61,10 @@ export function TranslationForm({
   const [submitted, setSubmitted] = useState(false);
   const [isPending, startTransition] = useTransition();
 
-  const pickableLanguages = LANGUAGES.filter((l) => l.code !== "en");
+  // Exclude the row's own source language from the target picker — you
+  // can't "translate" German content back into German.
+  const pickableLanguages = LANGUAGES.filter((l) => l.code !== sourceLanguage);
+  const sourceLabel = `${t("sourceLabelPrefix")} (${getLanguageLabel(sourceLanguage)})`;
 
   function handleFieldChange(name: string, value: string) {
     setValues((prev) => ({ ...prev, [name]: value }));
@@ -137,7 +143,7 @@ export function TranslationForm({
             <div key={field.name} className="grid gap-3 md:grid-cols-2">
               <div className="space-y-1.5">
                 <Label className="text-muted-foreground">
-                  {field.label} · {t("sourceLabel")}
+                  {field.label} · {sourceLabel}
                 </Label>
                 <div className="rounded-md border bg-muted/40 px-3 py-2 text-sm whitespace-pre-wrap min-h-[2.5rem]">
                   {sourceValue || (

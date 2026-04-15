@@ -124,6 +124,7 @@ export interface Database {
           author_organization_id: string | null;
           status: ProblemStatus;
           solution_status: SolutionStatus;
+          source_language: string;
           rejection_reason: string | null;
           created_at: string;
           updated_at: string;
@@ -137,6 +138,7 @@ export interface Database {
           is_org_anonymous?: boolean;
           author_organization_id?: string | null;
           status?: ProblemStatus;
+          source_language?: string;
           rejection_reason?: string | null;
           created_at?: string;
           updated_at?: string;
@@ -176,6 +178,7 @@ export interface Database {
           is_org_anonymous: boolean;
           author_organization_id: string | null;
           status: ContentStatus;
+          source_language: string;
           upvote_count: number;
           created_at: string;
           updated_at: string;
@@ -189,6 +192,7 @@ export interface Database {
           is_org_anonymous?: boolean;
           author_organization_id?: string | null;
           status?: ContentStatus;
+          source_language?: string;
           upvote_count?: number;
           created_at?: string;
           updated_at?: string;
@@ -218,6 +222,7 @@ export interface Database {
           is_org_anonymous: boolean;
           author_organization_id: string | null;
           status: ContentStatus;
+          source_language: string;
           upvote_count: number;
           created_at: string;
           updated_at: string;
@@ -236,6 +241,7 @@ export interface Database {
           is_org_anonymous?: boolean;
           author_organization_id?: string | null;
           status?: ContentStatus;
+          source_language?: string;
           upvote_count?: number;
           created_at?: string;
           updated_at?: string;
@@ -270,6 +276,7 @@ export interface Database {
           is_org_anonymous: boolean;
           author_organization_id: string | null;
           status: ProblemStatus;
+          source_language: string;
           upvote_count: number;
           created_at: string;
           updated_at: string;
@@ -288,6 +295,7 @@ export interface Database {
           is_org_anonymous?: boolean;
           author_organization_id?: string | null;
           status?: ProblemStatus;
+          source_language?: string;
           upvote_count?: number;
           created_at?: string;
           updated_at?: string;

@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { detectLanguage } from "@/lib/i18n/detect-language";
 
 export async function submitPilotFramework(params: {
   problemId: string;
@@ -34,6 +35,21 @@ export async function submitPilotFramework(params: {
     is_publicly_anonymous: params.isPubliclyAnonymous,
     is_org_anonymous: params.isOrgAnonymous,
     status: "submitted",
+    // Detect from the framework's aggregate body. If individual fields are
+    // short, the concatenation gives us enough signal to classify.
+    source_language: detectLanguage(
+      [
+        params.scope,
+        params.suggestedKpis,
+        params.successCriteria,
+        params.commonPitfalls,
+        params.duration,
+        params.resourceCommitment,
+      ]
+        .map((f) => f.trim())
+        .filter(Boolean)
+        .join("\n\n"),
+    ),
   });
 
   if (error) return { success: false, error: error.message };
