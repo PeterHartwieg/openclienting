@@ -8,6 +8,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { SearchBar } from "@/components/layout/search-bar";
 import { writePersonaCookie, type Persona } from "@/lib/persona";
+import { BrandMark } from "@/components/brand/brand-mark";
 
 export function PersonaHero({
   locale,
@@ -46,11 +47,24 @@ export function PersonaHero({
           <span className="sr-only">{t("heroEyebrowCta")}</span>
         </Link>
 
+        {/* Brand mark — reflects active persona side */}
+        <div className="mt-6 flex justify-center">
+          <BrandMark
+            state={persona === "sme" ? "corporate" : "startup"}
+            size={56}
+            ariaLabel={
+              persona === "sme"
+                ? t("personaSme")
+                : t("personaStartup")
+            }
+          />
+        </div>
+
         {/* Persona toggle */}
         <div
           role="tablist"
           aria-label={t("personaToggleLabel")}
-          className="mx-auto mt-6 inline-flex items-center gap-1 rounded-full border bg-card p-1 shadow-sm"
+          className="mx-auto mt-4 inline-flex items-center gap-1 rounded-full border bg-card p-1 shadow-sm"
         >
           <button
             type="button"
@@ -76,7 +90,7 @@ export function PersonaHero({
             className={cn(
               "rounded-full px-4 py-1.5 text-sm font-medium transition-all",
               persona === "startup"
-                ? "bg-primary text-primary-foreground shadow-sm"
+                ? "bg-accent text-accent-foreground shadow-sm"
                 : "text-muted-foreground hover:text-foreground",
             )}
           >
@@ -87,7 +101,15 @@ export function PersonaHero({
         {/* Hero copy */}
         <div id="persona-hero-copy" role="tabpanel">
           <h1 className="mt-8 text-display font-bold leading-display tracking-tighter">
-            {title1} <span className="text-primary">{title2}</span>
+            {title1}{" "}
+            <span
+              className={cn(
+                "transition-colors duration-200",
+                persona === "sme" ? "text-primary" : "text-accent",
+              )}
+            >
+              {title2}
+            </span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground leading-relaxed">
             {subtitle}

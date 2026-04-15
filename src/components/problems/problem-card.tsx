@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TagBadge } from "@/components/shared/tag-badge";
 import { SolutionStatusBadge } from "@/components/shared/solution-status-badge";
 import { getTagLabel } from "@/lib/i18n/tags";
+import { cn } from "@/lib/utils";
 
 interface ProblemTag {
   tag_id: string;
@@ -48,12 +49,24 @@ export async function ProblemCard({
   const visibleTags = validTags.slice(0, MAX_VISIBLE_TAGS);
   const overflowCount = validTags.length - MAX_VISIBLE_TAGS;
 
+  // Corporate problems always carry a blue left-bracket accent. When a
+  // problem has active solution activity we add the amber counterpart as a
+  // right-border accent — visually completing the bracket pair to signal
+  // "both sides are engaged here".
+  const hasSolutionActivity = Boolean(solutionStatus);
+
   return (
     <Link
       href={`/${locale}/problems/${id}`}
       className="group rounded-lg focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
     >
-      <Card className="h-full border-l-2 border-l-primary/40 transition-all duration-200 group-hover:shadow-md group-hover:-translate-y-0.5 group-hover:border-l-primary">
+      <Card
+        className={cn(
+          "h-full border-l-2 border-l-primary/40 transition-all duration-200 group-hover:shadow-md group-hover:-translate-y-0.5 group-hover:border-l-primary",
+          hasSolutionActivity &&
+            "border-r-2 border-r-accent/40 group-hover:border-r-accent",
+        )}
+      >
         <CardHeader>
           <CardTitle className="text-lg leading-tight group-hover:text-primary transition-colors">
             {title}
