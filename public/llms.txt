@@ -12,6 +12,20 @@ Every contribution is moderated before publication, authored attributions are op
 - [Browse all problems](https://openclienting.org/en/problems)
 - [Submit a problem](https://openclienting.org/en/submit)
 
+## Markdown versions
+
+Per-problem and per-page Markdown alternatives are exposed at a `/md` suffix
+on each page path. They are intended for answer engines and LLM crawlers and
+carry the same per-row anonymity gating as the HTML pages.
+
+- [Venture clienting explainer (Markdown, English)](https://openclienting.org/en/venture-clienting/md)
+- [Venture clienting explainer (Markdown, German)](https://openclienting.org/de/venture-clienting/md)
+- Individual problem detail pages are available as Markdown by appending
+  `/md` to any problem URL, e.g.
+  `https://openclienting.org/en/problems/{id}/md`. Each HTML problem page
+  advertises its Markdown alternative via
+  `<link rel="alternate" type="text/markdown">`.
+
 ## Languages
 
 - English: https://openclienting.org/en

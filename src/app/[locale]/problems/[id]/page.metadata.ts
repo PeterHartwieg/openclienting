@@ -20,7 +20,16 @@ export async function generateProblemMetadata(
     return {
       title,
       description,
-      alternates: getLanguageAlternates(locale, `/problems/${id}`),
+      alternates: {
+        ...getLanguageAlternates(locale, `/problems/${id}`),
+        // Advertise the Markdown alternate so LLM crawlers that follow
+        // `<link rel="alternate" type="text/markdown">` can discover it
+        // without guessing URL shapes. Not added to the sitemap — search
+        // engines should still index the HTML canonical.
+        types: {
+          "text/markdown": `/${locale}/problems/${id}/md`,
+        },
+      },
       openGraph: {
         title,
         description,

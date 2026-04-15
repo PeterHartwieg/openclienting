@@ -202,6 +202,32 @@
         "has_approaches": "Lösungsansätze vorgeschlagen.",
         "successful_pilot": "Mindestens ein verifizierter erfolgreicher Pilot."
       }
+    },
+    "markdown": {
+      "author": "Autor:in",
+      "organization": "Organisation",
+      "requirementsEmpty": "Noch keine Anforderungen veröffentlicht.",
+      "pilotFrameworksEmpty": "Noch keine Pilot-Frameworks veröffentlicht.",
+      "solutionApproachesEmpty": "Noch keine Lösungsansätze veröffentlicht.",
+      "source": "Quelle",
+      "canonical": "Kanonisch",
+      "licenseLabel": "Lizenz",
+      "license": "CC BY-SA 4.0",
+      "upvotes": "Stimmen",
+      "technology": "Technologie",
+      "maturity": "Reifegrad",
+      "complexity": "Komplexität",
+      "price": "Preis",
+      "scope": "Umfang",
+      "duration": "Dauer",
+      "suggestedKpis": "Vorgeschlagene KPIs",
+      "successCriteria": "Erfolgskriterien",
+      "commonPitfalls": "Häufige Fallstricke",
+      "resourceCommitment": "Ressourcen-Einsatz",
+      "pilotPeriod": "Pilot-Zeitraum",
+      "deploymentScope": "Rollout-Umfang",
+      "kpiSummary": "Kennzahlen",
+      "evidenceNotes": "Nachweise"
     }
   },
   "breadcrumbs": {

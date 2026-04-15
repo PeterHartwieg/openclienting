@@ -16,7 +16,14 @@ export async function generateMetadata({
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
-    alternates: getLanguageAlternates(locale, "/venture-clienting"),
+    alternates: {
+      ...getLanguageAlternates(locale, "/venture-clienting"),
+      // Markdown alternate for LLM crawlers — discovered via `llms.txt` and
+      // this `<link rel="alternate" type="text/markdown">` header.
+      types: {
+        "text/markdown": `/${locale}/venture-clienting/md`,
+      },
+    },
   };
 }
 
