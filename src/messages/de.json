@@ -413,7 +413,11 @@
     "errorSelectLanguage": "Bitte wähle eine Sprache.",
     "errorEmpty": "Bitte übersetze mindestens ein Feld.",
     "moderationNote": "Teilübersetzungen sind in Ordnung — lasse Felder leer, wenn du unsicher bist. Moderatoren prüfen jede Einreichung.",
-    "ctaTranslateThis": "Übersetzen"
+    "ctaTranslateThis": "Übersetzen",
+    "showOriginal": "Original anzeigen",
+    "showOriginalIn": "Original anzeigen ({language})",
+    "showTranslatedVersion": "Übersetzte Version anzeigen",
+    "viewingOriginal": "Du siehst gerade den Inhalt in der Originalsprache."
   },
   "errors": {
     "generic": "Etwas ist schiefgelaufen. Bitte erneut versuchen.",

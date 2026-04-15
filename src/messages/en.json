@@ -413,7 +413,11 @@
     "errorSelectLanguage": "Please select a language.",
     "errorEmpty": "Please translate at least one field.",
     "moderationNote": "Partial translations are fine — leave fields blank if you are unsure. Moderators review every submission.",
-    "ctaTranslateThis": "Translate this"
+    "ctaTranslateThis": "Translate this",
+    "showOriginal": "Show original",
+    "showOriginalIn": "Show original ({language})",
+    "showTranslatedVersion": "Show translated version",
+    "viewingOriginal": "You are viewing the original-language content."
   },
   "errors": {
     "generic": "Something went wrong. Please try again.",

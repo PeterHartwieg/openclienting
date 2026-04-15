@@ -23,6 +23,7 @@ import { CommentForm } from "@/components/comments/comment-form";
 import { EditProblemForm } from "@/components/problems/edit-problem-form";
 import { SuggestEditForm } from "@/components/problems/suggest-edit-form";
 import { TranslateThisLink } from "@/components/translations/translate-this-link";
+import { ShowOriginalToggle } from "@/components/translations/show-original-toggle";
 import { ProblemHero } from "@/components/problems/problem-hero";
 import { ProblemSection } from "@/components/problems/problem-section";
 import { ProblemTocSidebar } from "@/components/problems/problem-toc-sidebar";
@@ -47,10 +48,17 @@ export async function generateMetadata({
 
 export default async function ProblemDetailPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string; id: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { locale, id } = await params;
+  const sp = await searchParams;
+  // ?original=1 forces the source-language render path so visitors can read
+  // the problem (and its requirements / frameworks / approaches) the way it
+  // was originally written. Any non-"1" value falls back to translated.
+  const showingOriginal = sp.original === "1";
   setRequestLocale(locale);
   const t = await getTranslations("problemDetail");
 
@@ -63,10 +71,36 @@ export default async function ProblemDetailPage({
 
   if (!problem) notFound();
 
+  // Collect every distinct source language present in the problem tree —
+  // used to (a) decide whether the "show original" toggle is meaningful at
+  // all (any row in a non-current language?) and (b) render a friendlier
+  // label when there's only one source language across the whole problem.
+  const sourceLanguagesInTree = new Set<string>();
+  sourceLanguagesInTree.add(problem.source_language ?? "en");
+  for (const r of (problem.requirements ?? []) as Array<{ source_language?: string | null }>) {
+    sourceLanguagesInTree.add(r.source_language ?? "en");
+  }
+  for (const f of (problem.pilot_frameworks ?? []) as Array<{ source_language?: string | null }>) {
+    sourceLanguagesInTree.add(f.source_language ?? "en");
+  }
+  for (const s of (problem.solution_approaches ?? []) as Array<{ source_language?: string | null }>) {
+    sourceLanguagesInTree.add(s.source_language ?? "en");
+  }
+  // Toggle is only useful when at least one row was authored in something
+  // other than the visitor's current locale — otherwise "show original" is
+  // a no-op. We render the button only in that case.
+  const hasNonLocaleSource = Array.from(sourceLanguagesInTree).some(
+    (lang) => lang !== locale,
+  );
+  const sourceLanguagesList = Array.from(sourceLanguagesInTree).sort();
+
   // Merge any approved content_translations for this locale over the source
   // row. Per-row rows without a translation are passed through untouched
-  // (English fallback). No-op when locale is "en".
-  problem = await translateProblem(problem, locale);
+  // (English fallback). No-op when locale is "en". Skipped entirely when the
+  // visitor explicitly asked for the original-language view via ?original=1.
+  if (!showingOriginal) {
+    problem = await translateProblem(problem, locale);
+  }
 
   // Get current user's votes for this problem's content
   const supabase = await createClient();
@@ -310,6 +344,17 @@ export default async function ProblemDetailPage({
       <Breadcrumbs items={breadcrumbItems} className="mb-4 text-sm text-muted-foreground" />
 
       <ProblemAnswerSummary problem={problem} locale={locale} />
+
+      {hasNonLocaleSource && (
+        <div className="mb-4 flex justify-end">
+          <ShowOriginalToggle
+            locale={locale}
+            pathname={canonicalPath}
+            showingOriginal={showingOriginal}
+            sourceLanguages={sourceLanguagesList}
+          />
+        </div>
+      )}
 
       <ProblemHero
         title={problem.title}
