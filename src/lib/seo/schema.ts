@@ -35,6 +35,43 @@ export type PersonSchema = Thing & {
   name: string;
 };
 
+/**
+ * Public organization profile schema. Distinct from the site-wide
+ * `OrganizationSchema` (which represents OpenClienting as the publisher) —
+ * this one describes a third-party organization that has content attributed
+ * to them on the site.
+ *
+ * Every field here corresponds to something visible on the profile page:
+ *   - `name`          — rendered in the profile hero `<h1>`
+ *   - `url`           — canonical link to the profile
+ *   - `description`   — the org's about text as rendered in the hero
+ *   - `logo`          — the logo image shown in the hero (absolute URL)
+ *   - `sameAs`        — the org's declared website (shown as a link)
+ *   - `numberOfEmployees` — the employee count badge (tier + count), when set
+ *
+ * Verification is modelled via the schema.org `identifier` PropertyValue —
+ * not a full Google "trust" property since schema.org has no standard for
+ * community-verified status. The site-specific label ("Verified by
+ * OpenClienting") is placed in `propertyID` so validators accept the field.
+ */
+export type OrgProfileSchema = Thing & {
+  "@type": "Organization";
+  name: string;
+  url: string;
+  description?: string;
+  logo?: string;
+  sameAs?: string[];
+  numberOfEmployees?: {
+    "@type": "QuantitativeValue";
+    value: number;
+  };
+  identifier?: {
+    "@type": "PropertyValue";
+    propertyID: string;
+    value: string;
+  };
+};
+
 export type WebSiteSchema = Thing & {
   "@type": "WebSite";
   name: string;
@@ -256,4 +293,97 @@ export function problemArticleSchema(
     };
   }
   return schema;
+}
+
+// ---------- Organization profile builders ----------
+
+export interface OrganizationProfileInput {
+  name: string;
+  profileUrl: string; // absolute canonical URL of the profile page
+  description: string | null;
+  website: string | null;
+  logoUrl: string | null; // already absolute if set
+  employeeCount: number | null;
+  verificationLabel: string | null; // e.g. "Verified by OpenClienting"; null if not verified
+}
+
+/**
+ * Build a schema.org Organization payload for a public org profile page.
+ *
+ * Visibility contract: only fields that correspond to something rendered on
+ * the profile hero are emitted. `numberOfEmployees` is set only when the
+ * employee count badge renders; `sameAs` is set only when the website link
+ * is rendered; `logo` only when the logo image shows in the hero.
+ */
+export function organizationProfileSchema(
+  input: OrganizationProfileInput,
+): WithContext<OrgProfileSchema> {
+  const schema: WithContext<OrgProfileSchema> = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: input.name,
+    url: input.profileUrl,
+  };
+  if (input.description && input.description.trim().length > 0) {
+    schema.description = input.description.trim();
+  }
+  if (input.logoUrl) {
+    schema.logo = input.logoUrl;
+  }
+  if (input.website && input.website.trim().length > 0) {
+    schema.sameAs = [input.website.trim()];
+  }
+  if (input.employeeCount != null && input.employeeCount > 0) {
+    schema.numberOfEmployees = {
+      "@type": "QuantitativeValue",
+      value: input.employeeCount,
+    };
+  }
+  if (input.verificationLabel) {
+    schema.identifier = {
+      "@type": "PropertyValue",
+      propertyID: input.verificationLabel,
+      value: "verified",
+    };
+  }
+  return schema;
+}
+
+export interface OrganizationCollectionItem {
+  name: string;
+  url: string; // absolute
+}
+
+/**
+ * Directory CollectionPage + ItemList pointing at every verified org. Same
+ * shape as `problemsCollectionSchema` but the list carries org names instead
+ * of problem titles. Kept as a thin wrapper so the directory page matches
+ * the problem list page's discoverability pattern for answer engines.
+ */
+export function organizationsCollectionSchema(params: {
+  inLanguageTag: string;
+  pageName: string;
+  pageDescription: string;
+  pageUrl: string; // absolute
+  items: OrganizationCollectionItem[];
+}): WithContext<CollectionPageSchema> {
+  const { inLanguageTag, pageName, pageDescription, pageUrl, items } = params;
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: pageName,
+    description: pageDescription,
+    url: pageUrl,
+    inLanguage: inLanguageTag,
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: items.length,
+      itemListElement: items.map((item, idx) => ({
+        "@type": "ListItem",
+        position: idx + 1,
+        url: item.url,
+        name: item.name,
+      })),
+    },
+  };
 }

@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/i18n/format";
+import { OrgLink } from "@/components/organizations/org-link";
 
 interface SuccessReport {
   id: string;
@@ -22,7 +23,12 @@ interface SuccessReport {
   verification_status?: string;
   created_at: string;
   profiles?: { display_name: string | null } | null;
-  organizations?: { id: string; name: string } | null;
+  organizations?: {
+    id: string;
+    name: string;
+    slug?: string | null;
+    verification_status?: string | null;
+  } | null;
 }
 
 interface SuccessReportListProps {
@@ -54,12 +60,8 @@ function SuccessReportCard({ report, locale }: { report: SuccessReport; locale: 
   const authorLabel = report.is_publicly_anonymous
     ? "Anonymous"
     : report.profiles?.display_name ?? "Unknown";
-  const orgLabel = report.is_org_anonymous
-    ? null
-    : report.organizations?.name ?? null;
-  // Use a Unicode escape for the middle dot so the source stays pure ASCII
-  // and the separator can't be mangled by tools that mis-detect file encoding.
-  const attribution = [authorLabel, orgLabel].filter(Boolean).join(" \u00B7 ");
+  const orgRow = report.is_org_anonymous ? null : report.organizations ?? null;
+  const orgLabel = orgRow?.name ?? null;
 
   const kpiItems = parseKpis(report.kpi_summary);
 
@@ -177,7 +179,22 @@ function SuccessReportCard({ report, locale }: { report: SuccessReport; locale: 
       {/* Footer attribution */}
       <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t bg-muted/20 px-5 py-2.5">
         <p className="text-xs text-muted-foreground">
-          Submitted by <span className="font-medium text-foreground">{attribution}</span>
+          Submitted by{" "}
+          <span className="font-medium text-foreground">
+            {authorLabel}
+            {orgLabel && (
+              <>
+                {" \u00B7 "}
+                <OrgLink
+                  name={orgLabel}
+                  slug={orgRow?.slug}
+                  verificationStatus={orgRow?.verification_status}
+                  locale={locale}
+                  className="hover:underline"
+                />
+              </>
+            )}
+          </span>
         </p>
         <p className="text-xs text-muted-foreground tabular-nums">{formattedDate}</p>
       </div>

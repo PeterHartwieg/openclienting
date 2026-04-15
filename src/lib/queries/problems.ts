@@ -25,7 +25,7 @@ const getPublishedProblemsCached = unstable_cache(
           tags (id, name, slug, category)
         ),
         profiles!problem_templates_author_id_fkey (display_name),
-        organizations!problem_templates_author_organization_id_fkey (id, name)
+        organizations!problem_templates_author_organization_id_fkey (id, name, slug, verification_status)
       `)
       .eq("status", "published")
       .order("created_at", { ascending: false });
@@ -97,29 +97,29 @@ export const getPublishedProblemForMarkdown = unstable_cache(
           tags (id, name, name_de, slug, category)
         ),
         profiles!problem_templates_author_id_fkey (display_name),
-        organizations!problem_templates_author_organization_id_fkey (id, name),
+        organizations!problem_templates_author_organization_id_fkey (id, name, slug, verification_status),
         requirements (
           id, body, is_publicly_anonymous, is_org_anonymous, status, upvote_count, created_at, author_id,
           profiles!requirements_author_id_fkey (display_name),
-          organizations!requirements_author_organization_id_fkey (id, name)
+          organizations!requirements_author_organization_id_fkey (id, name, slug, verification_status)
         ),
         pilot_frameworks (
           id, scope, suggested_kpis, success_criteria, common_pitfalls,
           duration, resource_commitment, is_publicly_anonymous, is_org_anonymous, status, upvote_count, created_at, author_id,
           profiles!pilot_frameworks_author_id_fkey (display_name),
-          organizations!pilot_frameworks_author_organization_id_fkey (id, name)
+          organizations!pilot_frameworks_author_organization_id_fkey (id, name, slug, verification_status)
         ),
         solution_approaches (
           id, title, description, technology_type, maturity, complexity, price_range,
           is_publicly_anonymous, is_org_anonymous, status, upvote_count, created_at, author_id,
           profiles!solution_approaches_author_id_fkey (display_name),
-          organizations!solution_approaches_author_organization_id_fkey (id, name),
+          organizations!solution_approaches_author_organization_id_fkey (id, name, slug, verification_status),
           success_reports (
             id, report_summary, pilot_date_range, deployment_scope, kpi_summary, evidence_notes,
             is_publicly_anonymous, is_org_anonymous, status, verification_status, created_at,
             submitted_by_organization_id,
             profiles!success_reports_author_id_fkey (display_name),
-            organizations!success_reports_submitted_by_organization_id_fkey (id, name)
+            organizations!success_reports_submitted_by_organization_id_fkey (id, name, slug, verification_status)
           )
         )
       `)
@@ -148,29 +148,29 @@ export const getProblemById = cache(async (id: string) => {
         tags (id, name, slug, category)
       ),
       profiles!problem_templates_author_id_fkey (display_name),
-      organizations!problem_templates_author_organization_id_fkey (id, name),
+      organizations!problem_templates_author_organization_id_fkey (id, name, slug, verification_status),
       requirements (
         id, body, is_publicly_anonymous, is_org_anonymous, status, upvote_count, created_at, author_id,
         profiles!requirements_author_id_fkey (display_name),
-        organizations!requirements_author_organization_id_fkey (id, name)
+        organizations!requirements_author_organization_id_fkey (id, name, slug, verification_status)
       ),
       pilot_frameworks (
         id, scope, suggested_kpis, success_criteria, common_pitfalls,
         duration, resource_commitment, is_publicly_anonymous, is_org_anonymous, status, upvote_count, created_at, author_id,
         profiles!pilot_frameworks_author_id_fkey (display_name),
-        organizations!pilot_frameworks_author_organization_id_fkey (id, name)
+        organizations!pilot_frameworks_author_organization_id_fkey (id, name, slug, verification_status)
       ),
       solution_approaches (
         id, title, description, technology_type, maturity, complexity, price_range,
         is_publicly_anonymous, is_org_anonymous, status, upvote_count, created_at, author_id,
         profiles!solution_approaches_author_id_fkey (display_name),
-        organizations!solution_approaches_author_organization_id_fkey (id, name),
+        organizations!solution_approaches_author_organization_id_fkey (id, name, slug, verification_status),
         success_reports (
           id, report_summary, pilot_date_range, deployment_scope, kpi_summary, evidence_notes,
           is_publicly_anonymous, is_org_anonymous, status, verification_status, created_at,
           submitted_by_organization_id,
           profiles!success_reports_author_id_fkey (display_name),
-          organizations!success_reports_submitted_by_organization_id_fkey (id, name)
+          organizations!success_reports_submitted_by_organization_id_fkey (id, name, slug, verification_status)
         )
       )
     `)

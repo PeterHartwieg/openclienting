@@ -12,6 +12,7 @@ import type { LucideIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { TagBadge } from "@/components/shared/tag-badge";
 import { SolutionStatusBadge } from "@/components/shared/solution-status-badge";
+import { OrgLink } from "@/components/organizations/org-link";
 import { getTagLabel } from "@/lib/i18n/tags";
 import { formatDate } from "@/lib/i18n/format";
 
@@ -27,6 +28,8 @@ interface ProblemHeroProps {
   status: string;
   authorName: string;
   orgName: string | null;
+  orgSlug?: string | null;
+  orgVerificationStatus?: string | null;
   createdAt: string;
   updatedAt: string | null;
   tags: Tag[];
@@ -45,6 +48,8 @@ export async function ProblemHero({
   status,
   authorName,
   orgName,
+  orgSlug,
+  orgVerificationStatus,
   createdAt,
   updatedAt,
   tags,
@@ -79,7 +84,12 @@ export async function ProblemHero({
         {orgName && (
           <span className="inline-flex items-center gap-1.5">
             <Building2 className="h-4 w-4" />
-            {orgName}
+            <OrgLink
+              name={orgName}
+              slug={orgSlug}
+              verificationStatus={orgVerificationStatus}
+              locale={locale}
+            />
           </span>
         )}
         <span className="inline-flex items-center gap-1.5">

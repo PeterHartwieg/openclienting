@@ -3,6 +3,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatDate } from "@/lib/i18n/format";
+import { OrgLink } from "@/components/organizations/org-link";
 
 interface Comment {
   id: string;
@@ -12,7 +13,12 @@ interface Comment {
   parent_comment_id: string | null;
   created_at: string;
   profiles?: { display_name: string | null } | null;
-  organizations?: { id: string; name: string } | null;
+  organizations?: {
+    id: string;
+    name: string;
+    slug?: string | null;
+    verification_status?: string | null;
+  } | null;
   replies?: Comment[];
 }
 
@@ -27,15 +33,29 @@ function CommentItem({
   anonymousLabel: string;
   unknownLabel: string;
 }) {
-  const renderMeta = (c: Comment) =>
-    [
-      c.is_publicly_anonymous
-        ? anonymousLabel
-        : c.profiles?.display_name ?? unknownLabel,
-      c.is_org_anonymous ? null : c.organizations?.name ?? null,
-    ]
-      .filter(Boolean)
-      .join(" · ");
+  const renderMeta = (c: Comment) => {
+    const author = c.is_publicly_anonymous
+      ? anonymousLabel
+      : c.profiles?.display_name ?? unknownLabel;
+    const org = c.is_org_anonymous ? null : c.organizations ?? null;
+    return (
+      <>
+        {author}
+        {org?.name && (
+          <>
+            {" \u00B7 "}
+            <OrgLink
+              name={org.name}
+              slug={org.slug}
+              verificationStatus={org.verification_status}
+              locale={locale}
+              className="hover:underline"
+            />
+          </>
+        )}
+      </>
+    );
+  };
 
   return (
     <div className="space-y-2">
@@ -44,7 +64,7 @@ function CommentItem({
           <p className="text-sm">{comment.body}</p>
           <p className="mt-1 text-xs text-muted-foreground">
             {renderMeta(comment)}
-            {" · "}
+            {" \u00B7 "}
             {formatDate(comment.created_at, locale, "short")}
           </p>
         </CardContent>
@@ -57,7 +77,7 @@ function CommentItem({
                 <p className="text-sm">{reply.body}</p>
                 <p className="mt-1 text-xs text-muted-foreground">
                   {renderMeta(reply)}
-                  {" · "}
+                  {" \u00B7 "}
                   {formatDate(reply.created_at, locale, "short")}
                 </p>
               </CardContent>

@@ -112,7 +112,7 @@ export default async function ProblemDetailPage({
   // Fetch comments
   const { data: comments } = await supabase
     .from("comments")
-    .select("id, body, is_publicly_anonymous, is_org_anonymous, parent_comment_id, created_at, profiles!comments_author_id_fkey(display_name), organizations!comments_author_organization_id_fkey(id, name)")
+    .select("id, body, is_publicly_anonymous, is_org_anonymous, parent_comment_id, created_at, profiles!comments_author_id_fkey(display_name), organizations!comments_author_organization_id_fkey(id, name, slug, verification_status)")
     .eq("target_type", "problem_template")
     .eq("target_id", id)
     .order("created_at", { ascending: true });
@@ -147,7 +147,12 @@ export default async function ProblemDetailPage({
   const normalizedComments = (comments ?? []).map((c) => ({
     ...c,
     profiles: c.profiles as unknown as { display_name: string | null } | null,
-    organizations: c.organizations as unknown as { id: string; name: string } | null,
+    organizations: c.organizations as unknown as {
+      id: string;
+      name: string;
+      slug?: string | null;
+      verification_status?: string | null;
+    } | null,
   }));
 
   // Counts for hero stats + sidebar TOC
@@ -251,9 +256,17 @@ export default async function ProblemDetailPage({
   const heroAuthorName = problem.is_publicly_anonymous
     ? t("anonymous")
     : problem.profiles?.display_name ?? t("unknown");
-  const heroOrgName = problem.is_org_anonymous
+  const heroOrgRow = problem.is_org_anonymous
     ? null
-    : (problem.organizations as { id: string; name: string } | null)?.name ?? null;
+    : (problem.organizations as {
+        id: string;
+        name: string;
+        slug?: string | null;
+        verification_status?: string | null;
+      } | null);
+  const heroOrgName = heroOrgRow?.name ?? null;
+  const heroOrgSlug = heroOrgRow?.slug ?? null;
+  const heroOrgVerification = heroOrgRow?.verification_status ?? null;
 
   // Breadcrumbs + Article JSON-LD.
   const bt = await getTranslations({ locale, namespace: "breadcrumbs" });
@@ -296,6 +309,8 @@ export default async function ProblemDetailPage({
         status={problem.solution_status ?? "unsolved"}
         authorName={heroAuthorName}
         orgName={heroOrgName}
+        orgSlug={heroOrgSlug}
+        orgVerificationStatus={heroOrgVerification}
         createdAt={problem.created_at}
         updatedAt={problem.updated_at ?? null}
         tags={tags}
@@ -406,6 +421,7 @@ export default async function ProblemDetailPage({
               isAuthenticated={!!user}
               currentUserId={user?.id}
               verifiedOrgs={verifiedOrgs}
+              locale={locale}
             />
             {user && (
               <div className="mt-4">

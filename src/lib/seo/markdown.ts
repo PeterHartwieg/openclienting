@@ -430,3 +430,179 @@ export function ventureClientingToMarkdown(
   );
   return ensureTrailingNewline(lines.join("\n"));
 }
+
+// ---------- Organization profile builder ----------
+
+/**
+ * Organization profile → Markdown.
+ *
+ * Unlike the problem Markdown builder, there is no per-row anonymity gate
+ * here: the data fed in has already been filtered at the query layer to only
+ * include submissions where `is_org_anonymous = false`. The profile only
+ * shows verified orgs whose identity is public by definition, so there is no
+ * author anonymity to consider either — all we render about authors here is
+ * that they work at the profiled org, which is already an attribution they
+ * opted into when toggling the org-visible flag on their submission.
+ *
+ * Pure and synchronous: all locale-specific strings come in via `labels`.
+ * No dependency on next-intl or Next.js, so it's trivially testable with
+ * Node's built-in test runner.
+ */
+export interface OrganizationMarkdownLabels {
+  website: string;                 // "Website"
+  employees: string;               // "Employees"
+  verified: string;                // "Verified"
+  problems: string;                // "Problems authored"
+  problemsEmpty: string;
+  solutionApproaches: string;      // "Solution approaches offered"
+  solutionApproachesEmpty: string;
+  verifiedOutcomes: string;        // "Verified pilot outcomes as client"
+  verifiedOutcomesEmpty: string;
+  source: string;                  // "Source"
+  canonical: string;               // "Canonical"
+  license: string;                 // "License"
+  about: string;                   // "About"
+  inProblem: string;               // "In problem:"
+}
+
+export interface OrganizationProfileForMarkdown {
+  name: string;
+  slug: string;
+  description: string | null;
+  website: string | null;
+  employeeCount: number | null;
+  verificationStatus: string;
+  createdAt: string;
+  updatedAt: string | null;
+}
+
+export interface OrgMdProblem {
+  id: string;
+  title: string;
+  description: string;
+  solution_status: string | null;
+}
+
+export interface OrgMdSolutionApproach {
+  id: string;
+  title: string;
+  description: string;
+  technology_type: string | null;
+  maturity: string | null;
+  problem_id: string;
+  problem_title: string;
+}
+
+export interface OrgMdSuccessReport {
+  id: string;
+  report_summary: string;
+  solution_approach_title: string;
+  problem_id: string;
+  problem_title: string;
+}
+
+export interface OrganizationMarkdownOptions {
+  canonicalUrl: string;
+  labels: OrganizationMarkdownLabels;
+  licenseName: string;
+  problems: OrgMdProblem[];
+  solutionApproaches: OrgMdSolutionApproach[];
+  verifiedSuccessReports: OrgMdSuccessReport[];
+  siteUrl: string; // absolute, no trailing slash — used to build problem links
+  locale: string;
+}
+
+export function organizationToMarkdown(
+  org: OrganizationProfileForMarkdown,
+  opts: OrganizationMarkdownOptions,
+): string {
+  const {
+    canonicalUrl,
+    labels,
+    licenseName,
+    problems,
+    solutionApproaches,
+    verifiedSuccessReports,
+    siteUrl,
+    locale,
+  } = opts;
+
+  const frontmatter: string[] = [
+    "---",
+    `title: ${yamlString(org.name)}`,
+    `canonical: ${canonicalUrl}`,
+    `slug: ${yamlString(org.slug)}`,
+  ];
+  if (org.website) frontmatter.push(`website: ${yamlString(org.website)}`);
+  if (org.employeeCount != null)
+    frontmatter.push(`employees: ${org.employeeCount}`);
+  frontmatter.push(`verified: true`);
+  frontmatter.push(`created: ${org.createdAt}`);
+  if (org.updatedAt) frontmatter.push(`updated: ${org.updatedAt}`);
+  frontmatter.push("---", "");
+
+  const body: string[] = [];
+  body.push(`# ${org.name}`, "");
+
+  // Metadata block — mirrors the hero.
+  const meta: string[] = [];
+  if (org.website) meta.push(`- **${labels.website}:** ${org.website}`);
+  if (org.employeeCount != null)
+    meta.push(`- **${labels.employees}:** ${org.employeeCount}`);
+  meta.push(`- **${labels.verified}**`);
+  body.push(...meta, "");
+
+  // About
+  if (org.description && org.description.trim().length > 0) {
+    body.push(`## ${labels.about}`, "");
+    body.push(org.description.trim(), "");
+  }
+
+  // Problems authored
+  body.push(`## ${labels.problems}`, "");
+  if (problems.length === 0) {
+    body.push(labels.problemsEmpty, "");
+  } else {
+    for (const p of problems) {
+      const problemUrl = `${siteUrl}/${locale}/problems/${p.id}`;
+      body.push(`- [${p.title}](${problemUrl})`);
+    }
+    body.push("");
+  }
+
+  // Solution approaches offered
+  body.push(`## ${labels.solutionApproaches}`, "");
+  if (solutionApproaches.length === 0) {
+    body.push(labels.solutionApproachesEmpty, "");
+  } else {
+    for (const sa of solutionApproaches) {
+      const problemUrl = `${siteUrl}/${locale}/problems/${sa.problem_id}`;
+      body.push(
+        `- **${sa.title}** — ${labels.inProblem} [${sa.problem_title}](${problemUrl})`,
+      );
+    }
+    body.push("");
+  }
+
+  // Verified pilot outcomes (as client)
+  body.push(`## ${labels.verifiedOutcomes}`, "");
+  if (verifiedSuccessReports.length === 0) {
+    body.push(labels.verifiedOutcomesEmpty, "");
+  } else {
+    for (const r of verifiedSuccessReports) {
+      const problemUrl = `${siteUrl}/${locale}/problems/${r.problem_id}`;
+      body.push(
+        `- \u201C${r.report_summary.trim()}\u201D — ${labels.inProblem} [${r.problem_title}](${problemUrl})`,
+      );
+    }
+    body.push("");
+  }
+
+  // Source block
+  body.push(`## ${labels.source}`, "");
+  body.push(`- **${labels.canonical}:** ${canonicalUrl}`);
+  body.push(`- **${labels.license}:** ${licenseName}`);
+  body.push("");
+
+  return ensureTrailingNewline([...frontmatter, ...body].join("\n"));
+}

@@ -10,13 +10,14 @@ Every contribution is moderated before publication, authored attributions are op
 
 - [What is venture clienting?](https://openclienting.org/en/venture-clienting)
 - [Browse all problems](https://openclienting.org/en/problems)
+- [Browse verified organizations](https://openclienting.org/en/organizations)
 - [Submit a problem](https://openclienting.org/en/submit)
 
 ## Markdown versions
 
-Per-problem and per-page Markdown alternatives are exposed at a `/md` suffix
-on each page path. They are intended for answer engines and LLM crawlers and
-carry the same per-row anonymity gating as the HTML pages.
+Per-problem, per-org, and per-page Markdown alternatives are exposed at a
+`/md` suffix on each page path. They are intended for answer engines and
+LLM crawlers and carry the same per-row anonymity gating as the HTML pages.
 
 - [Venture clienting explainer (Markdown, English)](https://openclienting.org/en/venture-clienting/md)
 - [Venture clienting explainer (Markdown, German)](https://openclienting.org/de/venture-clienting/md)
@@ -24,6 +25,10 @@ carry the same per-row anonymity gating as the HTML pages.
   `/md` to any problem URL, e.g.
   `https://openclienting.org/en/problems/{id}/md`. Each HTML problem page
   advertises its Markdown alternative via
+  `<link rel="alternate" type="text/markdown">`.
+- Verified organization profiles are available as Markdown at
+  `https://openclienting.org/en/organizations/{slug}/md` (and `/de/...`).
+  Each HTML profile page advertises its Markdown alternative via
   `<link rel="alternate" type="text/markdown">`.
 
 ## Languages

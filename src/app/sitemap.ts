@@ -1,11 +1,13 @@
 import type { MetadataRoute } from "next";
 import { locales } from "@/i18n/config";
 import { getPublishedProblems } from "@/lib/queries/problems";
+import { getVerifiedOrganizationsDirectory } from "@/lib/queries/organizations";
 import { getSiteUrl } from "@/lib/site";
 
 const publicRoutes = [
   "",
   "/problems",
+  "/organizations",
   "/submit",
   "/venture-clienting",
   "/privacy",
@@ -15,7 +17,10 @@ const publicRoutes = [
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = getSiteUrl();
-  const problems = await getPublishedProblems();
+  const [problems, organizations] = await Promise.all([
+    getPublishedProblems(),
+    getVerifiedOrganizationsDirectory(),
+  ]);
   const now = new Date();
 
   const staticEntries = locales.flatMap((locale) =>
@@ -36,5 +41,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   );
 
-  return [...staticEntries, ...problemEntries];
+  // Every verified org gets a canonical entry per locale. Priority matches
+  // problem detail pages — profiles are first-class citation targets. The
+  // Markdown alternative at `/{locale}/organizations/{slug}/md` is NOT in
+  // the sitemap; LLM crawlers follow the `<link rel="alternate">` hint.
+  const organizationEntries = locales.flatMap((locale) =>
+    organizations.map((org) => ({
+      url: new URL(
+        `/${locale}/organizations/${org.slug}`,
+        siteUrl,
+      ).toString(),
+      lastModified: org.updated_at ? new Date(org.updated_at) : now,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+  );
+
+  return [...staticEntries, ...problemEntries, ...organizationEntries];
 }
