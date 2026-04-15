@@ -4,6 +4,7 @@ import { getMessages, getTranslations, setRequestLocale } from "next-intl/server
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { CookieConsentWrapper } from "@/components/shared/cookie-consent";
+import { RouteChangeTracker } from "@/components/shared/route-change-tracker";
 import { JsonLd } from "@/components/seo/json-ld";
 import { locales, localeTags, type Locale } from "@/i18n/config";
 import { organizationSchema, websiteSchema } from "@/lib/seo/schema";
@@ -56,6 +57,7 @@ export default async function LocaleLayout({
         {children}
       </main>
       <Footer locale={locale} />
+      <RouteChangeTracker />
       <CookieConsentWrapper />
     </NextIntlClientProvider>
   );
