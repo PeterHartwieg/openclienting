@@ -90,6 +90,7 @@ export type ArticleSchema = Thing & {
   "@type": "Article";
   headline: string;
   description: string;
+  url: string;
   mainEntityOfPage: string;
   datePublished: string;
   dateModified?: string;
@@ -224,6 +225,10 @@ export function problemArticleSchema(
     "@type": "Article",
     headline: input.title,
     description: input.description,
+    // `url` and `mainEntityOfPage` carry the same canonical URL. Some
+    // validators specifically check for `url` on Article, and having both
+    // matches what Google's docs example shows — no cost, no drift.
+    url: input.canonicalUrl,
     mainEntityOfPage: input.canonicalUrl,
     datePublished: input.createdAt,
     inLanguage: inLanguageTag,
