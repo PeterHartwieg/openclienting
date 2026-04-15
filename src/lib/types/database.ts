@@ -7,8 +7,30 @@ export type TagCategory = "industry" | "function" | "problem_category" | "compan
 export type TechnologyType = "software" | "hardware" | "platform" | "service";
 export type Maturity = "emerging" | "growing" | "established";
 export type SolutionStatus = "unsolved" | "has_approaches" | "successful_pilot";
-export type EditTargetType = "problem_template" | "requirement" | "pilot_framework" | "solution_approach";
+export type EditTargetType =
+  | "problem_template"
+  | "requirement"
+  | "pilot_framework"
+  | "solution_approach"
+  | "knowledge_article";
+// Diff shape for scalar-column targets (problem_template, requirement,
+// pilot_framework, solution_approach). Values are plain strings; apply
+// writes them straight back into text columns.
 export type EditDiff = Record<string, { old: string | null; new: string | null }>;
+// Diff shape for knowledge_article targets — values may be scalars or
+// JSONB structures (tldr: string[], faq: {question,answer}[], etc.).
+// Apply branches on target_type to pick the right writer.
+export type KnowledgeArticleDiff = Record<string, { old: Json; new: Json }>;
+
+export type KnowledgeArticleKind = "hub" | "spoke";
+export interface KnowledgeArticleFaqItem {
+  question: string;
+  answer: string;
+}
+export interface KnowledgeArticleSection {
+  title: string;
+  body: string;
+}
 export type NotificationType =
   | "status_change"
   | "suggested_edit"
@@ -370,6 +392,80 @@ export interface Database {
           created_at?: string;
         };
         Update: never;
+      };
+      knowledge_articles: {
+        Row: {
+          id: string;
+          slug: string;
+          locale: string;
+          kind: KnowledgeArticleKind;
+          title: string;
+          short_label: string | null;
+          lede: string;
+          meta_title: string;
+          meta_description: string;
+          tldr_title: string | null;
+          tldr: string[];
+          detail_title: string | null;
+          detail_intro: string | null;
+          detail_bullets: string[];
+          faq_title: string | null;
+          faq: KnowledgeArticleFaqItem[];
+          sections: KnowledgeArticleSection[];
+          tags: string[];
+          sort_order: number;
+          status: ContentStatus;
+          author_id: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          slug: string;
+          locale: string;
+          kind: KnowledgeArticleKind;
+          title: string;
+          short_label?: string | null;
+          lede: string;
+          meta_title: string;
+          meta_description: string;
+          tldr_title?: string | null;
+          tldr?: string[];
+          detail_title?: string | null;
+          detail_intro?: string | null;
+          detail_bullets?: string[];
+          faq_title?: string | null;
+          faq?: KnowledgeArticleFaqItem[];
+          sections?: KnowledgeArticleSection[];
+          tags?: string[];
+          sort_order?: number;
+          status?: ContentStatus;
+          author_id?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          slug?: string;
+          locale?: string;
+          kind?: KnowledgeArticleKind;
+          title?: string;
+          short_label?: string | null;
+          lede?: string;
+          meta_title?: string;
+          meta_description?: string;
+          tldr_title?: string | null;
+          tldr?: string[];
+          detail_title?: string | null;
+          detail_intro?: string | null;
+          detail_bullets?: string[];
+          faq_title?: string | null;
+          faq?: KnowledgeArticleFaqItem[];
+          sections?: KnowledgeArticleSection[];
+          tags?: string[];
+          sort_order?: number;
+          status?: ContentStatus;
+          updated_at?: string;
+        };
       };
       suggested_edits: {
         Row: {

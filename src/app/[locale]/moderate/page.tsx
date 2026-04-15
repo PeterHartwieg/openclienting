@@ -48,7 +48,7 @@ export default async function ModerationPage({
 
   const supabase = await createClient();
 
-  const [{ data: problems }, { data: requirements }, { data: frameworks }, { data: approaches }, { data: successReports }, { data: suggestedEdits }, pendingOrgs, { data: pendingRevisions }] =
+  const [{ data: problems }, { data: requirements }, { data: frameworks }, { data: approaches }, { data: successReports }, { data: suggestedEdits }, pendingOrgs, { data: pendingRevisions }, { data: knowledgeArticles }] =
     await Promise.all([
       supabase
         .from("problem_templates")
@@ -92,6 +92,11 @@ export default async function ModerationPage({
         .select("id, target_type, target_id, diff, created_at, profiles!content_revisions_author_id_fkey(display_name)")
         .eq("revision_status", "pending_recheck")
         .order("created_at", { ascending: true }),
+      supabase
+        .from("knowledge_articles")
+        .select("id, slug, locale, kind, title, lede, tags, status, created_at, profiles!knowledge_articles_author_id_fkey(display_name)")
+        .in("status", ["submitted", "in_review"])
+        .order("created_at", { ascending: true }),
     ]);
 
   const problemCount = problems?.length ?? 0;
@@ -102,6 +107,7 @@ export default async function ModerationPage({
   const seCount = suggestedEdits?.length ?? 0;
   const orgVerifCount = pendingOrgs.length;
   const revisionCount = pendingRevisions?.length ?? 0;
+  const kaCount = knowledgeArticles?.length ?? 0;
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
@@ -133,6 +139,7 @@ export default async function ModerationPage({
           <TabsTrigger value="suggested-edits">{t("tabEdits")} ({seCount})</TabsTrigger>
           <TabsTrigger value="org-verification">{t("tabOrgVerification")} ({orgVerifCount})</TabsTrigger>
           <TabsTrigger value="live-revisions">{t("tabLiveRevisions")} ({revisionCount})</TabsTrigger>
+          <TabsTrigger value="knowledge-articles">{t("tabKnowledgeArticles")} ({kaCount})</TabsTrigger>
         </TabsList>
 
         <TabsContent value="problems" className="mt-4 space-y-3">
@@ -368,6 +375,44 @@ export default async function ModerationPage({
             ))
           )}
         </TabsContent>
+        <TabsContent value="knowledge-articles" className="mt-4 space-y-3">
+          {kaCount === 0 ? (
+            <p className="text-muted-foreground">{t("noPendingKnowledgeArticles")}</p>
+          ) : (
+            knowledgeArticles!.map((ka) => (
+              <Card key={ka.id}>
+                <CardHeader className="pb-2">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-base">{ka.title}</CardTitle>
+                    <div className="flex items-center gap-2">
+                      <Badge variant="outline">{ka.kind}</Badge>
+                      <Badge variant="outline">{ka.locale}</Badge>
+                      <StatusBadge status={ka.status} />
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    <span className="font-mono">/{ka.slug}</span> ·{" "}
+                    {t("byUser", { name: (ka.profiles as unknown as { display_name: string } | null)?.display_name ?? t("unknown") })} ·{" "}
+                    {formatDate(ka.created_at, locale, "medium")}
+                  </p>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <p className="text-sm text-muted-foreground">{ka.lede}</p>
+                  {ka.tags.length > 0 && (
+                    <p className="text-xs text-muted-foreground">
+                      {ka.tags.map((tag: string) => `#${tag}`).join(" ")}
+                    </p>
+                  )}
+                  <ModerationActions
+                    targetType="knowledge_articles"
+                    targetId={ka.id}
+                  />
+                </CardContent>
+              </Card>
+            ))
+          )}
+        </TabsContent>
+
         <TabsContent value="live-revisions" className="mt-4 space-y-3">
           {revisionCount === 0 ? (
             <p className="text-muted-foreground">{t("noPendingRevisions")}</p>

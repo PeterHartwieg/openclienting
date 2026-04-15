@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { locales } from "@/i18n/config";
 import { getPublishedProblems } from "@/lib/queries/problems";
 import { getVerifiedOrganizationsDirectory } from "@/lib/queries/organizations";
+import { getAllPublishedArticles } from "@/lib/queries/knowledge-articles";
 import { getSiteUrl } from "@/lib/site";
 
 const publicRoutes = [
@@ -10,12 +11,6 @@ const publicRoutes = [
   "/organizations",
   "/submit",
   "/venture-clienting",
-  "/venture-clienting/what-is-venture-clienting",
-  "/venture-clienting/venture-clienting-vs-corporate-venture-capital",
-  "/venture-clienting/startup-pilot-framework",
-  "/venture-clienting/problem-template",
-  "/venture-clienting/sme-open-innovation",
-  "/venture-clienting/verified-success-report",
   "/privacy",
   "/terms",
   "/impressum",
@@ -23,9 +18,10 @@ const publicRoutes = [
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = getSiteUrl();
-  const [problems, organizations] = await Promise.all([
+  const [problems, organizations, knowledgeArticles] = await Promise.all([
     getPublishedProblems(),
     getVerifiedOrganizationsDirectory(),
+    getAllPublishedArticles(),
   ]);
   const now = new Date();
 
@@ -63,5 +59,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   );
 
-  return [...staticEntries, ...problemEntries, ...organizationEntries];
+  // Knowledge articles live in the DB under /{locale}/venture-clienting/{slug}.
+  // The hub (slug='index') is already covered by `/venture-clienting` in the
+  // static routes, so we skip it here and only emit spoke entries at their
+  // row-native locale. No cross-locale fan-out: a de row gets a de URL, an
+  // en row gets an en URL. The hub page itself derives alternates from
+  // `getLanguageAlternates`, which is enough for the locale switcher.
+  const knowledgeEntries = knowledgeArticles
+    .filter((a) => a.kind === "spoke")
+    .map((article) => ({
+      url: new URL(
+        `/${article.locale}/venture-clienting/${article.slug}`,
+        siteUrl,
+      ).toString(),
+      lastModified: new Date(article.updated_at),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    }));
+
+  return [
+    ...staticEntries,
+    ...problemEntries,
+    ...organizationEntries,
+    ...knowledgeEntries,
+  ];
 }

@@ -7,7 +7,7 @@ import type { EditDiff, EditTargetType } from "@/lib/types/database";
 
 type SupabaseServer = Awaited<ReturnType<typeof createClient>>;
 
-type TargetType = "problem_templates" | "requirements" | "pilot_frameworks" | "solution_approaches" | "success_reports" | "suggested_edits";
+type TargetType = "problem_templates" | "requirements" | "pilot_frameworks" | "solution_approaches" | "success_reports" | "suggested_edits" | "knowledge_articles";
 type Action = "publish" | "reject";
 
 const targetTypeToTable: Record<EditTargetType, string> = {
@@ -15,6 +15,7 @@ const targetTypeToTable: Record<EditTargetType, string> = {
   requirement: "requirements",
   pilot_framework: "pilot_frameworks",
   solution_approach: "solution_approaches",
+  knowledge_article: "knowledge_articles",
 };
 
 // Map an edit target type to the unstable_cache tags that must be revalidated
@@ -26,6 +27,8 @@ function tagsForEditTarget(target: EditTargetType): string[] {
       return ["problem_templates"];
     case "solution_approach":
       return ["solution_approaches"];
+    case "knowledge_article":
+      return ["knowledge_articles"];
     // requirements and pilot_frameworks aren't in any cached list query; they
     // live on problem detail, which is React.cache per request only.
     case "requirement":
@@ -127,6 +130,8 @@ export async function moderateItem(params: {
     updateTag("problem_templates");
   } else if (params.targetType === "solution_approaches") {
     updateTag("solution_approaches");
+  } else if (params.targetType === "knowledge_articles") {
+    updateTag("knowledge_articles");
   }
 
   return { success: true };

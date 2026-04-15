@@ -2,19 +2,16 @@ import { getTranslations } from "next-intl/server";
 import { getSiteUrl } from "@/lib/site";
 import { ventureClientingToMarkdown } from "@/lib/seo/markdown";
 import { locales, type Locale } from "@/i18n/config";
+import { getHubArticle } from "@/lib/queries/knowledge-articles";
 
 /**
- * Markdown alternative for the venture-clienting explainer page.
+ * Markdown alternative for the venture-clienting hub page.
  *
- * Exposed at `/{locale}/venture-clienting/md`. Mirrors the same
- * `ventureClienting.*` i18n namespace the HTML page reads so the prose stays
- * in lockstep with what human visitors see — no separate copy to maintain.
- *
- * Cached at the edge via `Cache-Control: s-maxage=3600` — Vercel strips
- * the directive from the downstream header (so browsers see
- * `public, max-age=0`) while still serving HITs from the CDN for an hour.
- * `revalidate = 3600` below is ignored (the proxy middleware forces
- * downstream routes dynamic) but kept as a signal of intent.
+ * Serves the hub row from `knowledge_articles` as Markdown so LLM
+ * crawlers get the same prose as the HTML page, with a canonical
+ * pointer back. The `dateModified` is the row's `updated_at`, so
+ * moderated edits are reflected in the markdown output as soon as
+ * the unstable_cache tag is invalidated.
  */
 export const revalidate = 3600;
 
@@ -28,7 +25,9 @@ export async function GET(
   }
   const locale = rawLocale as Locale;
 
-  const t = await getTranslations({ locale, namespace: "ventureClienting" });
+  const article = await getHubArticle(locale);
+  if (!article) return new Response("Not found", { status: 404 });
+
   const mt = await getTranslations({ locale, namespace: "problemDetail.markdown" });
 
   const siteUrl = getSiteUrl().toString().replace(/\/$/, "");
@@ -37,22 +36,11 @@ export async function GET(
   const md = ventureClientingToMarkdown({
     canonicalUrl,
     licenseName: mt("license"),
-    // Cache-warm time rather than request time — every cached response
-    // within the revalidate window shares the same `updated` stamp, which
-    // is what we want (the content itself only changes on deploy). A new
-    // `new Date()` per request would be invisible anyway since the response
-    // body is frozen inside the cache.
-    updatedAt: new Date().toISOString(),
+    updatedAt: article.updated_at,
     labels: {
-      title: t("title"),
-      lede: t("lede"),
-      sections: [
-        { title: t("section1Title"), body: t("section1Body") },
-        { title: t("section2Title"), body: t("section2Body") },
-        { title: t("section3Title"), body: t("section3Body") },
-        { title: t("section4Title"), body: t("section4Body") },
-        { title: t("section5Title"), body: t("section5Body") },
-      ],
+      title: article.title,
+      lede: article.lede,
+      sections: article.sections,
       source: mt("source"),
       canonical: mt("canonical"),
       license: mt("licenseLabel"),

@@ -1,11 +1,31 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buttonVariants } from "@/components/ui/button";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
+import { SuggestEditForm } from "@/components/problems/suggest-edit-form";
 import { cn } from "@/lib/utils";
 import { getLanguageAlternates } from "@/lib/site";
-import { SPOKES } from "@/lib/venture-clienting-cluster/config";
+import {
+  getAllSpokesForLocale,
+  getHubArticle,
+} from "@/lib/queries/knowledge-articles";
+
+/**
+ * Venture-clienting hub — the `/[locale]/venture-clienting` landing page.
+ *
+ * Content lives in the `knowledge_articles` table (row `kind='hub'`,
+ * `slug='index'`). Moderated edits flow through the existing
+ * `suggested_edits` pipeline with `target_type='knowledge_article'`; new
+ * articles and new-locale translations are proposed via the form at
+ * `/[locale]/venture-clienting/propose` and approved through the
+ * moderator queue at `/[locale]/moderate`.
+ *
+ * Locale fallback: if the hub row for this locale is missing, the
+ * query layer falls back to `en`. That preserves today's behavior for
+ * any locale that hasn't been translated yet.
+ */
 
 export async function generateMetadata({
   params,
@@ -13,14 +33,13 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "ventureClienting" });
+  const article = await getHubArticle(locale);
+  if (!article) return {};
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
+    title: article.meta_title,
+    description: article.meta_description,
     alternates: {
       ...getLanguageAlternates(locale, "/venture-clienting"),
-      // Markdown alternate for LLM crawlers — discovered via `llms.txt` and
-      // this `<link rel="alternate" type="text/markdown">` header.
       types: {
         "text/markdown": `/${locale}/venture-clienting/md`,
       },
@@ -28,79 +47,93 @@ export async function generateMetadata({
   };
 }
 
-export default async function VentureClientingPage({
+export default async function VentureClientingHubPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations("ventureClienting");
-  const bt = await getTranslations({ locale, namespace: "breadcrumbs" });
+
+  const [article, spokes, ka, bt] = await Promise.all([
+    getHubArticle(locale),
+    getAllSpokesForLocale(locale),
+    getTranslations({ locale, namespace: "knowledgeArticle" }),
+    getTranslations({ locale, namespace: "breadcrumbs" }),
+  ]);
+
+  if (!article) notFound();
 
   const breadcrumbItems = [
     { name: bt("home"), url: `/${locale}` },
-    { name: bt("ventureClienting"), url: `/${locale}/venture-clienting` },
+    { name: ka("hubLabel"), url: `/${locale}/venture-clienting` },
   ];
 
-  const sections = [
-    { title: t("section1Title"), body: t("section1Body") },
-    { title: t("section2Title"), body: t("section2Body") },
-    { title: t("section3Title"), body: t("section3Body") },
-    { title: t("section4Title"), body: t("section4Body") },
-    { title: t("section5Title"), body: t("section5Body") },
+  // Phase 1 suggest-edit surface: scalar fields only. Sections and
+  // other structured content are moderator-only until the structured
+  // editor ships in a follow-up. A user who wants to correct a
+  // section body can still propose a full replacement article via
+  // `/venture-clienting/propose`.
+  const editableFields = [
+    { key: "title", label: ka("fieldTitle"), value: article.title },
+    { key: "lede", label: ka("fieldLede"), value: article.lede, multiline: true },
+    { key: "meta_title", label: ka("fieldMetaTitle"), value: article.meta_title },
+    {
+      key: "meta_description",
+      label: ka("fieldMetaDescription"),
+      value: article.meta_description,
+      multiline: true,
+    },
   ];
-
-  const spokeLinks = await Promise.all(
-    SPOKES.map(async (spoke) => {
-      const st = await getTranslations({
-        locale,
-        namespace: `ventureClientingCluster.${spoke.i18nKey}`,
-      });
-      return {
-        href: `/${locale}/venture-clienting/${spoke.slug}`,
-        label: st("shortLabel"),
-      };
-    }),
-  );
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
       <Breadcrumbs items={breadcrumbItems} className="mb-8 text-sm text-muted-foreground" />
       <article>
         <h1 className="text-display font-bold leading-display tracking-tighter">
-          {t("title")}
+          {article.title}
         </h1>
         <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-          {t("lede")}
+          {article.lede}
         </p>
 
         <div className="mt-12 space-y-10">
-          {sections.map((section) => (
-            <section key={section.title}>
+          {article.sections.map((section, idx) => (
+            <section key={idx}>
               <h2 className="text-h3 font-semibold tracking-tight leading-heading">
                 {section.title}
               </h2>
-              <p className="mt-3 text-muted-foreground leading-relaxed">
+              <p className="mt-3 text-muted-foreground leading-relaxed whitespace-pre-wrap">
                 {section.body}
               </p>
             </section>
           ))}
         </div>
 
-        <section className="mt-10">
+        <section className="mt-12">
           <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-            {t("spokeIndexTitle")}
+            {ka("spokeIndexTitle")}
           </h2>
           <ul className="mt-3 space-y-2">
-            {spokeLinks.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} className="text-primary hover:underline">
-                  → {link.label}
+            {spokes.map((spoke) => (
+              <li key={spoke.slug}>
+                <Link
+                  href={`/${locale}/venture-clienting/${spoke.slug}`}
+                  className="text-primary hover:underline"
+                >
+                  → {spoke.short_label ?? spoke.title}
                 </Link>
               </li>
             ))}
           </ul>
+          <p className="mt-5 text-sm text-muted-foreground">
+            <Link
+              href={`/${locale}/venture-clienting/propose`}
+              className="text-primary hover:underline"
+            >
+              {ka("proposeArticleCta")} →
+            </Link>
+          </p>
         </section>
 
         <div className="mt-14 flex flex-wrap items-center gap-4 border-t pt-10">
@@ -108,14 +141,22 @@ export default async function VentureClientingPage({
             href={`/${locale}/problems`}
             className={cn(buttonVariants({ size: "lg" }))}
           >
-            {t("ctaBrowse")}
+            {ka("browseProblems")}
           </Link>
           <Link
             href={`/${locale}/submit`}
             className={cn(buttonVariants({ variant: "outline", size: "lg" }))}
           >
-            {t("ctaSubmit")}
+            {ka("submitProblem")}
           </Link>
+        </div>
+
+        <div className="mt-6">
+          <SuggestEditForm
+            targetType="knowledge_article"
+            targetId={article.id}
+            fields={editableFields}
+          />
         </div>
       </article>
     </div>
