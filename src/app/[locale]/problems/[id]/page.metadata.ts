@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { getProblemById } from "@/lib/queries/problems";
+import { translateProblem } from "@/lib/queries/content-translations";
 import { getLanguageAlternates } from "@/lib/site";
 import { firstSentence } from "@/lib/seo/derive";
 
@@ -11,7 +12,11 @@ export async function generateProblemMetadata(
   const t = await getTranslations({ locale, namespace: "problemDetail" });
 
   try {
-    const problem = await getProblemById(id);
+    const raw = await getProblemById(id);
+    // Apply translation fallback so <title> and meta description match
+    // what the page body renders. `translateProblem` short-circuits on
+    // locale === "en".
+    const problem = await translateProblem(raw, locale);
     const title = problem.title || t("metaTitleFallback");
     // Sentence-boundary truncation so the meta description, visible
     // answer-ready summary, and Article JSON-LD `description` all match.

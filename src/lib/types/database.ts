@@ -13,6 +13,19 @@ export type EditTargetType =
   | "pilot_framework"
   | "solution_approach"
   | "knowledge_article";
+
+// Subset of EditTargetType that accepts open-source translations. Knowledge
+// articles are excluded because they already store one row per (slug, locale)
+// in the `knowledge_articles` table itself.
+export type TranslationTargetType =
+  | "problem_template"
+  | "requirement"
+  | "pilot_framework"
+  | "solution_approach";
+
+// { field_name: "translated value" }. Values are plain strings; the
+// allowlist of fields per target_type lives in src/lib/content-translations/fields.ts.
+export type TranslationFields = Record<string, string>;
 // Diff shape for scalar-column targets (problem_template, requirement,
 // pilot_framework, solution_approach). Values are plain strings; apply
 // writes them straight back into text columns.
@@ -490,6 +503,43 @@ export interface Database {
         };
         Update: {
           status?: ContentStatus;
+          updated_at?: string;
+        };
+      };
+      content_translations: {
+        Row: {
+          id: string;
+          target_type: TranslationTargetType;
+          target_id: string;
+          language: string;
+          fields: TranslationFields;
+          source_version: string | null;
+          status: ContentStatus;
+          author_id: string;
+          reviewed_by: string | null;
+          reviewed_at: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          target_type: TranslationTargetType;
+          target_id: string;
+          language: string;
+          fields: TranslationFields;
+          source_version?: string | null;
+          status?: ContentStatus;
+          author_id: string;
+          reviewed_by?: string | null;
+          reviewed_at?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          fields?: TranslationFields;
+          status?: ContentStatus;
+          reviewed_by?: string | null;
+          reviewed_at?: string | null;
           updated_at?: string;
         };
       };

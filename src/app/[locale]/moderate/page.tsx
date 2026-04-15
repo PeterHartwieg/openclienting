@@ -7,10 +7,18 @@ import { createClient } from "@/lib/supabase/server";
 import { StatusBadge } from "@/components/shared/status-badge";
 import { ModerationActions } from "@/components/moderate/moderation-actions";
 import { SuggestedEditReview } from "@/components/moderate/suggested-edit-review";
+import { TranslationReview } from "@/components/moderate/translation-review";
 import { VerificationActions } from "@/components/moderate/verification-actions";
 import { SuccessReportReview } from "@/components/moderate/success-report-review";
 import { RevisionActions } from "@/components/moderate/revision-actions";
 import { getPendingVerifications } from "@/lib/queries/organizations";
+import { getSourceFields } from "@/lib/queries/content-translations";
+import { getLanguageLabel } from "@/i18n/languages";
+import { TARGET_TYPE_LABELS } from "@/lib/content-translations/fields";
+import type {
+  TranslationTargetType,
+  TranslationFields,
+} from "@/lib/types/database";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -48,7 +56,7 @@ export default async function ModerationPage({
 
   const supabase = await createClient();
 
-  const [{ data: problems }, { data: requirements }, { data: frameworks }, { data: approaches }, { data: successReports }, { data: suggestedEdits }, pendingOrgs, { data: pendingRevisions }, { data: knowledgeArticles }] =
+  const [{ data: problems }, { data: requirements }, { data: frameworks }, { data: approaches }, { data: successReports }, { data: suggestedEdits }, pendingOrgs, { data: pendingRevisions }, { data: knowledgeArticles }, { data: pendingTranslations }] =
     await Promise.all([
       supabase
         .from("problem_templates")
@@ -97,7 +105,27 @@ export default async function ModerationPage({
         .select("id, slug, locale, kind, title, lede, tags, status, created_at, profiles!knowledge_articles_author_id_fkey(display_name)")
         .in("status", ["submitted", "in_review"])
         .order("created_at", { ascending: true }),
+      supabase
+        .from("content_translations")
+        .select("id, target_type, target_id, language, fields, status, created_at, profiles!content_translations_author_id_fkey(display_name)")
+        .in("status", ["submitted", "in_review"])
+        .order("created_at", { ascending: true }),
     ]);
+
+  // Resolve source rows for each pending translation so the review card
+  // can show side-by-side EN vs. target. Batched by (target_type, target_id)
+  // pair; in practice the queue is small (dozens, not thousands), so the
+  // per-row fetch cost is negligible.
+  const translationSources = new Map<string, Record<string, string>>();
+  for (const tr of pendingTranslations ?? []) {
+    const key = `${tr.target_type}:${tr.target_id}`;
+    if (translationSources.has(key)) continue;
+    const src = await getSourceFields(
+      tr.target_type as TranslationTargetType,
+      tr.target_id,
+    );
+    if (src) translationSources.set(key, src);
+  }
 
   const problemCount = problems?.length ?? 0;
   const reqCount = requirements?.length ?? 0;
@@ -108,6 +136,7 @@ export default async function ModerationPage({
   const orgVerifCount = pendingOrgs.length;
   const revisionCount = pendingRevisions?.length ?? 0;
   const kaCount = knowledgeArticles?.length ?? 0;
+  const trCount = pendingTranslations?.length ?? 0;
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
@@ -140,6 +169,7 @@ export default async function ModerationPage({
           <TabsTrigger value="org-verification">{t("tabOrgVerification")} ({orgVerifCount})</TabsTrigger>
           <TabsTrigger value="live-revisions">{t("tabLiveRevisions")} ({revisionCount})</TabsTrigger>
           <TabsTrigger value="knowledge-articles">{t("tabKnowledgeArticles")} ({kaCount})</TabsTrigger>
+          <TabsTrigger value="translations">{t("tabTranslations")} ({trCount})</TabsTrigger>
         </TabsList>
 
         <TabsContent value="problems" className="mt-4 space-y-3">
@@ -410,6 +440,41 @@ export default async function ModerationPage({
                 </CardContent>
               </Card>
             ))
+          )}
+        </TabsContent>
+
+        <TabsContent value="translations" className="mt-4 space-y-3">
+          {trCount === 0 ? (
+            <p className="text-muted-foreground">{t("noPendingTranslations")}</p>
+          ) : (
+            pendingTranslations!.map((tr) => {
+              const targetType = tr.target_type as TranslationTargetType;
+              const key = `${tr.target_type}:${tr.target_id}`;
+              const sourceFields = translationSources.get(key) ?? {};
+              return (
+                <Card key={tr.id}>
+                  <CardHeader className="pb-2">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <Badge variant="outline">{TARGET_TYPE_LABELS[targetType]}</Badge>
+                      <Badge variant="outline">{getLanguageLabel(tr.language)}</Badge>
+                      <span className="text-xs text-muted-foreground font-mono">{tr.target_id.slice(0, 8)}…</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      {t("byUser", { name: (tr.profiles as unknown as { display_name: string } | null)?.display_name ?? t("unknown") })} ·{" "}
+                      {formatDate(tr.created_at, locale, "medium")}
+                    </p>
+                  </CardHeader>
+                  <CardContent>
+                    <TranslationReview
+                      translationId={tr.id}
+                      targetType={targetType}
+                      sourceFields={sourceFields}
+                      translatedFields={tr.fields as TranslationFields}
+                    />
+                  </CardContent>
+                </Card>
+              );
+            })
           )}
         </TabsContent>
 

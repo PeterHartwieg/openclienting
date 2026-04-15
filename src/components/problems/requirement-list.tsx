@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { UpvoteButton } from "@/components/shared/upvote-button";
 import { EditRequirementInline } from "@/components/problems/edit-requirement-inline";
+import { TranslateThisLink } from "@/components/translations/translate-this-link";
 
 interface Requirement {
   id: string;
@@ -17,9 +18,10 @@ interface RequirementListProps {
   requirements: Requirement[];
   userVotes?: Set<string>;
   currentUserId?: string;
+  locale: string;
 }
 
-export function RequirementList({ requirements, userVotes, currentUserId }: RequirementListProps) {
+export function RequirementList({ requirements, userVotes, currentUserId, locale }: RequirementListProps) {
   if (requirements.length === 0) {
     return (
       <p className="text-sm text-muted-foreground">
@@ -51,6 +53,11 @@ export function RequirementList({ requirements, userVotes, currentUserId }: Requ
                 {currentUserId && currentUserId === req.author_id && (
                   <EditRequirementInline requirementId={req.id} currentBody={req.body} />
                 )}
+                <TranslateThisLink
+                  locale={locale}
+                  targetType="requirement"
+                  targetId={req.id}
+                />
               </div>
             </div>
           </CardContent>

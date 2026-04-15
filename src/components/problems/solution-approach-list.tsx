@@ -5,6 +5,7 @@ import { SuccessReportList } from "@/components/problems/success-report-list";
 import { AddSuccessReportForm } from "@/components/problems/add-success-report-form";
 import { EditSolutionApproachForm } from "@/components/problems/edit-solution-approach-form";
 import { OrgLink } from "@/components/organizations/org-link";
+import { TranslateThisLink } from "@/components/translations/translate-this-link";
 
 interface SuccessReport {
   id: string;
@@ -145,6 +146,13 @@ export function SolutionApproachList({ approaches, userVotes, isAuthenticated, c
                 <EditSolutionApproachForm approachId={sa.id} current={sa} />
               </div>
             )}
+            <div className="mt-2">
+              <TranslateThisLink
+                locale={locale}
+                targetType="solution_approach"
+                targetId={sa.id}
+              />
+            </div>
             {publishedReports.length > 0 && (
               <SuccessReportList reports={publishedReports} locale={locale} />
             )}

@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { UpvoteButton } from "@/components/shared/upvote-button";
 import { EditPilotFrameworkForm } from "@/components/problems/edit-pilot-framework-form";
+import { TranslateThisLink } from "@/components/translations/translate-this-link";
 
 interface PilotFramework {
   id: string;
@@ -22,6 +23,7 @@ interface PilotFrameworkListProps {
   frameworks: PilotFramework[];
   userVotes?: Set<string>;
   currentUserId?: string;
+  locale: string;
 }
 
 function Field({ label, value }: { label: string; value: string | null }) {
@@ -34,7 +36,7 @@ function Field({ label, value }: { label: string; value: string | null }) {
   );
 }
 
-export function PilotFrameworkList({ frameworks, userVotes, currentUserId }: PilotFrameworkListProps) {
+export function PilotFrameworkList({ frameworks, userVotes, currentUserId, locale }: PilotFrameworkListProps) {
   if (frameworks.length === 0) {
     return (
       <p className="text-sm text-muted-foreground">
@@ -76,6 +78,13 @@ export function PilotFrameworkList({ frameworks, userVotes, currentUserId }: Pil
             {currentUserId && currentUserId === fw.author_id && (
               <EditPilotFrameworkForm frameworkId={fw.id} current={fw} />
             )}
+            <div className="mt-3">
+              <TranslateThisLink
+                locale={locale}
+                targetType="pilot_framework"
+                targetId={fw.id}
+              />
+            </div>
           </CardContent>
         </Card>
       ))}

@@ -9,6 +9,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { getProblemById } from "@/lib/queries/problems";
+import { translateProblem } from "@/lib/queries/content-translations";
 import { getUserVerifiedMemberships } from "@/lib/queries/organizations";
 import { createClient } from "@/lib/supabase/server";
 import { RequirementList } from "@/components/problems/requirement-list";
@@ -21,6 +22,7 @@ import { CommentThread } from "@/components/comments/comment-thread";
 import { CommentForm } from "@/components/comments/comment-form";
 import { EditProblemForm } from "@/components/problems/edit-problem-form";
 import { SuggestEditForm } from "@/components/problems/suggest-edit-form";
+import { TranslateThisLink } from "@/components/translations/translate-this-link";
 import { ProblemHero } from "@/components/problems/problem-hero";
 import { ProblemSection } from "@/components/problems/problem-section";
 import { ProblemTocSidebar } from "@/components/problems/problem-toc-sidebar";
@@ -60,6 +62,11 @@ export default async function ProblemDetailPage({
   }
 
   if (!problem) notFound();
+
+  // Merge any approved content_translations for this locale over the source
+  // row. Per-row rows without a translation are passed through untouched
+  // (English fallback). No-op when locale is "en".
+  problem = await translateProblem(problem, locale);
 
   // Get current user's votes for this problem's content
   const supabase = await createClient();
@@ -356,6 +363,13 @@ export default async function ProblemDetailPage({
                 />
               </div>
             )}
+            <div className="mt-3">
+              <TranslateThisLink
+                locale={locale}
+                targetType="problem_template"
+                targetId={problem.id}
+              />
+            </div>
           </ProblemSection>
 
           <ProblemSection
@@ -369,6 +383,7 @@ export default async function ProblemDetailPage({
               requirements={publishedRequirements}
               userVotes={userVotedRequirements}
               currentUserId={user?.id}
+              locale={locale}
             />
             {user && (
               <div className="mt-4">
@@ -388,6 +403,7 @@ export default async function ProblemDetailPage({
               frameworks={publishedFrameworks}
               userVotes={userVotedFrameworks}
               currentUserId={user?.id}
+              locale={locale}
             />
             {user && (
               <div className="mt-4">
