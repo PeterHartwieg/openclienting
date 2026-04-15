@@ -105,6 +105,54 @@ function removeAnalyticsCookies() {
   }
 }
 
+/**
+ * Withdraw analytics consent in the current page session.
+ *
+ * Just removing cookies and writing analytics=false is not enough: if GTM has
+ * already been injected into the page, the third-party script keeps running
+ * for the rest of this tab's lifetime and may still fire events. GDPR
+ * withdrawal requires processing to stop *immediately*, not just on the next
+ * page load.
+ *
+ * Strategy:
+ *  1. Push a Google Consent Mode v2 denial signal to dataLayer. If the GTM
+ *     container is configured to respect Consent Mode this stops in-flight
+ *     events from being processed before we reload. Safe even when GTM was
+ *     never loaded (it just appends to a JS array).
+ *  2. If a GTM script element exists in the DOM, GTM was loaded in this
+ *     session and the only environment-independent way to fully stop it is a
+ *     hard reload. After the reload the page renders with analytics=false,
+ *     the load-GTM effect short-circuits, and the script element is gone.
+ *
+ * Returns true if the caller should expect a reload.
+ */
+function withdrawAnalytics(): boolean {
+  removeAnalyticsCookies();
+
+  window.dataLayer = window.dataLayer || [];
+  // gtag-style call: GTM and GA listen for `["consent","update",{...}]` shaped
+  // entries in dataLayer. We can't call gtag() directly because it's only
+  // defined once GTM/GA load it themselves, but pushing the equivalent tuple
+  // works for both consent modes.
+  window.dataLayer.push([
+    "consent",
+    "update",
+    {
+      ad_storage: "denied",
+      analytics_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+    },
+  ]);
+
+  const gtmLoaded = document.querySelector('script[src*="gtm.js"]') !== null;
+  if (gtmLoaded) {
+    window.location.reload();
+    return true;
+  }
+  return false;
+}
+
 declare global {
   interface Window {
     dataLayer?: unknown[];
@@ -173,7 +221,11 @@ export function CookieConsent() {
 
   const handleRejectAll = useCallback(() => {
     writeConsent(false);
-    removeAnalyticsCookies();
+    // withdrawAnalytics() pushes a Consent Mode denial and reloads if GTM was
+    // already in the DOM. The reload is the only environment-independent way
+    // to guarantee no further events fire in this tab — see comment on the
+    // helper for the full rationale.
+    withdrawAnalytics();
   }, []);
 
   const handleSavePreferences = useCallback(() => {
@@ -181,7 +233,11 @@ export function CookieConsent() {
     if (analyticsChecked) {
       if (gtmId) loadGTM(gtmId);
     } else {
-      removeAnalyticsCookies();
+      // Same reasoning as handleRejectAll: if GTM is currently in the DOM
+      // (the user previously opted in this session or had analytics=true
+      // from a prior visit) we need a full reload to stop processing.
+      const willReload = withdrawAnalytics();
+      if (willReload) return; // skip the setShowDetails — we're navigating away
     }
     setShowDetails(false);
   }, [analyticsChecked, gtmId]);

@@ -161,9 +161,12 @@ export function PrivacyDe() {
             <strong>&bdquo;Cookie-Einstellungen&ldquo;</strong>. Der
             Cookie-Banner erscheint dann erneut und du kannst entweder{" "}
             <em>Ablehnen</em> wählen oder unter <em>Einstellungen</em> die
-            Analyse-Option deaktivieren und speichern. Erst dann werden
-            bestehende Analyse-Cookies entfernt und das Tag-Manager-Skript
-            für die nächsten Aufrufe nicht mehr geladen.
+            Analyse-Option deaktivieren und speichern. In diesem Moment werden
+            bestehende Analyse-Cookies gelöscht und ein Widerrufssignal
+            (Google Consent Mode) an Google übermittelt. Wenn der Tag Manager
+            in deinem aktuellen Tab bereits geladen war, wird die Seite
+            außerdem automatisch neu geladen, damit auch in dieser Sitzung
+            keine weiteren Analysedaten verarbeitet werden.
           </p>
 
           <h3 className="mt-4 font-medium">2.5 Google OAuth</h3>
@@ -296,11 +299,12 @@ export function PrivacyDe() {
             </li>
             <li>
               <strong>Brevo</strong> (Sendinblue SAS, 17 rue Salneuve, 75017
-              Paris, Frankreich) &mdash; Versand transaktionaler
+              Paris, Frankreich){" "}&mdash; Versand transaktionaler
               E-Mail-Benachrichtigungen (z.&nbsp;B. Statusänderungen,
-              Antworten auf Kommentare). Brevo ist in der EU ansässig und
-              betreibt seine Infrastruktur in Frankreich und Deutschland; es
-              findet keine Übermittlung in ein Drittland statt.
+              Antworten auf Kommentare). Brevo hat seinen Sitz in der EU.
+              Etwaige Drittlandübermittlungen sind, soweit sie überhaupt
+              stattfinden, durch geeignete Garantien im Sinne der DSGVO
+              (insbesondere Standardvertragsklauseln) abgesichert.
             </li>
           </ul>
         </section>
@@ -356,8 +360,11 @@ export function PrivacyDe() {
             damit der Banner erneut erscheint, und wähle dann{" "}
             <em>Ablehnen</em> oder speichere unter <em>Einstellungen</em> ohne
             Analyse. Bestehende Analyse-Cookies werden in diesem Moment
-            entfernt; bei künftigen Aufrufen wird der Tag Manager nicht mehr
-            geladen.
+            entfernt und ein Consent-Mode-Widerrufssignal an Google
+            übermittelt. Wenn der Tag Manager im aktuellen Tab bereits geladen
+            war, wird die Seite automatisch neu geladen, damit er auch in
+            dieser Sitzung keine weiteren Daten verarbeitet. Bei künftigen
+            Aufrufen wird der Tag Manager nicht mehr geladen.
           </p>
           <p className="mt-2">
             <strong>Rechtsgrundlage:</strong> Einwilligung (Art. 6 Abs. 1 lit. a

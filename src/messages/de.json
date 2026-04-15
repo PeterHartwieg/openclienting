@@ -320,7 +320,7 @@
   },
   "consent": {
     "title": "Cookies",
-    "body": "Wir verwenden zwingend erforderliche Cookies für die Authentifizierung. Mit deiner Einwilligung nutzen wir außerdem Google Analytics, um zu verstehen, wie Besucher:innen unsere Seite nutzen.",
+    "body": "Wir verwenden zwingend erforderliche Cookies für die Authentifizierung und einige Grundeinstellungen. Mit deiner Einwilligung laden wir außerdem den Google Tag Manager bzw. Google Analytics, um zu verstehen, wie Besucher:innen unsere Seite nutzen.",
     "accept": "Alle akzeptieren",
     "decline": "Ablehnen",
     "settings": "Einstellungen",

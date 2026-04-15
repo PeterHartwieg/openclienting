@@ -320,7 +320,7 @@
   },
   "consent": {
     "title": "Cookies",
-    "body": "We use strictly necessary cookies for authentication. With your consent we also use Google Analytics to understand how visitors use our site.",
+    "body": "We use strictly necessary cookies for authentication and a few basic preferences. With your consent we also load Google Tag Manager / Google Analytics to understand how visitors use our site.",
     "accept": "Accept all",
     "decline": "Decline",
     "settings": "Settings",

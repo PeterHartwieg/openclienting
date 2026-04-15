@@ -151,9 +151,11 @@ export function PrivacyEn() {
             <strong>&ldquo;Cookie Settings&rdquo;</strong> in the footer. The
             cookie banner will reappear and you can either choose{" "}
             <em>Decline</em> or, under <em>Settings</em>, untick the analytics
-            option and save. Only at that point are existing analytics cookies
-            removed and the Tag Manager script no longer loaded on subsequent
-            visits.
+            option and save. At that moment existing analytics cookies are
+            deleted and a Google Consent Mode withdrawal signal is sent. If
+            the Tag Manager was already loaded in your current tab, the page
+            is also reloaded automatically so that no further analytics data
+            is processed in this session either.
           </p>
 
           <h3 className="mt-4 font-medium">2.5 Google OAuth</h3>
@@ -275,10 +277,11 @@ export function PrivacyEn() {
             </li>
             <li>
               <strong>Brevo</strong> (Sendinblue SAS, 17 rue Salneuve, 75017
-              Paris, France) &mdash; sending transactional email notifications
+              Paris, France){" "}&mdash; sending transactional email notifications
               (e.g. submission status changes, replies to comments). Brevo is
-              based in the EU and operates its infrastructure in France and
-              Germany; no transfer to a third country takes place.
+              based in the EU. Any third-country transfers, if applicable, are
+              covered by appropriate safeguards under the GDPR (in particular
+              Standard Contractual Clauses).
             </li>
           </ul>
         </section>
@@ -331,8 +334,11 @@ export function PrivacyEn() {
             <strong>&ldquo;Cookie Settings&rdquo;</strong> in the website
             footer to bring the banner back, then either choose{" "}
             <em>Decline</em> or open <em>Settings</em> and save without
-            analytics. Existing analytics cookies are removed at that moment;
-            the Tag Manager will not be loaded on subsequent visits.
+            analytics. Existing analytics cookies are removed at that moment
+            and a Consent Mode withdrawal signal is sent to Google. If the
+            Tag Manager was already loaded in your current tab, the page is
+            reloaded automatically so it cannot process further data in this
+            session. The Tag Manager will not be loaded on subsequent visits.
           </p>
           <p className="mt-2">
             <strong>Legal basis:</strong> Consent (Art. 6(1)(a) GDPR).
