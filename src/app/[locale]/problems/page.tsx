@@ -7,7 +7,12 @@ import { ProblemCard } from "@/components/problems/problem-card";
 import { ProblemFilters } from "@/components/problems/problem-filters";
 import { SearchBar } from "@/components/layout/search-bar";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Breadcrumbs } from "@/components/shared/breadcrumbs";
+import { JsonLd } from "@/components/seo/json-ld";
 import { getLanguageAlternates } from "@/lib/site";
+import { problemsCollectionSchema } from "@/lib/seo/schema";
+import { getSchemaSiteContext } from "@/lib/seo/site-context";
+import { localeTags, type Locale } from "@/i18n/config";
 
 export async function generateMetadata({
   params,
@@ -57,8 +62,34 @@ export default async function BrowseProblemsPage({
     getTagsGroupedByCategory(locale),
   ]);
 
+  // Build breadcrumbs and CollectionPage schema. ItemList is capped at the
+  // first 50 rendered problems so the JSON-LD payload stays under a sensible
+  // size even if filters return a large set. Schema reflects the currently
+  // visible list — not "all problems" — matching Google's "visible on page"
+  // rule.
+  const bt = await getTranslations({ locale, namespace: "breadcrumbs" });
+  const siteCtx = getSchemaSiteContext();
+  const problemsPath = `/${locale}/problems`;
+  const breadcrumbItems = [
+    { name: bt("home"), url: `/${locale}` },
+    { name: bt("problems"), url: problemsPath },
+  ];
+  const collectionSchema = problemsCollectionSchema({
+    inLanguageTag: localeTags[locale as Locale],
+    pageName: t("metaTitle"),
+    pageDescription: t("metaDescription"),
+    pageUrl: `${siteCtx.siteUrl}${problemsPath}`,
+    items: problems.slice(0, 50).map((p) => ({
+      id: p.id,
+      title: p.title,
+      url: `${siteCtx.siteUrl}/${locale}/problems/${p.id}`,
+    })),
+  });
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <JsonLd data={collectionSchema} />
+      <Breadcrumbs items={breadcrumbItems} className="mb-4 text-sm text-muted-foreground" />
       <div className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
         <p className="mt-1 text-sm text-muted-foreground">{t("subtitle")}</p>

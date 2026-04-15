@@ -24,6 +24,14 @@ import { SuggestEditForm } from "@/components/problems/suggest-edit-form";
 import { ProblemHero } from "@/components/problems/problem-hero";
 import { ProblemSection } from "@/components/problems/problem-section";
 import { ProblemTocSidebar } from "@/components/problems/problem-toc-sidebar";
+import { ProblemAnswerSummary } from "@/components/problems/problem-answer-summary";
+import { Breadcrumbs } from "@/components/shared/breadcrumbs";
+import { JsonLd } from "@/components/seo/json-ld";
+import { firstSentence } from "@/lib/seo/derive";
+import { problemArticleSchema } from "@/lib/seo/schema";
+import { getSchemaSiteContext } from "@/lib/seo/site-context";
+import { getTagLabel } from "@/lib/i18n/tags";
+import { localeTags, type Locale } from "@/i18n/config";
 import { generateProblemMetadata } from "./page.metadata";
 
 export async function generateMetadata({
@@ -247,14 +255,49 @@ export default async function ProblemDetailPage({
     ? null
     : (problem.organizations as { id: string; name: string } | null)?.name ?? null;
 
+  // Breadcrumbs + Article JSON-LD.
+  const bt = await getTranslations({ locale, namespace: "breadcrumbs" });
+  const siteCtx = getSchemaSiteContext();
+  const canonicalPath = `/${locale}/problems/${id}`;
+  const breadcrumbItems = [
+    { name: bt("home"), url: `/${locale}` },
+    { name: bt("problems"), url: `/${locale}/problems` },
+    { name: problem.title, url: canonicalPath },
+  ];
+
+  const articleSchema = problemArticleSchema(
+    siteCtx,
+    {
+      id: problem.id,
+      title: problem.title,
+      description: firstSentence(problem.description),
+      createdAt: problem.created_at,
+      updatedAt: problem.updated_at ?? null,
+      locale,
+      canonicalUrl: `${siteCtx.siteUrl}${canonicalPath}`,
+      keywords: (tags as Array<{ name: string; name_de?: string | null }>).map(
+        (tag) => getTagLabel(tag, locale),
+      ),
+      authorName: heroAuthorName,
+      orgName: heroOrgName,
+    },
+    localeTags[locale as Locale],
+  );
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <JsonLd data={articleSchema} />
+      <Breadcrumbs items={breadcrumbItems} className="mb-4 text-sm text-muted-foreground" />
+
+      <ProblemAnswerSummary problem={problem} locale={locale} />
+
       <ProblemHero
         title={problem.title}
         status={problem.solution_status ?? "unsolved"}
         authorName={heroAuthorName}
         orgName={heroOrgName}
         createdAt={problem.created_at}
+        updatedAt={problem.updated_at ?? null}
         tags={tags}
         locale={locale}
         stats={{
@@ -345,6 +388,18 @@ export default async function ProblemDetailPage({
             count={approachCount}
             accent="amber"
           >
+            {successfulPilotCount > 0 && (
+              // Dedicated anchor for AI answer engines citing verified outcomes.
+              // The section is not visually restructured — verified reports still
+              // live per-approach — but crawlers can link directly to this id.
+              <span
+                id="verified-outcomes"
+                aria-label={t("verifiedOutcomesHeading")}
+                className="sr-only"
+              >
+                {t("verifiedOutcomesHeading")}
+              </span>
+            )}
             <SolutionApproachList
               approaches={publishedApproaches}
               userVotes={userVotedApproaches}

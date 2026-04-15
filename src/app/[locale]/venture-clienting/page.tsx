@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buttonVariants } from "@/components/ui/button";
+import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { cn } from "@/lib/utils";
 import { getLanguageAlternates } from "@/lib/site";
 
@@ -27,6 +28,12 @@ export default async function VentureClientingPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("ventureClienting");
+  const bt = await getTranslations({ locale, namespace: "breadcrumbs" });
+
+  const breadcrumbItems = [
+    { name: bt("home"), url: `/${locale}` },
+    { name: bt("ventureClienting"), url: `/${locale}/venture-clienting` },
+  ];
 
   const sections = [
     { title: t("section1Title"), body: t("section1Body") },
@@ -38,6 +45,7 @@ export default async function VentureClientingPage({
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+      <Breadcrumbs items={breadcrumbItems} className="mb-8 text-sm text-muted-foreground" />
       <article>
         <h1 className="text-display font-bold leading-display tracking-tighter">
           {t("title")}

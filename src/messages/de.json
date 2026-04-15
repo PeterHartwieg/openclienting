@@ -184,7 +184,30 @@
     "suggestEditHeader": "Änderungen vorschlagen (Freigabe durch Moderation erforderlich)",
     "suggestEditSubmit": "Vorschlag einreichen",
     "suggestEditSubmitting": "Wird gesendet…",
-    "suggestEditCancel": "Abbrechen"
+    "suggestEditCancel": "Abbrechen",
+    "updatedLabel": "Aktualisiert",
+    "verifiedOutcomesHeading": "Verifizierte Ergebnisse",
+    "answerSummary": {
+      "summaryLabel": "In einem Satz",
+      "whoThisAffects": "Wen es betrifft",
+      "knownRequirements": "Bekannte Anforderungen",
+      "requirementsEmpty": "Noch keine Anforderungen eingereicht.",
+      "requirementsCount": "{count} eingereicht.",
+      "requirementsFilled": "{count} eingereicht. Am besten bewertet: {top}",
+      "pilotEvidence": "Pilot-Evidenz",
+      "pilotEvidenceEmpty": "Noch keine verifizierten Pilot-Ergebnisse.",
+      "pilotEvidenceFilled": "{count} verifizierte Pilot-Ergebnisse berichtet.",
+      "status": {
+        "unsolved": "Noch keine Lösung.",
+        "has_approaches": "Lösungsansätze vorgeschlagen.",
+        "successful_pilot": "Mindestens ein verifizierter erfolgreicher Pilot."
+      }
+    }
+  },
+  "breadcrumbs": {
+    "home": "Start",
+    "problems": "Probleme",
+    "ventureClienting": "Venture Clienting"
   },
   "submit": {
     "metaTitle": "Problem einreichen — OpenClienting",

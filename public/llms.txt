@@ -1,0 +1,29 @@
+# OpenClienting
+
+> Open-source venture clienting knowledge base where SMEs and startups share real problem templates, pilot frameworks, and verified outcomes.
+
+OpenClienting is a peer-validated library of the problems companies are actively sourcing solutions for, the requirements those solutions must meet, the pilot frameworks used to evaluate them, and the success reports from pilots that worked. Venture clienting is the model where an established company becomes a paying client of a startup whose solution already works — no equity, no accelerator, just a normal vendor engagement around a specific problem.
+
+Every contribution is moderated before publication, authored attributions are optional (anonymity per submission), and successful pilots are flagged with verification metadata that is visible to anyone.
+
+## About
+
+- [What is venture clienting?](https://openclienting.org/en/venture-clienting)
+- [Browse all problems](https://openclienting.org/en/problems)
+- [Submit a problem](https://openclienting.org/en/submit)
+
+## Languages
+
+- English: https://openclienting.org/en
+- German: https://openclienting.org/de
+
+## Discovery
+
+- Sitemap (all indexable URLs): https://openclienting.org/sitemap.xml
+- Robots: https://openclienting.org/robots.txt
+
+## Legal
+
+- [Privacy](https://openclienting.org/en/privacy)
+- [Terms](https://openclienting.org/en/terms)
+- [Impressum](https://openclienting.org/en/impressum)

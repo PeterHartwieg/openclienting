@@ -28,6 +28,7 @@ interface ProblemHeroProps {
   authorName: string;
   orgName: string | null;
   createdAt: string;
+  updatedAt: string | null;
   tags: Tag[];
   locale: string;
   stats: {
@@ -45,12 +46,20 @@ export async function ProblemHero({
   authorName,
   orgName,
   createdAt,
+  updatedAt,
   tags,
   locale,
   stats,
 }: ProblemHeroProps) {
   const t = await getTranslations({ locale, namespace: "problemDetail" });
   const formattedDate = formatDate(createdAt, locale, "long");
+  // Only render "Updated …" when it differs from the creation date — a fresh
+  // problem would otherwise show "Created 3 Apr · Updated 3 Apr", which is
+  // noise. The Article schema applies the same check so the two stay honest.
+  const showUpdated =
+    updatedAt != null &&
+    updatedAt.slice(0, 10) !== createdAt.slice(0, 10);
+  const formattedUpdated = showUpdated ? formatDate(updatedAt!, locale, "long") : null;
 
   return (
     <div className="relative overflow-hidden rounded-2xl border bg-gradient-to-br from-primary/[0.06] via-background to-background p-6 sm:p-8">
@@ -77,6 +86,12 @@ export async function ProblemHero({
           <CalendarDays className="h-4 w-4" />
           {formattedDate}
         </span>
+        {formattedUpdated && (
+          <span className="inline-flex items-center gap-1.5">
+            <CalendarDays className="h-4 w-4" />
+            {t("updatedLabel")} {formattedUpdated}
+          </span>
+        )}
       </div>
 
       {tags.length > 0 && (

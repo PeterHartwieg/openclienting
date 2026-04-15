@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { getProblemById } from "@/lib/queries/problems";
 import { getLanguageAlternates } from "@/lib/site";
+import { firstSentence } from "@/lib/seo/derive";
 
 export async function generateProblemMetadata(
   locale: string,
@@ -12,7 +13,9 @@ export async function generateProblemMetadata(
   try {
     const problem = await getProblemById(id);
     const title = problem.title || t("metaTitleFallback");
-    const description = problem.description.slice(0, 160);
+    // Sentence-boundary truncation so the meta description, visible
+    // answer-ready summary, and Article JSON-LD `description` all match.
+    const description = firstSentence(problem.description);
 
     return {
       title,

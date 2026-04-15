@@ -184,7 +184,30 @@
     "suggestEditHeader": "Suggest changes (moderator approval required)",
     "suggestEditSubmit": "Submit Suggestion",
     "suggestEditSubmitting": "Submitting…",
-    "suggestEditCancel": "Cancel"
+    "suggestEditCancel": "Cancel",
+    "updatedLabel": "Updated",
+    "verifiedOutcomesHeading": "Verified outcomes",
+    "answerSummary": {
+      "summaryLabel": "In one sentence",
+      "whoThisAffects": "Who this affects",
+      "knownRequirements": "Known requirements",
+      "requirementsEmpty": "No requirements submitted yet.",
+      "requirementsCount": "{count} submitted.",
+      "requirementsFilled": "{count} submitted. Top-voted: {top}",
+      "pilotEvidence": "Pilot evidence",
+      "pilotEvidenceEmpty": "No verified pilot outcomes yet.",
+      "pilotEvidenceFilled": "{count} verified pilot outcomes reported.",
+      "status": {
+        "unsolved": "No solution yet.",
+        "has_approaches": "Solution approaches proposed.",
+        "successful_pilot": "At least one successful pilot verified."
+      }
+    }
+  },
+  "breadcrumbs": {
+    "home": "Home",
+    "problems": "Problems",
+    "ventureClienting": "Venture clienting"
   },
   "submit": {
     "metaTitle": "Submit a Problem — OpenClienting",
