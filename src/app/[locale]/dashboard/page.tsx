@@ -5,6 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getCurrentUser } from "@/lib/auth/roles";
 import { createClient } from "@/lib/supabase/server";
 import { StatusBadge } from "@/components/shared/status-badge";
+import { EmptyState } from "@/components/shared/empty-state";
 import {
   Card,
   CardContent,
@@ -127,9 +128,11 @@ export default async function DashboardPage({
         <h2 className="text-xl font-semibold">{t("yourSubmissions")}</h2>
 
         {!submissions || submissions.length === 0 ? (
-          <div className="mt-4 rounded-lg border border-dashed p-12 text-center">
-            <p className="text-muted-foreground">{t("noProblems")}</p>
-          </div>
+          <EmptyState
+            className="mt-4"
+            state="corporate"
+            message={t("noProblems")}
+          />
         ) : (
           <div className="mt-4 space-y-3">
             {submissions.map((sub) => (
@@ -157,9 +160,11 @@ export default async function DashboardPage({
         <h2 className="text-xl font-semibold">{t("yourSolutionApproaches")}</h2>
 
         {!solutionApproaches || solutionApproaches.length === 0 ? (
-          <div className="mt-4 rounded-lg border border-dashed p-12 text-center">
-            <p className="text-muted-foreground">{t("noApproaches")}</p>
-          </div>
+          <EmptyState
+            className="mt-4"
+            state="startup"
+            message={t("noApproaches")}
+          />
         ) : (
           <div className="mt-4 space-y-3">
             {solutionApproaches.map((sa) => (

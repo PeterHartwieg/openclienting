@@ -7,6 +7,7 @@ import { ProblemCard } from "@/components/problems/problem-card";
 import { ProblemFilters } from "@/components/problems/problem-filters";
 import { SearchBar } from "@/components/layout/search-bar";
 import { Skeleton } from "@/components/ui/skeleton";
+import { EmptyState } from "@/components/shared/empty-state";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { JsonLd } from "@/components/seo/json-ld";
 import { getLanguageAlternates } from "@/lib/site";
@@ -111,9 +112,7 @@ export default async function BrowseProblemsPage({
         {/* Problem grid */}
         <div className="flex-1">
           {problems.length === 0 ? (
-            <div className="rounded-lg border border-dashed p-12 text-center">
-              <p className="text-muted-foreground">{t("noResults")}</p>
-            </div>
+            <EmptyState state="match" message={t("noResults")} />
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {problems.map((problem) => (

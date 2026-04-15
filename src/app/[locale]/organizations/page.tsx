@@ -12,6 +12,7 @@ import { getLanguageAlternates } from "@/lib/site";
 import { getSchemaSiteContext } from "@/lib/seo/site-context";
 import { organizationsCollectionSchema } from "@/lib/seo/schema";
 import { getOrgSizeTier, cn } from "@/lib/utils";
+import { EmptyState } from "@/components/shared/empty-state";
 import { localeTags, type Locale } from "@/i18n/config";
 
 export async function generateMetadata({
@@ -82,9 +83,7 @@ export default async function OrganizationsDirectoryPage({
       </div>
 
       {orgs.length === 0 ? (
-        <div className="rounded-lg border border-dashed p-12 text-center">
-          <p className="text-muted-foreground">{t("emptyState")}</p>
-        </div>
+        <EmptyState state="corporate" message={t("emptyState")} />
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {orgs.map((org) => {
