@@ -323,7 +323,12 @@
     "body": "Wir verwenden zwingend erforderliche Cookies für die Authentifizierung. Mit deiner Einwilligung nutzen wir außerdem Google Analytics, um zu verstehen, wie Besucher:innen unsere Seite nutzen.",
     "accept": "Alle akzeptieren",
     "decline": "Ablehnen",
-    "settings": "Einstellungen"
+    "settings": "Einstellungen",
+    "learnMore": "Mehr erfahren",
+    "necessaryTitle": "Grundeinstellungen und Anmeldung",
+    "necessaryDescription": "Notwendig, um dich angemeldet zu halten und grundlegende Einstellungen wie Sprache, Erscheinungsbild und deine Cookie-Auswahl zu speichern. Immer aktiv.",
+    "analyticsTitle": "Google Tag Manager / Google Analytics",
+    "analyticsDescription": "Lädt den Google Tag Manager, über den Google Analytics 4 nachgeladen wird. Hilft uns zu verstehen, wie Besucher:innen die Seite nutzen. Nur nach deiner Einwilligung aktiv."
   },
   "languageSwitcher": {
     "label": "Sprache",

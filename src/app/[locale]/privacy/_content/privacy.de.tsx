@@ -6,7 +6,7 @@ export function PrivacyDe() {
         Datenschutzerklärung gemäß DSGVO
       </p>
       <p className="mt-1 text-xs text-muted-foreground">
-        Stand: April 2026
+        Stand: 14. April 2026
       </p>
 
       <div className="mt-10 space-y-10 text-sm leading-relaxed text-foreground/90">
@@ -85,18 +85,85 @@ export function PrivacyDe() {
             Verfügbarkeit des Dienstes.
           </p>
 
-          <h3 className="mt-4 font-medium">2.4 Cookies</h3>
+          <h3 className="mt-4 font-medium">
+            2.4 Cookies und Speicherung auf deinem Endgerät
+          </h3>
           <p className="mt-1">
-            Wir verwenden <strong>zwingend erforderliche Cookies</strong> für
-            die Authentifizierung. Supabase Auth setzt ein Sitzungs-Cookie
-            (JWT), das dich angemeldet hält. Diese Cookies sind für den Betrieb
-            des Dienstes essenziell und erfordern keine Einwilligung.
+            Wir speichern bzw. lesen die folgenden Informationen auf deinem
+            Endgerät. Maßgeblich ist hierfür &sect;&nbsp;25 TDDDG.
+          </p>
+
+          <p className="mt-3 font-medium">
+            Unbedingt erforderlich (keine Einwilligung nach &sect;&nbsp;25 Abs. 2
+            TDDDG)
           </p>
           <p className="mt-1">
-            <strong>Analyse-Cookies</strong> (geladen über Google Tag Manager,
-            einschließlich Google Analytics 4) werden nur dann gesetzt, wenn du
-            über unser Cookie-Banner ausdrücklich einwilligst. Details siehe
-            Abschnitt 5.
+            Diese Speichervorgänge sind notwendig, damit der Dienst funktioniert
+            oder eine ausdrücklich von dir gewünschte Funktion bereitgestellt
+            werden kann. Sie werden ohne Einwilligung gesetzt, hier aber
+            transparent offengelegt.
+          </p>
+          <ul className="mt-2 list-disc space-y-1 pl-6">
+            <li>
+              <strong>Supabase-Auth-Sitzungscookie (JWT)</strong>{" "}&mdash; hält
+              dich nach dem Login angemeldet. Speicherort: Cookie. Speicherdauer:
+              gemäß den Standardeinstellungen von Supabase Auth (typischerweise
+              bis zur Abmeldung bzw. bis zum Ablauf der Sitzung).
+            </li>
+            <li>
+              <strong><code>oc_cookie_consent</code></strong>{" "}&mdash; speichert
+              deine Auswahl im Cookie-Banner, damit dieser nicht bei jedem
+              Seitenaufruf erneut erscheint. Speicherort:{" "}
+              <code>localStorage</code>. Speicherdauer: 6 Monate, danach wirst
+              du erneut gefragt.
+            </li>
+            <li>
+              <strong><code>NEXT_LOCALE</code></strong>{" "}&mdash; merkt sich deine
+              Sprachwahl (Deutsch / Englisch), damit du nicht bei jedem Besuch
+              neu wählen musst. Speicherort: Cookie. Speicherdauer: 1 Jahr.
+            </li>
+            <li>
+              <strong><code>oc_persona</code></strong>{" "}&mdash; merkt sich, ob du
+              auf der Startseite die Sicht für mittelständische Unternehmen oder
+              für Start-ups gewählt hast. Speicherort: Cookie. Speicherdauer:
+              1 Jahr.
+            </li>
+            <li>
+              <strong><code>theme</code></strong> (next-themes) &mdash; merkt
+              sich deine Wahl zwischen hellem und dunklem Erscheinungsbild.
+              Speicherort: <code>localStorage</code>. Speicherdauer: bis du sie
+              löschst.
+            </li>
+          </ul>
+
+          <p className="mt-3 font-medium">
+            Einwilligungsbasiert (nur nach Opt-in im Cookie-Banner)
+          </p>
+          <ul className="mt-2 list-disc space-y-1 pl-6">
+            <li>
+              <strong>Google Tag Manager (GTM)</strong>{" "}&mdash; lädt nach
+              deiner Einwilligung Tags, insbesondere Google Analytics 4. GTM
+              selbst speichert keine Analyse-Cookies, das Laden löst jedoch
+              eine Verbindung zu Google-Servern aus.
+            </li>
+            <li>
+              <strong>Google-Analytics-Cookies</strong>{" "}&mdash; <code>_ga</code>,{" "}
+              <code>_gid</code>, <code>_gcl_*</code>. Werden ausschließlich
+              gesetzt, wenn du der Analyse zustimmst. Lehnst du ab oder
+              widerrufst du deine Einwilligung, werden diese Cookies entfernt.
+              Details siehe Abschnitt 5.
+            </li>
+          </ul>
+
+          <p className="mt-3">
+            Um deine Auswahl zu ändern oder deine Einwilligung zu widerrufen,
+            klicke im Footer auf{" "}
+            <strong>&bdquo;Cookie-Einstellungen&ldquo;</strong>. Der
+            Cookie-Banner erscheint dann erneut und du kannst entweder{" "}
+            <em>Ablehnen</em> wählen oder unter <em>Einstellungen</em> die
+            Analyse-Option deaktivieren und speichern. Erst dann werden
+            bestehende Analyse-Cookies entfernt und das Tag-Manager-Skript
+            für die nächsten Aufrufe nicht mehr geladen.
           </p>
 
           <h3 className="mt-4 font-medium">2.5 Google OAuth</h3>
@@ -108,8 +175,98 @@ export function PrivacyDe() {
             eigene Datenschutzerklärung.
           </p>
           <p className="mt-1">
-            <strong>Rechtsgrundlage:</strong> Einwilligung (Art. 6 Abs. 1 lit. a
-            DSGVO) &mdash; du startest den Google-Anmeldevorgang.
+            <strong>Rechtsgrundlage:</strong> Vertragserfüllung bzw. Durchführung
+            vorvertraglicher Maßnahmen (Art. 6 Abs. 1 lit. b DSGVO) &mdash; die
+            Anmeldung mit Google ist eine von mehreren Anmeldemöglichkeiten und
+            Teil der Bereitstellung des Dienstes.
+          </p>
+
+          <h3 className="mt-4 font-medium">2.6 Organisationsdaten</h3>
+          <p className="mt-1">
+            Wenn du als angemeldete:r Nutzer:in eine Organisation anlegst,
+            speichern wir deren <strong>Name</strong>, einen daraus
+            abgeleiteten URL-<strong>Slug</strong>, optional{" "}
+            <strong>Website</strong>, <strong>Beschreibung</strong> und{" "}
+            <strong>Mitarbeiterzahl</strong>, einen{" "}
+            <strong>Verifizierungsstatus</strong> (z.&nbsp;B. unverifiziert,
+            ausstehend, verifiziert) sowie deine Nutzer-ID als{" "}
+            <strong>Ersteller:in</strong>. Diese Daten sind öffentlich sichtbar
+            (mit Ausnahme interner Statusfelder).
+          </p>
+          <p className="mt-1">
+            <strong>Rechtsgrundlage:</strong> Vertragserfüllung (Art. 6 Abs. 1
+            lit. b DSGVO). <strong>Empfänger:</strong> Supabase
+            (Datenbank-Hosting). <strong>Speicherdauer:</strong> bis zur Löschung
+            der Organisation. Bei Löschung deines Kontos wird der Bezug zum
+            Ersteller anonymisiert.
+          </p>
+
+          <h3 className="mt-4 font-medium">
+            2.7 Mitgliedschaften und Beitrittsanfragen
+          </h3>
+          <p className="mt-1">
+            Wenn du die Mitgliedschaft in einer verifizierten Organisation
+            beantragst, speichern wir deine <strong>Nutzer-ID</strong>, die{" "}
+            <strong>Organisations-ID</strong>, deine <strong>Rolle</strong>{" "}
+            (Mitglied bzw. Administrator), den{" "}
+            <strong>Mitgliedschaftsstatus</strong> (ausstehend, aktiv, abgelehnt,
+            entzogen) sowie Zeitstempel. Administratoren der jeweiligen
+            Organisation sehen deinen Antrag und können ihn annehmen oder
+            ablehnen.
+          </p>
+          <p className="mt-1">
+            <strong>Rechtsgrundlage:</strong> Vertragserfüllung (Art. 6 Abs. 1
+            lit. b DSGVO). <strong>Speicherdauer:</strong> solange die
+            Mitgliedschaft besteht; abgelehnte oder entzogene Anfragen werden
+            zur Vermeidung wiederholter Anträge weiter gespeichert.
+          </p>
+
+          <h3 className="mt-4 font-medium">
+            2.8 Benachrichtigungen und Benachrichtigungseinstellungen
+          </h3>
+          <p className="mt-1">
+            Wir erstellen <strong>In-App-Benachrichtigungen</strong>, wenn
+            relevante Ereignisse zu deinen Beiträgen eintreten (z.&nbsp;B.
+            Statusänderungen, Kommentare, Änderungsvorschläge). Sie werden mit
+            deiner Nutzer-ID, dem Ereignistyp und einem Zeitstempel gespeichert.
+            Du kannst Benachrichtigungen einzeln oder gesammelt als{" "}
+            <em>gelesen</em> markieren; sie werden bis zur Löschung deines
+            Kontos aufbewahrt.
+          </p>
+          <p className="mt-1">
+            Zusätzlich kannst du <strong>E-Mail-Benachrichtigungen</strong> für
+            einzelne Kategorien aktivieren oder deaktivieren (Statusänderungen,
+            Änderungsvorschläge, Antworten auf deine Kommentare,
+            Verifizierungs-Entscheidungen, Entscheidungen zu Erfolgsberichten,
+            zurückgesetzte Revisionen). Deine Einstellungen werden mit deiner
+            Nutzer-ID gespeichert.
+          </p>
+          <p className="mt-1">
+            <strong>Rechtsgrundlage:</strong> Vertragserfüllung (Art. 6 Abs. 1
+            lit. b DSGVO) für dienstbezogene Benachrichtigungen, jederzeit von
+            dir abschaltbar. <strong>Speicherdauer:</strong> bis zur Löschung
+            deines Kontos. (Eine eigenständige Löschfunktion für einzelne
+            Benachrichtigungen besteht derzeit nicht.)
+          </p>
+
+          <h3 className="mt-4 font-medium">
+            2.9 Öffentliche Organisations-Logos
+          </h3>
+          <p className="mt-1">
+            Administratoren einer Organisation können ein{" "}
+            <strong>Logo</strong> hochladen. Logos werden im{" "}
+            <strong>öffentlichen</strong> Speicher-Bucket{" "}
+            <code>org-logos</code> bei Supabase abgelegt und über ein CDN
+            ausgeliefert; sie sind damit für alle Besucher:innen sichtbar. Wir
+            beschränken den Upload auf <strong>Bilddateien bis 512&nbsp;KB</strong>.
+          </p>
+          <p className="mt-1">
+            <strong>Rechtsgrundlage:</strong> Vertragserfüllung (Art. 6 Abs. 1
+            lit. b DSGVO) sowie berechtigtes Interesse an einer
+            wiedererkennbaren Darstellung der Organisationen (Art. 6 Abs. 1
+            lit. f DSGVO). <strong>Speicherdauer:</strong> bis zur Löschung
+            durch eine:n Administrator:in oder bis zur Löschung der
+            Organisation.
           </p>
         </section>
 
@@ -122,25 +279,28 @@ export function PrivacyDe() {
           </p>
           <ul className="mt-2 list-disc space-y-1 pl-6">
             <li>
-              <strong>Supabase Inc.</strong> &mdash; Datenbank-Hosting &amp;
+              <strong>Supabase Inc.</strong>{" "}&mdash; Datenbank-Hosting &amp;
               Authentifizierung (Auftragsverarbeitungsvertrag liegt vor).
             </li>
             <li>
-              <strong>Vercel Inc.</strong> &mdash; Website-Hosting
+              <strong>Vercel Inc.</strong>{" "}&mdash; Website-Hosting
               (Auftragsverarbeitungsvertrag liegt vor).
             </li>
             <li>
-              <strong>Cloudflare Inc.</strong> &mdash; DNS- und CDN-Dienste.
+              <strong>Cloudflare Inc.</strong>{" "}&mdash; DNS- und CDN-Dienste.
             </li>
             <li>
-              <strong>Google LLC</strong> &mdash; OAuth-Authentifizierung und,
+              <strong>Google LLC</strong>{" "}&mdash; OAuth-Authentifizierung und,
               falls du einwilligst, Google Tag Manager und das darüber geladene
               Google Analytics 4.
             </li>
             <li>
-              <strong>Resend / SendGrid</strong> (geplant) &mdash; transaktionale
+              <strong>Brevo</strong> (Sendinblue SAS, 17 rue Salneuve, 75017
+              Paris, Frankreich) &mdash; Versand transaktionaler
               E-Mail-Benachrichtigungen (z.&nbsp;B. Statusänderungen,
-              Kommentar-Antworten).
+              Antworten auf Kommentare). Brevo ist in der EU ansässig und
+              betreibt seine Infrastruktur in Frankreich und Deutschland; es
+              findet keine Übermittlung in ein Drittland statt.
             </li>
           </ul>
         </section>
@@ -162,7 +322,10 @@ export function PrivacyDe() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold">
+          <h2
+            id="5-google-analytics"
+            className="scroll-mt-24 text-lg font-semibold"
+          >
             5. Google Analytics &amp; Google Tag Manager
           </h2>
           <p className="mt-2">
@@ -188,9 +351,13 @@ export function PrivacyDe() {
             Analyse-Cookies auf deinem Gerät gespeichert.
           </p>
           <p className="mt-2">
-            Du kannst deine Einwilligung jederzeit widerrufen, indem du im
-            Footer auf{" "}
-            <strong>&bdquo;Cookie-Einstellungen&ldquo;</strong> klickst.
+            Du kannst deine Einwilligung jederzeit widerrufen: Klicke im
+            Footer auf <strong>&bdquo;Cookie-Einstellungen&ldquo;</strong>,
+            damit der Banner erneut erscheint, und wähle dann{" "}
+            <em>Ablehnen</em> oder speichere unter <em>Einstellungen</em> ohne
+            Analyse. Bestehende Analyse-Cookies werden in diesem Moment
+            entfernt; bei künftigen Aufrufen wird der Tag Manager nicht mehr
+            geladen.
           </p>
           <p className="mt-2">
             <strong>Rechtsgrundlage:</strong> Einwilligung (Art. 6 Abs. 1 lit. a
@@ -201,10 +368,13 @@ export function PrivacyDe() {
         <section>
           <h2 className="text-lg font-semibold">6. Schriftarten</h2>
           <p className="mt-2">
-            Wir verwenden die Geist-Schriftfamilie. Diese Schriften werden über
-            Next.js <strong>selbst gehostet</strong> und nicht von externen
-            Google-Servern geladen. Es werden keine Daten an Google für die
-            Auslieferung von Schriftarten übermittelt.
+            Wir verwenden <strong>IBM Plex Sans</strong> und{" "}
+            <strong>IBM Plex Mono</strong>. Diese Schriften werden über{" "}
+            <code>next/font</code> beim Build heruntergeladen und anschließend
+            von unseren eigenen Servern <strong>selbst gehostet</strong>{" "}
+            ausgeliefert. Beim Aufruf unserer Seiten werden{" "}
+            <strong>keine Daten an Google</strong> für die Auslieferung von
+            Schriftarten übermittelt.
           </p>
         </section>
 
@@ -262,7 +432,7 @@ export function PrivacyDe() {
               auf Grundlage berechtigter Interessen zu widersprechen.
             </li>
             <li>
-              <strong>Widerruf der Einwilligung</strong> &mdash; soweit eine
+              <strong>Widerruf der Einwilligung</strong>{" "}&mdash; soweit eine
               Verarbeitung auf Einwilligung beruht, kannst du diese jederzeit
               ohne Auswirkung auf die Rechtmäßigkeit der bisherigen Verarbeitung
               widerrufen.

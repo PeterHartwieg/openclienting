@@ -6,7 +6,7 @@ export function PrivacyEn() {
         Datenschutzerkl&auml;rung in accordance with GDPR
       </p>
       <p className="mt-1 text-xs text-muted-foreground">
-        Last updated: April 2026
+        Last updated: April 14, 2026
       </p>
 
       <div className="mt-10 space-y-10 text-sm leading-relaxed text-foreground/90">
@@ -81,17 +81,79 @@ export function PrivacyEn() {
             GDPR) &mdash; ensuring security and availability of the service.
           </p>
 
-          <h3 className="mt-4 font-medium">2.4 Cookies</h3>
+          <h3 className="mt-4 font-medium">
+            2.4 Cookies and storage on your device
+          </h3>
           <p className="mt-1">
-            We use <strong>strictly necessary cookies</strong> for
-            authentication. Supabase Auth sets a session cookie (JWT) that keeps
-            you logged in. These cookies are essential for the service to
-            function and do not require your consent.
+            We store or read the following information on your device. The
+            governing rule is &sect;&nbsp;25 TDDDG (the German implementation of
+            the ePrivacy Directive).
+          </p>
+
+          <p className="mt-3 font-medium">
+            Strictly necessary (no consent required under &sect;&nbsp;25(2)
+            TDDDG)
           </p>
           <p className="mt-1">
-            <strong>Analytics cookies</strong> (loaded via Google Tag Manager,
-            including Google Analytics 4) are only set if you give explicit
-            consent via our cookie banner. See Section 5 for details.
+            These items are necessary for the service to function or to provide
+            a feature you explicitly requested. They are set without consent but
+            are disclosed here for transparency.
+          </p>
+          <ul className="mt-2 list-disc space-y-1 pl-6">
+            <li>
+              <strong>Supabase Auth session cookie (JWT)</strong>{" "}&mdash; keeps
+              you signed in after login. Storage: cookie. Lifetime: per Supabase
+              Auth defaults (typically until sign-out or session expiry).
+            </li>
+            <li>
+              <strong><code>oc_cookie_consent</code></strong>{" "}&mdash; stores
+              your choice in the cookie banner so it doesn&apos;t reappear on
+              every page view. Storage: <code>localStorage</code>. Lifetime:
+              6 months, after which you are asked again.
+            </li>
+            <li>
+              <strong><code>NEXT_LOCALE</code></strong>{" "}&mdash; remembers your
+              language preference (German / English) so you don&apos;t have to
+              choose on every visit. Storage: cookie. Lifetime: 1 year.
+            </li>
+            <li>
+              <strong><code>oc_persona</code></strong>{" "}&mdash; remembers whether
+              you selected the homepage view for established companies or for
+              start-ups. Storage: cookie. Lifetime: 1 year.
+            </li>
+            <li>
+              <strong><code>theme</code></strong> (next-themes) &mdash;
+              remembers your light/dark mode preference. Storage:{" "}
+              <code>localStorage</code>. Lifetime: until you clear it.
+            </li>
+          </ul>
+
+          <p className="mt-3 font-medium">
+            Consent-based (only after opt-in via the cookie banner)
+          </p>
+          <ul className="mt-2 list-disc space-y-1 pl-6">
+            <li>
+              <strong>Google Tag Manager (GTM)</strong>{" "}&mdash; loads tags
+              after you consent, in particular Google Analytics 4. GTM itself
+              doesn&apos;t store analytics cookies, but loading it triggers a
+              connection to Google&apos;s servers.
+            </li>
+            <li>
+              <strong>Google Analytics cookies</strong>{" "}&mdash; <code>_ga</code>,{" "}
+              <code>_gid</code>, <code>_gcl_*</code>. Set only if you consent
+              to analytics. If you decline or withdraw consent, these cookies
+              are removed. See Section 5 for details.
+            </li>
+          </ul>
+
+          <p className="mt-3">
+            To change your choice or withdraw your consent, click{" "}
+            <strong>&ldquo;Cookie Settings&rdquo;</strong> in the footer. The
+            cookie banner will reappear and you can either choose{" "}
+            <em>Decline</em> or, under <em>Settings</em>, untick the analytics
+            option and save. Only at that point are existing analytics cookies
+            removed and the Tag Manager script no longer loaded on subsequent
+            visits.
           </p>
 
           <h3 className="mt-4 font-medium">2.5 Google OAuth</h3>
@@ -102,8 +164,90 @@ export function PrivacyEn() {
             collects during the OAuth flow.
           </p>
           <p className="mt-1">
-            <strong>Legal basis:</strong> Consent (Art. 6(1)(a) GDPR) &mdash;
-            you initiate the Google sign-in flow.
+            <strong>Legal basis:</strong> Performance of a contract / pre-contractual
+            measures (Art. 6(1)(b) GDPR) &mdash; signing in with Google is one
+            of several sign-in options and is part of providing the service.
+          </p>
+
+          <h3 className="mt-4 font-medium">2.6 Organization data</h3>
+          <p className="mt-1">
+            When you create an organization as a signed-in user, we store its{" "}
+            <strong>name</strong>, a URL <strong>slug</strong> derived from it,
+            optionally a <strong>website</strong>, <strong>description</strong>{" "}
+            and <strong>employee count</strong>, a{" "}
+            <strong>verification status</strong> (e.g. unverified, pending,
+            verified), and your user ID as the <strong>creator</strong>. This
+            data is publicly visible (with the exception of internal status
+            fields).
+          </p>
+          <p className="mt-1">
+            <strong>Legal basis:</strong> Performance of a contract (Art.
+            6(1)(b) GDPR). <strong>Recipients:</strong> Supabase (database
+            hosting). <strong>Retention:</strong> until the organization is
+            deleted. If you delete your account, the creator reference is
+            anonymised.
+          </p>
+
+          <h3 className="mt-4 font-medium">
+            2.7 Memberships and join requests
+          </h3>
+          <p className="mt-1">
+            When you request membership in a verified organization, we store
+            your <strong>user ID</strong>, the{" "}
+            <strong>organization ID</strong>, your <strong>role</strong>{" "}
+            (member or admin), the <strong>membership status</strong>{" "}
+            (pending, active, rejected, revoked), and timestamps. Administrators
+            of the organization can see your request and accept or reject it.
+          </p>
+          <p className="mt-1">
+            <strong>Legal basis:</strong> Performance of a contract (Art.
+            6(1)(b) GDPR). <strong>Retention:</strong> for as long as the
+            membership exists; rejected or revoked records are retained to
+            prevent repeated requests.
+          </p>
+
+          <h3 className="mt-4 font-medium">
+            2.8 Notifications and notification preferences
+          </h3>
+          <p className="mt-1">
+            We generate <strong>in-app notifications</strong> when relevant
+            events occur on your contributions (e.g. status changes, comments,
+            suggested edits). They are stored with your user ID, the event
+            type, and a timestamp. You can mark notifications as{" "}
+            <em>read</em> individually or all at once; they are retained until
+            your account is deleted.
+          </p>
+          <p className="mt-1">
+            You can additionally enable or disable{" "}
+            <strong>email notifications</strong> for individual categories
+            (status changes, suggested edits, replies to your comments,
+            verification outcomes, success report decisions, reverted
+            revisions). Your preferences are stored against your user ID.
+          </p>
+          <p className="mt-1">
+            <strong>Legal basis:</strong> Performance of a contract (Art.
+            6(1)(b) GDPR) for service-related notifications, switchable by you
+            at any time. <strong>Retention:</strong> until your account is
+            deleted. (There is currently no separate delete function for
+            individual notifications.)
+          </p>
+
+          <h3 className="mt-4 font-medium">
+            2.9 Public organization logos
+          </h3>
+          <p className="mt-1">
+            Organization administrators can upload a <strong>logo</strong>.
+            Logos are stored in the <strong>public</strong> Supabase Storage
+            bucket <code>org-logos</code> and served via a CDN; they are
+            therefore visible to all visitors. Uploads are limited to{" "}
+            <strong>image files up to 512&nbsp;KB</strong>.
+          </p>
+          <p className="mt-1">
+            <strong>Legal basis:</strong> Performance of a contract (Art.
+            6(1)(b) GDPR) and legitimate interest in a recognisable
+            representation of organizations (Art. 6(1)(f) GDPR).{" "}
+            <strong>Retention:</strong> until removed by an administrator or
+            until the organization is deleted.
           </p>
         </section>
 
@@ -114,25 +258,27 @@ export function PrivacyEn() {
           <p className="mt-2">We share personal data with the following processors:</p>
           <ul className="mt-2 list-disc space-y-1 pl-6">
             <li>
-              <strong>Supabase Inc.</strong> &mdash; database hosting &amp;
+              <strong>Supabase Inc.</strong>{" "}&mdash; database hosting &amp;
               authentication (Data Processing Agreement in place).
             </li>
             <li>
-              <strong>Vercel Inc.</strong> &mdash; website hosting (Data
+              <strong>Vercel Inc.</strong>{" "}&mdash; website hosting (Data
               Processing Agreement in place).
             </li>
             <li>
-              <strong>Cloudflare Inc.</strong> &mdash; DNS and CDN services.
+              <strong>Cloudflare Inc.</strong>{" "}&mdash; DNS and CDN services.
             </li>
             <li>
-              <strong>Google LLC</strong> &mdash; OAuth authentication and, if
+              <strong>Google LLC</strong>{" "}&mdash; OAuth authentication and, if
               you consent, Google Tag Manager and Google Analytics 4 loaded
               through it.
             </li>
             <li>
-              <strong>Resend / SendGrid</strong> (planned) &mdash; transactional
-              email notifications (e.g. submission status changes, comment
-              replies).
+              <strong>Brevo</strong> (Sendinblue SAS, 17 rue Salneuve, 75017
+              Paris, France) &mdash; sending transactional email notifications
+              (e.g. submission status changes, replies to comments). Brevo is
+              based in the EU and operates its infrastructure in France and
+              Germany; no transfer to a third country takes place.
             </li>
           </ul>
         </section>
@@ -153,7 +299,10 @@ export function PrivacyEn() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold">
+          <h2
+            id="5-google-analytics"
+            className="scroll-mt-24 text-lg font-semibold"
+          >
             5. Google Analytics &amp; Google Tag Manager
           </h2>
           <p className="mt-2">
@@ -178,8 +327,12 @@ export function PrivacyEn() {
             your device.
           </p>
           <p className="mt-2">
-            You can withdraw your consent at any time by clicking{" "}
-            <strong>&ldquo;Cookie Settings&rdquo;</strong> in the website footer.
+            You can withdraw your consent at any time: click{" "}
+            <strong>&ldquo;Cookie Settings&rdquo;</strong> in the website
+            footer to bring the banner back, then either choose{" "}
+            <em>Decline</em> or open <em>Settings</em> and save without
+            analytics. Existing analytics cookies are removed at that moment;
+            the Tag Manager will not be loaded on subsequent visits.
           </p>
           <p className="mt-2">
             <strong>Legal basis:</strong> Consent (Art. 6(1)(a) GDPR).
@@ -189,10 +342,12 @@ export function PrivacyEn() {
         <section>
           <h2 className="text-lg font-semibold">6. Fonts</h2>
           <p className="mt-2">
-            We use the Geist font family. These fonts are{" "}
-            <strong>self-hosted</strong> on our servers via Next.js and are not
-            loaded from external Google servers. No data is transmitted to Google
-            for font delivery.
+            We use <strong>IBM Plex Sans</strong> and{" "}
+            <strong>IBM Plex Mono</strong>. These fonts are downloaded at build
+            time via <code>next/font</code> and then{" "}
+            <strong>self-hosted</strong> from our own servers. When you visit
+            our pages, <strong>no data is transmitted to Google</strong> for
+            font delivery.
           </p>
         </section>
 
@@ -248,7 +403,7 @@ export function PrivacyEn() {
               based on legitimate interests.
             </li>
             <li>
-              <strong>Withdraw consent</strong> &mdash; where processing is
+              <strong>Withdraw consent</strong>{" "}&mdash; where processing is
               based on consent, you may withdraw it at any time without
               affecting the lawfulness of prior processing.
             </li>

@@ -204,7 +204,7 @@ export function CookieConsent() {
                 href={`/${locale}/privacy#5-google-analytics`}
                 className="text-primary underline underline-offset-4 hover:text-primary/80"
               >
-                {tCommon("edit")}
+                {t("learnMore")}
               </Link>
             </p>
             <div className="mt-4 flex flex-wrap items-center gap-3">
@@ -233,8 +233,10 @@ export function CookieConsent() {
                   className="mt-0.5 h-4 w-4 rounded border-border"
                 />
                 <div>
-                  <p className="text-sm font-medium">{t("title")}</p>
-                  <p className="text-xs text-muted-foreground">{t("body")}</p>
+                  <p className="text-sm font-medium">{t("necessaryTitle")}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {t("necessaryDescription")}
+                  </p>
                 </div>
               </label>
               <label className="flex items-start gap-3 cursor-pointer">
@@ -245,8 +247,10 @@ export function CookieConsent() {
                   className="mt-0.5 h-4 w-4 rounded border-border"
                 />
                 <div>
-                  <p className="text-sm font-medium">Google Analytics</p>
-                  <p className="text-xs text-muted-foreground">{t("body")}</p>
+                  <p className="text-sm font-medium">{t("analyticsTitle")}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {t("analyticsDescription")}
+                  </p>
                 </div>
               </label>
             </div>

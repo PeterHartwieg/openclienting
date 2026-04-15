@@ -323,7 +323,12 @@
     "body": "We use strictly necessary cookies for authentication. With your consent we also use Google Analytics to understand how visitors use our site.",
     "accept": "Accept all",
     "decline": "Decline",
-    "settings": "Settings"
+    "settings": "Settings",
+    "learnMore": "Learn more",
+    "necessaryTitle": "Essential preferences and authentication",
+    "necessaryDescription": "Required to keep you signed in and to remember basic preferences such as language, theme, and consent choice. Always active.",
+    "analyticsTitle": "Google Tag Manager / Google Analytics",
+    "analyticsDescription": "Loads Google Tag Manager, which in turn loads Google Analytics 4. Helps us understand how visitors use the site. Only active after you opt in."
   },
   "languageSwitcher": {
     "label": "Language",

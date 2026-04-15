@@ -26,8 +26,12 @@ export default async function PrivacyPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  // The privacy notice is written for the German legal context (DSGVO / TDDDG).
+  // Both locales stand on their own — the German version is canonical for
+  // German visitors, and the English version is a courtesy translation. We
+  // intentionally do not mark either as "review pending" here.
   return (
-    <LegalShell reviewPending={locale === "de"}>
+    <LegalShell reviewPending={false}>
       {locale === "de" ? <PrivacyDe /> : <PrivacyEn />}
     </LegalShell>
   );

@@ -26,8 +26,11 @@ export default async function TermsPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  // Both locales stand on their own — the German version is canonical for
+  // German visitors, the English version is a courtesy translation. We do not
+  // mark either as "review pending" here.
   return (
-    <LegalShell reviewPending={locale === "de"}>
+    <LegalShell reviewPending={false}>
       {locale === "de" ? <TermsDe /> : <TermsEn />}
     </LegalShell>
   );

@@ -45,22 +45,11 @@ export function ImpressumDe() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold">EU-Streitschlichtung</h2>
-          <p className="mt-2">
-            Die Europäische Kommission stellt eine Plattform zur
-            Online-Streitbeilegung (OS) bereit:{" "}
-            <a
-              href="https://ec.europa.eu/consumers/odr/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary underline underline-offset-4 hover:text-primary/80"
-            >
-              https://ec.europa.eu/consumers/odr/
-            </a>
-          </p>
+          <h2 className="text-lg font-semibold">Verbraucherstreitbeilegung</h2>
           <p className="mt-2">
             Wir sind weder verpflichtet noch bereit, an Streitbeilegungsverfahren
-            vor einer Verbraucherschlichtungsstelle teilzunehmen.
+            vor einer Verbraucherschlichtungsstelle teilzunehmen (&sect;&nbsp;36
+            VSBG).
           </p>
         </section>
 

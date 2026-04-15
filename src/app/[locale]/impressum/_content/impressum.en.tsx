@@ -45,22 +45,11 @@ export function ImpressumEn() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold">EU Dispute Resolution</h2>
-          <p className="mt-2">
-            The European Commission provides a platform for online dispute
-            resolution (ODR):{" "}
-            <a
-              href="https://ec.europa.eu/consumers/odr/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary underline underline-offset-4 hover:text-primary/80"
-            >
-              https://ec.europa.eu/consumers/odr/
-            </a>
-          </p>
+          <h2 className="text-lg font-semibold">Consumer dispute resolution</h2>
           <p className="mt-2">
             We are neither obligated nor willing to participate in dispute
-            resolution proceedings before a consumer arbitration board.
+            resolution proceedings before a consumer arbitration board
+            (&sect;&nbsp;36 VSBG).
           </p>
         </section>
 
