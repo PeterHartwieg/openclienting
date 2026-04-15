@@ -87,7 +87,7 @@ function WordmarkLogo({ className }: { className?: string }) {
 }
 
 // ---------------------------------------------------------------------------
-// Compact  — icon (no tile) + "OpenClienting"  (no .org)   viewBox 0 0 260 44
+// Compact  — icon (no tile) + "OpenClienting.org"   viewBox 0 0 270 44
 // ---------------------------------------------------------------------------
 function CompactLogo({ className }: { className?: string }) {
   return (
@@ -95,11 +95,11 @@ function CompactLogo({ className }: { className?: string }) {
       {/* ── light ── */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 260 44"
-        width="260"
+        viewBox="0 0 270 44"
+        width="270"
         height="44"
         role="img"
-        aria-label="OpenClienting"
+        aria-label="OpenClienting.org"
         className="dark:hidden"
       >
         <defs>
@@ -120,17 +120,18 @@ function CompactLogo({ className }: { className?: string }) {
         <text fontFamily={FONT} fontSize="21" fontWeight="600" letterSpacing="-0.03em" y="29">
           <tspan x="52" fill="#2773a5">Open</tspan>
           <tspan fill="#1b1c2d">Clienting</tspan>
+          <tspan fill="#8a8b9e" fontSize="14" fontWeight="400" dy="1" dx="1">.org</tspan>
         </text>
       </svg>
 
       {/* ── dark ── */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 260 44"
-        width="260"
+        viewBox="0 0 270 44"
+        width="270"
         height="44"
         role="img"
-        aria-label="OpenClienting"
+        aria-label="OpenClienting.org"
         className="hidden dark:block"
       >
         <defs>
@@ -151,6 +152,7 @@ function CompactLogo({ className }: { className?: string }) {
         <text fontFamily={FONT} fontSize="21" fontWeight="600" letterSpacing="-0.03em" y="29">
           <tspan x="52" fill="#5aa0cc">Open</tspan>
           <tspan fill="#eceae6">Clienting</tspan>
+          <tspan fill="#9a9baf" fontSize="14" fontWeight="400" dy="1" dx="1">.org</tspan>
         </text>
       </svg>
     </span>

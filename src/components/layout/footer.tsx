@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { CookieSettingsButton } from "./cookie-settings-button";
 import { LanguageSwitcher } from "./language-switcher";
+import { Logo } from "@/components/logo";
 
 export async function Footer({ locale }: { locale: string }) {
   const t = await getTranslations("footer");
@@ -13,9 +14,7 @@ export async function Footer({ locale }: { locale: string }) {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           {/* Brand — full width on mobile */}
           <div className="col-span-2 md:col-span-1">
-            <p className="text-lg font-bold tracking-tight text-primary">
-              {tCommon("appName")}
-            </p>
+            <Logo variant="compact" />
             <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
               {t("tagline")}
             </p>
