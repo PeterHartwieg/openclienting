@@ -1,4 +1,4 @@
-import { Quote, Users, CheckSquare, Beaker } from "lucide-react";
+import { Quote, Users, CheckSquare, Beaker, CircleDot } from "lucide-react";
 import { SolutionStatusBadge } from "@/components/shared/solution-status-badge";
 import { answerSummaryFields } from "@/lib/seo/answer-summary";
 
@@ -55,7 +55,7 @@ export async function ProblemAnswerSummary({ problem, locale }: ProblemAnswerSum
         />
         <div className="flex items-start gap-3">
           <div className="mt-0.5 shrink-0 rounded-md bg-background p-1.5">
-            <div className="h-4 w-4" />
+            <CircleDot className="h-4 w-4 text-muted-foreground" />
           </div>
           <div className="min-w-0">
             <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
