@@ -21,6 +21,18 @@ LLM crawlers and carry the same per-row anonymity gating as the HTML pages.
 
 - [Venture clienting explainer (Markdown, English)](https://openclienting.org/en/venture-clienting/md)
 - [Venture clienting explainer (Markdown, German)](https://openclienting.org/de/venture-clienting/md)
+- [What is venture clienting? (Markdown, English)](https://openclienting.org/en/venture-clienting/what-is-venture-clienting/md)
+- [What is venture clienting? (Markdown, German)](https://openclienting.org/de/venture-clienting/what-is-venture-clienting/md)
+- [Venture clienting vs corporate venture capital (Markdown, English)](https://openclienting.org/en/venture-clienting/venture-clienting-vs-corporate-venture-capital/md)
+- [Venture clienting vs corporate venture capital (Markdown, German)](https://openclienting.org/de/venture-clienting/venture-clienting-vs-corporate-venture-capital/md)
+- [Startup pilot framework (Markdown, English)](https://openclienting.org/en/venture-clienting/startup-pilot-framework/md)
+- [Startup pilot framework (Markdown, German)](https://openclienting.org/de/venture-clienting/startup-pilot-framework/md)
+- [Problem template (Markdown, English)](https://openclienting.org/en/venture-clienting/problem-template/md)
+- [Problem template (Markdown, German)](https://openclienting.org/de/venture-clienting/problem-template/md)
+- [SME open innovation (Markdown, English)](https://openclienting.org/en/venture-clienting/sme-open-innovation/md)
+- [SME open innovation (Markdown, German)](https://openclienting.org/de/venture-clienting/sme-open-innovation/md)
+- [Verified success report (Markdown, English)](https://openclienting.org/en/venture-clienting/verified-success-report/md)
+- [Verified success report (Markdown, German)](https://openclienting.org/de/venture-clienting/verified-success-report/md)
 - Individual problem detail pages are available as Markdown by appending
   `/md` to any problem URL, e.g.
   `https://openclienting.org/en/problems/{id}/md`. Each HTML problem page

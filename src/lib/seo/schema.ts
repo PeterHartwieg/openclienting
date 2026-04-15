@@ -138,6 +138,57 @@ export type ArticleSchema = Thing & {
   about?: OrganizationSchema;
 };
 
+/**
+ * Knowledge-cluster article schema. Distinct from `ArticleSchema` (which
+ * models user-authored problem detail pages) — this variant has the site
+ * organization as *both* author and publisher, because knowledge hub and
+ * spoke pages are editorial content with no per-row human attribution.
+ *
+ * Every field here corresponds to something visible on the spoke page:
+ *   - `headline`     — the page `<h1>`
+ *   - `description`  — the lede paragraph below the `<h1>`
+ *   - `url`          — canonical link to the spoke
+ *   - `inLanguage`   — matches the `<html lang>` attribute
+ *   - `dateModified` — visible "updated" stamp (or build time if not shown)
+ *   - `author`       — the OpenClienting organization, rendered in the page
+ *                      footer / breadcrumbs as the publisher
+ *   - `keywords`     — omitted unless a visible tag/topic row renders them
+ */
+export type KnowledgeArticleSchema = Thing & {
+  "@type": "Article";
+  headline: string;
+  description: string;
+  url: string;
+  mainEntityOfPage: string;
+  inLanguage: string;
+  dateModified: string;
+  datePublished?: string;
+  author: OrganizationSchema;
+  publisher: OrganizationSchema;
+  keywords?: string;
+};
+
+/**
+ * FAQPage schema. schema.org requires `mainEntity` to be a non-empty array
+ * of `Question` items whose `acceptedAnswer` is a `text`-only `Answer`.
+ *
+ * Visibility contract: every item passed to `faqPageSchema()` MUST also be
+ * rendered as visible `<h3>`/`<p>` (or `<details>`/`<summary>`) prose on
+ * the page. Callers should derive both the JSX list and the schema input
+ * from the same source array so the two can never drift.
+ */
+export type FAQPageSchema = Thing & {
+  "@type": "FAQPage";
+  mainEntity: Array<{
+    "@type": "Question";
+    name: string;
+    acceptedAnswer: {
+      "@type": "Answer";
+      text: string;
+    };
+  }>;
+};
+
 // ---------- Inputs ----------
 
 export interface SchemaSiteContext {
@@ -164,6 +215,21 @@ export interface ProblemCollectionItem {
   id: string;
   title: string;
   url: string; // absolute
+}
+
+export interface KnowledgeArticleInput {
+  headline: string;      // visible <h1>
+  description: string;   // visible lede paragraph
+  canonicalUrl: string;  // absolute canonical URL of the page
+  inLanguage: string;    // BCP-47 tag, e.g. "en-US"
+  dateModified: string;  // ISO — build time is fine
+  datePublished?: string; // ISO — optional when first-publish date differs
+  keywords?: string[];   // omit unless a visible tag/topic row renders them
+}
+
+export interface FaqItem {
+  question: string;
+  answer: string;
 }
 
 // ---------- Builders ----------
@@ -293,6 +359,65 @@ export function problemArticleSchema(
     };
   }
   return schema;
+}
+
+/**
+ * Knowledge-cluster article schema builder. Used by the venture-clienting
+ * hub and its spoke pages — editorial content authored by OpenClienting
+ * itself rather than a specific user. Both `author` and `publisher` are
+ * set to the site organization.
+ */
+export function knowledgeArticleSchema(
+  site: SchemaSiteContext,
+  input: KnowledgeArticleInput,
+): WithContext<KnowledgeArticleSchema> {
+  const orgRef: OrganizationSchema = {
+    "@type": "Organization",
+    name: site.siteName,
+    url: site.siteUrl,
+    logo: site.logoUrl,
+  };
+  const schema: WithContext<KnowledgeArticleSchema> = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: input.headline,
+    description: input.description,
+    url: input.canonicalUrl,
+    mainEntityOfPage: input.canonicalUrl,
+    inLanguage: input.inLanguage,
+    dateModified: input.dateModified,
+    author: orgRef,
+    publisher: orgRef,
+  };
+  if (input.datePublished) {
+    schema.datePublished = input.datePublished;
+  }
+  if (input.keywords && input.keywords.length > 0) {
+    schema.keywords = input.keywords.join(", ");
+  }
+  return schema;
+}
+
+/**
+ * FAQPage schema builder. Caller must ensure every item is also rendered as
+ * visible prose on the page (see the visibility contract at the top of this
+ * file and the doc comment on `FAQPageSchema`).
+ */
+export function faqPageSchema(
+  items: FaqItem[],
+): WithContext<FAQPageSchema> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
 }
 
 // ---------- Organization profile builders ----------
