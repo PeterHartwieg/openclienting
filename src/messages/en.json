@@ -18,11 +18,44 @@
   "nav": {
     "browseProblems": "Browse Problems",
     "submitProblem": "Submit Problem",
+    "problems": "Problems",
+    "organizations": "Organizations",
+    "ventureClienting": "Venture Clienting",
+    "submit": "Submit",
     "dashboard": "Dashboard",
     "moderate": "Moderate",
     "account": "Account",
     "themeToggle": "Toggle theme",
     "openMenu": "Open menu"
+  },
+  "workspace": {
+    "title": "Workspace",
+    "groups": {
+      "home": "Home",
+      "organization": "Organization",
+      "settings": "Settings",
+      "moderation": "Moderation"
+    },
+    "items": {
+      "overview": "Overview",
+      "myOrgs": "My Organizations",
+      "joinOrg": "Join Organization",
+      "createOrg": "Create Organization",
+      "account": "Account",
+      "moderationOverview": "Moderation Queues",
+      "moderationProblems": "Problems",
+      "moderationRequirements": "Requirements",
+      "moderationFrameworks": "Frameworks",
+      "moderationSolutions": "Solutions",
+      "moderationSuccessReports": "Success Reports",
+      "moderationSuggestedEdits": "Suggested Edits",
+      "moderationOrganizationVerification": "Org Verification",
+      "moderationLiveRevisions": "Live Revisions",
+      "moderationKnowledgeArticles": "Knowledge Articles",
+      "moderationTranslations": "Translations",
+      "moderationTags": "Tags",
+      "moderationHistory": "History"
+    }
   },
   "footer": {
     "tagline": "Real Problems. Open Solutions.",
@@ -418,7 +451,15 @@
     "checkGenuineBusiness": "Organization is a genuine business entity, not a personal project",
     "noEmail": "no email",
     "unknown": "Unknown",
-    "pilotFrameworkPlaceholder": "Pilot Framework"
+    "pilotFrameworkPlaceholder": "Pilot Framework",
+    "queueCount": "{count, plural, =0 {Nothing pending} one {1 item pending} other {# items pending}}",
+    "queueEmptyHint": "New submissions will appear here as soon as they're sent for review.",
+    "overview": {
+      "allClear": "All queues are clear. Nothing is waiting for moderator review.",
+      "totalPending": "{count, plural, one {1 item} other {# items}} across all queues waiting for review.",
+      "queueEmpty": "No items waiting.",
+      "queuePending": "{count, plural, one {1 item} other {# items}} waiting for review."
+    }
   },
   "translate": {
     "metaTitle": "Contribute a translation — OpenClienting",

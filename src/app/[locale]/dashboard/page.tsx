@@ -67,28 +67,14 @@ export default async function DashboardPage({
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
-        <div className="flex gap-2">
-          <Link
-            href={`/${locale}/dashboard/organizations`}
-            className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
-          >
-            {t("organizations")}
-          </Link>
-          <Link
-            href={`/${locale}/dashboard/account`}
-            className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
-          >
-            {t("account")}
-          </Link>
-          <Link
-            href={`/${locale}/submit`}
-            className={cn(buttonVariants({ size: "sm" }))}
-          >
-            {t("submitProblem")}
-          </Link>
-        </div>
+        <Link
+          href={`/${locale}/submit`}
+          className={cn(buttonVariants({ size: "sm" }))}
+        >
+          {t("submitProblem")}
+        </Link>
       </div>
 
       {/* Notifications */}
