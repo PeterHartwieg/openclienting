@@ -1,0 +1,72 @@
+name: Database backup
+
+on:
+  schedule:
+    # Daily at 03:17 UTC (off-peak; jittered minute to avoid the top-of-hour rush)
+    - cron: "17 3 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: db-backup
+  cancel-in-progress: false
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Dump database (pg_dump in postgres:17-alpine)
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          set -euo pipefail
+          if [ -z "${SUPABASE_DB_URL:-}" ]; then
+            echo "::error::SUPABASE_DB_URL secret is not set"
+            exit 1
+          fi
+          stamp="$(date -u +%Y-%m-%dT%H-%M-%SZ)"
+          echo "BACKUP_STAMP=$stamp" >> "$GITHUB_ENV"
+          docker run --rm \
+            -e PGCONNECT_TIMEOUT=30 \
+            postgres:17-alpine \
+            pg_dump "$SUPABASE_DB_URL" \
+              --format=custom \
+              --no-owner \
+              --no-privileges \
+              --verbose \
+            > "backup-$stamp.dump" 2> pg_dump.log || {
+              echo "::error::pg_dump failed"
+              tail -n 50 pg_dump.log
+              exit 1
+            }
+          ls -lh "backup-$stamp.dump"
+
+      - name: Encrypt with GPG (AES256, symmetric)
+        env:
+          BACKUP_GPG_PASSPHRASE: ${{ secrets.BACKUP_GPG_PASSPHRASE }}
+        run: |
+          set -euo pipefail
+          if [ -z "${BACKUP_GPG_PASSPHRASE:-}" ]; then
+            echo "::error::BACKUP_GPG_PASSPHRASE secret is not set"
+            exit 1
+          fi
+          gpg --batch --yes \
+              --passphrase "$BACKUP_GPG_PASSPHRASE" \
+              --symmetric --cipher-algo AES256 \
+              --compress-algo zlib \
+              --output "backup-$BACKUP_STAMP.dump.gpg" \
+              "backup-$BACKUP_STAMP.dump"
+          shred -u "backup-$BACKUP_STAMP.dump"
+          ls -lh "backup-$BACKUP_STAMP.dump.gpg"
+
+      - name: Upload encrypted artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: db-backup-${{ env.BACKUP_STAMP }}
+          path: backup-${{ env.BACKUP_STAMP }}.dump.gpg
+          retention-days: 90
+          if-no-files-found: error
+          compression-level: 0
