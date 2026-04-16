@@ -18,7 +18,7 @@ const FONT = "'IBM Plex Sans', system-ui, sans-serif";
 // ---------------------------------------------------------------------------
 function WordmarkLogo({ className }: { className?: string }) {
   return (
-    <span className={cn("inline-block", className)}>
+    <span dir="ltr" className={cn("inline-block", className)}>
       {/* ── light ── */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +91,7 @@ function WordmarkLogo({ className }: { className?: string }) {
 // ---------------------------------------------------------------------------
 function CompactLogo({ className }: { className?: string }) {
   return (
-    <span className={cn("inline-block", className)}>
+    <span dir="ltr" className={cn("inline-block", className)}>
       {/* ── light ── */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -176,7 +176,7 @@ function IconLogo({ size = "lg", className }: { size?: LogoSize; className?: str
   const idSuffix = size; // "lg" | "md" | "sm" — one per size per page is fine
 
   return (
-    <span className={cn("inline-block", className)}>
+    <span dir="ltr" className={cn("inline-block", className)}>
       {/* ── light ── */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
