@@ -3,6 +3,7 @@ import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import { getLocale } from "next-intl/server";
 import { ThemeProvider } from "@/components/theme-provider";
 import { getSiteUrl, siteConfig } from "@/lib/site";
+import { isRtl } from "@/i18n/languages";
 import "./globals.css";
 
 const plexSans = IBM_Plex_Sans({
@@ -75,6 +76,7 @@ export default async function RootLayout({
   return (
     <html
       lang={locale}
+      dir={isRtl(locale) ? "rtl" : "ltr"}
       className={`${plexSans.variable} ${plexMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
