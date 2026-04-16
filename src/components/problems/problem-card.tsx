@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TagBadge } from "@/components/shared/tag-badge";
 import { SolutionStatusBadge } from "@/components/shared/solution-status-badge";
+import { AuthorAvatar } from "@/components/shared/author-avatar";
 import { getTagLabel } from "@/lib/i18n/tags";
 import { cn } from "@/lib/utils";
 
@@ -23,7 +24,7 @@ interface ProblemCardProps {
   description: string;
   is_publicly_anonymous: boolean;
   is_org_anonymous?: boolean;
-  author?: { display_name: string | null } | null;
+  author?: { display_name: string | null; avatar_url?: string | null } | null;
   organization?: { id: string; name: string } | null;
   problemTags: ProblemTag[];
   solutionStatus?: string;
@@ -72,6 +73,13 @@ export async function ProblemCard({
             {title}
           </CardTitle>
           <div className="flex items-center gap-2 mt-1">
+            {!is_publicly_anonymous && (
+              <AuthorAvatar
+                avatarUrl={author?.avatar_url ?? null}
+                name={author?.display_name}
+                size={20}
+              />
+            )}
             <p className="text-sm text-muted-foreground">
               {[
                 is_publicly_anonymous ? t("anonymous") : (author?.display_name ?? t("unknown")),

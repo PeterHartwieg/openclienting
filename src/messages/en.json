@@ -20,6 +20,7 @@
     "submitProblem": "Submit Problem",
     "dashboard": "Dashboard",
     "moderate": "Moderate",
+    "account": "Account",
     "themeToggle": "Toggle theme",
     "openMenu": "Open menu"
   },
@@ -43,6 +44,7 @@
   },
   "auth": {
     "signIn": "Sign in",
+    "signInAction": "Sign in",
     "signOut": "Sign out",
     "signInWithGoogle": "Continue with Google",
     "magicLinkSending": "Sending…",
@@ -50,9 +52,18 @@
     "magicLinkSent": "Check your email for the login link!",
     "emailLabel": "Email",
     "emailPlaceholder": "you@example.com",
+    "passwordOptionalLabel": "Password (optional)",
+    "passwordOptionalPlaceholder": "Leave blank to use magic link",
+    "passwordOptionalHint": "Fill this in if you've already set a password. Leave it blank to receive a one-time login link by email.",
+    "forgotPassword": "Forgot?",
+    "forgotPasswordHint": "Enter your email above, then click below to receive a password reset link.",
+    "forgotPasswordSend": "Send reset link",
+    "forgotPasswordNeedsEmail": "Enter your email first",
+    "resetSent": "If an account exists, a reset link has been sent.",
     "or": "or",
     "profile": "Profile",
     "settings": "Settings",
+    "accountSettings": "Account settings",
     "signInRequired": "Sign in required",
     "signInToComment": "Sign in to comment"
   },
@@ -330,6 +341,7 @@
     "createOrg": "Create organization",
     "joinOrg": "Join organization",
     "organizations": "Organizations",
+    "account": "Account",
     "submitProblem": "Submit Problem",
     "notifications": "Notifications",
     "unread": "{count} unread",
@@ -346,6 +358,17 @@
     "notifyOnApproach": "New solution approaches on my problems",
     "notifyOnStatus": "Status changes on my submissions",
     "saved": "Settings saved"
+  },
+  "account": {
+    "password": {
+      "resetTitle": "Set a new password",
+      "resetDescription": "Choose a new password for your account. The link you clicked signed you in automatically.",
+      "newPasswordLabel": "New password",
+      "confirmLabel": "Confirm new password",
+      "resetSubmit": "Update password",
+      "resetSuccess": "Password updated. Redirecting to your account…",
+      "mismatch": "New passwords do not match"
+    }
   },
   "moderate": {
     "metaTitle": "Moderation — OpenClienting",

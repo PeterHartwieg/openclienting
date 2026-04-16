@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { Card, CardContent } from "@/components/ui/card";
 import { formatDate } from "@/lib/i18n/format";
 import { OrgLink } from "@/components/organizations/org-link";
+import { AuthorAvatar } from "@/components/shared/author-avatar";
 
 interface Comment {
   id: string;
@@ -12,7 +13,10 @@ interface Comment {
   is_org_anonymous?: boolean;
   parent_comment_id: string | null;
   created_at: string;
-  profiles?: { display_name: string | null } | null;
+  profiles?: {
+    display_name: string | null;
+    avatar_url?: string | null;
+  } | null;
   organizations?: {
     id: string;
     name: string;
@@ -57,16 +61,30 @@ function CommentItem({
     );
   };
 
+  const renderAvatar = (c: Comment) =>
+    c.is_publicly_anonymous ? (
+      <AuthorAvatar avatarUrl={null} name={null} size={20} />
+    ) : (
+      <AuthorAvatar
+        avatarUrl={c.profiles?.avatar_url ?? null}
+        name={c.profiles?.display_name}
+        size={20}
+      />
+    );
+
   return (
     <div className="space-y-2">
       <Card>
         <CardContent className="pt-4">
           <p className="text-sm">{comment.body}</p>
-          <p className="mt-1 text-xs text-muted-foreground">
-            {renderMeta(comment)}
-            {" \u00B7 "}
-            {formatDate(comment.created_at, locale, "short")}
-          </p>
+          <div className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
+            {renderAvatar(comment)}
+            <span>
+              {renderMeta(comment)}
+              {" \u00B7 "}
+              {formatDate(comment.created_at, locale, "short")}
+            </span>
+          </div>
         </CardContent>
       </Card>
       {comment.replies && comment.replies.length > 0 && (
@@ -75,11 +93,14 @@ function CommentItem({
             <Card key={reply.id}>
               <CardContent className="pt-4">
                 <p className="text-sm">{reply.body}</p>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {renderMeta(reply)}
-                  {" \u00B7 "}
-                  {formatDate(reply.created_at, locale, "short")}
-                </p>
+                <div className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
+                  {renderAvatar(reply)}
+                  <span>
+                    {renderMeta(reply)}
+                    {" \u00B7 "}
+                    {formatDate(reply.created_at, locale, "short")}
+                  </span>
+                </div>
               </CardContent>
             </Card>
           ))}

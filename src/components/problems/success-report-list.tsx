@@ -10,6 +10,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { formatDate } from "@/lib/i18n/format";
 import { OrgLink } from "@/components/organizations/org-link";
+import { AuthorAvatar } from "@/components/shared/author-avatar";
 
 interface SuccessReport {
   id: string;
@@ -22,7 +23,10 @@ interface SuccessReport {
   is_org_anonymous?: boolean;
   verification_status?: string;
   created_at: string;
-  profiles?: { display_name: string | null } | null;
+  profiles?: {
+    display_name: string | null;
+    avatar_url?: string | null;
+  } | null;
   organizations?: {
     id: string;
     name: string;
@@ -178,24 +182,31 @@ function SuccessReportCard({ report, locale }: { report: SuccessReport; locale: 
 
       {/* Footer attribution */}
       <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t bg-muted/20 px-5 py-2.5">
-        <p className="text-xs text-muted-foreground">
-          Submitted by{" "}
-          <span className="font-medium text-foreground">
-            {authorLabel}
-            {orgLabel && (
-              <>
-                {" \u00B7 "}
-                <OrgLink
-                  name={orgLabel}
-                  slug={orgRow?.slug}
-                  verificationStatus={orgRow?.verification_status}
-                  locale={locale}
-                  className="hover:underline"
-                />
-              </>
-            )}
-          </span>
-        </p>
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <AuthorAvatar
+            avatarUrl={report.is_publicly_anonymous ? null : report.profiles?.avatar_url ?? null}
+            name={report.is_publicly_anonymous ? null : report.profiles?.display_name}
+            size={18}
+          />
+          <p>
+            Submitted by{" "}
+            <span className="font-medium text-foreground">
+              {authorLabel}
+              {orgLabel && (
+                <>
+                  {" \u00B7 "}
+                  <OrgLink
+                    name={orgLabel}
+                    slug={orgRow?.slug}
+                    verificationStatus={orgRow?.verification_status}
+                    locale={locale}
+                    className="hover:underline"
+                  />
+                </>
+              )}
+            </span>
+          </p>
+        </div>
         <p className="text-xs text-muted-foreground tabular-nums">{formattedDate}</p>
       </div>
     </div>

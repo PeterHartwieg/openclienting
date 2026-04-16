@@ -19,11 +19,13 @@ function localeHomepage(locale: string): string {
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
+  const type = searchParams.get("type");
 
   // Determine the post-auth destination, in priority order:
-  // 1. ?next=… passed by the LoginDialog (locale-prefixed source path)
-  // 2. NEXT_LOCALE cookie set by next-intl middleware
-  // 3. defaultLocale homepage
+  // 1. Password-recovery flow → force redirect to the reset page
+  // 2. ?next=… passed by the LoginDialog (locale-prefixed source path)
+  // 3. NEXT_LOCALE cookie set by next-intl middleware
+  // 4. defaultLocale homepage
   const nextParam = sanitizeNext(searchParams.get("next"));
   const cookieLocale = request.cookies.get("NEXT_LOCALE")?.value;
   const fallbackLocale = (
@@ -31,7 +33,11 @@ export async function GET(request: NextRequest) {
       ? cookieLocale
       : defaultLocale
   ) as Locale;
-  const destination = nextParam ?? localeHomepage(fallbackLocale);
+  const recoveryDestination = `/${fallbackLocale}/auth/reset-password`;
+  const destination =
+    type === "recovery"
+      ? recoveryDestination
+      : nextParam ?? localeHomepage(fallbackLocale);
 
   if (code) {
     const supabase = await createClient();

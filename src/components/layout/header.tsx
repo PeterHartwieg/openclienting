@@ -19,6 +19,7 @@ export async function Header({ locale }: { locale: string }) {
   const authSlot = user ? (
     <UserMenu
       displayName={user.profile?.display_name ?? null}
+      avatarUrl={user.profile?.avatar_url ?? null}
       role={user.profile?.role ?? "contributor"}
       locale={locale}
     />

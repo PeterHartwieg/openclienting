@@ -20,6 +20,7 @@
     "submitProblem": "Problem einreichen",
     "dashboard": "Dashboard",
     "moderate": "Moderation",
+    "account": "Konto",
     "themeToggle": "Design wechseln",
     "openMenu": "Menü öffnen"
   },
@@ -43,6 +44,7 @@
   },
   "auth": {
     "signIn": "Anmelden",
+    "signInAction": "Anmelden",
     "signOut": "Abmelden",
     "signInWithGoogle": "Mit Google fortfahren",
     "magicLinkSending": "Wird gesendet…",
@@ -50,9 +52,18 @@
     "magicLinkSent": "Bitte prüfe dein Postfach für den Login-Link!",
     "emailLabel": "E-Mail",
     "emailPlaceholder": "du@beispiel.de",
+    "passwordOptionalLabel": "Passwort (optional)",
+    "passwordOptionalPlaceholder": "Leer lassen für Magic Link",
+    "passwordOptionalHint": "Gib dein Passwort ein, wenn du bereits eines festgelegt hast. Lass das Feld leer, um stattdessen einen Einmal-Link per E-Mail zu erhalten.",
+    "forgotPassword": "Vergessen?",
+    "forgotPasswordHint": "Gib oben deine E-Mail ein und klicke dann unten, um einen Zurücksetzungslink zu erhalten.",
+    "forgotPasswordSend": "Zurücksetzungslink senden",
+    "forgotPasswordNeedsEmail": "Bitte gib zuerst deine E-Mail ein",
+    "resetSent": "Falls ein Konto existiert, wurde ein Zurücksetzungslink gesendet.",
     "or": "oder",
     "profile": "Profil",
     "settings": "Einstellungen",
+    "accountSettings": "Kontoeinstellungen",
     "signInRequired": "Anmeldung erforderlich",
     "signInToComment": "Zum Kommentieren anmelden"
   },
@@ -330,6 +341,7 @@
     "createOrg": "Organisation erstellen",
     "joinOrg": "Organisation beitreten",
     "organizations": "Organisationen",
+    "account": "Konto",
     "submitProblem": "Problem einreichen",
     "notifications": "Benachrichtigungen",
     "unread": "{count} ungelesen",
@@ -346,6 +358,17 @@
     "notifyOnApproach": "Neue Lösungsansätze zu meinen Problemen",
     "notifyOnStatus": "Statusänderungen zu meinen Einreichungen",
     "saved": "Einstellungen gespeichert"
+  },
+  "account": {
+    "password": {
+      "resetTitle": "Neues Passwort festlegen",
+      "resetDescription": "Wähle ein neues Passwort für dein Konto. Der angeklickte Link hat dich automatisch angemeldet.",
+      "newPasswordLabel": "Neues Passwort",
+      "confirmLabel": "Neues Passwort bestätigen",
+      "resetSubmit": "Passwort aktualisieren",
+      "resetSuccess": "Passwort aktualisiert. Weiterleitung zum Konto…",
+      "mismatch": "Die neuen Passwörter stimmen nicht überein"
+    }
   },
   "moderate": {
     "metaTitle": "Moderation — OpenClienting",

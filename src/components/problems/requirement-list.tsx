@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { UpvoteButton } from "@/components/shared/upvote-button";
 import { EditRequirementInline } from "@/components/problems/edit-requirement-inline";
 import { TranslateThisLink } from "@/components/translations/translate-this-link";
+import { AuthorAvatar } from "@/components/shared/author-avatar";
 
 interface Requirement {
   id: string;
@@ -10,7 +11,10 @@ interface Requirement {
   is_org_anonymous?: boolean;
   upvote_count: number;
   author_id?: string;
-  profiles?: { display_name: string | null } | null;
+  profiles?: {
+    display_name: string | null;
+    avatar_url?: string | null;
+  } | null;
   organizations?: { id: string; name: string } | null;
 }
 
@@ -44,6 +48,11 @@ export function RequirementList({ requirements, userVotes, currentUserId, locale
             <div className="flex-1">
               <p className="text-sm">{req.body}</p>
               <div className="mt-1 flex items-center gap-2">
+                <AuthorAvatar
+                  avatarUrl={req.is_publicly_anonymous ? null : req.profiles?.avatar_url ?? null}
+                  name={req.is_publicly_anonymous ? null : req.profiles?.display_name}
+                  size={18}
+                />
                 <p className="text-xs text-muted-foreground">
                   {[
                     req.is_publicly_anonymous ? "Anonymous" : (req.profiles?.display_name ?? "Unknown"),

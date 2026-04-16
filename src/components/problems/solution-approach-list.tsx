@@ -6,6 +6,7 @@ import { AddSuccessReportForm } from "@/components/problems/add-success-report-f
 import { EditSolutionApproachForm } from "@/components/problems/edit-solution-approach-form";
 import { OrgLink } from "@/components/organizations/org-link";
 import { TranslateThisLink } from "@/components/translations/translate-this-link";
+import { AuthorAvatar } from "@/components/shared/author-avatar";
 
 interface SuccessReport {
   id: string;
@@ -20,7 +21,10 @@ interface SuccessReport {
   verification_status?: string;
   submitted_by_organization_id?: string | null;
   created_at: string;
-  profiles?: { display_name: string | null } | null;
+  profiles?: {
+    display_name: string | null;
+    avatar_url?: string | null;
+  } | null;
   organizations?: {
     id: string;
     name: string;
@@ -41,7 +45,10 @@ interface SolutionApproach {
   is_org_anonymous?: boolean;
   upvote_count: number;
   author_id?: string;
-  profiles?: { display_name: string | null } | null;
+  profiles?: {
+    display_name: string | null;
+    avatar_url?: string | null;
+  } | null;
   organizations?: {
     id: string;
     name: string;
@@ -126,21 +133,28 @@ export function SolutionApproachList({ approaches, userVotes, isAuthenticated, c
           </CardHeader>
           <CardContent className="pl-[4.5rem]">
             <p className="text-sm whitespace-pre-wrap">{sa.description}</p>
-            <p className="mt-2 text-xs text-muted-foreground">
-              {sa.is_publicly_anonymous ? "Anonymous" : (sa.profiles?.display_name ?? "Unknown")}
-              {!sa.is_org_anonymous && sa.organizations?.name && (
-                <>
-                  {" \u00B7 "}
-                  <OrgLink
-                    name={sa.organizations.name}
-                    slug={sa.organizations.slug}
-                    verificationStatus={sa.organizations.verification_status}
-                    locale={locale}
-                    className="hover:text-foreground hover:underline"
-                  />
-                </>
-              )}
-            </p>
+            <div className="mt-2 flex items-center gap-2 text-xs text-muted-foreground">
+              <AuthorAvatar
+                avatarUrl={sa.is_publicly_anonymous ? null : sa.profiles?.avatar_url ?? null}
+                name={sa.is_publicly_anonymous ? null : sa.profiles?.display_name}
+                size={18}
+              />
+              <span>
+                {sa.is_publicly_anonymous ? "Anonymous" : (sa.profiles?.display_name ?? "Unknown")}
+                {!sa.is_org_anonymous && sa.organizations?.name && (
+                  <>
+                    {" \u00B7 "}
+                    <OrgLink
+                      name={sa.organizations.name}
+                      slug={sa.organizations.slug}
+                      verificationStatus={sa.organizations.verification_status}
+                      locale={locale}
+                      className="hover:text-foreground hover:underline"
+                    />
+                  </>
+                )}
+              </span>
+            </div>
             {currentUserId && currentUserId === sa.author_id && (
               <div className="mt-2">
                 <EditSolutionApproachForm approachId={sa.id} current={sa} />

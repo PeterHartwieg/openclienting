@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { UpvoteButton } from "@/components/shared/upvote-button";
 import { EditPilotFrameworkForm } from "@/components/problems/edit-pilot-framework-form";
 import { TranslateThisLink } from "@/components/translations/translate-this-link";
+import { AuthorAvatar } from "@/components/shared/author-avatar";
 
 interface PilotFramework {
   id: string;
@@ -15,7 +16,10 @@ interface PilotFramework {
   is_org_anonymous?: boolean;
   upvote_count: number;
   author_id?: string;
-  profiles?: { display_name: string | null } | null;
+  profiles?: {
+    display_name: string | null;
+    avatar_url?: string | null;
+  } | null;
   organizations?: { id: string; name: string } | null;
 }
 
@@ -59,12 +63,19 @@ export function PilotFrameworkList({ frameworks, userVotes, currentUserId, local
                 initialVoted={userVotes?.has(fw.id) ?? false}
               />
             </div>
-            <p className="text-xs text-muted-foreground">
-              {[
-                fw.is_publicly_anonymous ? "Anonymous" : (fw.profiles?.display_name ?? "Unknown"),
-                fw.is_org_anonymous ? null : (fw.organizations?.name ?? null),
-              ].filter(Boolean).join(" · ")}
-            </p>
+            <div className="flex items-center gap-2">
+              <AuthorAvatar
+                avatarUrl={fw.is_publicly_anonymous ? null : fw.profiles?.avatar_url ?? null}
+                name={fw.is_publicly_anonymous ? null : fw.profiles?.display_name}
+                size={18}
+              />
+              <p className="text-xs text-muted-foreground">
+                {[
+                  fw.is_publicly_anonymous ? "Anonymous" : (fw.profiles?.display_name ?? "Unknown"),
+                  fw.is_org_anonymous ? null : (fw.organizations?.name ?? null),
+                ].filter(Boolean).join(" · ")}
+              </p>
+            </div>
           </CardHeader>
           <CardContent>
             <dl className="grid gap-3 sm:grid-cols-2">

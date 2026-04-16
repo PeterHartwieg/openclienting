@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth/roles";
 import { createClient } from "@/lib/supabase/server";
@@ -24,7 +25,18 @@ export default async function DashboardSettingsPage({
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
+      <div className="flex items-baseline justify-between gap-4 flex-wrap">
+        <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
+        <nav className="flex gap-4 text-sm">
+          <Link
+            href={`/${locale}/dashboard/account`}
+            className="text-muted-foreground hover:text-foreground"
+          >
+            Account
+          </Link>
+          <span className="font-medium">Notifications</span>
+        </nav>
+      </div>
 
       <div className="mt-8">
         <h2 className="text-xl font-semibold">Email Notifications</h2>

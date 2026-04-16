@@ -69,6 +69,11 @@ export interface Database {
           id: string;
           display_name: string | null;
           role: UserRole;
+          avatar_url: string | null;
+          bio: string | null;
+          website: string | null;
+          public_email: string | null;
+          locale: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -76,6 +81,11 @@ export interface Database {
           id: string;
           display_name?: string | null;
           role?: UserRole;
+          avatar_url?: string | null;
+          bio?: string | null;
+          website?: string | null;
+          public_email?: string | null;
+          locale?: string | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -83,6 +93,11 @@ export interface Database {
           id?: string;
           display_name?: string | null;
           role?: UserRole;
+          avatar_url?: string | null;
+          bio?: string | null;
+          website?: string | null;
+          public_email?: string | null;
+          locale?: string | null;
           updated_at?: string;
         };
       };
@@ -596,7 +611,7 @@ export interface Database {
           logo_url: string | null;
           employee_count: number | null;
           verification_status: OrganizationVerificationStatus;
-          created_by: string;
+          created_by: string | null;
           created_at: string;
           updated_at: string;
         };
@@ -609,7 +624,7 @@ export interface Database {
           logo_url?: string | null;
           employee_count?: number | null;
           verification_status?: OrganizationVerificationStatus;
-          created_by: string;
+          created_by?: string | null;
           created_at?: string;
           updated_at?: string;
         };

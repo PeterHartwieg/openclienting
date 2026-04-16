@@ -153,7 +153,7 @@ export default async function ProblemDetailPage({
   // Fetch comments
   const { data: comments } = await supabase
     .from("comments")
-    .select("id, body, is_publicly_anonymous, is_org_anonymous, parent_comment_id, created_at, profiles!comments_author_id_fkey(display_name), organizations!comments_author_organization_id_fkey(id, name, slug, verification_status)")
+    .select("id, body, is_publicly_anonymous, is_org_anonymous, parent_comment_id, created_at, profiles!comments_author_id_fkey(display_name, avatar_url), organizations!comments_author_organization_id_fkey(id, name, slug, verification_status)")
     .eq("target_type", "problem_template")
     .eq("target_id", id)
     .order("created_at", { ascending: true });
