@@ -29,8 +29,10 @@ Replace `<password>` with the database password (URL-encode any special characte
 Generate a high-entropy passphrase (do this **once**, store in your password manager — losing it makes every backup unrecoverable):
 
 ```bash
-openssl rand -base64 48
+node -e "console.log(require('crypto').randomBytes(48).toString('base64'))"
 ```
+
+(`openssl rand -base64 48` also works on macOS/Linux but isn't available by default on Windows.)
 
 ### Set both secrets
 
