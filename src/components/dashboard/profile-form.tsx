@@ -117,7 +117,10 @@ export function ProfileForm({ initial }: ProfileFormProps) {
 
       <div className="space-y-1.5">
         <Label htmlFor="locale">Preferred language (for emails)</Label>
-        <Select value={locale} onValueChange={setLocale}>
+        <Select
+          value={locale}
+          onValueChange={(v) => setLocale(v ?? "")}
+        >
           <SelectTrigger id="locale" className="w-full">
             <SelectValue placeholder="Use the site default" />
           </SelectTrigger>
