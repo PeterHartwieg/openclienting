@@ -386,7 +386,59 @@
     "yourSubmissions": "Your Submissions",
     "yourSolutionApproaches": "Your Solution Approaches",
     "noApproaches": "You haven't proposed any solution approaches yet.",
-    "submittedAt": "Submitted {date}"
+    "submittedAt": "Submitted {date}",
+    "overview": {
+      "notifications": {
+        "title": "Notifications",
+        "viewAll": "View all",
+        "empty": "You're all caught up.",
+        "unreadLabel": "{count, plural, one {unread notification} other {unread notifications}}"
+      },
+      "pendingReview": {
+        "title": "Pending Review",
+        "empty": "No submissions awaiting review.",
+        "itemCount": "{count, plural, =0 {Nothing pending} one {1 item pending} other {# items pending}}"
+      },
+      "drafts": {
+        "title": "Drafts",
+        "empty": "No drafts yet.",
+        "startDraft": "Start a draft submission",
+        "draftLabel": "Draft",
+        "itemCount": "{count, plural, =0 {No drafts} one {1 draft} other {# drafts}}"
+      },
+      "organizations": {
+        "title": "Organizations",
+        "viewAll": "View all",
+        "empty": "Not a member of any organization yet.",
+        "joinOrCreate": "Join or create one",
+        "verified": "Verified",
+        "pendingMembership": "Pending"
+      },
+      "recentSubmissions": {
+        "title": "Recent Submissions",
+        "empty": "No published submissions yet."
+      },
+      "quickActions": {
+        "title": "Quick Actions",
+        "submitProblem": "Submit a Problem",
+        "proposeSolution": "Propose a Solution",
+        "createOrg": "Create Organization",
+        "browseProblems": "Browse Problems"
+      },
+      "moderation": {
+        "title": "Moderation",
+        "viewQueues": "View Queues",
+        "pendingCount": "{count, plural, =0 {Nothing pending} one {1 item pending} other {# items pending}}"
+      },
+      "kindLabels": {
+        "problem": "Problem",
+        "requirement": "Requirement",
+        "framework": "Framework",
+        "solution": "Solution",
+        "successReport": "Success Report",
+        "knowledgeArticle": "Article"
+      }
+    }
   },
   "settings": {
     "metaTitle": "Settings — OpenClienting",
