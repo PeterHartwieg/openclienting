@@ -100,30 +100,16 @@ export async function moderateItem(params: {
 
   if (error) return { success: false, error: error.message };
 
-  // Cascade: when approving a problem, also approve its initial requirements and pilot frameworks
+  // Cascade: when approving a problem, also approve its author's initial
+  // requirement and pilot_framework. We route through a SECURITY DEFINER
+  // RPC instead of separate updates so it can set `app.skip_notify`
+  // transaction-locally — that silences the per-row notify-status-change
+  // webhooks for the cascaded children. The problem_template UPDATE above
+  // still emails normally; the author gets exactly one approval email.
   if (params.targetType === "problem_templates" && params.action === "publish") {
-    // Get the problem's author to cascade only their initial submissions
-    const { data: problem } = await supabase
-      .from("problem_templates")
-      .select("author_id")
-      .eq("id", params.targetId)
-      .single();
-
-    if (problem) {
-      await supabase
-        .from("requirements")
-        .update({ status: "published" })
-        .eq("problem_id", params.targetId)
-        .eq("author_id", problem.author_id)
-        .eq("status", "submitted");
-
-      await supabase
-        .from("pilot_frameworks")
-        .update({ status: "published" })
-        .eq("problem_id", params.targetId)
-        .eq("author_id", problem.author_id)
-        .eq("status", "submitted");
-    }
+    await supabase.rpc("cascade_approve_initial_content", {
+      p_problem_id: params.targetId,
+    });
   }
 
   // Invalidate any unstable_cache entries affected by this mutation.
