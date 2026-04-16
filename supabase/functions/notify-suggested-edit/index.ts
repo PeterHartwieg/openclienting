@@ -1,13 +1,16 @@
 // Supabase Edge Function: notify-suggested-edit
 // Triggered via database webhook when a suggested_edit is inserted.
-// Notifies the original content author.
+// Emails (branded HTML + text) and notifies the original content author.
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import {
+  getRecipientLocale,
+  localizedUrl,
+  sendBrandedEmail,
+} from "../_shared/email.ts";
 
-const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY");
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-const SITE_URL = Deno.env.get("SITE_URL") ?? "https://openclienting.org";
 
 const targetTypeToTable: Record<string, string> = {
   problem_template: "problem_templates",
@@ -26,7 +29,6 @@ Deno.serve(async (req) => {
 
   const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
-  // Look up the original content's author
   const tableName = targetTypeToTable[record.target_type];
   if (!tableName) return new Response("Unknown target type", { status: 200 });
 
@@ -38,12 +40,11 @@ Deno.serve(async (req) => {
 
   if (!target) return new Response("Target not found", { status: 200 });
 
-  // Don't notify if the suggester is the author
+  // Don't notify if the suggester is the author.
   if (target.author_id === record.author_id) {
     return new Response("Self-edit, skip", { status: 200 });
   }
 
-  // Check preferences
   const { data: prefs } = await supabase
     .from("notification_preferences")
     .select("email_suggested_edits")
@@ -52,35 +53,37 @@ Deno.serve(async (req) => {
 
   const shouldEmail = prefs?.email_suggested_edits ?? true;
 
-  const title = `Someone suggested an edit to your ${record.target_type.replace("_", " ")}`;
-  const body = target.title ?? target.body?.slice(0, 100) ?? "";
+  const contentType = record.target_type.replace(/_/g, " ");
+  const title = `Someone suggested an edit to your ${contentType}`;
+  const snippet = target.title ?? target.body?.slice(0, 140) ?? "";
   const problemId = target.problem_id ?? record.target_id;
+  const relativeLink = `/problems/${problemId}`;
 
-  // Log notification
   await supabase.from("notifications").insert({
     user_id: target.author_id,
     type: "suggested_edit",
     title,
-    body,
-    link: `/en/problems/${problemId}`,
+    body: snippet.slice(0, 100),
+    link: `/en${relativeLink}`,
   });
 
-  // Send email
-  if (shouldEmail && BREVO_API_KEY) {
+  if (shouldEmail) {
     const { data: authUser } = await supabase.auth.admin.getUserById(target.author_id);
     if (authUser?.user?.email) {
-      await fetch("https://api.brevo.com/v3/smtp/email", {
-        method: "POST",
-        headers: {
-          "api-key": BREVO_API_KEY,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          sender: { name: "OpenClienting", email: "noreply@openclienting.org" },
-          to: [{ email: authUser.user.email }],
-          subject: title,
-          textContent: `${title}\n\n${body}\n\nView at: ${SITE_URL}/en/problems/${problemId}`,
-        }),
+      const locale = await getRecipientLocale(supabase, target.author_id);
+      await sendBrandedEmail({
+        to: authUser.user.email,
+        title,
+        preheader: `A suggested improvement to your ${contentType}.`,
+        intro:
+          `A community member has suggested an edit to your ${contentType} on OpenClienting.org. ` +
+          "Review the diff and accept or reject it from the content page.",
+        detail: snippet || undefined,
+        ctaText: "Review the suggested edit",
+        ctaUrl: localizedUrl(relativeLink, locale),
+        footer:
+          "You're receiving this because someone suggested an edit to content you authored. " +
+          "You can turn off these emails in your account settings.",
       });
     }
   }

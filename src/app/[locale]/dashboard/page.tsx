@@ -83,12 +83,6 @@ export default async function DashboardPage({
             {t("account")}
           </Link>
           <Link
-            href={`/${locale}/dashboard/settings`}
-            className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
-          >
-            {t("settings")}
-          </Link>
-          <Link
             href={`/${locale}/submit`}
             className={cn(buttonVariants({ size: "sm" }))}
           >

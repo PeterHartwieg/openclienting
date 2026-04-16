@@ -1,13 +1,16 @@
 // Supabase Edge Function: notify-comment-reply
-// Triggered via database webhook when a comment with parent_comment_id is inserted.
-// Notifies the parent comment's author.
+// Triggered via database webhook when a comment with parent_comment_id is
+// inserted. Emails (branded HTML + text) and notifies the parent comment's author.
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import {
+  getRecipientLocale,
+  localizedUrl,
+  sendBrandedEmail,
+} from "../_shared/email.ts";
 
-const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY");
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-const SITE_URL = Deno.env.get("SITE_URL") ?? "https://openclienting.org";
 
 Deno.serve(async (req) => {
   const payload = await req.json();
@@ -19,7 +22,6 @@ Deno.serve(async (req) => {
 
   const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
-  // Get parent comment to find the author
   const { data: parent } = await supabase
     .from("comments")
     .select("author_id, target_type, target_id")
@@ -28,12 +30,11 @@ Deno.serve(async (req) => {
 
   if (!parent) return new Response("Parent not found", { status: 200 });
 
-  // Don't notify if replying to yourself
+  // Don't notify on self-reply.
   if (parent.author_id === record.author_id) {
     return new Response("Self-reply, skip", { status: 200 });
   }
 
-  // Check preferences
   const { data: prefs } = await supabase
     .from("notification_preferences")
     .select("email_comment_replies")
@@ -43,34 +44,32 @@ Deno.serve(async (req) => {
   const shouldEmail = prefs?.email_comment_replies ?? true;
 
   const title = "Someone replied to your comment";
-  const body = record.body.slice(0, 100);
-  const link = `/en/problems/${parent.target_id}`;
+  const snippet = (record.body ?? "").slice(0, 280);
+  const relativeLink = `/problems/${parent.target_id}`;
 
-  // Log notification
   await supabase.from("notifications").insert({
     user_id: parent.author_id,
     type: "comment_reply",
     title,
-    body,
-    link,
+    body: snippet.slice(0, 100),
+    link: `/en${relativeLink}`,
   });
 
-  // Send email
-  if (shouldEmail && BREVO_API_KEY) {
+  if (shouldEmail) {
     const { data: authUser } = await supabase.auth.admin.getUserById(parent.author_id);
     if (authUser?.user?.email) {
-      await fetch("https://api.brevo.com/v3/smtp/email", {
-        method: "POST",
-        headers: {
-          "api-key": BREVO_API_KEY,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          sender: { name: "OpenClienting", email: "noreply@openclienting.org" },
-          to: [{ email: authUser.user.email }],
-          subject: title,
-          textContent: `${title}\n\n${body}\n\nView at: ${SITE_URL}${link}`,
-        }),
+      const locale = await getRecipientLocale(supabase, parent.author_id);
+      await sendBrandedEmail({
+        to: authUser.user.email,
+        title,
+        preheader: "A new reply in a discussion you're part of.",
+        intro: "Someone just replied to a comment you posted on OpenClienting.org:",
+        detail: snippet || undefined,
+        ctaText: "View the discussion",
+        ctaUrl: localizedUrl(relativeLink, locale),
+        footer:
+          "You're receiving this because someone replied to your comment. " +
+          "You can turn off these emails in your account settings.",
       });
     }
   }

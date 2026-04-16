@@ -1,19 +1,22 @@
 // Supabase Edge Function: notify-status-change
-// Triggered via database webhook when a content item's status changes to published or rejected.
-// Sends an email to the author and logs a notification.
+// Triggered via database webhook when a content item's status changes to
+// published or rejected. Emails the author (branded HTML + text) and logs an
+// in-app notification.
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import {
+  getRecipientLocale,
+  localizedUrl,
+  sendBrandedEmail,
+} from "../_shared/email.ts";
 
-const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY");
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-const SITE_URL = Deno.env.get("SITE_URL") ?? "https://openclienting.org";
 
 Deno.serve(async (req) => {
   const payload = await req.json();
   const { type, table, record, old_record } = payload;
 
-  // Only handle status changes
   if (type !== "UPDATE" || !record || !old_record) {
     return new Response("OK", { status: 200 });
   }
@@ -27,14 +30,15 @@ Deno.serve(async (req) => {
 
   const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
-  // Get author user ID (success_reports uses submitted_by_user_id, others use author_id)
+  // success_reports renamed author_id → submitted_by_user_id; other tables still use author_id.
   const authorId = record.author_id ?? record.submitted_by_user_id;
+  if (!authorId) return new Response("No author", { status: 200 });
+
   const { data: authUser } = await supabase.auth.admin.getUserById(authorId);
   if (!authUser?.user?.email) {
     return new Response("No email", { status: 200 });
   }
 
-  // Check notification preferences
   const { data: prefs } = await supabase
     .from("notification_preferences")
     .select("email_status_changes")
@@ -43,36 +47,54 @@ Deno.serve(async (req) => {
 
   const shouldEmail = prefs?.email_status_changes ?? true;
 
-  const contentType = table.replace("_", " ").replace(/s$/, "");
-  const title = newStatus === "published"
+  const contentType = table.replace(/_/g, " ").replace(/s$/, "");
+  const approved = newStatus === "published";
+  const title = approved
     ? `Your ${contentType} has been approved`
     : `Your ${contentType} has been rejected`;
 
-  const body = record.title ?? record.report_summary?.slice(0, 100) ?? record.body?.slice(0, 100) ?? "";
+  const snippet =
+    record.title ??
+    record.report_summary?.slice(0, 140) ??
+    record.body?.slice(0, 140) ??
+    "";
 
-  // Log notification
+  // Problems use their own id as the target; child content points at its parent problem.
+  const problemId = record.problem_id ?? (table === "problem_templates" ? record.id : null);
+  const relativeLink = problemId ? `/problems/${problemId}` : `/dashboard`;
+
   await supabase.from("notifications").insert({
     user_id: authorId,
     type: "status_change",
     title,
-    body,
-    link: record.problem_id ? `/en/problems/${record.problem_id}` : null,
+    body: snippet,
+    link: `/en${relativeLink}`,
   });
 
-  // Send email if enabled
-  if (shouldEmail && BREVO_API_KEY) {
-    await fetch("https://api.brevo.com/v3/smtp/email", {
-      method: "POST",
-      headers: {
-        "api-key": BREVO_API_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        sender: { name: "OpenClienting", email: "noreply@openclienting.org" },
-        to: [{ email: authUser.user.email }],
-        subject: title,
-        textContent: `${title}\n\n${body}\n\nView at: ${SITE_URL}/en/problems/${record.problem_id ?? record.id}`,
-      }),
+  if (shouldEmail) {
+    const locale = await getRecipientLocale(supabase, authorId);
+    const ctaUrl = localizedUrl(relativeLink, locale);
+
+    const intro = approved
+      ? `Good news — your ${contentType} is now published on OpenClienting.org and visible to the community.`
+      : `A moderator reviewed your ${contentType} and was unable to publish it. ` +
+        (record.rejection_reason
+          ? `The reason given was: ${record.rejection_reason}`
+          : "You can edit and resubmit it from your dashboard.");
+
+    await sendBrandedEmail({
+      to: authUser.user.email,
+      title,
+      preheader: approved
+        ? `Your ${contentType} is now live.`
+        : `Your ${contentType} needs changes before it can be published.`,
+      intro,
+      detail: snippet || undefined,
+      ctaText: approved ? `View your ${contentType}` : "Open your dashboard",
+      ctaUrl: approved ? ctaUrl : localizedUrl("/dashboard", locale),
+      footer:
+        "You're receiving this because you submitted content to OpenClienting.org. " +
+        "You can turn off these emails in your account settings.",
     });
   }
 

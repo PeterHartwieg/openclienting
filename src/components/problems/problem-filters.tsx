@@ -40,7 +40,11 @@ export function ProblemFilters({ tagsByCategory, locale }: ProblemFiltersProps) 
       } else {
         params.set(category, slug);
       }
-      router.push(`/${locale}/problems?${params.toString()}`);
+      // Facet change invalidates the current page offset: previous page
+      // numbers may exceed the new totalPages and land on an empty slice.
+      params.delete("page");
+      const qs = params.toString();
+      router.push(qs ? `/${locale}/problems?${qs}` : `/${locale}/problems`);
     },
     [router, searchParams, locale]
   );

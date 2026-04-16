@@ -1,7 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(supabase --version)"
+      "Bash(supabase --version)",
+      "Bash(npx tsc:*)",
+      "Bash(xargs grep:*)",
+      "mcp__Claude_Preview__preview_start"
     ]
   }
 }

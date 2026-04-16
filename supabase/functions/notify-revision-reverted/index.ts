@@ -1,13 +1,17 @@
 // Supabase Edge Function: notify-revision-reverted
 // Triggered via database webhook when a content_revision's revision_status
-// changes to reverted. Notifies the author whose edit was reverted.
+// changes to reverted. Emails (branded HTML + text) and notifies the author
+// whose edit was reverted.
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import {
+  getRecipientLocale,
+  localizedUrl,
+  sendBrandedEmail,
+} from "../_shared/email.ts";
 
-const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY");
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-const SITE_URL = Deno.env.get("SITE_URL") ?? "https://openclienting.org";
 
 const targetTypeToTable: Record<string, string> = {
   problem_template: "problem_templates",
@@ -31,7 +35,7 @@ Deno.serve(async (req) => {
     return new Response("OK", { status: 200 });
   }
 
-  // Don't notify if the reviewer is the author (self-revert)
+  // Self-revert (author reviewing their own edit) — skip.
   if (record.reviewer_id && record.reviewer_id === record.author_id) {
     return new Response("Self-revert, skip", { status: 200 });
   }
@@ -44,7 +48,6 @@ Deno.serve(async (req) => {
     return new Response("No email", { status: 200 });
   }
 
-  // Check notification preferences
   const { data: prefs } = await supabase
     .from("notification_preferences")
     .select("email_revision_reverted")
@@ -55,10 +58,10 @@ Deno.serve(async (req) => {
 
   const contentType = (record.target_type ?? "content").replace(/_/g, " ");
   const title = `Your edit to a ${contentType} was reverted`;
-  const body = record.reviewer_notes?.slice(0, 100) ?? "";
+  const reviewerNote = record.reviewer_notes?.slice(0, 280) ?? "";
 
-  // Resolve problem_id from the target content
-  let link: string | null = null;
+  // Resolve a link back to the content (or dashboard fallback).
+  let relativeLink = "/dashboard";
   const tableName = targetTypeToTable[record.target_type];
   if (tableName && record.target_id) {
     const { data: target } = await supabase
@@ -66,37 +69,36 @@ Deno.serve(async (req) => {
       .select("problem_id")
       .eq("id", record.target_id)
       .maybeSingle();
-
     if (target?.problem_id) {
-      link = `/en/problems/${target.problem_id}`;
+      relativeLink = `/problems/${target.problem_id}`;
     } else if (record.target_type === "problem_template") {
-      link = `/en/problems/${record.target_id}`;
+      relativeLink = `/problems/${record.target_id}`;
     }
   }
 
-  // Log notification
   await supabase.from("notifications").insert({
     user_id: authorId,
     type: "revision_reverted",
     title,
-    body,
-    link,
+    body: reviewerNote.slice(0, 100),
+    link: `/en${relativeLink}`,
   });
 
-  // Send email if enabled
-  if (shouldEmail && BREVO_API_KEY) {
-    await fetch("https://api.brevo.com/v3/smtp/email", {
-      method: "POST",
-      headers: {
-        "api-key": BREVO_API_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        sender: { name: "OpenClienting", email: "noreply@openclienting.org" },
-        to: [{ email: authUser.user.email }],
-        subject: title,
-        textContent: `${title}\n\n${body}\n\nView at: ${SITE_URL}${link ?? "/en/dashboard"}`,
-      }),
+  if (shouldEmail) {
+    const locale = await getRecipientLocale(supabase, authorId);
+    await sendBrandedEmail({
+      to: authUser.user.email,
+      title,
+      preheader: `A moderator reverted your recent edit to a ${contentType}.`,
+      intro:
+        `A moderator has reverted your recent edit to a ${contentType} on OpenClienting.org. ` +
+        "You can view the current version and, if appropriate, propose the change again as a suggested edit.",
+      detail: reviewerNote || undefined,
+      ctaText: "View the content",
+      ctaUrl: localizedUrl(relativeLink, locale),
+      footer:
+        "You're receiving this because an edit you made was reverted. " +
+        "You can turn off these emails in your account settings.",
     });
   }
 

@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import {
   DEFAULT_PROBLEMS_PAGE_SIZE,
@@ -73,6 +74,34 @@ export default async function BrowseProblemsPage({
     }),
     getTagsGroupedByCategory(locale),
   ]);
+
+  // If the requested page is past the end of the result set, redirect to the
+  // last valid page instead of showing the empty state (which hides the
+  // pagination control and strands the user). Only fires when total > 0; an
+  // empty result set legitimately renders the empty state.
+  const totalPages = Math.max(
+    1,
+    Math.ceil(problemsPage.total / problemsPage.pageSize),
+  );
+  if (problemsPage.total > 0 && page > totalPages) {
+    const clampParams = new URLSearchParams();
+    for (const [key, value] of Object.entries(sp)) {
+      if (value === undefined) continue;
+      if (Array.isArray(value)) {
+        for (const v of value) clampParams.append(key, v);
+      } else {
+        clampParams.set(key, value);
+      }
+    }
+    if (totalPages <= 1) {
+      clampParams.delete("page");
+    } else {
+      clampParams.set("page", String(totalPages));
+    }
+    const qs = clampParams.toString();
+    redirect(qs ? `/${locale}/problems?${qs}` : `/${locale}/problems`);
+  }
+
   const problems = problemsPage.rows;
 
   // Build breadcrumbs and CollectionPage schema. ItemList is capped at the

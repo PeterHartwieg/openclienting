@@ -117,36 +117,65 @@ export async function getPublishedProblemsPage({
     .map((s) => s.trim())
     .join(",\n  ");
 
-  let query = supabase
-    .from("problem_templates")
-    .select(selectString, { count: "exact" })
-    .eq("status", "published");
+  // Factored so we can reissue the query with a different range on
+  // PostgREST out-of-range (PGRST103) errors while keeping filter logic
+  // in one place.
+  const buildQuery = (select: string, opts: { head?: boolean } = {}) => {
+    let q = supabase
+      .from("problem_templates")
+      .select(select, { count: "exact", head: opts.head })
+      .eq("status", "published");
 
-  if (filters.q && filters.q.trim().length > 0) {
-    query = query.textSearch("search_tsv", filters.q.trim(), {
-      type: "websearch",
-      config: "simple",
-    });
-  }
+    if (filters.q && filters.q.trim().length > 0) {
+      q = q.textSearch("search_tsv", filters.q.trim(), {
+        type: "websearch",
+        config: "simple",
+      });
+    }
 
-  for (const category of tagFilterCategories) {
-    const slug = filters[category] as string;
-    query = query
-      .eq(`pt_${category}.tag.slug`, slug)
-      .eq(`pt_${category}.tag.category`, category);
-  }
+    for (const category of tagFilterCategories) {
+      const slug = filters[category] as string;
+      q = q
+        .eq(`pt_${category}.tag.slug`, slug)
+        .eq(`pt_${category}.tag.category`, category);
+    }
 
-  if (filters.solution_status) {
-    query = query.eq("solution_status", filters.solution_status);
-  }
+    if (filters.solution_status) {
+      q = q.eq("solution_status", filters.solution_status);
+    }
+
+    return q;
+  };
 
   const offset = (safePage - 1) * safeSize;
-  query = query
+  const query = buildQuery(selectString)
     .order("created_at", { ascending: false })
     .range(offset, offset + safeSize - 1);
 
   const { data, error, count } = await query;
   if (error) {
+    // PGRST103 = "Requested range not satisfiable": offset exceeded the
+    // matching row count. Re-issue a head/count-only query so callers
+    // (e.g. the browse page) still know the real total and can redirect
+    // to a valid page instead of stranding the user on an empty slice.
+    if (error.code === "PGRST103") {
+      // Must reuse the full select string so the aliased !inner joins
+      // that scope tag filters still exist in the count query.
+      const { count: realCount, error: countError } = await buildQuery(
+        selectString,
+        { head: true },
+      );
+      if (countError) {
+        console.error("getPublishedProblemsPage count error:", countError);
+        return { rows: [], total: 0, page: safePage, pageSize: safeSize };
+      }
+      return {
+        rows: [],
+        total: realCount ?? 0,
+        page: safePage,
+        pageSize: safeSize,
+      };
+    }
     console.error("getPublishedProblemsPage error:", error);
     return { rows: [], total: 0, page: safePage, pageSize: safeSize };
   }

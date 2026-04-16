@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
@@ -9,6 +8,7 @@ import { ProfileForm } from "@/components/dashboard/profile-form";
 import { AvatarUpload } from "@/components/dashboard/avatar-upload";
 import { PasswordSection } from "@/components/dashboard/password-section";
 import { DeleteAccountSection } from "@/components/dashboard/delete-account-section";
+import { NotificationSettings } from "@/components/dashboard/notification-settings";
 import {
   Card,
   CardContent,
@@ -36,11 +36,18 @@ export default async function AccountPage({
   }
 
   const supabase = await createClient();
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("display_name, bio, website, public_email, locale, avatar_url")
-    .eq("id", user.id)
-    .single();
+  const [{ data: profile }, { data: prefs }] = await Promise.all([
+    supabase
+      .from("profiles")
+      .select("display_name, bio, website, public_email, locale, avatar_url")
+      .eq("id", user.id)
+      .single(),
+    supabase
+      .from("notification_preferences")
+      .select("*")
+      .eq("user_id", user.id)
+      .maybeSingle(),
+  ]);
 
   // user.identities tells us how the account can sign in. "email"
   // identity means a password is set; "google" is the OAuth provider.
@@ -57,18 +64,7 @@ export default async function AccountPage({
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
-      <div className="flex items-baseline justify-between gap-4 flex-wrap">
-        <h1 className="text-3xl font-bold tracking-tight">Account</h1>
-        <nav className="flex gap-4 text-sm">
-          <span className="font-medium">Account</span>
-          <Link
-            href={`/${locale}/dashboard/settings`}
-            className="text-muted-foreground hover:text-foreground"
-          >
-            Notifications
-          </Link>
-        </nav>
-      </div>
+      <h1 className="text-3xl font-bold tracking-tight">Account</h1>
 
       <div className="mt-8 space-y-6">
         <Card>
@@ -102,6 +98,30 @@ export default async function AccountPage({
             <AvatarUpload
               currentAvatarUrl={profile?.avatar_url ?? null}
               fallbackInitial={fallbackInitial}
+            />
+          </CardContent>
+        </Card>
+
+        <Card id="notifications" className="scroll-mt-24">
+          <CardHeader>
+            <CardTitle>Email notifications</CardTitle>
+            <CardDescription>
+              Choose which events trigger an email. You&apos;ll still see
+              everything in your dashboard notifications.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <NotificationSettings
+              initialPrefs={{
+                emailStatusChanges: prefs?.email_status_changes ?? true,
+                emailSuggestedEdits: prefs?.email_suggested_edits ?? true,
+                emailCommentReplies: prefs?.email_comment_replies ?? true,
+                emailVerificationOutcomes: prefs?.email_verification_outcomes ?? true,
+                emailSuccessReportDecisions: prefs?.email_success_report_decisions ?? true,
+                emailRevisionReverted: prefs?.email_revision_reverted ?? true,
+                emailNewSolutionOnProblem: prefs?.email_new_solution_on_problem ?? true,
+                emailNewSuccessReportOnContent: prefs?.email_new_success_report_on_content ?? true,
+              }}
             />
           </CardContent>
         </Card>

@@ -1,14 +1,17 @@
 // Supabase Edge Function: notify-success-report-decision
 // Triggered via database webhook when a success report's verification_status
-// changes to verified or rejected.
-// Notifies the report author.
+// changes to verified or rejected. Emails (branded HTML + text) and notifies
+// the report author.
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import {
+  getRecipientLocale,
+  localizedUrl,
+  sendBrandedEmail,
+} from "../_shared/email.ts";
 
-const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY");
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-const SITE_URL = Deno.env.get("SITE_URL") ?? "https://openclienting.org";
 
 Deno.serve(async (req) => {
   const payload = await req.json();
@@ -33,7 +36,6 @@ Deno.serve(async (req) => {
     return new Response("No email", { status: 200 });
   }
 
-  // Check notification preferences
   const { data: prefs } = await supabase
     .from("notification_preferences")
     .select("email_success_report_decisions")
@@ -42,49 +44,57 @@ Deno.serve(async (req) => {
 
   const shouldEmail = prefs?.email_success_report_decisions ?? true;
 
-  const title = newStatus === "verified"
+  const verified = newStatus === "verified";
+  const title = verified
     ? "Your success report has been verified"
     : "Your success report was rejected";
 
-  const body = record.report_summary?.slice(0, 100) ?? "";
+  const snippet = record.report_summary?.slice(0, 280) ?? "";
 
-  // Resolve problem_id via solution_approach
-  let link: string | null = null;
+  // Resolve problem_id via solution_approach.
+  let relativeLink = "/dashboard";
   if (record.solution_approach_id) {
     const { data: approach } = await supabase
       .from("solution_approaches")
       .select("problem_id")
       .eq("id", record.solution_approach_id)
       .maybeSingle();
-
     if (approach?.problem_id) {
-      link = `/en/problems/${approach.problem_id}`;
+      relativeLink = `/problems/${approach.problem_id}`;
     }
   }
 
-  // Log notification
   await supabase.from("notifications").insert({
     user_id: authorId,
     type: "success_report_decision",
     title,
-    body,
-    link,
+    body: snippet.slice(0, 100),
+    link: `/en${relativeLink}`,
   });
 
-  // Send email if enabled
-  if (shouldEmail && BREVO_API_KEY) {
-    await fetch("https://api.brevo.com/v3/smtp/email", {
-      method: "POST",
-      headers: {
-        "api-key": BREVO_API_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        sender: { name: "OpenClienting", email: "noreply@openclienting.org" },
-        to: [{ email: authUser.user.email }],
-        subject: title,
-        textContent: `${title}\n\n${body}\n\nView at: ${SITE_URL}${link ?? "/en/dashboard"}`,
-      }),
+  if (shouldEmail) {
+    const locale = await getRecipientLocale(supabase, authorId);
+    const intro = verified
+      ? "A moderator has verified the success report you submitted. It now contributes to the " +
+        "trust score of the solution and is visible as a verified case study."
+      : "A moderator reviewed your success report and was unable to verify it at this time. " +
+        "You can edit and resubmit it from your dashboard.";
+
+    await sendBrandedEmail({
+      to: authUser.user.email,
+      title,
+      preheader: verified
+        ? "Your success report is now a verified case study."
+        : "Your success report could not be verified.",
+      intro,
+      detail: snippet || undefined,
+      ctaText: verified ? "View the solution page" : "Open your dashboard",
+      ctaUrl: verified
+        ? localizedUrl(relativeLink, locale)
+        : localizedUrl("/dashboard", locale),
+      footer:
+        "You're receiving this because you submitted a success report. " +
+        "You can turn off these emails in your account settings.",
     });
   }
 
