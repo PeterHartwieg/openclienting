@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { LANGUAGE_CODES } from "@/i18n/languages";
 import { validatePassword } from "@/lib/auth/password";
 
@@ -183,10 +184,14 @@ export async function setOrChangePassword(params: {
   const err = validatePassword(params.newPassword);
   if (err) return { success: false as const, error: err };
 
-  // If the user already has a password (email identity exists), require
-  // re-authentication to change it. OAuth-only users just set one.
+  // If the user already has an email identity we treat this as a change
+  // and require re-authentication. Without one, this is a first-time set
+  // for an OAuth-only account — we have to go through the admin API
+  // because the user-scoped updateUser() sets encrypted_password without
+  // creating the email identity that signInWithPassword later requires.
   const hasPassword = Array.isArray(user.identities)
     && user.identities.some((i) => i.provider === "email");
+
   if (hasPassword) {
     if (!params.currentPassword) {
       return { success: false as const, error: "Current password is required" };
@@ -201,12 +206,26 @@ export async function setOrChangePassword(params: {
     if (reauthError) {
       return { success: false as const, error: "Current password is incorrect" };
     }
+
+    const { error } = await supabase.auth.updateUser({
+      password: params.newPassword,
+    });
+    if (error) return { success: false as const, error: error.message };
+    return { success: true as const };
   }
 
-  const { error } = await supabase.auth.updateUser({
+  // First-time password set for an OAuth-only account.
+  if (!user.email) {
+    return { success: false as const, error: "Account has no email on file" };
+  }
+  const admin = createAdminClient();
+  const { error: adminError } = await admin.auth.admin.updateUserById(user.id, {
     password: params.newPassword,
+    email_confirm: true,
   });
-  if (error) return { success: false as const, error: error.message };
+  if (adminError) {
+    return { success: false as const, error: adminError.message };
+  }
   return { success: true as const };
 }
 
