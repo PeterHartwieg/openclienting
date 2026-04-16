@@ -18,11 +18,49 @@
   "nav": {
     "browseProblems": "Probleme entdecken",
     "submitProblem": "Problem einreichen",
+    "problems": "Probleme",
+    "organizations": "Organisationen",
+    "ventureClienting": "Venture Clienting",
+    "submit": "Einreichen",
     "dashboard": "Dashboard",
     "moderate": "Moderation",
     "account": "Konto",
     "themeToggle": "Design wechseln",
     "openMenu": "Menü öffnen"
+  },
+  "workspace": {
+    "title": "Arbeitsbereich",
+    "anonymous": {
+      "ctaTitle": "OpenClienting beitreten",
+      "ctaSubtitle": "Melde dich an, um deinen Arbeitsbereich zu nutzen.",
+      "discoverLabel": "Entdecken"
+    },
+    "groups": {
+      "home": "Start",
+      "organization": "Organisation",
+      "settings": "Einstellungen",
+      "moderation": "Moderation"
+    },
+    "items": {
+      "overview": "Übersicht",
+      "myOrgs": "Meine Organisationen",
+      "joinOrg": "Organisation beitreten",
+      "createOrg": "Organisation erstellen",
+      "account": "Konto",
+      "moderationOverview": "Moderationswarteschlangen",
+      "moderationProblems": "Probleme",
+      "moderationRequirements": "Anforderungen",
+      "moderationFrameworks": "Frameworks",
+      "moderationSolutions": "Lösungen",
+      "moderationSuccessReports": "Erfolgsberichte",
+      "moderationSuggestedEdits": "Vorgeschlagene Änderungen",
+      "moderationOrganizationVerification": "Org-Verifizierung",
+      "moderationLiveRevisions": "Live-Revisionen",
+      "moderationKnowledgeArticles": "Wissensartikel",
+      "moderationTranslations": "Übersetzungen",
+      "moderationTags": "Tags",
+      "moderationHistory": "Verlauf"
+    }
   },
   "footer": {
     "tagline": "Echte Probleme. Offene Lösungen.",
@@ -418,7 +456,15 @@
     "checkGenuineBusiness": "Organisation ist ein echtes Unternehmen, kein Privatprojekt",
     "noEmail": "keine E-Mail",
     "unknown": "Unbekannt",
-    "pilotFrameworkPlaceholder": "Pilot-Framework"
+    "pilotFrameworkPlaceholder": "Pilot-Framework",
+    "queueCount": "{count, plural, =0 {Nichts ausstehend} one {1 Eintrag ausstehend} other {# Einträge ausstehend}}",
+    "queueEmptyHint": "Neue Einreichungen erscheinen hier, sobald sie zur Prüfung vorliegen.",
+    "overview": {
+      "allClear": "Alle Warteschlangen sind leer. Es wartet nichts auf Moderation.",
+      "totalPending": "{count, plural, one {1 Eintrag} other {# Einträge}} in allen Warteschlangen warten auf Prüfung.",
+      "queueEmpty": "Keine Einträge ausstehend.",
+      "queuePending": "{count, plural, one {1 Eintrag} other {# Einträge}} warten auf Prüfung."
+    }
   },
   "translate": {
     "metaTitle": "Übersetzung beitragen — OpenClienting",
