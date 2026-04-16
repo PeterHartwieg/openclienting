@@ -372,9 +372,9 @@ export default async function ModerationPage({
                         {" · "}
                       </>
                     )}
-                    {t("byUser", { name: (org.profiles as unknown as { display_name: string | null; email: string | null } | null)?.display_name ?? t("unknown") })}
+                    {t("byUser", { name: (org.profiles as unknown as { display_name: string | null } | null)?.display_name ?? t("unknown") })}
                     {" "}
-                    ({(org.profiles as unknown as { display_name: string | null; email: string | null } | null)?.email ?? t("noEmail")})
+                    ({(org as { creator_email?: string | null }).creator_email ?? t("noEmail")})
                     {" · "}
                     {formatDate(org.created_at, locale, "medium")}
                   </p>

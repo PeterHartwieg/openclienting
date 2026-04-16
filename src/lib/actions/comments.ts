@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { resolveVerifiedMembership } from "@/lib/auth/org-membership";
 
 export async function submitComment(params: {
   targetType: "problem_template" | "solution_approach";
@@ -18,6 +19,13 @@ export async function submitComment(params: {
 
   if (!user) return { success: false, error: "Sign in to comment" };
   if (!params.body.trim()) return { success: false, error: "Comment is required" };
+
+  const membership = await resolveVerifiedMembership(
+    supabase,
+    user.id,
+    params.organizationId,
+  );
+  if (!membership.ok) return { success: false, error: membership.error };
 
   const { error } = await supabase.from("comments").insert({
     target_type: params.targetType,

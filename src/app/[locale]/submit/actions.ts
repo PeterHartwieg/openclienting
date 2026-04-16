@@ -2,6 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { detectLanguage } from "@/lib/i18n/detect-language";
+import { resolveVerifiedMembership } from "@/lib/auth/org-membership";
 
 interface ProblemSubmission {
   title: string;
@@ -41,6 +42,18 @@ export async function submitProblem(data: ProblemSubmission) {
   }
   if (data.tagIds.length === 0) {
     return { success: false, error: "At least one tag is required." };
+  }
+
+  // Block attribution spoofing: a client-supplied organizationId must
+  // correspond to an active membership. Checked once here because the
+  // three inserts below share the same org id.
+  const membership = await resolveVerifiedMembership(
+    supabase,
+    user.id,
+    data.organizationId,
+  );
+  if (!membership.ok) {
+    return { success: false, error: membership.error };
   }
 
   // Detect source language from the problem body. Title alone is usually

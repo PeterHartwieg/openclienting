@@ -68,7 +68,6 @@ export interface Database {
         Row: {
           id: string;
           display_name: string | null;
-          email: string | null;
           role: UserRole;
           created_at: string;
           updated_at: string;
@@ -76,7 +75,6 @@ export interface Database {
         Insert: {
           id: string;
           display_name?: string | null;
-          email?: string | null;
           role?: UserRole;
           created_at?: string;
           updated_at?: string;
@@ -84,8 +82,26 @@ export interface Database {
         Update: {
           id?: string;
           display_name?: string | null;
-          email?: string | null;
           role?: UserRole;
+          updated_at?: string;
+        };
+      };
+      profile_contacts: {
+        Row: {
+          user_id: string;
+          email: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          user_id: string;
+          email: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          user_id?: string;
+          email?: string;
           updated_at?: string;
         };
       };

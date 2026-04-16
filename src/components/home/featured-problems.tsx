@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { getPublishedProblems } from "@/lib/queries/problems";
+import { getPublishedProblemsPage } from "@/lib/queries/problems";
 import { ProblemCard } from "@/components/problems/problem-card";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -8,8 +8,8 @@ import { ArrowRight } from "lucide-react";
 
 export async function FeaturedProblems({ locale }: { locale: string }) {
   const t = await getTranslations("home");
-  const problems = await getPublishedProblems();
-  const featured = problems.slice(0, 4);
+  const { rows: problems } = await getPublishedProblemsPage({ page: 1, pageSize: 4 });
+  const featured = problems;
 
   if (featured.length === 0) return null;
 

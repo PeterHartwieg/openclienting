@@ -1,10 +1,14 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { getPublishedProblems } from "@/lib/queries/problems";
+import {
+  DEFAULT_PROBLEMS_PAGE_SIZE,
+  getPublishedProblemsPage,
+} from "@/lib/queries/problems";
 import { getTagsGroupedByCategory } from "@/lib/queries/tags";
 import { ProblemCard } from "@/components/problems/problem-card";
 import { ProblemFilters } from "@/components/problems/problem-filters";
+import { ProblemsPagination } from "@/components/problems/pagination";
 import { SearchBar } from "@/components/layout/search-bar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EmptyState } from "@/components/shared/empty-state";
@@ -51,17 +55,25 @@ export default async function BrowseProblemsPage({
   const solutionStatus =
     typeof sp.solution_status === "string" ? sp.solution_status : undefined;
 
-  const [problems, tagsByCategory] = await Promise.all([
-    getPublishedProblems({
-      q,
-      industry,
-      function: func,
-      problem_category: problemCategory,
-      company_size: companySize,
-      solution_status: solutionStatus,
+  const rawPage = typeof sp.page === "string" ? parseInt(sp.page, 10) : 1;
+  const page = Number.isFinite(rawPage) && rawPage >= 1 ? rawPage : 1;
+
+  const [problemsPage, tagsByCategory] = await Promise.all([
+    getPublishedProblemsPage({
+      filters: {
+        q,
+        industry,
+        function: func,
+        problem_category: problemCategory,
+        company_size: companySize,
+        solution_status: solutionStatus,
+      },
+      page,
+      pageSize: DEFAULT_PROBLEMS_PAGE_SIZE,
     }),
     getTagsGroupedByCategory(locale),
   ]);
+  const problems = problemsPage.rows;
 
   // Build breadcrumbs and CollectionPage schema. ItemList is capped at the
   // first 50 rendered problems so the JSON-LD payload stays under a sensible
@@ -114,23 +126,38 @@ export default async function BrowseProblemsPage({
           {problems.length === 0 ? (
             <EmptyState state="match" message={t("noResults")} />
           ) : (
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-              {problems.map((problem) => (
-                <ProblemCard
-                  key={problem.id}
-                  id={problem.id}
-                  title={problem.title}
-                  description={problem.description}
-                  is_publicly_anonymous={problem.is_publicly_anonymous}
-                  is_org_anonymous={problem.is_org_anonymous}
-                  author={problem.profiles}
-                  organization={problem.organizations as { id: string; name: string } | null}
-                  problemTags={problem.problem_tags ?? []}
-                  solutionStatus={problem.solution_status}
-                  locale={locale}
-                />
-              ))}
-            </div>
+            <>
+              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                {problems.map((problem) => (
+                  <ProblemCard
+                    key={problem.id}
+                    id={problem.id}
+                    title={problem.title}
+                    description={problem.description}
+                    is_publicly_anonymous={problem.is_publicly_anonymous}
+                    is_org_anonymous={problem.is_org_anonymous}
+                    author={problem.profiles}
+                    organization={problem.organizations as { id: string; name: string } | null}
+                    problemTags={problem.problem_tags ?? []}
+                    solutionStatus={problem.solution_status ?? undefined}
+                    locale={locale}
+                  />
+                ))}
+              </div>
+              <ProblemsPagination
+                page={problemsPage.page}
+                total={problemsPage.total}
+                pageSize={problemsPage.pageSize}
+                basePath={problemsPath}
+                searchParams={sp}
+                labels={{
+                  previous: t("paginationPrevious"),
+                  next: t("paginationNext"),
+                  page: t("paginationPage"),
+                  of: t("paginationOf"),
+                }}
+              />
+            </>
           )}
         </div>
       </div>

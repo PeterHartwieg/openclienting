@@ -165,7 +165,11 @@
     "submitFirst": "Submit the first one",
     "statusUnsolved": "Unsolved",
     "statusHasApproaches": "Has Approaches",
-    "statusSuccessfulPilot": "Successful Pilot"
+    "statusSuccessfulPilot": "Successful Pilot",
+    "paginationPrevious": "Previous",
+    "paginationNext": "Next",
+    "paginationPage": "Page",
+    "paginationOf": "of"
   },
   "problemDetail": {
     "metaTitleFallback": "Problem — OpenClienting",

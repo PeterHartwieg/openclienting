@@ -4,6 +4,7 @@ import { updateTag } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
 import type { EditDiff, EditTargetType } from "@/lib/types/database";
+import { filterEditableDiff } from "@/lib/suggested-edits/fields";
 
 type SupabaseServer = Awaited<ReturnType<typeof createClient>>;
 
@@ -363,9 +364,24 @@ export async function applySuggestedEdit(editId: string) {
     return { success: false, error: "Edit already processed" };
   }
 
-  const diff = edit.diff as EditDiff;
+  const rawDiff = edit.diff as EditDiff;
   const targetType = edit.target_type as EditTargetType;
   const tableName = targetTypeToTable[targetType];
+
+  // Defence in depth: even though submitSuggestedEdit now rejects diffs
+  // with keys outside the allowlist, re-filter here so a row inserted via
+  // another path (compromised account, legacy data, manual SQL) still
+  // can't escape the allowlist.
+  const { filtered: diff, droppedKeys } = filterEditableDiff(targetType, rawDiff);
+  if (droppedKeys.length > 0) {
+    console.warn(
+      `[applySuggestedEdit] dropping non-allowlisted keys from edit ${editId}:`,
+      droppedKeys,
+    );
+  }
+  if (Object.keys(diff).length === 0) {
+    return { success: false, error: "No editable changes in this suggestion" };
+  }
 
   // Apply the changes
   const updateData: Record<string, string | null> = {};
@@ -380,7 +396,8 @@ export async function applySuggestedEdit(editId: string) {
 
   if (updateError) return { success: false, error: updateError.message };
 
-  // Log to edit_history
+  // Log to edit_history — record the filtered diff (what actually
+  // applied) rather than the original, so the audit trail matches state.
   await supabase.from("edit_history").insert({
     target_type: edit.target_type,
     target_id: edit.target_id,

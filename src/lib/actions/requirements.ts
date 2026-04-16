@@ -2,6 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { detectLanguage } from "@/lib/i18n/detect-language";
+import { resolveVerifiedMembership } from "@/lib/auth/org-membership";
 
 export async function submitRequirement(params: {
   problemId: string;
@@ -17,6 +18,13 @@ export async function submitRequirement(params: {
 
   if (!user) return { success: false, error: "Sign in to contribute" };
   if (!params.body.trim()) return { success: false, error: "Body is required" };
+
+  const membership = await resolveVerifiedMembership(
+    supabase,
+    user.id,
+    params.organizationId,
+  );
+  if (!membership.ok) return { success: false, error: membership.error };
 
   // Standalone requirement contribution (not part of the initial problem
   // submission) — detect from its own body. Short bodies fall back to "en"

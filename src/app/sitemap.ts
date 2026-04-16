@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { locales } from "@/i18n/config";
-import { getPublishedProblems } from "@/lib/queries/problems";
+import { getAllPublishedProblemIds } from "@/lib/queries/problems";
 import { getVerifiedOrganizationsDirectory } from "@/lib/queries/organizations";
 import { getAllPublishedArticles } from "@/lib/queries/knowledge-articles";
 import { getSiteUrl } from "@/lib/site";
@@ -19,7 +19,7 @@ const publicRoutes = [
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const siteUrl = getSiteUrl();
   const [problems, organizations, knowledgeArticles] = await Promise.all([
-    getPublishedProblems(),
+    getAllPublishedProblemIds(),
     getVerifiedOrganizationsDirectory(),
     getAllPublishedArticles(),
   ]);

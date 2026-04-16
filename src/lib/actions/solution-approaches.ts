@@ -2,6 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { detectLanguage } from "@/lib/i18n/detect-language";
+import { resolveVerifiedMembership } from "@/lib/auth/org-membership";
 import type { TechnologyType, Maturity } from "@/lib/types/database";
 
 export async function submitSolutionApproach(params: {
@@ -24,6 +25,13 @@ export async function submitSolutionApproach(params: {
   if (!user) return { success: false, error: "Sign in to contribute" };
   if (!params.title.trim()) return { success: false, error: "Title is required" };
   if (!params.description.trim()) return { success: false, error: "Description is required" };
+
+  const membership = await resolveVerifiedMembership(
+    supabase,
+    user.id,
+    params.organizationId,
+  );
+  if (!membership.ok) return { success: false, error: membership.error };
 
   const { error } = await supabase.from("solution_approaches").insert({
     problem_id: params.problemId,

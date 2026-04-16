@@ -61,10 +61,15 @@ export async function getOrganizationWithMembers(organizationId: string) {
   return { org, members: members ?? [] };
 }
 
+// Orgs awaiting moderator verification, with creator display name + email.
+// Email lives in the private profile_contacts table (migration 026) and is
+// only readable by moderators via RLS, so we fetch it in a second round
+// trip keyed by creator id rather than joining under the public profiles
+// relationship.
 export async function getPendingVerifications() {
   const supabase = await createClient();
 
-  const { data, error } = await supabase
+  const { data: orgs, error } = await supabase
     .from("organizations")
     .select(`
       id,
@@ -74,7 +79,8 @@ export async function getPendingVerifications() {
       description,
       verification_status,
       created_at,
-      profiles (display_name, email)
+      created_by,
+      profiles (display_name)
     `)
     .eq("verification_status", "pending")
     .order("created_at", { ascending: true });
@@ -83,7 +89,39 @@ export async function getPendingVerifications() {
     console.error("getPendingVerifications error:", error);
     return [];
   }
-  return data ?? [];
+
+  const rows = orgs ?? [];
+  const creatorIds = Array.from(
+    new Set(
+      rows
+        .map((o) => (o as { created_by?: string | null }).created_by)
+        .filter((id): id is string => typeof id === "string" && id.length > 0),
+    ),
+  );
+
+  const emailsById = new Map<string, string>();
+  if (creatorIds.length > 0) {
+    const { data: contacts, error: contactsError } = await supabase
+      .from("profile_contacts")
+      .select("user_id, email")
+      .in("user_id", creatorIds);
+
+    if (contactsError) {
+      console.error("getPendingVerifications contacts error:", contactsError);
+    } else {
+      for (const c of contacts ?? []) {
+        emailsById.set(c.user_id, c.email);
+      }
+    }
+  }
+
+  return rows.map((org) => {
+    const createdBy = (org as { created_by?: string | null }).created_by ?? null;
+    return {
+      ...org,
+      creator_email: createdBy ? emailsById.get(createdBy) ?? null : null,
+    };
+  });
 }
 
 export async function getPendingMemberships() {
