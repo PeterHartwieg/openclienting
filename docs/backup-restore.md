@@ -75,10 +75,13 @@ gpg --batch --yes --passphrase "$BACKUP_GPG_PASSPHRASE" \
 
 **To a fresh local Postgres** (recommended for dry-runs):
 
-```bash
-createdb openclienting_restore
-pg_restore --dbname=openclienting_restore --no-owner --no-privileges --verbose backup.dump
+```powershell
+# Windows — adjust path if your Postgres version differs
+& "C:\Program Files\PostgreSQL\18\bin\createdb.exe" -U postgres openclienting_restore
+& "C:\Program Files\PostgreSQL\18\bin\pg_restore.exe" -U postgres -d openclienting_restore --no-owner --no-privileges --verbose backup.dump
 ```
+
+Expect errors about Supabase-specific extensions (`pg_net`, `pg_graphql`, `supabase_vault`) — these don't exist in plain Postgres and can be ignored. All 21 `public` schema tables should restore cleanly.
 
 **To Supabase** — do not restore directly over a live production database. Restore to a staging project first, verify, then coordinate a cutover. Pseudocode:
 
