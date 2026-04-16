@@ -1,5 +1,6 @@
 import { WorkspaceNav } from "./workspace-nav";
 import { WorkspaceMobileBar } from "./workspace-mobile-bar";
+import { AnonymousNav } from "./anonymous-nav";
 import type {
   ModerationCounts,
   NavRole,
@@ -8,27 +9,17 @@ import type {
 
 interface WorkspaceShellProps {
   locale: string;
-  role: NavRole;
-  counts: WorkspaceCounts;
-  /**
-   * Optional. Provided by the moderation layout so the sidebar can render
-   * per-queue badges; omitted (null/undefined) elsewhere so the contributor
-   * groups stay unchanged when outside moderation.
-   */
+  /** Null for anonymous visitors — renders sign-in CTA + discovery nav instead. */
+  user: { id: string } | null;
+  role: NavRole | null;
+  counts: WorkspaceCounts | null;
   moderationCounts?: ModerationCounts | null;
   children: React.ReactNode;
 }
 
-/**
- * Two-column workspace layout used for authenticated task-heavy areas.
- * Desktop: persistent sidebar on the start edge, content flows on the end.
- * Mobile: compact top bar triggers a drawer holding the same nav.
- *
- * This shell is intentionally kept agnostic of page content; page components
- * still own their own `<h1>` and inner width constraints.
- */
 export function WorkspaceShell({
   locale,
+  user,
   role,
   counts,
   moderationCounts,
@@ -40,16 +31,21 @@ export function WorkspaceShell({
         aria-label="Workspace navigation"
         className="sticky top-16 hidden h-[calc(100vh-4rem)] w-64 shrink-0 overflow-y-auto border-e px-4 py-6 lg:block"
       >
-        <WorkspaceNav
-          locale={locale}
-          role={role}
-          counts={counts}
-          moderationCounts={moderationCounts}
-        />
+        {user && role && counts ? (
+          <WorkspaceNav
+            locale={locale}
+            role={role}
+            counts={counts}
+            moderationCounts={moderationCounts}
+          />
+        ) : (
+          <AnonymousNav locale={locale} />
+        )}
       </aside>
       <div className="min-w-0 flex-1">
         <WorkspaceMobileBar
           locale={locale}
+          user={user}
           role={role}
           counts={counts}
           moderationCounts={moderationCounts}

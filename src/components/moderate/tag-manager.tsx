@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { createTag, deleteTag, updateTagTranslation } from "@/app/[locale]/moderate/actions";
+import { createTag, deleteTag, updateTagTranslation } from "@/app/[locale]/(shell)/moderate/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

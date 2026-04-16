@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import {
   approveTranslation,
   rejectTranslation,
-} from "@/app/[locale]/translate/actions";
+} from "@/app/[locale]/(shell)/translate/actions";
 import { Button } from "@/components/ui/button";
 import type { TranslationFields, TranslationTargetType } from "@/lib/types/database";
 import { TRANSLATABLE_FIELDS } from "@/lib/content-translations/fields";

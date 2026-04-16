@@ -30,6 +30,11 @@
   },
   "workspace": {
     "title": "Workspace",
+    "anonymous": {
+      "ctaTitle": "Join OpenClienting",
+      "ctaSubtitle": "Sign in to access your workspace.",
+      "discoverLabel": "Discover"
+    },
     "groups": {
       "home": "Home",
       "organization": "Organization",

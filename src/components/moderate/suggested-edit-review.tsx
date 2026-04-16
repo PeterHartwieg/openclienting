@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { applySuggestedEdit, moderateItem } from "@/app/[locale]/moderate/actions";
+import { applySuggestedEdit, moderateItem } from "@/app/[locale]/(shell)/moderate/actions";
 import { Button } from "@/components/ui/button";
 
 interface SuggestedEditReviewProps {

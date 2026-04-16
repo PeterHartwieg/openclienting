@@ -2,7 +2,7 @@
 
 import { useTransition, useState } from "react";
 import { useRouter } from "next/navigation";
-import { moderateSuccessReport } from "@/app/[locale]/moderate/actions";
+import { moderateSuccessReport } from "@/app/[locale]/(shell)/moderate/actions";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 

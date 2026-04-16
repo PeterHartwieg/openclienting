@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { approveRevision, revertRevision } from "@/app/[locale]/moderate/actions";
+import { approveRevision, revertRevision } from "@/app/[locale]/(shell)/moderate/actions";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import type { EditDiff } from "@/lib/types/database";

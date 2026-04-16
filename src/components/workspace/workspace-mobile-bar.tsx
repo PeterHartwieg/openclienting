@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WorkspaceNav } from "./workspace-nav";
+import { AnonymousNav } from "./anonymous-nav";
 import type {
   ModerationCounts,
   NavRole,
@@ -14,13 +15,15 @@ import type {
 
 interface WorkspaceMobileBarProps {
   locale: string;
-  role: NavRole;
-  counts: WorkspaceCounts;
+  user: { id: string } | null;
+  role: NavRole | null;
+  counts: WorkspaceCounts | null;
   moderationCounts?: ModerationCounts | null;
 }
 
 export function WorkspaceMobileBar({
   locale,
+  user,
   role,
   counts,
   moderationCounts,
@@ -91,13 +94,20 @@ export function WorkspaceMobileBar({
               </Button>
             </div>
             <div className="flex-1 overflow-y-auto px-3 py-4">
-              <WorkspaceNav
-                locale={locale}
-                role={role}
-                counts={counts}
-                moderationCounts={moderationCounts}
-                onNavigate={() => setOpen(false)}
-              />
+              {user && role && counts ? (
+                <WorkspaceNav
+                  locale={locale}
+                  role={role}
+                  counts={counts}
+                  moderationCounts={moderationCounts}
+                  onNavigate={() => setOpen(false)}
+                />
+              ) : (
+                <AnonymousNav
+                  locale={locale}
+                  onNavigate={() => setOpen(false)}
+                />
+              )}
             </div>
           </aside>
         </>
