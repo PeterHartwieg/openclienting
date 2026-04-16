@@ -206,6 +206,21 @@
   html {
     @apply font-sans;
   }
+
+  /* Chrome/Edge paint autofilled inputs with their own white background +
+     black text, which breaks dark mode and any non-default theme. There's
+     no property that lets us override the fill color directly, but we can
+     mask it via an inset box-shadow while pinning the text + caret to the
+     theme's foreground token. Applies to every <input> globally. */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px var(--background) inset !important;
+    -webkit-text-fill-color: var(--foreground) !important;
+    caret-color: var(--foreground);
+    transition: background-color 9999s ease-out 0s;
+  }
 }
 
 /* Reduced motion preference */
