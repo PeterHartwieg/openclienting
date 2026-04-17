@@ -101,6 +101,7 @@ export function WorkspaceMobileBar({
                   counts={counts}
                   moderationCounts={moderationCounts}
                   onNavigate={() => setOpen(false)}
+                  surface="drawer"
                 />
               ) : (
                 <AnonymousNav

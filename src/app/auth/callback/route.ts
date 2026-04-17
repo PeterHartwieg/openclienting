@@ -34,10 +34,10 @@ export async function GET(request: NextRequest) {
       : defaultLocale
   ) as Locale;
   const recoveryDestination = `/${fallbackLocale}/auth/reset-password`;
+  const rawDest = nextParam ?? localeHomepage(fallbackLocale);
+  const loginDest = `${rawDest}${rawDest.includes("?") ? "&" : "?"}oc_login=1`;
   const destination =
-    type === "recovery"
-      ? recoveryDestination
-      : nextParam ?? localeHomepage(fallbackLocale);
+    type === "recovery" ? recoveryDestination : loginDest;
 
   if (code) {
     const supabase = await createClient();

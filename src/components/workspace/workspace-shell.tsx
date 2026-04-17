@@ -1,6 +1,7 @@
 import { WorkspaceNav } from "./workspace-nav";
 import { WorkspaceMobileBar } from "./workspace-mobile-bar";
 import { AnonymousNav } from "./anonymous-nav";
+import { FirstLoginActionTracker } from "@/components/analytics/first-login-action-tracker";
 import type {
   ModerationCounts,
   NavRole,
@@ -50,6 +51,7 @@ export function WorkspaceShell({
           counts={counts}
           moderationCounts={moderationCounts}
         />
+        <FirstLoginActionTracker locale={locale} />
         {children}
       </div>
     </div>

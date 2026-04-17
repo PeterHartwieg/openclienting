@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { requireRole } from "@/lib/auth/roles";
+import { ModerationQueueTracker } from "@/components/analytics/moderation-queue-tracker";
 
 export default async function ModerateLayout({
   children,
@@ -15,5 +16,10 @@ export default async function ModerateLayout({
   // sends them home rather than surfacing an error boundary.
   await requireRole("moderator").catch(() => redirect(`/${locale}`));
 
-  return <>{children}</>;
+  return (
+    <>
+      <ModerationQueueTracker />
+      {children}
+    </>
+  );
 }

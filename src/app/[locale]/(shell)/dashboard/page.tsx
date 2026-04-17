@@ -20,6 +20,7 @@ import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/i18n/format";
+import { TrackedCardLink } from "@/components/analytics/tracked-card-link";
 
 export async function generateMetadata({
   params,
@@ -95,12 +96,13 @@ export default async function DashboardPage({
                     unreadCount={data.unreadNotifications}
                     label={t("overview.notifications.markAllRead")}
                   />
-                  <Link
+                  <TrackedCardLink
                     href={`/${locale}/dashboard/notifications`}
+                    card="unread-notifications"
                     className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
                   >
                     {t("overview.notifications.viewAll")}
-                  </Link>
+                  </TrackedCardLink>
                 </div>
               </div>
             </CardHeader>
@@ -261,12 +263,13 @@ export default async function DashboardPage({
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle>{t("overview.organizations.title")}</CardTitle>
-              <Link
+              <TrackedCardLink
                 href={`/${locale}/dashboard/organizations`}
+                card="recent-orgs"
                 className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
               >
                 {t("overview.organizations.viewAll")}
-              </Link>
+              </TrackedCardLink>
             </div>
           </CardHeader>
           <CardContent>
@@ -290,8 +293,9 @@ export default async function DashboardPage({
               <ul className="space-y-2">
                 {data.organizations.map((org) => (
                   <li key={org.id}>
-                    <Link
+                    <TrackedCardLink
                       href={`/${locale}/dashboard/organizations/${org.id}`}
+                      card="recent-orgs"
                       className="-mx-1 flex items-center gap-3 rounded-md p-1 transition-colors hover:bg-muted/50"
                     >
                       {org.logoUrl ? (
@@ -331,7 +335,7 @@ export default async function DashboardPage({
                           {org.role}
                         </Badge>
                       </div>
-                    </Link>
+                    </TrackedCardLink>
                   </li>
                 ))}
               </ul>
@@ -398,30 +402,34 @@ export default async function DashboardPage({
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-3">
-                <Link
+                <TrackedCardLink
                   href={`/${locale}/submit`}
+                  card="quick-action"
                   className={cn(buttonVariants({ variant: "default" }))}
                 >
                   {t("overview.quickActions.submitProblem")}
-                </Link>
-                <Link
+                </TrackedCardLink>
+                <TrackedCardLink
                   href={`/${locale}/problems`}
+                  card="quick-action"
                   className={cn(buttonVariants({ variant: "outline" }))}
                 >
                   {t("overview.quickActions.proposeSolution")}
-                </Link>
-                <Link
+                </TrackedCardLink>
+                <TrackedCardLink
                   href={`/${locale}/dashboard/organizations/new`}
+                  card="quick-action"
                   className={cn(buttonVariants({ variant: "outline" }))}
                 >
                   {t("overview.quickActions.createOrg")}
-                </Link>
-                <Link
+                </TrackedCardLink>
+                <TrackedCardLink
                   href={`/${locale}/problems`}
+                  card="quick-action"
                   className={cn(buttonVariants({ variant: "ghost" }))}
                 >
                   {t("overview.quickActions.browseProblems")}
-                </Link>
+                </TrackedCardLink>
               </div>
             </CardContent>
           </Card>
@@ -444,12 +452,13 @@ export default async function DashboardPage({
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Link
+              <TrackedCardLink
                 href={`/${locale}/moderate`}
+                card="moderator-queue-summary"
                 className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
               >
                 {t("overview.moderation.viewQueues")}
-              </Link>
+              </TrackedCardLink>
             </CardContent>
           </Card>
         )}
