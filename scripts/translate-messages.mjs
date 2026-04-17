@@ -159,6 +159,7 @@ const ALL_LOCALES = {
   th: "Thai",
   bn: "Bengali",
   sw: "Swahili",
+  mn: "Mongolian (Cyrillic, Khalkha)",
 };
 
 // Locales that already have complete translation files — skip by default.

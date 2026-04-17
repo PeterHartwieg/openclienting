@@ -67,6 +67,7 @@ export const LANGUAGES: readonly LanguageDefinition[] = [
   { code: "th", englishName: "Thai", endonym: "ไทย", bcp47: "th-TH" },
   { code: "bn", englishName: "Bengali", endonym: "বাংলা", bcp47: "bn-IN" },
   { code: "sw", englishName: "Swahili", endonym: "Kiswahili", bcp47: "sw" },
+  { code: "mn", englishName: "Mongolian", endonym: "Монгол", bcp47: "mn-MN" },
 ] as const;
 
 /** Codes only, in priority order. Feeds next-intl routing config. */
