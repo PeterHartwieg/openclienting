@@ -25,19 +25,19 @@ problem_statement:
     - "workforce administration"
     - "workflow automation"
   requirements:
-    - text: "Replace spreadsheet-based employee administration for shifts, leave, and onboarding."
+    - text: "Replaces spreadsheets for shift scheduling, leave tracking, and employee onboarding."
       source_basis: "direct"
       citation_refs: ["cite_madhus_zoho"]
       note: "The source directly says employee data had been tracked on spreadsheets."
-    - text: "Support event quoting, contract generation, and payment schedule communication in a structured workflow."
+    - text: "Handles event quoting, contract generation, and payment schedule communication in a single structured workflow."
       source_basis: "direct"
       citation_refs: ["cite_madhus_zoho"]
       note: "The source directly describes quote building, contract handling, and automated payment reminders."
-    - text: "Give sales and operations teams a single place to work with venue, event, and contact information."
+    - text: "Gives sales and operations teams a single shared view of venue, event, and contact data."
       source_basis: "inference"
       citation_refs: ["cite_madhus_zoho"]
       note: "Inferred from the venue directory and contact-management workflow described."
-    - text: "Create a more scalable operational backbone for a business that combines hospitality, catering, and event-planning complexity."
+    - text: "Scales to support the combined operational complexity of hospitality, catering, and event planning."
       source_basis: "inference"
       citation_refs: ["cite_madhus_zoho"]
       note: "Inferred from the source's emphasis on unusual event complexity and the need for next-level software."

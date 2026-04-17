@@ -25,19 +25,19 @@ problem_statement:
     - "intake workflow"
     - "support operations"
   requirements:
-    - text: "Log every incoming support request in a structured workflow."
+    - text: "Logs every incoming support request in a structured, searchable workflow."
       source_basis: "direct"
       citation_refs: ["cite_healthserve_zoho"]
       note: "The source directly says every call is logged as a ticket and reviewed for follow-up."
-    - text: "Support follow-up by a small core team working alongside volunteers and specialists."
+    - text: "Supports coordinated follow-up across a mixed team of staff, volunteers, and specialists."
       source_basis: "direct"
       citation_refs: ["cite_healthserve_zoho"]
       note: "The source directly describes the staffing model and follow-up process."
-    - text: "Coordinate counselling and case-management workflows so each migrant worker receives contact and a plan."
+    - text: "Ensures every case has an assigned contact person and a documented support plan."
       source_basis: "direct"
       citation_refs: ["cite_healthserve_zoho"]
       note: "The source directly says the team reviews each ticket, reaches out, and charts a plan."
-    - text: "Maintain service continuity as demand spikes or the service scope expands."
+    - text: "Maintains service continuity during demand spikes and as the service scope expands."
       source_basis: "inference"
       citation_refs: ["cite_healthserve_zoho", "cite_healthserve_site"]
       note: "Inferred from the call-volume surge and expansion into broader support services."

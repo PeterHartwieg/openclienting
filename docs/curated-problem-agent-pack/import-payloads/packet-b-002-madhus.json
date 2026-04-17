@@ -25,7 +25,7 @@
   },
   "requirements": [
     {
-      "body": "Replace spreadsheet-based employee administration for shifts, leave, and onboarding.",
+      "body": "Replaces spreadsheets for shift scheduling, leave tracking, and employee onboarding.",
       "citations": [
         {
           "source_url": "https://www.zoho.com/one/customers/madhu.html",
@@ -39,7 +39,7 @@
       ]
     },
     {
-      "body": "Support event quoting, contract generation, and payment schedule communication in a structured workflow.",
+      "body": "Handles event quoting, contract generation, and payment schedule communication in a single structured workflow.",
       "citations": [
         {
           "source_url": "https://www.zoho.com/one/customers/madhu.html",
@@ -53,7 +53,7 @@
       ]
     },
     {
-      "body": "Give sales and operations teams a single place to work with venue, event, and contact information.",
+      "body": "Gives sales and operations teams a single shared view of venue, event, and contact data.",
       "citations": [
         {
           "source_url": "https://www.zoho.com/one/customers/madhu.html",
@@ -67,7 +67,7 @@
       ]
     },
     {
-      "body": "Create a more scalable operational backbone for a business that combines hospitality, catering, and event-planning complexity.",
+      "body": "Scales to support the combined operational complexity of hospitality, catering, and event planning.",
       "citations": [
         {
           "source_url": "https://www.zoho.com/one/customers/madhu.html",

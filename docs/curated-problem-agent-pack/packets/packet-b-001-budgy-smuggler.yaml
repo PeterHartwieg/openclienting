@@ -25,19 +25,19 @@ problem_statement:
     - "custom orders"
     - "order workflow"
   requirements:
-    - text: "Replace spreadsheet-based order and workflow tracking with a system that scales as order volume increases."
+    - text: "Replaces spreadsheet-based order tracking with a system that scales with growing order volume."
       source_basis: "direct"
       citation_refs: ["cite_budgy_monday"]
       note: "The source directly contrasts early spreadsheet use with later operational complexity."
-    - text: "Reduce manual work involved in keeping customers updated on order progress."
+    - text: "Automates or significantly reduces manual effort in keeping customers updated on order progress."
       source_basis: "direct"
       citation_refs: ["cite_budgy_monday"]
       note: "The case study explicitly says the business wanted to reduce manual customer-update work."
-    - text: "Improve management of the growing custom-design division."
+    - text: "Supports structured management of a growing custom-design operation."
       source_basis: "direct"
       citation_refs: ["cite_budgy_monday"]
       note: "The case study explicitly identifies this need."
-    - text: "Streamline management of leads and website orders across locations."
+    - text: "Centralizes lead and website-order management across multiple locations."
       source_basis: "direct"
       citation_refs: ["cite_budgy_monday"]
       note: "The case study explicitly identifies this need."

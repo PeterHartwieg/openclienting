@@ -25,19 +25,19 @@ problem_statement:
     - "retail workflow"
     - "finance process"
   requirements:
-    - text: "Provide built-in order tracking and customer status communication to reduce manual email handling."
+    - text: "Includes built-in order tracking and automated customer status updates, eliminating manual email handling."
       source_basis: "direct"
       citation_refs: ["cite_mwp_zoho"]
       note: "The source directly says the owner was flooded with order-status and tracking emails."
-    - text: "Support accounting and invoicing workflows that reduce manual ledger work."
+    - text: "Integrates with or natively handles accounting and invoicing to eliminate manual ledger work."
       source_basis: "direct"
       citation_refs: ["cite_mwp_zoho"]
       note: "The source directly says the prior setup still required ledgers for returns and invoices."
-    - text: "Avoid needing extra staff just to compensate for platform limitations."
+    - text: "Handles order volume growth without requiring additional headcount to compensate for platform gaps."
       source_basis: "direct"
       citation_refs: ["cite_mwp_zoho"]
       note: "The source directly says the owner realized he still needed more employees because of the prior platform's limitations."
-    - text: "Give the business better insight into traffic and digital demand so online growth can be managed more effectively."
+    - text: "Provides visibility into website traffic and digital demand to support online growth decisions."
       source_basis: "inference"
       citation_refs: ["cite_mwp_zoho"]
       note: "Inferred from the source's discussion of website analytics and growth after migration."

@@ -25,19 +25,19 @@ problem_statement:
     - "business systems"
     - "process centralization"
   requirements:
-    - text: "Centralize customer, distributor, and supplier information in one system with real-time visibility."
+    - text: "Centralizes customer, distributor, and supplier data with real-time visibility across the team."
       source_basis: "direct"
       citation_refs: ["cite_counter_zoho"]
       note: "The source directly cites the need for a unified, data-driven solution with real-time visibility."
-    - text: "Reduce dependence on fragmented tools, email, and spreadsheets."
+    - text: "Replaces fragmented tools, email threads, and spreadsheets with a unified system."
       source_basis: "direct"
       citation_refs: ["cite_counter_zoho"]
       note: "The source directly describes the prior process as a patchwork of software, email, and spreadsheets."
-    - text: "Enable employees to spend more time on higher-value work instead of low-value manual coordination."
+    - text: "Reduces time staff spend on manual coordination tasks."
       source_basis: "direct"
       citation_refs: ["cite_counter_zoho"]
       note: "The source explicitly says centralized processes let employees devote time to higher-value work."
-    - text: "Support a more proactive operating model as the company grows across locations."
+    - text: "Enables proactive operations management as the company expands across locations."
       source_basis: "inference"
       citation_refs: ["cite_counter_zoho"]
       note: "Inferred from the source's framing of the business becoming more proactive through process centralization."

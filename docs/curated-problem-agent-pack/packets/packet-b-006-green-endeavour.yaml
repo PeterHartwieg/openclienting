@@ -25,19 +25,19 @@ problem_statement:
     - "audit workflow"
     - "paperless operations"
   requirements:
-    - text: "Reduce manual data entry across customer-management workflows."
+    - text: "Eliminates or significantly reduces manual data entry across customer management workflows."
       source_basis: "direct"
       citation_refs: ["cite_green_zoho"]
       note: "The source directly says the business reduced manual data entry."
-    - text: "Lower user-error rates in onboarding and related operational processes."
+    - text: "Reduces error rates in customer onboarding and related operational workflows."
       source_basis: "direct"
       citation_refs: ["cite_green_zoho"]
       note: "The source directly says the business reduced user errors."
-    - text: "Support faster onboarding of customers."
+    - text: "Reduces the time required to onboard new customers."
       source_basis: "direct"
       citation_refs: ["cite_green_zoho"]
       note: "The source directly says onboarding became faster."
-    - text: "Enable paperless workflows for customer and outlet-management processes."
+    - text: "Supports fully paperless workflows for customer and outlet management."
       source_basis: "direct"
       citation_refs: ["cite_green_zoho"]
       note: "The source directly says the business went paperless."

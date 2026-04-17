@@ -25,19 +25,19 @@ problem_statement:
     - "sales operations"
     - "operational efficiency"
   requirements:
-    - text: "Reduce the training burden for staff using customer and sales workflow tools."
+    - text: "Reduces training time and burden for staff using customer and sales workflow tools."
       source_basis: "inference"
       citation_refs: ["cite_electric_zoho"]
       note: "Inferred from the source describing the need for minimal training and easier implementation."
-    - text: "Support lead-to-deal tracking, customer information management, and quote documentation in one workflow."
+    - text: "Handles lead-to-deal tracking, customer data, and quote documentation in a single workflow."
       source_basis: "direct"
       citation_refs: ["cite_electric_zoho"]
       note: "The case study directly says the deployed system is used to manage customer information, track the lead-to-deal pipeline, and document sales quotes."
-    - text: "Improve operational efficiency without extending implementation timelines or adding unnecessary system complexity."
+    - text: "Improves operational efficiency without requiring long implementation timelines or added system complexity."
       source_basis: "inference"
       citation_refs: ["cite_electric_zoho"]
       note: "Inferred from the documented need for a faster-to-adopt alternative to Salesforce."
-    - text: "Give the business an extensible foundation for broader process integration over time."
+    - text: "Provides an extensible platform for integrating additional business processes over time."
       source_basis: "inference"
       citation_refs: ["cite_electric_zoho"]
       note: "Inferred from the source noting plans to expand usage across the wider Zoho ecosystem."

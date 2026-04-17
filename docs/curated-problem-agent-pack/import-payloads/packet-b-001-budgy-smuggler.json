@@ -25,7 +25,7 @@
   },
   "requirements": [
     {
-      "body": "Replace spreadsheet-based order and workflow tracking with a system that scales as order volume increases.",
+      "body": "Replaces spreadsheet-based order tracking with a system that scales with growing order volume.",
       "citations": [
         {
           "source_url": "https://monday.com/customers/budgy-smuggler",
@@ -39,7 +39,7 @@
       ]
     },
     {
-      "body": "Reduce manual work involved in keeping customers updated on order progress.",
+      "body": "Automates or significantly reduces manual effort in keeping customers updated on order progress.",
       "citations": [
         {
           "source_url": "https://monday.com/customers/budgy-smuggler",
@@ -53,7 +53,7 @@
       ]
     },
     {
-      "body": "Improve management of the growing custom-design division.",
+      "body": "Supports structured management of a growing custom-design operation.",
       "citations": [
         {
           "source_url": "https://monday.com/customers/budgy-smuggler",
@@ -67,7 +67,7 @@
       ]
     },
     {
-      "body": "Streamline management of leads and website orders across locations.",
+      "body": "Centralizes lead and website-order management across multiple locations.",
       "citations": [
         {
           "source_url": "https://monday.com/customers/budgy-smuggler",

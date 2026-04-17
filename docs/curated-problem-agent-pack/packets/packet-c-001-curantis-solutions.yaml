@@ -25,19 +25,19 @@ problem_statement:
     - "analytics"
     - "clinical data"
   requirements:
-    - text: "Centralize healthcare data in a format that supports interoperability requirements."
+    - text: "Stores healthcare data in a centralized, interoperability-compatible format."
       source_basis: "direct"
       citation_refs: ["cite_curantis_aws"]
       note: "The source directly discusses centralizing FHIR-compliant data and responding to interoperability requirements."
-    - text: "Make data easier to query and analyze for internal teams and customers."
+    - text: "Allows internal teams and customers to query and analyze data without specialist technical assistance."
       source_basis: "direct"
       citation_refs: ["cite_curantis_aws"]
       note: "The source directly says Curantis's data had been difficult to access and analyze."
-    - text: "Support near-real-time reporting so leaders can make decisions without manually reviewing large volumes of data."
+    - text: "Delivers near-real-time reports that replace manual review of large data volumes for decision-making."
       source_basis: "direct"
       citation_refs: ["cite_curantis_aws"]
       note: "The source directly links the new environment to near-real-time access and decision support."
-    - text: "Create a data foundation that can support future analytics and predictive capabilities."
+    - text: "Provides a data foundation that can be extended to support future analytics and predictive capabilities."
       source_basis: "direct"
       citation_refs: ["cite_curantis_aws"]
       note: "The source directly mentions AI, analytics, business intelligence, and predictive capabilities."

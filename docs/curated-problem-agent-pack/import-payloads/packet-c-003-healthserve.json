@@ -25,7 +25,7 @@
   },
   "requirements": [
     {
-      "body": "Log every incoming support request in a structured workflow.",
+      "body": "Logs every incoming support request in a structured, searchable workflow.",
       "citations": [
         {
           "source_url": "https://www.zoho.com/desk/customers/healthserve.html",
@@ -39,7 +39,7 @@
       ]
     },
     {
-      "body": "Support follow-up by a small core team working alongside volunteers and specialists.",
+      "body": "Supports coordinated follow-up across a mixed team of staff, volunteers, and specialists.",
       "citations": [
         {
           "source_url": "https://www.zoho.com/desk/customers/healthserve.html",
@@ -53,7 +53,7 @@
       ]
     },
     {
-      "body": "Coordinate counselling and case-management workflows so each migrant worker receives contact and a plan.",
+      "body": "Ensures every case has an assigned contact person and a documented support plan.",
       "citations": [
         {
           "source_url": "https://www.zoho.com/desk/customers/healthserve.html",
@@ -67,7 +67,7 @@
       ]
     },
     {
-      "body": "Maintain service continuity as demand spikes or the service scope expands.",
+      "body": "Maintains service continuity during demand spikes and as the service scope expands.",
       "citations": [
         {
           "source_url": "https://www.zoho.com/desk/customers/healthserve.html",

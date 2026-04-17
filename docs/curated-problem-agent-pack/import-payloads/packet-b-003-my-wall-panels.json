@@ -27,7 +27,7 @@
   },
   "requirements": [
     {
-      "body": "Provide built-in order tracking and customer status communication to reduce manual email handling.",
+      "body": "Includes built-in order tracking and automated customer status updates, eliminating manual email handling.",
       "citations": [
         {
           "source_url": "https://www.zoho.com/commerce/mywallpanels-casestudy.html",
@@ -41,7 +41,7 @@
       ]
     },
     {
-      "body": "Support accounting and invoicing workflows that reduce manual ledger work.",
+      "body": "Integrates with or natively handles accounting and invoicing to eliminate manual ledger work.",
       "citations": [
         {
           "source_url": "https://www.zoho.com/commerce/mywallpanels-casestudy.html",
@@ -55,7 +55,7 @@
       ]
     },
     {
-      "body": "Avoid needing extra staff just to compensate for platform limitations.",
+      "body": "Handles order volume growth without requiring additional headcount to compensate for platform gaps.",
       "citations": [
         {
           "source_url": "https://www.zoho.com/commerce/mywallpanels-casestudy.html",
@@ -69,7 +69,7 @@
       ]
     },
     {
-      "body": "Give the business better insight into traffic and digital demand so online growth can be managed more effectively.",
+      "body": "Provides visibility into website traffic and digital demand to support online growth decisions.",
       "citations": [
         {
           "source_url": "https://www.zoho.com/commerce/mywallpanels-casestudy.html",

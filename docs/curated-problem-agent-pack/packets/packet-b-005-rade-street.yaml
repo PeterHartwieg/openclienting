@@ -25,19 +25,19 @@ problem_statement:
     - "billing control"
     - "store operations"
   requirements:
-    - text: "Replace manual billing with a controlled workflow that reduces manipulation risk."
+    - text: "Replaces manual billing with a controlled, auditable process that reduces manipulation risk."
       source_basis: "direct"
       citation_refs: ["cite_rade_zoho"]
       note: "The source directly links pen-and-paper billing to manipulation and strategic gaming."
-    - text: "Shorten billing time in a store handling more than 500 customers per day."
+    - text: "Shortens per-transaction billing time to handle 500+ daily customers without bottlenecks."
       source_basis: "direct"
       citation_refs: ["cite_rade_zoho"]
       note: "The source directly states that bargaining and manual billing prolonged billing periods."
-    - text: "Improve profitability visibility by reducing unnoticed losses in high-volume sales."
+    - text: "Reduces unnoticed revenue losses by improving billing accuracy across high-volume daily sales."
       source_basis: "direct"
       citation_refs: ["cite_rade_zoho"]
       note: "The source directly says losses went unnoticed despite high sales volume."
-    - text: "Capture and manage customer data in a more structured way for future engagement."
+    - text: "Captures and stores customer data in a structured format suitable for future engagement."
       source_basis: "direct"
       citation_refs: ["cite_rade_zoho"]
       note: "The source directly says customer data became more manageable after the POS change."

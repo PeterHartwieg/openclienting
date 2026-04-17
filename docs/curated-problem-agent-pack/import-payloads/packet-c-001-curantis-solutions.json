@@ -26,7 +26,7 @@
   },
   "requirements": [
     {
-      "body": "Centralize healthcare data in a format that supports interoperability requirements.",
+      "body": "Stores healthcare data in a centralized, interoperability-compatible format.",
       "citations": [
         {
           "source_url": "https://aws.amazon.com/smart-business/case-studies/healthcare-smb-transforms-data-analytics-with-aws-healthlake/",
@@ -40,7 +40,7 @@
       ]
     },
     {
-      "body": "Make data easier to query and analyze for internal teams and customers.",
+      "body": "Allows internal teams and customers to query and analyze data without specialist technical assistance.",
       "citations": [
         {
           "source_url": "https://aws.amazon.com/smart-business/case-studies/healthcare-smb-transforms-data-analytics-with-aws-healthlake/",
@@ -54,7 +54,7 @@
       ]
     },
     {
-      "body": "Support near-real-time reporting so leaders can make decisions without manually reviewing large volumes of data.",
+      "body": "Delivers near-real-time reports that replace manual review of large data volumes for decision-making.",
       "citations": [
         {
           "source_url": "https://aws.amazon.com/smart-business/case-studies/healthcare-smb-transforms-data-analytics-with-aws-healthlake/",
@@ -68,7 +68,7 @@
       ]
     },
     {
-      "body": "Create a data foundation that can support future analytics and predictive capabilities.",
+      "body": "Provides a data foundation that can be extended to support future analytics and predictive capabilities.",
       "citations": [
         {
           "source_url": "https://aws.amazon.com/smart-business/case-studies/healthcare-smb-transforms-data-analytics-with-aws-healthlake/",
