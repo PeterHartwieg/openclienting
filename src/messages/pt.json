@@ -588,7 +588,14 @@
     "metaTitle": "Moderação — OpenClienting",
     "title": "Fila de Moderação",
     "subtitle": "Reveja o conteúdo submetido a aguardar publicação.",
-    "history": "Histórico",
+    "history": {
+      "title": "Histórico de Edições",
+      "subtitle": "Revisões de autores em conteúdo publicado, as mais recentes primeiro.",
+      "noRevisions": "Nenhuma revisão registada ainda.",
+      "before": "Antes:",
+      "after": "Depois:",
+      "reviewerNote": "Nota do revisor:"
+    },
     "editHistory": "Histórico de Edições",
     "manageTags": "Gerir Etiquetas",
     "tags": "Etiquetas",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "Idioma",
       "orderLabel": "Ordem de exibição",
+      "featuredOrderSummary": "ordem {order}",
       "button": {
         "feature": "Destacar na página inicial",
         "unfeature": "Remover destaque"
@@ -652,6 +660,58 @@
         "featured": "Atualmente em destaque",
         "notFeatured": "Não destacado"
       }
+    },
+    "actions": {
+      "verify": "Verificar",
+      "revert": "Reverter",
+      "applyChanges": "Aplicar Alterações",
+      "confirmReject": "Confirmar Rejeição",
+      "rejectionReasonPlaceholder": "Motivo da rejeição (opcional)",
+      "reviewerNotesPlaceholder": "Notas do revisor (opcional)",
+      "verificationNotesLabel": "Notas (opcional — registadas no log de auditoria independentemente da decisão)",
+      "verificationNotesPlaceholder": "Motivo de aprovação ou rejeição…",
+      "actionFailed": "Ação falhou"
+    },
+    "revision": {
+      "before": "Antes:",
+      "after": "Depois:",
+      "old": "Anterior:",
+      "new": "Novo:"
+    },
+    "successReport": {
+      "period": "Período:",
+      "scope": "Âmbito:",
+      "kpis": "KPIs:",
+      "evidence": "Evidência:",
+      "trueAttribution": "Atribuição real",
+      "submitter": "Submetido por:",
+      "organization": "Organização:",
+      "publiclyHidden": "oculto publicamente",
+      "orgNone": "Nenhuma",
+      "decisionRecorded": "Decisão registada: {status}",
+      "verifyButton": "Verificar"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "Tradução:",
+      "notTranslated": "(não traduzido)"
+    },
+    "problem": {
+      "description": "Descrição",
+      "requirements": "Requisitos ({count})",
+      "pilotFrameworks": "Frameworks Piloto ({count})",
+      "actions": "Ações",
+      "noneSubmitted": "Nenhum submetido.",
+      "scope": "Âmbito:",
+      "successCriteria": "Critérios de Sucesso:",
+      "personVisibility": "pessoa: {visibility}",
+      "orgVisibility": "org: {visibility}",
+      "visibilityHidden": "oculto",
+      "visibilityVisible": "visível"
+    },
+    "tagsPage": {
+      "title": "Gerir Etiquetas",
+      "subtitle": "Adicione, edite ou remova etiquetas usadas para categorizar problemas."
     }
   },
   "featuredSuccessStory": {

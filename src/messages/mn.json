@@ -588,7 +588,14 @@
     "metaTitle": "Зохицуулалт — OpenClienting",
     "title": "Зохицуулалтын дараалал",
     "subtitle": "Нийтлэхийг хүлээж буй илгээгдсэн агуулгыг хянах.",
-    "history": "Түүх",
+    "history": {
+      "title": "Засварын түүх",
+      "subtitle": "Нийтлэгдсэн агуулга дээрх зохиогчийн засварууд, хамгийн сүүлийнх эхэнд.",
+      "noRevisions": "Одоогоор засвар бүртгэгдээгүй байна.",
+      "before": "Өмнө нь:",
+      "after": "Дараа нь:",
+      "reviewerNote": "Шүүгчийн тэмдэглэл:"
+    },
     "editHistory": "Засварын түүх",
     "manageTags": "Шошгонуудыг удирдах",
     "tags": "Шошгонууд",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "Нутгийн тохиргоо",
       "orderLabel": "Харуулах дараалал",
+      "featuredOrderSummary": "{order}-р эрэмбэ",
       "button": {
         "feature": "Нүүр хуудсанд онцлох",
         "unfeature": "Онцлохыг болиулах"
@@ -652,6 +660,58 @@
         "featured": "Одоо онцлогдсон",
         "notFeatured": "Онцлогдоогүй"
       }
+    },
+    "actions": {
+      "verify": "Баталгаажуулах",
+      "revert": "Буцаах",
+      "applyChanges": "Өөрчлөлт хэрэглэх",
+      "confirmReject": "Татгалзалтыг баталгаажуулах",
+      "rejectionReasonPlaceholder": "Татгалзах шалтгаан (заавал биш)",
+      "reviewerNotesPlaceholder": "Шүүгчийн тэмдэглэл (заавал биш)",
+      "verificationNotesLabel": "Тэмдэглэл (заавал биш — шийдвэрээс үл хамааран аудитын бүртгэлд хадгалагдана)",
+      "verificationNotesPlaceholder": "Зөвшөөрөх эсвэл татгалзах шалтгаан…",
+      "actionFailed": "Үйлдэл амжилтгүй болсон"
+    },
+    "revision": {
+      "before": "Өмнө нь:",
+      "after": "Дараа нь:",
+      "old": "Хуучин:",
+      "new": "Шинэ:"
+    },
+    "successReport": {
+      "period": "Хугацаа:",
+      "scope": "Хамрах хүрээ:",
+      "kpis": "KPI-ууд:",
+      "evidence": "Нотолгоо:",
+      "trueAttribution": "Үнэн хувь нэмэр",
+      "submitter": "Илгээгч:",
+      "organization": "Байгууллага:",
+      "publiclyHidden": "нийтэд нуугдсан",
+      "orgNone": "Байхгүй",
+      "decisionRecorded": "Шийдвэр бүртгэгдсэн: {status}",
+      "verifyButton": "Баталгаажуулах"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "Орчуулга:",
+      "notTranslated": "(орчуулагдаагүй)"
+    },
+    "problem": {
+      "description": "Тайлбар",
+      "requirements": "Шаардлагууд ({count})",
+      "pilotFrameworks": "Туршилтын хүрээнүүд ({count})",
+      "actions": "Үйлдлүүд",
+      "noneSubmitted": "Илгээгдсэн зүйл байхгүй.",
+      "scope": "Хамрах хүрээ:",
+      "successCriteria": "Амжилтын шалгуур:",
+      "personVisibility": "хүн: {visibility}",
+      "orgVisibility": "байгууллага: {visibility}",
+      "visibilityHidden": "нуугдсан",
+      "visibilityVisible": "харагдах"
+    },
+    "tagsPage": {
+      "title": "Шошгыг удирдах",
+      "subtitle": "Асуудлуудыг ангилахад ашиглагдах шошгуудыг нэмэх, засах эсвэл устгах."
     }
   },
   "featuredSuccessStory": {

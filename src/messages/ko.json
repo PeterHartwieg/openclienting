@@ -588,7 +588,14 @@
     "metaTitle": "중재 — OpenClienting",
     "title": "중재 대기열",
     "subtitle": "게시 대기 중인 제출된 콘텐츠를 검토하세요.",
-    "history": "기록",
+    "history": {
+      "title": "편집 이력",
+      "subtitle": "게시된 콘텐츠에 대한 작성자 수정 사항, 최신순.",
+      "noRevisions": "아직 기록된 수정 사항이 없습니다.",
+      "before": "이전:",
+      "after": "이후:",
+      "reviewerNote": "검토자 메모:"
+    },
     "editHistory": "편집 기록",
     "manageTags": "태그 관리",
     "tags": "태그",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "로케일",
       "orderLabel": "표시 순서",
+      "featuredOrderSummary": "순서 {order}",
       "button": {
         "feature": "홈페이지에 특집 게재",
         "unfeature": "특집 해제"
@@ -652,6 +660,58 @@
         "featured": "현재 특집 게재 중",
         "notFeatured": "특집 게재 안 됨"
       }
+    },
+    "actions": {
+      "verify": "검증",
+      "revert": "되돌리기",
+      "applyChanges": "변경 사항 적용",
+      "confirmReject": "거부 확인",
+      "rejectionReasonPlaceholder": "거부 사유 (선택 사항)",
+      "reviewerNotesPlaceholder": "검토자 메모 (선택 사항)",
+      "verificationNotesLabel": "메모 (선택 사항 — 결정 여부에 관계없이 감사 로그에 저장됨)",
+      "verificationNotesPlaceholder": "승인 또는 거부 사유…",
+      "actionFailed": "작업 실패"
+    },
+    "revision": {
+      "before": "이전:",
+      "after": "이후:",
+      "old": "이전 값:",
+      "new": "새 값:"
+    },
+    "successReport": {
+      "period": "기간:",
+      "scope": "범위:",
+      "kpis": "KPI:",
+      "evidence": "근거:",
+      "trueAttribution": "실제 기여",
+      "submitter": "제출자:",
+      "organization": "조직:",
+      "publiclyHidden": "공개적으로 숨김",
+      "orgNone": "없음",
+      "decisionRecorded": "결정 기록됨: {status}",
+      "verifyButton": "검증"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "번역:",
+      "notTranslated": "(번역되지 않음)"
+    },
+    "problem": {
+      "description": "설명",
+      "requirements": "요구 사항 ({count})",
+      "pilotFrameworks": "파일럿 프레임워크 ({count})",
+      "actions": "작업",
+      "noneSubmitted": "제출된 항목이 없습니다.",
+      "scope": "범위:",
+      "successCriteria": "성공 기준:",
+      "personVisibility": "개인: {visibility}",
+      "orgVisibility": "조직: {visibility}",
+      "visibilityHidden": "숨김",
+      "visibilityVisible": "표시"
+    },
+    "tagsPage": {
+      "title": "태그 관리",
+      "subtitle": "문제 분류에 사용되는 태그를 추가, 편집 또는 삭제합니다."
     }
   },
   "featuredSuccessStory": {

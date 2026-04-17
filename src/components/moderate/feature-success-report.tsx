@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import {
   featureSuccessReport,
@@ -36,6 +37,7 @@ export function FeatureSuccessReport({
   activeFeaturedRows,
 }: FeatureSuccessReportProps) {
   const router = useRouter();
+  const t = useTranslations("moderate");
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [locale, setLocale] = useState<string>("en");
@@ -72,7 +74,7 @@ export function FeatureSuccessReport({
   return (
     <section className="mt-4 rounded-md border bg-muted/30 px-4 py-3 space-y-3">
       <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-        Feature on homepage
+        {t("featureSuccessReport.button.feature")}
       </p>
 
       {/* Currently featured rows */}
@@ -85,9 +87,9 @@ export function FeatureSuccessReport({
             >
               <span>
                 <span className="font-medium">{row.locale}</span>
-                {" — "}order {row.display_order}
+                {" — "}{t("featureSuccessReport.featuredOrderSummary", { order: row.display_order })}
                 <span className="ml-2 text-xs text-emerald-600 dark:text-emerald-400 font-medium">
-                  Currently featured
+                  {t("featureSuccessReport.status.featured")}
                 </span>
               </span>
               <Button
@@ -96,20 +98,20 @@ export function FeatureSuccessReport({
                 disabled={isPending}
                 onClick={() => handleUnfeature(row.id)}
               >
-                Unfeature
+                {t("featureSuccessReport.button.unfeature")}
               </Button>
             </div>
           ))}
         </div>
       ) : (
-        <p className="text-xs text-muted-foreground">Not featured</p>
+        <p className="text-xs text-muted-foreground">{t("featureSuccessReport.status.notFeatured")}</p>
       )}
 
       {/* Feature form */}
       <div className="flex flex-wrap items-end gap-2 pt-1">
         <div className="space-y-1">
           <label className="text-xs font-medium" htmlFor="fsr-locale">
-            Locale
+            {t("featureSuccessReport.localeLabel")}
           </label>
           <select
             id="fsr-locale"
@@ -128,7 +130,7 @@ export function FeatureSuccessReport({
 
         <div className="space-y-1">
           <label className="text-xs font-medium" htmlFor="fsr-order">
-            Display order
+            {t("featureSuccessReport.orderLabel")}
           </label>
           <input
             id="fsr-order"
@@ -142,7 +144,7 @@ export function FeatureSuccessReport({
         </div>
 
         <Button size="sm" disabled={isPending} onClick={handleFeature}>
-          {isPending ? "..." : "Feature on homepage"}
+          {isPending ? "…" : t("featureSuccessReport.button.feature")}
         </Button>
       </div>
 

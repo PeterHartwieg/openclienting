@@ -1,4 +1,6 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getProblemById } from "@/lib/queries/problems";
 import { TagBadge } from "@/components/shared/tag-badge";
 import { StatusBadge } from "@/components/shared/status-badge";
@@ -6,12 +8,27 @@ import { ModerationActions } from "@/components/moderate/moderation-actions";
 import { Separator } from "@/components/ui/separator";
 import { getTagLabel } from "@/lib/i18n/tags";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; id: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "moderate" });
+  return {
+    title: `${t("tabProblems")} — ${t("metaTitle")}`,
+    robots: { index: false, follow: false },
+  };
+}
+
 export default async function ModerateProblemPage({
   params,
 }: {
   params: Promise<{ locale: string; id: string }>;
 }) {
   const { locale, id } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("moderate");
 
   let problem;
   try {
@@ -35,16 +52,25 @@ export default async function ModerateProblemPage({
     )
     .filter(Boolean);
 
+  const personVisibility = problem.is_publicly_anonymous
+    ? t("problem.visibilityHidden")
+    : t("problem.visibilityVisible");
+  const orgVisibility = problem.is_org_anonymous
+    ? t("problem.visibilityHidden")
+    : t("problem.visibilityVisible");
+
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="flex items-center gap-3 mb-6">
         <StatusBadge status={problem.status} />
         <span className="text-sm text-muted-foreground">
-          by {problem.profiles?.display_name ?? "Unknown"}
+          {t("byUser", {
+            name: problem.profiles?.display_name ?? t("unknown"),
+          })}
           {" — "}
-          person: {problem.is_publicly_anonymous ? "hidden" : "visible"}
+          {t("problem.personVisibility", { visibility: personVisibility })}
           {", "}
-          org: {problem.is_org_anonymous ? "hidden" : "visible"}
+          {t("problem.orgVisibility", { visibility: orgVisibility })}
         </span>
       </div>
 
@@ -71,16 +97,16 @@ export default async function ModerateProblemPage({
 
       <Separator className="my-6" />
 
-      <h2 className="text-xl font-semibold mb-2">Description</h2>
+      <h2 className="text-xl font-semibold mb-2">{t("problem.description")}</h2>
       <p className="whitespace-pre-wrap text-sm">{problem.description}</p>
 
       <Separator className="my-6" />
 
       <h2 className="text-xl font-semibold mb-2">
-        Requirements ({(problem.requirements ?? []).length})
+        {t("problem.requirements", { count: (problem.requirements ?? []).length })}
       </h2>
       {(problem.requirements ?? []).length === 0 ? (
-        <p className="text-sm text-muted-foreground">None submitted.</p>
+        <p className="text-sm text-muted-foreground">{t("problem.noneSubmitted")}</p>
       ) : (
         <ul className="list-disc pl-5 space-y-1">
           {(problem.requirements ?? []).map((r: { id: string; body: string }) => (
@@ -92,17 +118,17 @@ export default async function ModerateProblemPage({
       <Separator className="my-6" />
 
       <h2 className="text-xl font-semibold mb-2">
-        Pilot Frameworks ({(problem.pilot_frameworks ?? []).length})
+        {t("problem.pilotFrameworks", { count: (problem.pilot_frameworks ?? []).length })}
       </h2>
       {(problem.pilot_frameworks ?? []).length === 0 ? (
-        <p className="text-sm text-muted-foreground">None submitted.</p>
+        <p className="text-sm text-muted-foreground">{t("problem.noneSubmitted")}</p>
       ) : (
         (problem.pilot_frameworks ?? []).map(
           (f: { id: string; scope: string | null; success_criteria: string | null }) => (
             <div key={f.id} className="text-sm space-y-1 mb-4">
-              {f.scope && <p><strong>Scope:</strong> {f.scope}</p>}
+              {f.scope && <p><strong>{t("problem.scope")}</strong> {f.scope}</p>}
               {f.success_criteria && (
-                <p><strong>Success Criteria:</strong> {f.success_criteria}</p>
+                <p><strong>{t("problem.successCriteria")}</strong> {f.success_criteria}</p>
               )}
             </div>
           )
@@ -111,7 +137,7 @@ export default async function ModerateProblemPage({
 
       <Separator className="my-6" />
 
-      <h2 className="text-xl font-semibold mb-4">Actions</h2>
+      <h2 className="text-xl font-semibold mb-4">{t("problem.actions")}</h2>
       <ModerationActions targetType="problem_templates" targetId={problem.id} />
     </div>
   );

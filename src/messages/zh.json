@@ -588,7 +588,14 @@
     "metaTitle": "内容审核 — OpenClienting",
     "title": "审核队列",
     "subtitle": "审核等待发布的已提交内容。",
-    "history": "历史记录",
+    "history": {
+      "title": "编辑历史",
+      "subtitle": "已发布内容的作者修订记录，最新在前。",
+      "noRevisions": "暂无修订记录。",
+      "before": "修改前：",
+      "after": "修改后：",
+      "reviewerNote": "审核员备注："
+    },
     "editHistory": "编辑历史",
     "manageTags": "管理标签",
     "tags": "标签",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "语言区域",
       "orderLabel": "显示顺序",
+      "featuredOrderSummary": "排序 {order}",
       "button": {
         "feature": "在首页推荐",
         "unfeature": "取消推荐"
@@ -652,6 +660,58 @@
         "featured": "当前已推荐",
         "notFeatured": "未推荐"
       }
+    },
+    "actions": {
+      "verify": "验证",
+      "revert": "撤销",
+      "applyChanges": "应用更改",
+      "confirmReject": "确认拒绝",
+      "rejectionReasonPlaceholder": "拒绝原因（可选）",
+      "reviewerNotesPlaceholder": "审核员备注（可选）",
+      "verificationNotesLabel": "备注（可选——无论决定如何均存入审计日志）",
+      "verificationNotesPlaceholder": "批准或拒绝的理由……",
+      "actionFailed": "操作失败"
+    },
+    "revision": {
+      "before": "修改前：",
+      "after": "修改后：",
+      "old": "原内容：",
+      "new": "新内容："
+    },
+    "successReport": {
+      "period": "周期：",
+      "scope": "范围：",
+      "kpis": "KPI：",
+      "evidence": "证据：",
+      "trueAttribution": "真实归因",
+      "submitter": "提交者：",
+      "organization": "组织：",
+      "publiclyHidden": "公开隐藏",
+      "orgNone": "无",
+      "decisionRecorded": "决定已记录：{status}",
+      "verifyButton": "验证"
+    },
+    "translationReview": {
+      "sourceLabel": "英文：",
+      "translationLabel": "译文：",
+      "notTranslated": "（未翻译）"
+    },
+    "problem": {
+      "description": "描述",
+      "requirements": "要求（{count}）",
+      "pilotFrameworks": "试点框架（{count}）",
+      "actions": "操作",
+      "noneSubmitted": "暂无提交。",
+      "scope": "范围：",
+      "successCriteria": "成功标准：",
+      "personVisibility": "个人：{visibility}",
+      "orgVisibility": "组织：{visibility}",
+      "visibilityHidden": "隐藏",
+      "visibilityVisible": "可见"
+    },
+    "tagsPage": {
+      "title": "管理标签",
+      "subtitle": "添加、编辑或删除用于分类问题的标签。"
     }
   },
   "featuredSuccessStory": {

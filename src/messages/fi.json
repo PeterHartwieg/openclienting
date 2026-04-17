@@ -588,7 +588,14 @@
     "metaTitle": "Moderointi — OpenClienting",
     "title": "Moderointijono",
     "subtitle": "Tarkista julkaisua odottava lähetetty sisältö.",
-    "history": "Historia",
+    "history": {
+      "title": "Muokkaushistoria",
+      "subtitle": "Kirjoittajan revisiot julkaistuun sisältöön, uusimmat ensin.",
+      "noRevisions": "Ei vielä tallennettuja revisioita.",
+      "before": "Ennen:",
+      "after": "Jälkeen:",
+      "reviewerNote": "Tarkastajan huomio:"
+    },
     "editHistory": "Muokkaushistoria",
     "manageTags": "Hallinnoi tunnisteita",
     "tags": "Tunnisteet",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "Kielialue",
       "orderLabel": "Näyttöjärjestys",
+      "featuredOrderSummary": "järjestys {order}",
       "button": {
         "feature": "Nosta etusivulle",
         "unfeature": "Poista nostosta"
@@ -652,6 +660,58 @@
         "featured": "Tällä hetkellä nostettu",
         "notFeatured": "Ei nostettu"
       }
+    },
+    "actions": {
+      "verify": "Vahvista",
+      "revert": "Palauta",
+      "applyChanges": "Ota muutokset käyttöön",
+      "confirmReject": "Vahvista hylkäys",
+      "rejectionReasonPlaceholder": "Hylkäysperuste (valinnainen)",
+      "reviewerNotesPlaceholder": "Tarkastajan muistiinpanot (valinnainen)",
+      "verificationNotesLabel": "Muistiinpanot (valinnainen — tallennetaan tarkastuslokiin päätöksestä riippumatta)",
+      "verificationNotesPlaceholder": "Hyväksymisen tai hylkäämisen peruste…",
+      "actionFailed": "Toiminto epäonnistui"
+    },
+    "revision": {
+      "before": "Ennen:",
+      "after": "Jälkeen:",
+      "old": "Vanha:",
+      "new": "Uusi:"
+    },
+    "successReport": {
+      "period": "Ajanjakso:",
+      "scope": "Laajuus:",
+      "kpis": "KPI:t:",
+      "evidence": "Näyttö:",
+      "trueAttribution": "Todellinen attribuutio",
+      "submitter": "Lähettäjä:",
+      "organization": "Organisaatio:",
+      "publiclyHidden": "piilotettu julkisesti",
+      "orgNone": "Ei mitään",
+      "decisionRecorded": "Päätös kirjattu: {status}",
+      "verifyButton": "Vahvista"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "Käännös:",
+      "notTranslated": "(ei käännetty)"
+    },
+    "problem": {
+      "description": "Kuvaus",
+      "requirements": "Vaatimukset ({count})",
+      "pilotFrameworks": "Pilottikehykset ({count})",
+      "actions": "Toiminnot",
+      "noneSubmitted": "Ei lähetettyjä.",
+      "scope": "Laajuus:",
+      "successCriteria": "Onnistumiskriteerit:",
+      "personVisibility": "henkilö: {visibility}",
+      "orgVisibility": "org: {visibility}",
+      "visibilityHidden": "piilotettu",
+      "visibilityVisible": "näkyvissä"
+    },
+    "tagsPage": {
+      "title": "Hallinnoi tageja",
+      "subtitle": "Lisää, muokkaa tai poista ongelmien luokitteluun käytettäviä tageja."
     }
   },
   "featuredSuccessStory": {

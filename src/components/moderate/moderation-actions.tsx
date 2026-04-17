@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { moderateItem } from "@/app/[locale]/(shell)/moderate/actions";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,6 +14,7 @@ interface ModerationActionsProps {
 
 export function ModerationActions({ targetType, targetId }: ModerationActionsProps) {
   const router = useRouter();
+  const t = useTranslations("moderate");
   const [showReject, setShowReject] = useState(false);
   const [reason, setReason] = useState("");
   const [loading, setLoading] = useState(false);
@@ -40,7 +42,7 @@ export function ModerationActions({ targetType, targetId }: ModerationActionsPro
           disabled={loading}
           size="sm"
         >
-          Approve
+          {t("approve")}
         </Button>
         <Button
           variant="destructive"
@@ -48,14 +50,14 @@ export function ModerationActions({ targetType, targetId }: ModerationActionsPro
           onClick={() => setShowReject(!showReject)}
           disabled={loading}
         >
-          Reject
+          {t("reject")}
         </Button>
       </div>
 
       {showReject && (
         <div className="space-y-2">
           <Textarea
-            placeholder="Reason for rejection (optional)"
+            placeholder={t("actions.rejectionReasonPlaceholder")}
             value={reason}
             onChange={(e) => setReason(e.target.value)}
             rows={2}
@@ -66,7 +68,7 @@ export function ModerationActions({ targetType, targetId }: ModerationActionsPro
             onClick={() => handleAction("reject")}
             disabled={loading}
           >
-            Confirm Rejection
+            {t("actions.confirmReject")}
           </Button>
         </div>
       )}

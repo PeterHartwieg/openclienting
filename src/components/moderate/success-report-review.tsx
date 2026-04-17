@@ -2,6 +2,7 @@
 
 import { useTransition, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { moderateSuccessReport } from "@/app/[locale]/(shell)/moderate/actions";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -35,6 +36,7 @@ export function SuccessReportReview({
   verificationStatus,
 }: SuccessReportReviewProps) {
   const router = useRouter();
+  const t = useTranslations("moderate");
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
 
@@ -45,7 +47,7 @@ export function SuccessReportReview({
       if (result.success) {
         router.refresh();
       } else {
-        setError(result.error ?? "Action failed");
+        setError(result.error ?? t("actions.actionFailed"));
       }
     });
   }
@@ -58,35 +60,35 @@ export function SuccessReportReview({
       <div className="space-y-1.5 text-sm">
         <p className="whitespace-pre-wrap">{reportSummary}</p>
         {pilotDateRange && (
-          <p className="text-muted-foreground"><span className="font-medium text-foreground">Period:</span> {pilotDateRange}</p>
+          <p className="text-muted-foreground"><span className="font-medium text-foreground">{t("successReport.period")}</span> {pilotDateRange}</p>
         )}
         {deploymentScope && (
-          <p className="text-muted-foreground"><span className="font-medium text-foreground">Scope:</span> {deploymentScope}</p>
+          <p className="text-muted-foreground"><span className="font-medium text-foreground">{t("successReport.scope")}</span> {deploymentScope}</p>
         )}
         {kpiSummary && (
-          <p className="text-muted-foreground"><span className="font-medium text-foreground">KPIs:</span> {kpiSummary}</p>
+          <p className="text-muted-foreground"><span className="font-medium text-foreground">{t("successReport.kpis")}</span> {kpiSummary}</p>
         )}
         {evidenceNotes && (
-          <p className="text-muted-foreground"><span className="font-medium text-foreground">Evidence:</span> {evidenceNotes}</p>
+          <p className="text-muted-foreground"><span className="font-medium text-foreground">{t("successReport.evidence")}</span> {evidenceNotes}</p>
         )}
       </div>
 
       {/* True attribution (always visible to moderators) */}
       <div className="rounded-md bg-muted/50 px-3 py-2 text-xs space-y-0.5">
-        <p className="font-medium text-muted-foreground uppercase tracking-wide mb-1">True attribution</p>
+        <p className="font-medium text-muted-foreground uppercase tracking-wide mb-1">{t("successReport.trueAttribution")}</p>
         <p>
-          Submitter: <span className="font-medium">{submitterName ?? "Unknown"}</span>
-          {isPubliclyAnonymous && <Badge variant="outline" className="ml-2 text-xs">publicly hidden</Badge>}
+          {t("successReport.submitter")} <span className="font-medium">{submitterName ?? t("unknown")}</span>
+          {isPubliclyAnonymous && <Badge variant="outline" className="ml-2 text-xs">{t("successReport.publiclyHidden")}</Badge>}
         </p>
         <p>
-          Organization: <span className="font-medium">{organizationName ?? "None"}</span>
-          {isOrgAnonymous && <Badge variant="outline" className="ml-2 text-xs">publicly hidden</Badge>}
+          {t("successReport.organization")} <span className="font-medium">{organizationName ?? t("successReport.orgNone")}</span>
+          {isOrgAnonymous && <Badge variant="outline" className="ml-2 text-xs">{t("successReport.publiclyHidden")}</Badge>}
         </p>
       </div>
 
       {alreadyDecided ? (
         <p className="text-xs text-muted-foreground">
-          Decision recorded: <span className="font-medium">{verificationStatus}</span>
+          {t("successReport.decisionRecorded", { status: verificationStatus })}
         </p>
       ) : (
         <div className="flex gap-2">
@@ -96,7 +98,7 @@ export function SuccessReportReview({
             disabled={isPending}
             onClick={() => decide("verify")}
           >
-            {isPending ? "..." : "Verify"}
+            {isPending ? "…" : t("successReport.verifyButton")}
           </Button>
           <Button
             size="sm"
@@ -104,7 +106,7 @@ export function SuccessReportReview({
             disabled={isPending}
             onClick={() => decide("reject")}
           >
-            {isPending ? "..." : "Reject"}
+            {isPending ? "…" : t("reject")}
           </Button>
         </div>
       )}

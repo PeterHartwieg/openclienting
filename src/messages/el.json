@@ -588,7 +588,14 @@
     "metaTitle": "Συντονισμός — OpenClienting",
     "title": "Ουρά Συντονισμού",
     "subtitle": "Αξιολόγηση υποβληθέντος περιεχομένου που αναμένει δημοσίευση.",
-    "history": "Ιστορικό",
+    "history": {
+      "title": "Ιστορικό Επεξεργασιών",
+      "subtitle": "Αναθεωρήσεις συγγραφέα σε δημοσιευμένο περιεχόμενο, από τις νεότερες.",
+      "noRevisions": "Δεν έχουν καταγραφεί αναθεωρήσεις ακόμα.",
+      "before": "Πριν:",
+      "after": "Μετά:",
+      "reviewerNote": "Σημείωση αξιολογητή:"
+    },
     "editHistory": "Ιστορικό Επεξεργασιών",
     "manageTags": "Διαχείριση Ετικετών",
     "tags": "Ετικέτες",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "Γλώσσα",
       "orderLabel": "Σειρά εμφάνισης",
+      "featuredOrderSummary": "σειρά {order}",
       "button": {
         "feature": "Προβολή στην αρχική σελίδα",
         "unfeature": "Κατάργηση προβολής"
@@ -652,6 +660,58 @@
         "featured": "Προβάλλεται αυτήν τη στιγμή",
         "notFeatured": "Δεν προβάλλεται"
       }
+    },
+    "actions": {
+      "verify": "Επαλήθευση",
+      "revert": "Αναίρεση",
+      "applyChanges": "Εφαρμογή Αλλαγών",
+      "confirmReject": "Επιβεβαίωση Απόρριψης",
+      "rejectionReasonPlaceholder": "Λόγος απόρριψης (προαιρετικό)",
+      "reviewerNotesPlaceholder": "Σημειώσεις αξιολογητή (προαιρετικό)",
+      "verificationNotesLabel": "Σημειώσεις (προαιρετικό — αποθηκεύονται στο αρχείο ελέγχου ανεξαρτήτως απόφασης)",
+      "verificationNotesPlaceholder": "Λόγος έγκρισης ή απόρριψης…",
+      "actionFailed": "Η ενέργεια απέτυχε"
+    },
+    "revision": {
+      "before": "Πριν:",
+      "after": "Μετά:",
+      "old": "Παλιό:",
+      "new": "Νέο:"
+    },
+    "successReport": {
+      "period": "Περίοδος:",
+      "scope": "Πεδίο εφαρμογής:",
+      "kpis": "KPIs:",
+      "evidence": "Τεκμήριο:",
+      "trueAttribution": "Πραγματική απόδοση",
+      "submitter": "Υποβάλλων:",
+      "organization": "Οργανισμός:",
+      "publiclyHidden": "κρυφό από το κοινό",
+      "orgNone": "Κανένας",
+      "decisionRecorded": "Απόφαση καταγράφηκε: {status}",
+      "verifyButton": "Επαλήθευση"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "Μετάφραση:",
+      "notTranslated": "(δεν έχει μεταφραστεί)"
+    },
+    "problem": {
+      "description": "Περιγραφή",
+      "requirements": "Απαιτήσεις ({count})",
+      "pilotFrameworks": "Πλαίσια Πιλότου ({count})",
+      "actions": "Ενέργειες",
+      "noneSubmitted": "Δεν έχει υποβληθεί κάτι.",
+      "scope": "Πεδίο εφαρμογής:",
+      "successCriteria": "Κριτήρια Επιτυχίας:",
+      "personVisibility": "άτομο: {visibility}",
+      "orgVisibility": "οργ.: {visibility}",
+      "visibilityHidden": "κρυφό",
+      "visibilityVisible": "ορατό"
+    },
+    "tagsPage": {
+      "title": "Διαχείριση Ετικετών",
+      "subtitle": "Προσθέστε, επεξεργαστείτε ή αφαιρέστε ετικέτες που χρησιμοποιούνται για την κατηγοριοποίηση προβλημάτων."
     }
   },
   "featuredSuccessStory": {

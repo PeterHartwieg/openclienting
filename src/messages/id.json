@@ -588,7 +588,14 @@
     "metaTitle": "Moderasi — OpenClienting",
     "title": "Antrean Moderasi",
     "subtitle": "Tinjau konten yang dikirimkan dan menunggu publikasi.",
-    "history": "Riwayat",
+    "history": {
+      "title": "Riwayat Pengeditan",
+      "subtitle": "Revisi penulis pada konten yang diterbitkan, terbaru lebih dulu.",
+      "noRevisions": "Belum ada revisi yang tercatat.",
+      "before": "Sebelum:",
+      "after": "Sesudah:",
+      "reviewerNote": "Catatan pengulas:"
+    },
     "editHistory": "Riwayat Edit",
     "manageTags": "Kelola Tag",
     "tags": "Tag",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "Lokal",
       "orderLabel": "Urutan tampilan",
+      "featuredOrderSummary": "urutan {order}",
       "button": {
         "feature": "Tampilkan di halaman utama",
         "unfeature": "Hapus dari tampilan"
@@ -652,6 +660,58 @@
         "featured": "Sedang ditampilkan",
         "notFeatured": "Tidak ditampilkan"
       }
+    },
+    "actions": {
+      "verify": "Verifikasi",
+      "revert": "Kembalikan",
+      "applyChanges": "Terapkan Perubahan",
+      "confirmReject": "Konfirmasi Penolakan",
+      "rejectionReasonPlaceholder": "Alasan penolakan (opsional)",
+      "reviewerNotesPlaceholder": "Catatan pengulas (opsional)",
+      "verificationNotesLabel": "Catatan (opsional — disimpan dalam log audit terlepas dari keputusan)",
+      "verificationNotesPlaceholder": "Alasan persetujuan atau penolakan…",
+      "actionFailed": "Tindakan gagal"
+    },
+    "revision": {
+      "before": "Sebelum:",
+      "after": "Sesudah:",
+      "old": "Lama:",
+      "new": "Baru:"
+    },
+    "successReport": {
+      "period": "Periode:",
+      "scope": "Ruang Lingkup:",
+      "kpis": "KPI:",
+      "evidence": "Bukti:",
+      "trueAttribution": "Atribusi sebenarnya",
+      "submitter": "Pengirim:",
+      "organization": "Organisasi:",
+      "publiclyHidden": "disembunyikan dari publik",
+      "orgNone": "Tidak ada",
+      "decisionRecorded": "Keputusan dicatat: {status}",
+      "verifyButton": "Verifikasi"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "Terjemahan:",
+      "notTranslated": "(belum diterjemahkan)"
+    },
+    "problem": {
+      "description": "Deskripsi",
+      "requirements": "Persyaratan ({count})",
+      "pilotFrameworks": "Kerangka Kerja Percontohan ({count})",
+      "actions": "Tindakan",
+      "noneSubmitted": "Belum ada yang dikirimkan.",
+      "scope": "Ruang Lingkup:",
+      "successCriteria": "Kriteria Keberhasilan:",
+      "personVisibility": "orang: {visibility}",
+      "orgVisibility": "org: {visibility}",
+      "visibilityHidden": "tersembunyi",
+      "visibilityVisible": "terlihat"
+    },
+    "tagsPage": {
+      "title": "Kelola Tag",
+      "subtitle": "Tambah, edit, atau hapus tag yang digunakan untuk mengategorikan masalah."
     }
   },
   "featuredSuccessStory": {

@@ -588,7 +588,14 @@
     "metaTitle": "মডারেশন — OpenClienting",
     "title": "মডারেশন কিউ",
     "subtitle": "প্রকাশনার অপেক্ষায় থাকা জমাকৃত বিষয়বস্তু পর্যালোচনা করুন।",
-    "history": "ইতিহাস",
+    "history": {
+      "title": "সম্পাদনার ইতিহাস",
+      "subtitle": "প্রকাশিত বিষয়বস্তুতে লেখকের সংশোধন, সর্বশেষটি প্রথমে।",
+      "noRevisions": "এখনও কোনো সংশোধন রেকর্ড করা হয়নি।",
+      "before": "আগে:",
+      "after": "পরে:",
+      "reviewerNote": "পর্যালোচকের নোট:"
+    },
     "editHistory": "সম্পাদনার ইতিহাস",
     "manageTags": "ট্যাগ পরিচালনা করুন",
     "tags": "ট্যাগসমূহ",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "লোকেল",
       "orderLabel": "প্রদর্শন ক্রম",
+      "featuredOrderSummary": "ক্রম {order}",
       "button": {
         "feature": "হোমপেজে ফিচার করুন",
         "unfeature": "ফিচার সরান"
@@ -652,6 +660,58 @@
         "featured": "বর্তমানে ফিচার করা হয়েছে",
         "notFeatured": "ফিচার করা হয়নি"
       }
+    },
+    "actions": {
+      "verify": "যাচাই করুন",
+      "revert": "পূর্বাবস্থায় ফিরুন",
+      "applyChanges": "পরিবর্তন প্রয়োগ করুন",
+      "confirmReject": "প্রত্যাখ্যান নিশ্চিত করুন",
+      "rejectionReasonPlaceholder": "প্রত্যাখ্যানের কারণ (ঐচ্ছিক)",
+      "reviewerNotesPlaceholder": "পর্যালোচকের নোট (ঐচ্ছিক)",
+      "verificationNotesLabel": "নোট (ঐচ্ছিক — সিদ্ধান্ত নির্বিশেষে অডিট লগে সংরক্ষিত হবে)",
+      "verificationNotesPlaceholder": "অনুমোদন বা প্রত্যাখ্যানের কারণ…",
+      "actionFailed": "কার্যক্রম ব্যর্থ হয়েছে"
+    },
+    "revision": {
+      "before": "আগে:",
+      "after": "পরে:",
+      "old": "পুরানো:",
+      "new": "নতুন:"
+    },
+    "successReport": {
+      "period": "সময়কাল:",
+      "scope": "পরিধি:",
+      "kpis": "KPI:",
+      "evidence": "প্রমাণ:",
+      "trueAttribution": "প্রকৃত কৃতিত্ব",
+      "submitter": "জমাদানকারী:",
+      "organization": "প্রতিষ্ঠান:",
+      "publiclyHidden": "সর্বজনীনভাবে গোপন",
+      "orgNone": "কোনোটি নয়",
+      "decisionRecorded": "সিদ্ধান্ত রেকর্ড করা হয়েছে: {status}",
+      "verifyButton": "যাচাই করুন"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "অনুবাদ:",
+      "notTranslated": "(অনুবাদ করা হয়নি)"
+    },
+    "problem": {
+      "description": "বিবরণ",
+      "requirements": "প্রয়োজনীয়তা ({count})",
+      "pilotFrameworks": "পাইলট ফ্রেমওয়ার্ক ({count})",
+      "actions": "কার্যক্রম",
+      "noneSubmitted": "কোনোটি জমা দেওয়া হয়নি।",
+      "scope": "পরিধি:",
+      "successCriteria": "সাফল্যের মানদণ্ড:",
+      "personVisibility": "ব্যক্তি: {visibility}",
+      "orgVisibility": "প্রতিষ্ঠান: {visibility}",
+      "visibilityHidden": "গোপন",
+      "visibilityVisible": "দৃশ্যমান"
+    },
+    "tagsPage": {
+      "title": "ট্যাগ পরিচালনা করুন",
+      "subtitle": "সমস্যা শ্রেণিবদ্ধ করতে ব্যবহৃত ট্যাগ যোগ করুন, সম্পাদনা করুন বা সরান।"
     }
   },
   "featuredSuccessStory": {

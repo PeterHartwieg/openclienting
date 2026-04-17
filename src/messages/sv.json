@@ -588,7 +588,14 @@
     "metaTitle": "Moderering — OpenClienting",
     "title": "Modereringskö",
     "subtitle": "Granska inskickat innehåll som väntar på publicering.",
-    "history": "Historik",
+    "history": {
+      "title": "Redigeringshistorik",
+      "subtitle": "Författarrevisioner av publicerat innehåll, nyaste först.",
+      "noRevisions": "Inga revisioner registrerade ännu.",
+      "before": "Före:",
+      "after": "Efter:",
+      "reviewerNote": "Granskares anteckning:"
+    },
     "editHistory": "Redigeringshistorik",
     "manageTags": "Hantera taggar",
     "tags": "Taggar",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "Språk",
       "orderLabel": "Visningsordning",
+      "featuredOrderSummary": "ordning {order}",
       "button": {
         "feature": "Visa på startsidan",
         "unfeature": "Ta bort från startsidan"
@@ -652,6 +660,58 @@
         "featured": "Visas för närvarande",
         "notFeatured": "Visas inte"
       }
+    },
+    "actions": {
+      "verify": "Verifiera",
+      "revert": "Återställ",
+      "applyChanges": "Tillämpa ändringar",
+      "confirmReject": "Bekräfta avvisning",
+      "rejectionReasonPlaceholder": "Anledning till avvisning (valfritt)",
+      "reviewerNotesPlaceholder": "Granskares anteckningar (valfritt)",
+      "verificationNotesLabel": "Anteckningar (valfritt — lagras i revisionsloggen oavsett beslut)",
+      "verificationNotesPlaceholder": "Anledning till godkännande eller avvisning…",
+      "actionFailed": "Åtgärden misslyckades"
+    },
+    "revision": {
+      "before": "Före:",
+      "after": "Efter:",
+      "old": "Gammalt:",
+      "new": "Nytt:"
+    },
+    "successReport": {
+      "period": "Period:",
+      "scope": "Omfång:",
+      "kpis": "KPI:er:",
+      "evidence": "Bevis:",
+      "trueAttribution": "Verklig attributering",
+      "submitter": "Inlämnad av:",
+      "organization": "Organisation:",
+      "publiclyHidden": "dolt offentligt",
+      "orgNone": "Ingen",
+      "decisionRecorded": "Beslut registrerat: {status}",
+      "verifyButton": "Verifiera"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "Översättning:",
+      "notTranslated": "(ej översatt)"
+    },
+    "problem": {
+      "description": "Beskrivning",
+      "requirements": "Krav ({count})",
+      "pilotFrameworks": "Pilotramar ({count})",
+      "actions": "Åtgärder",
+      "noneSubmitted": "Inget inlämnat.",
+      "scope": "Omfång:",
+      "successCriteria": "Framgångskriterier:",
+      "personVisibility": "person: {visibility}",
+      "orgVisibility": "org: {visibility}",
+      "visibilityHidden": "dold",
+      "visibilityVisible": "synlig"
+    },
+    "tagsPage": {
+      "title": "Hantera taggar",
+      "subtitle": "Lägg till, redigera eller ta bort taggar som används för att kategorisera problem."
     }
   },
   "featuredSuccessStory": {

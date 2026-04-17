@@ -647,7 +647,68 @@
       "localeLabel": "Locale",
       "orderLabel": "Display order",
       "status.featured": "Currently featured",
-      "status.notFeatured": "Not featured"
+      "status.notFeatured": "Not featured",
+      "featuredOrderSummary": "order {order}"
+    },
+    "history": {
+      "title": "Edit History",
+      "subtitle": "Author revisions on published content, newest first.",
+      "noRevisions": "No revisions recorded yet.",
+      "before": "Before:",
+      "after": "After:",
+      "reviewerNote": "Reviewer note:"
+    },
+    "actions": {
+      "verify": "Verify",
+      "revert": "Revert",
+      "applyChanges": "Apply Changes",
+      "confirmReject": "Confirm Rejection",
+      "rejectionReasonPlaceholder": "Reason for rejection (optional)",
+      "reviewerNotesPlaceholder": "Reviewer notes (optional)",
+      "verificationNotesLabel": "Notes (optional — stored in audit log regardless of decision)",
+      "verificationNotesPlaceholder": "Reason for approval or rejection…",
+      "actionFailed": "Action failed"
+    },
+    "revision": {
+      "before": "Before:",
+      "after": "After:",
+      "old": "Old:",
+      "new": "New:"
+    },
+    "successReport": {
+      "period": "Period:",
+      "scope": "Scope:",
+      "kpis": "KPIs:",
+      "evidence": "Evidence:",
+      "trueAttribution": "True attribution",
+      "submitter": "Submitter:",
+      "organization": "Organization:",
+      "publiclyHidden": "publicly hidden",
+      "orgNone": "None",
+      "decisionRecorded": "Decision recorded: {status}",
+      "verifyButton": "Verify"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "Translation:",
+      "notTranslated": "(not translated)"
+    },
+    "problem": {
+      "description": "Description",
+      "requirements": "Requirements ({count})",
+      "pilotFrameworks": "Pilot Frameworks ({count})",
+      "actions": "Actions",
+      "noneSubmitted": "None submitted.",
+      "scope": "Scope:",
+      "successCriteria": "Success Criteria:",
+      "personVisibility": "person: {visibility}",
+      "orgVisibility": "org: {visibility}",
+      "visibilityHidden": "hidden",
+      "visibilityVisible": "visible"
+    },
+    "tagsPage": {
+      "title": "Manage Tags",
+      "subtitle": "Add, edit, or remove tags used for categorizing problems."
     }
   },
   "featuredSuccessStory": {

@@ -588,7 +588,14 @@
     "metaTitle": "Kiểm Duyệt — OpenClienting",
     "title": "Hàng Đợi Kiểm Duyệt",
     "subtitle": "Xem xét nội dung đã gửi đang chờ xuất bản.",
-    "history": "Lịch Sử",
+    "history": {
+      "title": "Lịch sử chỉnh sửa",
+      "subtitle": "Các sửa đổi của tác giả trên nội dung đã xuất bản, mới nhất trước.",
+      "noRevisions": "Chưa có sửa đổi nào được ghi lại.",
+      "before": "Trước:",
+      "after": "Sau:",
+      "reviewerNote": "Ghi chú của người đánh giá:"
+    },
     "editHistory": "Lịch Sử Chỉnh Sửa",
     "manageTags": "Quản Lý Thẻ",
     "tags": "Thẻ",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "Ngôn ngữ",
       "orderLabel": "Thứ tự hiển thị",
+      "featuredOrderSummary": "thứ tự {order}",
       "button": {
         "feature": "Nổi bật trên trang chủ",
         "unfeature": "Bỏ nổi bật"
@@ -652,6 +660,58 @@
         "featured": "Đang được nổi bật",
         "notFeatured": "Chưa được nổi bật"
       }
+    },
+    "actions": {
+      "verify": "Xác minh",
+      "revert": "Hoàn tác",
+      "applyChanges": "Áp dụng thay đổi",
+      "confirmReject": "Xác nhận từ chối",
+      "rejectionReasonPlaceholder": "Lý do từ chối (tùy chọn)",
+      "reviewerNotesPlaceholder": "Ghi chú của người đánh giá (tùy chọn)",
+      "verificationNotesLabel": "Ghi chú (tùy chọn — được lưu trong nhật ký kiểm tra bất kể quyết định)",
+      "verificationNotesPlaceholder": "Lý do phê duyệt hoặc từ chối…",
+      "actionFailed": "Hành động thất bại"
+    },
+    "revision": {
+      "before": "Trước:",
+      "after": "Sau:",
+      "old": "Cũ:",
+      "new": "Mới:"
+    },
+    "successReport": {
+      "period": "Giai đoạn:",
+      "scope": "Phạm vi:",
+      "kpis": "KPI:",
+      "evidence": "Bằng chứng:",
+      "trueAttribution": "Quy kết thực sự",
+      "submitter": "Người gửi:",
+      "organization": "Tổ chức:",
+      "publiclyHidden": "ẩn công khai",
+      "orgNone": "Không có",
+      "decisionRecorded": "Quyết định đã ghi: {status}",
+      "verifyButton": "Xác minh"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "Bản dịch:",
+      "notTranslated": "(chưa được dịch)"
+    },
+    "problem": {
+      "description": "Mô tả",
+      "requirements": "Yêu cầu ({count})",
+      "pilotFrameworks": "Khung thí điểm ({count})",
+      "actions": "Hành động",
+      "noneSubmitted": "Chưa có gì được gửi.",
+      "scope": "Phạm vi:",
+      "successCriteria": "Tiêu chí thành công:",
+      "personVisibility": "cá nhân: {visibility}",
+      "orgVisibility": "tổ chức: {visibility}",
+      "visibilityHidden": "ẩn",
+      "visibilityVisible": "hiển thị"
+    },
+    "tagsPage": {
+      "title": "Quản lý thẻ",
+      "subtitle": "Thêm, chỉnh sửa hoặc xóa các thẻ dùng để phân loại vấn đề."
     }
   },
   "featuredSuccessStory": {

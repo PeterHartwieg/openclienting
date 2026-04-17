@@ -588,7 +588,14 @@
     "metaTitle": "Модерація — OpenClienting",
     "title": "Черга модерації",
     "subtitle": "Перегляньте надісланий вміст, що очікує на публікацію.",
-    "history": "Історія",
+    "history": {
+      "title": "Історія редагувань",
+      "subtitle": "Авторські правки опублікованого контенту, найновіші першими.",
+      "noRevisions": "Правок ще не зафіксовано.",
+      "before": "До:",
+      "after": "Після:",
+      "reviewerNote": "Примітка рецензента:"
+    },
     "editHistory": "Історія правок",
     "manageTags": "Керування тегами",
     "tags": "Теги",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "Локаль",
       "orderLabel": "Порядок відображення",
+      "featuredOrderSummary": "порядок {order}",
       "button": {
         "feature": "Розмістити на головній",
         "unfeature": "Прибрати з головної"
@@ -652,6 +660,58 @@
         "featured": "Зараз розміщено",
         "notFeatured": "Не розміщено"
       }
+    },
+    "actions": {
+      "verify": "Підтвердити",
+      "revert": "Скасувати",
+      "applyChanges": "Застосувати зміни",
+      "confirmReject": "Підтвердити відхилення",
+      "rejectionReasonPlaceholder": "Причина відхилення (необов'язково)",
+      "reviewerNotesPlaceholder": "Примітки рецензента (необов'язково)",
+      "verificationNotesLabel": "Примітки (необов'язково — зберігаються в журналі аудиту незалежно від рішення)",
+      "verificationNotesPlaceholder": "Причина схвалення або відхилення…",
+      "actionFailed": "Дія не виконана"
+    },
+    "revision": {
+      "before": "До:",
+      "after": "Після:",
+      "old": "Старе:",
+      "new": "Нове:"
+    },
+    "successReport": {
+      "period": "Період:",
+      "scope": "Охоплення:",
+      "kpis": "KPI:",
+      "evidence": "Докази:",
+      "trueAttribution": "Справжня атрибуція",
+      "submitter": "Подавач:",
+      "organization": "Організація:",
+      "publiclyHidden": "приховано від публіки",
+      "orgNone": "Немає",
+      "decisionRecorded": "Рішення зафіксовано: {status}",
+      "verifyButton": "Підтвердити"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "Переклад:",
+      "notTranslated": "(не перекладено)"
+    },
+    "problem": {
+      "description": "Опис",
+      "requirements": "Вимоги ({count})",
+      "pilotFrameworks": "Пілотні фреймворки ({count})",
+      "actions": "Дії",
+      "noneSubmitted": "Нічого не подано.",
+      "scope": "Охоплення:",
+      "successCriteria": "Критерії успіху:",
+      "personVisibility": "особа: {visibility}",
+      "orgVisibility": "орг.: {visibility}",
+      "visibilityHidden": "приховано",
+      "visibilityVisible": "видимо"
+    },
+    "tagsPage": {
+      "title": "Керування тегами",
+      "subtitle": "Додавайте, редагуйте або видаляйте теги для категоризації проблем."
     }
   },
   "featuredSuccessStory": {

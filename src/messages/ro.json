@@ -588,7 +588,14 @@
     "metaTitle": "Moderare — OpenClienting",
     "title": "Coada de moderare",
     "subtitle": "Revizuiește conținutul trimis în așteptarea publicării.",
-    "history": "Istoric",
+    "history": {
+      "title": "Istoricul editărilor",
+      "subtitle": "Reviziile autorilor pe conținutul publicat, cele mai recente primele.",
+      "noRevisions": "Nu există revizii înregistrate încă.",
+      "before": "Înainte:",
+      "after": "După:",
+      "reviewerNote": "Nota recenzentului:"
+    },
     "editHistory": "Istoric modificări",
     "manageTags": "Gestionează etichete",
     "tags": "Etichete",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "Limbă",
       "orderLabel": "Ordinea afișării",
+      "featuredOrderSummary": "ordinea {order}",
       "button": {
         "feature": "Prezintă pe pagina principală",
         "unfeature": "Elimină din prezentare"
@@ -652,6 +660,58 @@
         "featured": "Prezentată în prezent",
         "notFeatured": "Neprezentată"
       }
+    },
+    "actions": {
+      "verify": "Verifică",
+      "revert": "Revertează",
+      "applyChanges": "Aplică modificările",
+      "confirmReject": "Confirmă respingerea",
+      "rejectionReasonPlaceholder": "Motivul respingerii (opțional)",
+      "reviewerNotesPlaceholder": "Notele recenzentului (opțional)",
+      "verificationNotesLabel": "Note (opțional — stocate în jurnalul de audit indiferent de decizie)",
+      "verificationNotesPlaceholder": "Motivul aprobării sau respingerii…",
+      "actionFailed": "Acțiunea a eșuat"
+    },
+    "revision": {
+      "before": "Înainte:",
+      "after": "După:",
+      "old": "Vechi:",
+      "new": "Nou:"
+    },
+    "successReport": {
+      "period": "Perioadă:",
+      "scope": "Domeniu:",
+      "kpis": "KPI-uri:",
+      "evidence": "Dovezi:",
+      "trueAttribution": "Atribuire reală",
+      "submitter": "Trimis de:",
+      "organization": "Organizație:",
+      "publiclyHidden": "ascuns public",
+      "orgNone": "Niciunul",
+      "decisionRecorded": "Decizie înregistrată: {status}",
+      "verifyButton": "Verifică"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "Traducere:",
+      "notTranslated": "(netradus)"
+    },
+    "problem": {
+      "description": "Descriere",
+      "requirements": "Cerințe ({count})",
+      "pilotFrameworks": "Cadre pilot ({count})",
+      "actions": "Acțiuni",
+      "noneSubmitted": "Niciuna trimisă.",
+      "scope": "Domeniu:",
+      "successCriteria": "Criterii de succes:",
+      "personVisibility": "persoană: {visibility}",
+      "orgVisibility": "org.: {visibility}",
+      "visibilityHidden": "ascuns",
+      "visibilityVisible": "vizibil"
+    },
+    "tagsPage": {
+      "title": "Gestionare etichete",
+      "subtitle": "Adaugă, editează sau elimină etichetele utilizate pentru categorizarea problemelor."
     }
   },
   "featuredSuccessStory": {

@@ -588,7 +588,14 @@
     "metaTitle": "Moderování — OpenClienting",
     "title": "Fronta moderování",
     "subtitle": "Kontrolujte odeslaný obsah čekající na zveřejnění.",
-    "history": "Historie",
+    "history": {
+      "title": "Historie úprav",
+      "subtitle": "Revize autora u zveřejněného obsahu, nejnovější jako první.",
+      "noRevisions": "Zatím nejsou zaznamenány žádné revize.",
+      "before": "Před:",
+      "after": "Po:",
+      "reviewerNote": "Poznámka recenzenta:"
+    },
     "editHistory": "Historie úprav",
     "manageTags": "Spravovat štítky",
     "tags": "Štítky",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "Jazyk",
       "orderLabel": "Pořadí zobrazení",
+      "featuredOrderSummary": "pořadí {order}",
       "button": {
         "feature": "Zobrazit na hlavní stránce",
         "unfeature": "Odebrat z hlavní stránky"
@@ -652,6 +660,58 @@
         "featured": "Aktuálně zobrazeno",
         "notFeatured": "Nezobrazeno"
       }
+    },
+    "actions": {
+      "verify": "Ověřit",
+      "revert": "Vrátit zpět",
+      "applyChanges": "Použít změny",
+      "confirmReject": "Potvrdit zamítnutí",
+      "rejectionReasonPlaceholder": "Důvod zamítnutí (volitelné)",
+      "reviewerNotesPlaceholder": "Poznámky recenzenta (volitelné)",
+      "verificationNotesLabel": "Poznámky (volitelné — uloženy v protokolu auditu bez ohledu na rozhodnutí)",
+      "verificationNotesPlaceholder": "Důvod schválení nebo zamítnutí…",
+      "actionFailed": "Akce selhala"
+    },
+    "revision": {
+      "before": "Před:",
+      "after": "Po:",
+      "old": "Původní:",
+      "new": "Nové:"
+    },
+    "successReport": {
+      "period": "Období:",
+      "scope": "Rozsah:",
+      "kpis": "KPI:",
+      "evidence": "Důkazy:",
+      "trueAttribution": "Skutečná atribuce",
+      "submitter": "Předkladatel:",
+      "organization": "Organizace:",
+      "publiclyHidden": "veřejně skryto",
+      "orgNone": "Žádná",
+      "decisionRecorded": "Rozhodnutí zaznamenáno: {status}",
+      "verifyButton": "Ověřit"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "Překlad:",
+      "notTranslated": "(nepřeloženo)"
+    },
+    "problem": {
+      "description": "Popis",
+      "requirements": "Požadavky ({count})",
+      "pilotFrameworks": "Pilotní rámce ({count})",
+      "actions": "Akce",
+      "noneSubmitted": "Nic nebylo předloženo.",
+      "scope": "Rozsah:",
+      "successCriteria": "Kritéria úspěchu:",
+      "personVisibility": "osoba: {visibility}",
+      "orgVisibility": "org: {visibility}",
+      "visibilityHidden": "skryto",
+      "visibilityVisible": "viditelné"
+    },
+    "tagsPage": {
+      "title": "Správa štítků",
+      "subtitle": "Přidejte, upravte nebo odeberte štítky používané pro kategorizaci problémů."
     }
   },
   "featuredSuccessStory": {

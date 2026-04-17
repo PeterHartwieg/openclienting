@@ -588,7 +588,14 @@
     "metaTitle": "Usimamizi — OpenClienting",
     "title": "Foleni ya Usimamizi",
     "subtitle": "Pitizia maudhui yaliyowasilishwa yanayosubiri kuchapishwa.",
-    "history": "Historia",
+    "history": {
+      "title": "Historia ya Mabadiliko",
+      "subtitle": "Marekebisho ya mwandishi kwenye maudhui yaliyochapishwa, mapya kwanza.",
+      "noRevisions": "Hakuna marekebisho yaliyorekodiwa bado.",
+      "before": "Kabla:",
+      "after": "Baada:",
+      "reviewerNote": "Maelezo ya mkaguzi:"
+    },
     "editHistory": "Historia ya Mabadiliko",
     "manageTags": "Simamia Vitambulisho",
     "tags": "Vitambulisho",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "Lugha",
       "orderLabel": "Mpangilio wa kuonyesha",
+      "featuredOrderSummary": "mpangilio {order}",
       "button": {
         "feature": "Onyesha kwenye ukurasa wa nyumbani",
         "unfeature": "Ondoa uonyeshaji"
@@ -652,6 +660,58 @@
         "featured": "Inaonyeshwa sasa hivi",
         "notFeatured": "Haionyeshwi"
       }
+    },
+    "actions": {
+      "verify": "Thibitisha",
+      "revert": "Rudisha",
+      "applyChanges": "Tekeleza Mabadiliko",
+      "confirmReject": "Thibitisha Kukataa",
+      "rejectionReasonPlaceholder": "Sababu ya kukataa (si lazima)",
+      "reviewerNotesPlaceholder": "Maelezo ya mkaguzi (si lazima)",
+      "verificationNotesLabel": "Maelezo (si lazima — yatahifadhiwa kwenye kumbukumbu ya ukaguzi bila kujali uamuzi)",
+      "verificationNotesPlaceholder": "Sababu ya kukubali au kukataa…",
+      "actionFailed": "Hatua imeshindwa"
+    },
+    "revision": {
+      "before": "Kabla:",
+      "after": "Baada:",
+      "old": "Ya Zamani:",
+      "new": "Mpya:"
+    },
+    "successReport": {
+      "period": "Kipindi:",
+      "scope": "Upeo:",
+      "kpis": "Viashiria vya Utendaji:",
+      "evidence": "Ushahidi:",
+      "trueAttribution": "Uhusiano wa kweli",
+      "submitter": "Mwasilishaji:",
+      "organization": "Shirika:",
+      "publiclyHidden": "imefichwa hadharani",
+      "orgNone": "Hakuna",
+      "decisionRecorded": "Uamuzi umerekodiwa: {status}",
+      "verifyButton": "Thibitisha"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "Tafsiri:",
+      "notTranslated": "(haijatafsiriwa)"
+    },
+    "problem": {
+      "description": "Maelezo",
+      "requirements": "Mahitaji ({count})",
+      "pilotFrameworks": "Mifumo ya Majaribio ({count})",
+      "actions": "Vitendo",
+      "noneSubmitted": "Hakuna kilichowasilishwa.",
+      "scope": "Upeo:",
+      "successCriteria": "Vigezo vya Mafanikio:",
+      "personVisibility": "mtu: {visibility}",
+      "orgVisibility": "shirika: {visibility}",
+      "visibilityHidden": "imefichwa",
+      "visibilityVisible": "inaonekana"
+    },
+    "tagsPage": {
+      "title": "Simamia Lebo",
+      "subtitle": "Ongeza, hariri, au ondoa lebo zinazotumiwa kwa uainishaji wa matatizo."
     }
   },
   "featuredSuccessStory": {

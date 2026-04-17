@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { reviewOrganizationVerification } from "@/lib/actions/moderate-organizations";
 import type { VerificationDecision } from "@/lib/types/database";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,7 @@ import { Label } from "@/components/ui/label";
 
 export function VerificationActions({ organizationId }: { organizationId: string }) {
   const router = useRouter();
+  const t = useTranslations("moderate");
   const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -27,9 +29,9 @@ export function VerificationActions({ organizationId }: { organizationId: string
   return (
     <div className="space-y-3">
       <div className="space-y-1.5">
-        <Label className="text-xs text-muted-foreground">Notes (optional — stored in audit log regardless of decision)</Label>
+        <Label className="text-xs text-muted-foreground">{t("actions.verificationNotesLabel")}</Label>
         <Textarea
-          placeholder="Reason for approval or rejection..."
+          placeholder={t("actions.verificationNotesPlaceholder")}
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
           rows={2}
@@ -37,10 +39,10 @@ export function VerificationActions({ organizationId }: { organizationId: string
       </div>
       <div className="flex gap-2">
         <Button onClick={() => handleAction("approved")} disabled={loading} size="sm">
-          {loading ? "..." : "Approve"}
+          {loading ? "…" : t("approve")}
         </Button>
         <Button variant="destructive" size="sm" onClick={() => handleAction("rejected")} disabled={loading}>
-          {loading ? "..." : "Reject"}
+          {loading ? "…" : t("reject")}
         </Button>
       </div>
     </div>

@@ -588,7 +588,14 @@
     "metaTitle": "الإشراف — OpenClienting",
     "title": "طابور الإشراف",
     "subtitle": "راجع المحتوى المقدَّم بانتظار النشر.",
-    "history": "السجل",
+    "history": {
+      "title": "سجل التعديلات",
+      "subtitle": "مراجعات المؤلف على المحتوى المنشور، الأحدث أولاً.",
+      "noRevisions": "لم يتم تسجيل أي مراجعات بعد.",
+      "before": "قبل:",
+      "after": "بعد:",
+      "reviewerNote": "ملاحظة المراجع:"
+    },
     "editHistory": "سجل التعديلات",
     "manageTags": "إدارة الوسوم",
     "tags": "الوسوم",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "اللغة",
       "orderLabel": "ترتيب العرض",
+      "featuredOrderSummary": "الترتيب {order}",
       "button": {
         "feature": "تمييز على الصفحة الرئيسية",
         "unfeature": "إلغاء التمييز"
@@ -652,6 +660,58 @@
         "featured": "مميز حالياً",
         "notFeatured": "غير مميز"
       }
+    },
+    "actions": {
+      "verify": "تحقق",
+      "revert": "تراجع",
+      "applyChanges": "تطبيق التغييرات",
+      "confirmReject": "تأكيد الرفض",
+      "rejectionReasonPlaceholder": "سبب الرفض (اختياري)",
+      "reviewerNotesPlaceholder": "ملاحظات المراجع (اختياري)",
+      "verificationNotesLabel": "ملاحظات (اختياري — تُحفظ في سجل المراجعة بغض النظر عن القرار)",
+      "verificationNotesPlaceholder": "سبب الموافقة أو الرفض…",
+      "actionFailed": "فشل تنفيذ الإجراء"
+    },
+    "revision": {
+      "before": "قبل:",
+      "after": "بعد:",
+      "old": "القديم:",
+      "new": "الجديد:"
+    },
+    "successReport": {
+      "period": "الفترة:",
+      "scope": "النطاق:",
+      "kpis": "مؤشرات الأداء:",
+      "evidence": "الأدلة:",
+      "trueAttribution": "الإسناد الحقيقي",
+      "submitter": "مقدِّم الطلب:",
+      "organization": "المؤسسة:",
+      "publiclyHidden": "مخفي علنياً",
+      "orgNone": "لا يوجد",
+      "decisionRecorded": "تم تسجيل القرار: {status}",
+      "verifyButton": "تحقق"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "الترجمة:",
+      "notTranslated": "(غير مترجم)"
+    },
+    "problem": {
+      "description": "الوصف",
+      "requirements": "المتطلبات ({count})",
+      "pilotFrameworks": "أطر الاختبار التجريبي ({count})",
+      "actions": "الإجراءات",
+      "noneSubmitted": "لم يتم تقديم أي شيء.",
+      "scope": "النطاق:",
+      "successCriteria": "معايير النجاح:",
+      "personVisibility": "الشخص: {visibility}",
+      "orgVisibility": "المؤسسة: {visibility}",
+      "visibilityHidden": "مخفي",
+      "visibilityVisible": "مرئي"
+    },
+    "tagsPage": {
+      "title": "إدارة العلامات",
+      "subtitle": "إضافة العلامات المستخدمة في تصنيف المشكلات أو تعديلها أو إزالتها."
     }
   },
   "featuredSuccessStory": {

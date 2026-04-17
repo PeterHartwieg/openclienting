@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   approveTranslation,
   rejectTranslation,
@@ -32,6 +33,7 @@ export function TranslationReview({
   translatedFields,
 }: TranslationReviewProps) {
   const router = useRouter();
+  const t = useTranslations("moderate");
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -67,7 +69,8 @@ export function TranslationReview({
               <p className="font-medium">{field.label}</p>
               <div className="mt-1 grid gap-1 sm:grid-cols-2">
                 <div className="rounded bg-muted/50 p-1.5 text-xs whitespace-pre-wrap">
-                  <span className="font-medium text-muted-foreground">EN: </span>
+                  <span className="font-medium text-muted-foreground">{t("translationReview.sourceLabel")} </span>
+                  {/* i18n-ignore: moderator-only sentinel for empty source field */}
                   {source || <span className="italic">(empty)</span>}
                 </div>
                 <div
@@ -78,9 +81,9 @@ export function TranslationReview({
                   }
                 >
                   <span className="font-medium text-green-700 dark:text-green-400">
-                    {empty ? "—" : "Translation: "}
+                    {empty ? "—" : `${t("translationReview.translationLabel")} `}
                   </span>
-                  {translated ?? "(not translated)"}
+                  {translated ?? t("translationReview.notTranslated")}
                 </div>
               </div>
             </div>
@@ -94,7 +97,7 @@ export function TranslationReview({
       )}
       <div className="flex gap-2">
         <Button size="sm" onClick={handleApprove} disabled={isPending}>
-          Approve
+          {t("approve")}
         </Button>
         <Button
           variant="destructive"
@@ -102,7 +105,7 @@ export function TranslationReview({
           onClick={handleReject}
           disabled={isPending}
         >
-          Reject
+          {t("reject")}
         </Button>
       </div>
     </div>

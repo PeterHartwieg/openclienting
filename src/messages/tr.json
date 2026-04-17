@@ -588,7 +588,14 @@
     "metaTitle": "Moderasyon — OpenClienting",
     "title": "Moderasyon Kuyruğu",
     "subtitle": "Yayım bekleyen gönderilen içerikleri inceleyin.",
-    "history": "Geçmiş",
+    "history": {
+      "title": "Düzenleme Geçmişi",
+      "subtitle": "Yayımlanan içeriklerdeki yazar revizyonları, en yeniden en eskiye.",
+      "noRevisions": "Henüz kaydedilmiş revizyon yok.",
+      "before": "Önce:",
+      "after": "Sonra:",
+      "reviewerNote": "İnceleyici notu:"
+    },
     "editHistory": "Düzenleme Geçmişi",
     "manageTags": "Etiketleri Yönet",
     "tags": "Etiketler",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "Dil",
       "orderLabel": "Görüntüleme sırası",
+      "featuredOrderSummary": "sıra {order}",
       "button": {
         "feature": "Ana sayfada öne çıkar",
         "unfeature": "Öne çıkarmayı kaldır"
@@ -652,6 +660,58 @@
         "featured": "Şu anda öne çıkarılıyor",
         "notFeatured": "Öne çıkarılmıyor"
       }
+    },
+    "actions": {
+      "verify": "Doğrula",
+      "revert": "Geri Al",
+      "applyChanges": "Değişiklikleri Uygula",
+      "confirmReject": "Reddi Onayla",
+      "rejectionReasonPlaceholder": "Reddetme gerekçesi (isteğe bağlı)",
+      "reviewerNotesPlaceholder": "İnceleyici notları (isteğe bağlı)",
+      "verificationNotesLabel": "Notlar (isteğe bağlı — karara bakılmaksızın denetim günlüğüne kaydedilir)",
+      "verificationNotesPlaceholder": "Onay veya red gerekçesi…",
+      "actionFailed": "İşlem başarısız oldu"
+    },
+    "revision": {
+      "before": "Önce:",
+      "after": "Sonra:",
+      "old": "Eski:",
+      "new": "Yeni:"
+    },
+    "successReport": {
+      "period": "Dönem:",
+      "scope": "Kapsam:",
+      "kpis": "KPI'lar:",
+      "evidence": "Kanıt:",
+      "trueAttribution": "Gerçek atıf",
+      "submitter": "Gönderen:",
+      "organization": "Kuruluş:",
+      "publiclyHidden": "kamuoyundan gizli",
+      "orgNone": "Yok",
+      "decisionRecorded": "Karar kaydedildi: {status}",
+      "verifyButton": "Doğrula"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "Çeviri:",
+      "notTranslated": "(çevrilmedi)"
+    },
+    "problem": {
+      "description": "Açıklama",
+      "requirements": "Gereksinimler ({count})",
+      "pilotFrameworks": "Pilot Çerçeveler ({count})",
+      "actions": "İşlemler",
+      "noneSubmitted": "Henüz gönderilmedi.",
+      "scope": "Kapsam:",
+      "successCriteria": "Başarı Kriterleri:",
+      "personVisibility": "kişi: {visibility}",
+      "orgVisibility": "kuruluş: {visibility}",
+      "visibilityHidden": "gizli",
+      "visibilityVisible": "görünür"
+    },
+    "tagsPage": {
+      "title": "Etiketleri Yönet",
+      "subtitle": "Sorunları kategorize etmek için kullanılan etiketleri ekleyin, düzenleyin veya kaldırın."
     }
   },
   "featuredSuccessStory": {

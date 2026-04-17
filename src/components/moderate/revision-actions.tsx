@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { approveRevision, revertRevision } from "@/app/[locale]/(shell)/moderate/actions";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,6 +15,7 @@ interface RevisionActionsProps {
 
 export function RevisionActions({ revisionId, diff }: RevisionActionsProps) {
   const router = useRouter();
+  const t = useTranslations("moderate");
   const [loading, setLoading] = useState(false);
   const [notes, setNotes] = useState("");
 
@@ -39,11 +41,11 @@ export function RevisionActions({ revisionId, diff }: RevisionActionsProps) {
             <p className="font-medium">{field}</p>
             <div className="mt-1 grid gap-1 sm:grid-cols-2">
               <div className="rounded bg-red-500/10 p-1.5 text-xs">
-                <span className="font-medium text-red-600 dark:text-red-400">Before: </span>
+                <span className="font-medium text-red-600 dark:text-red-400">{t("revision.before")} </span>
                 {values.old ?? "(empty)"}
               </div>
               <div className="rounded bg-green-500/10 p-1.5 text-xs">
-                <span className="font-medium text-green-600 dark:text-green-400">After: </span>
+                <span className="font-medium text-green-600 dark:text-green-400">{t("revision.after")} </span>
                 {values.new ?? "(empty)"}
               </div>
             </div>
@@ -51,7 +53,7 @@ export function RevisionActions({ revisionId, diff }: RevisionActionsProps) {
         ))}
       </div>
       <Textarea
-        placeholder="Reviewer notes (optional)"
+        placeholder={t("actions.reviewerNotesPlaceholder")}
         value={notes}
         onChange={(e) => setNotes(e.target.value)}
         rows={2}
@@ -59,10 +61,10 @@ export function RevisionActions({ revisionId, diff }: RevisionActionsProps) {
       />
       <div className="flex gap-2">
         <Button size="sm" onClick={handleApprove} disabled={loading}>
-          Approve
+          {t("approve")}
         </Button>
         <Button variant="destructive" size="sm" onClick={handleRevert} disabled={loading}>
-          Revert
+          {t("actions.revert")}
         </Button>
       </div>
     </div>

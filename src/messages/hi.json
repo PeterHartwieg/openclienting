@@ -588,7 +588,14 @@
     "metaTitle": "मॉडरेशन — OpenClienting",
     "title": "मॉडरेशन कतार",
     "subtitle": "प्रकाशन की प्रतीक्षा में सबमिट की गई सामग्री की समीक्षा करें।",
-    "history": "इतिहास",
+    "history": {
+      "title": "संपादन इतिहास",
+      "subtitle": "प्रकाशित सामग्री पर लेखक के संशोधन, नवीनतम पहले।",
+      "noRevisions": "अभी तक कोई संशोधन दर्ज नहीं हुआ।",
+      "before": "पहले:",
+      "after": "बाद:",
+      "reviewerNote": "समीक्षक की टिप्पणी:"
+    },
     "editHistory": "संपादन इतिहास",
     "manageTags": "टैग प्रबंधित करें",
     "tags": "टैग",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "लोकेल",
       "orderLabel": "प्रदर्शन क्रम",
+      "featuredOrderSummary": "क्रम {order}",
       "button": {
         "feature": "होमपेज पर फ़ीचर करें",
         "unfeature": "अनफ़ीचर करें"
@@ -652,6 +660,58 @@
         "featured": "वर्तमान में फ़ीचर्ड",
         "notFeatured": "फ़ीचर्ड नहीं"
       }
+    },
+    "actions": {
+      "verify": "सत्यापित करें",
+      "revert": "पूर्ववत करें",
+      "applyChanges": "परिवर्तन लागू करें",
+      "confirmReject": "अस्वीकृति की पुष्टि करें",
+      "rejectionReasonPlaceholder": "अस्वीकृति का कारण (वैकल्पिक)",
+      "reviewerNotesPlaceholder": "समीक्षक की टिप्पणियाँ (वैकल्पिक)",
+      "verificationNotesLabel": "टिप्पणियाँ (वैकल्पिक — निर्णय चाहे जो भी हो, ऑडिट लॉग में संग्रहीत होती हैं)",
+      "verificationNotesPlaceholder": "अनुमोदन या अस्वीकृति का कारण…",
+      "actionFailed": "क्रिया विफल रही"
+    },
+    "revision": {
+      "before": "पहले:",
+      "after": "बाद:",
+      "old": "पुराना:",
+      "new": "नया:"
+    },
+    "successReport": {
+      "period": "अवधि:",
+      "scope": "दायरा:",
+      "kpis": "KPIs:",
+      "evidence": "साक्ष्य:",
+      "trueAttribution": "वास्तविक श्रेय",
+      "submitter": "प्रस्तुतकर्ता:",
+      "organization": "संगठन:",
+      "publiclyHidden": "सार्वजनिक रूप से छिपा हुआ",
+      "orgNone": "कोई नहीं",
+      "decisionRecorded": "निर्णय दर्ज: {status}",
+      "verifyButton": "सत्यापित करें"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "अनुवाद:",
+      "notTranslated": "(अनुवादित नहीं)"
+    },
+    "problem": {
+      "description": "विवरण",
+      "requirements": "आवश्यकताएँ ({count})",
+      "pilotFrameworks": "पायलट फ्रेमवर्क ({count})",
+      "actions": "क्रियाएँ",
+      "noneSubmitted": "कोई भी प्रस्तुत नहीं किया गया।",
+      "scope": "दायरा:",
+      "successCriteria": "सफलता के मानदंड:",
+      "personVisibility": "व्यक्ति: {visibility}",
+      "orgVisibility": "संगठन: {visibility}",
+      "visibilityHidden": "छिपा हुआ",
+      "visibilityVisible": "दृश्यमान"
+    },
+    "tagsPage": {
+      "title": "टैग प्रबंधित करें",
+      "subtitle": "समस्याओं को वर्गीकृत करने के लिए उपयोग किए जाने वाले टैग जोड़ें, संपादित करें या हटाएँ।"
     }
   },
   "featuredSuccessStory": {

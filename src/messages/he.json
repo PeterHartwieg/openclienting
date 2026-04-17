@@ -588,7 +588,14 @@
     "metaTitle": "ניהול תוכן — OpenClienting",
     "title": "תור ניהול תוכן",
     "subtitle": "סקור תוכן שהוגש הממתין לפרסום.",
-    "history": "היסטוריה",
+    "history": {
+      "title": "היסטוריית עריכות",
+      "subtitle": "עדכוני מחבר בתוכן שפורסם, מהחדש לישן.",
+      "noRevisions": "טרם נרשמו גרסאות.",
+      "before": "לפני:",
+      "after": "אחרי:",
+      "reviewerNote": "הערת סוקר:"
+    },
     "editHistory": "היסטוריית עריכות",
     "manageTags": "ניהול תגיות",
     "tags": "תגיות",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "שפה/אזור",
       "orderLabel": "סדר תצוגה",
+      "featuredOrderSummary": "סדר {order}",
       "button": {
         "feature": "הצג בדף הבית",
         "unfeature": "הסר מהתצוגה"
@@ -652,6 +660,58 @@
         "featured": "מוצג כעת",
         "notFeatured": "לא מוצג"
       }
+    },
+    "actions": {
+      "verify": "אמת",
+      "revert": "שחזר",
+      "applyChanges": "החל שינויים",
+      "confirmReject": "אשר דחייה",
+      "rejectionReasonPlaceholder": "סיבת הדחייה (אופציונלי)",
+      "reviewerNotesPlaceholder": "הערות סוקר (אופציונלי)",
+      "verificationNotesLabel": "הערות (אופציונלי — נשמרות ביומן הביקורת ללא תלות בהחלטה)",
+      "verificationNotesPlaceholder": "סיבת האישור או הדחייה…",
+      "actionFailed": "הפעולה נכשלה"
+    },
+    "revision": {
+      "before": "לפני:",
+      "after": "אחרי:",
+      "old": "ישן:",
+      "new": "חדש:"
+    },
+    "successReport": {
+      "period": "תקופה:",
+      "scope": "היקף:",
+      "kpis": "מדדי ביצוע:",
+      "evidence": "ראיות:",
+      "trueAttribution": "ייחוס אמיתי",
+      "submitter": "מגיש:",
+      "organization": "ארגון:",
+      "publiclyHidden": "מוסתר מהציבור",
+      "orgNone": "ללא",
+      "decisionRecorded": "ההחלטה נרשמה: {status}",
+      "verifyButton": "אמת"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "תרגום:",
+      "notTranslated": "(לא תורגם)"
+    },
+    "problem": {
+      "description": "תיאור",
+      "requirements": "דרישות ({count})",
+      "pilotFrameworks": "מסגרות פיילוט ({count})",
+      "actions": "פעולות",
+      "noneSubmitted": "לא הוגש דבר.",
+      "scope": "היקף:",
+      "successCriteria": "קריטריוני הצלחה:",
+      "personVisibility": "אדם: {visibility}",
+      "orgVisibility": "ארגון: {visibility}",
+      "visibilityHidden": "מוסתר",
+      "visibilityVisible": "גלוי"
+    },
+    "tagsPage": {
+      "title": "ניהול תגיות",
+      "subtitle": "הוסף, ערוך או הסר תגיות המשמשות לסיווג בעיות."
     }
   },
   "featuredSuccessStory": {

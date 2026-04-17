@@ -1,6 +1,9 @@
+import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { formatDate } from "@/lib/i18n/format";
 import type { EditDiff } from "@/lib/types/database";
 
 const statusColors: Record<string, string> = {
@@ -9,7 +12,28 @@ const statusColors: Record<string, string> = {
   reverted: "bg-red-500/10 text-red-700 dark:text-red-400",
 };
 
-export default async function EditHistoryPage() {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "moderate" });
+  return {
+    title: `${t("history.title")} — ${t("metaTitle")}`,
+    robots: { index: false, follow: false },
+  };
+}
+
+export default async function EditHistoryPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations("moderate");
+
   const supabase = await createClient();
   const { data: revisions } = await supabase
     .from("content_revisions")
@@ -23,14 +47,14 @@ export default async function EditHistoryPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold tracking-tight">Edit History</h1>
+      <h1 className="text-3xl font-bold tracking-tight">{t("history.title")}</h1>
       <p className="mt-2 text-muted-foreground">
-        Author revisions on published content, newest first.
+        {t("history.subtitle")}
       </p>
 
       <div className="mt-8 space-y-3">
         {(!revisions || revisions.length === 0) ? (
-          <p className="text-muted-foreground">No revisions recorded yet.</p>
+          <p className="text-muted-foreground">{t("history.noRevisions")}</p>
         ) : (
           revisions.map((rev) => {
             const diff = rev.diff as EditDiff;
@@ -46,8 +70,12 @@ export default async function EditHistoryPage() {
                       {rev.revision_status}
                     </span>
                     <span className="text-xs text-muted-foreground">
-                      by {(rev.profiles as unknown as { display_name: string } | null)?.display_name ?? "Unknown"} ·{" "}
-                      {new Date(rev.created_at).toLocaleString()}
+                      {t("byUser", {
+                        name:
+                          (rev.profiles as unknown as { display_name: string } | null)
+                            ?.display_name ?? t("unknown"),
+                      })}{" "}
+                      · {formatDate(rev.created_at, locale, "medium")}
                     </span>
                   </div>
                   <CardTitle className="text-sm font-mono text-muted-foreground">
@@ -61,11 +89,11 @@ export default async function EditHistoryPage() {
                         <p className="font-medium">{field}</p>
                         <div className="mt-1 grid gap-1 sm:grid-cols-2">
                           <div className="rounded bg-red-500/10 p-1.5 text-xs">
-                            <span className="font-medium text-red-600 dark:text-red-400">Before: </span>
+                            <span className="font-medium text-red-600 dark:text-red-400">{t("history.before")} </span>
                             {values.old ?? "(empty)"}
                           </div>
                           <div className="rounded bg-green-500/10 p-1.5 text-xs">
-                            <span className="font-medium text-green-600 dark:text-green-400">After: </span>
+                            <span className="font-medium text-green-600 dark:text-green-400">{t("history.after")} </span>
                             {values.new ?? "(empty)"}
                           </div>
                         </div>
@@ -74,7 +102,8 @@ export default async function EditHistoryPage() {
                   </div>
                   {rev.reviewer_notes && (
                     <p className="mt-2 text-xs text-muted-foreground">
-                      <span className="font-medium">Reviewer note:</span> {rev.reviewer_notes}
+                      <span className="font-medium">{t("history.reviewerNote")}</span>{" "}
+                      {rev.reviewer_notes}
                     </p>
                   )}
                 </CardContent>

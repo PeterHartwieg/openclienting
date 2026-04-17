@@ -588,7 +588,14 @@
     "metaTitle": "Модерация — OpenClienting",
     "title": "Очередь модерации",
     "subtitle": "Проверяйте опубликованный контент, ожидающий публикации.",
-    "history": "История",
+    "history": {
+      "title": "История правок",
+      "subtitle": "Авторские правки опубликованного контента, начиная с новейших.",
+      "noRevisions": "Правки ещё не зафиксированы.",
+      "before": "До:",
+      "after": "После:",
+      "reviewerNote": "Примечание рецензента:"
+    },
     "editHistory": "История правок",
     "manageTags": "Управление тегами",
     "tags": "Теги",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "Локаль",
       "orderLabel": "Порядок отображения",
+      "featuredOrderSummary": "порядок {order}",
       "button": {
         "feature": "Разместить на главной",
         "unfeature": "Снять с размещения"
@@ -652,6 +660,58 @@
         "featured": "Сейчас размещено",
         "notFeatured": "Не размещено"
       }
+    },
+    "actions": {
+      "verify": "Подтвердить",
+      "revert": "Откатить",
+      "applyChanges": "Применить изменения",
+      "confirmReject": "Подтвердить отклонение",
+      "rejectionReasonPlaceholder": "Причина отклонения (необязательно)",
+      "reviewerNotesPlaceholder": "Примечания рецензента (необязательно)",
+      "verificationNotesLabel": "Примечания (необязательно — сохраняются в журнале аудита независимо от решения)",
+      "verificationNotesPlaceholder": "Причина одобрения или отклонения…",
+      "actionFailed": "Действие не выполнено"
+    },
+    "revision": {
+      "before": "До:",
+      "after": "После:",
+      "old": "Старое:",
+      "new": "Новое:"
+    },
+    "successReport": {
+      "period": "Период:",
+      "scope": "Область:",
+      "kpis": "KPI:",
+      "evidence": "Подтверждение:",
+      "trueAttribution": "Реальное авторство",
+      "submitter": "Отправитель:",
+      "organization": "Организация:",
+      "publiclyHidden": "скрыто публично",
+      "orgNone": "Нет",
+      "decisionRecorded": "Решение зафиксировано: {status}",
+      "verifyButton": "Подтвердить"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "Перевод:",
+      "notTranslated": "(не переведено)"
+    },
+    "problem": {
+      "description": "Описание",
+      "requirements": "Требования ({count})",
+      "pilotFrameworks": "Пилотные фреймворки ({count})",
+      "actions": "Действия",
+      "noneSubmitted": "Ничего не отправлено.",
+      "scope": "Область:",
+      "successCriteria": "Критерии успеха:",
+      "personVisibility": "персона: {visibility}",
+      "orgVisibility": "орг.: {visibility}",
+      "visibilityHidden": "скрыто",
+      "visibilityVisible": "видимо"
+    },
+    "tagsPage": {
+      "title": "Управление тегами",
+      "subtitle": "Добавляйте, редактируйте или удаляйте теги, используемые для категоризации задач."
     }
   },
   "featuredSuccessStory": {

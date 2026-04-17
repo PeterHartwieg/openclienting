@@ -588,7 +588,14 @@
     "metaTitle": "Moderering — OpenClienting",
     "title": "Modereringskø",
     "subtitle": "Gjennomgå innsendt innhold som venter på publisering.",
-    "history": "Historikk",
+    "history": {
+      "title": "Redigeringshistorikk",
+      "subtitle": "Forfatters revisjoner av publisert innhold, nyeste først.",
+      "noRevisions": "Ingen revisjoner registrert ennå.",
+      "before": "Før:",
+      "after": "Etter:",
+      "reviewerNote": "Gjennomgangsnotat:"
+    },
     "editHistory": "Redigeringshistorikk",
     "manageTags": "Administrer tagger",
     "tags": "Tagger",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "Språk",
       "orderLabel": "Visningsrekkefølge",
+      "featuredOrderSummary": "rekkefølge {order}",
       "button": {
         "feature": "Fremhev på forsiden",
         "unfeature": "Fjern fremheving"
@@ -652,6 +660,58 @@
         "featured": "Fremhevet for øyeblikket",
         "notFeatured": "Ikke fremhevet"
       }
+    },
+    "actions": {
+      "verify": "Verifiser",
+      "revert": "Tilbakestill",
+      "applyChanges": "Bruk endringer",
+      "confirmReject": "Bekreft avvisning",
+      "rejectionReasonPlaceholder": "Begrunnelse for avvisning (valgfritt)",
+      "reviewerNotesPlaceholder": "Gjennomgangsnotater (valgfritt)",
+      "verificationNotesLabel": "Notater (valgfritt — lagres i revisjonsloggen uavhengig av beslutning)",
+      "verificationNotesPlaceholder": "Begrunnelse for godkjenning eller avvisning…",
+      "actionFailed": "Handlingen mislyktes"
+    },
+    "revision": {
+      "before": "Før:",
+      "after": "Etter:",
+      "old": "Gammel:",
+      "new": "Ny:"
+    },
+    "successReport": {
+      "period": "Periode:",
+      "scope": "Omfang:",
+      "kpis": "KPI-er:",
+      "evidence": "Dokumentasjon:",
+      "trueAttribution": "Korrekt attribusjon",
+      "submitter": "Innsender:",
+      "organization": "Organisasjon:",
+      "publiclyHidden": "offentlig skjult",
+      "orgNone": "Ingen",
+      "decisionRecorded": "Beslutning registrert: {status}",
+      "verifyButton": "Verifiser"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "Oversettelse:",
+      "notTranslated": "(ikke oversatt)"
+    },
+    "problem": {
+      "description": "Beskrivelse",
+      "requirements": "Krav ({count})",
+      "pilotFrameworks": "Pilotrammeverk ({count})",
+      "actions": "Handlinger",
+      "noneSubmitted": "Ingen innsendt.",
+      "scope": "Omfang:",
+      "successCriteria": "Suksesskriterier:",
+      "personVisibility": "person: {visibility}",
+      "orgVisibility": "org: {visibility}",
+      "visibilityHidden": "skjult",
+      "visibilityVisible": "synlig"
+    },
+    "tagsPage": {
+      "title": "Administrer tagger",
+      "subtitle": "Legg til, rediger eller fjern tagger som brukes til å kategorisere problemer."
     }
   },
   "featuredSuccessStory": {

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { applySuggestedEdit, moderateItem } from "@/app/[locale]/(shell)/moderate/actions";
 import { Button } from "@/components/ui/button";
 
@@ -12,6 +13,7 @@ interface SuggestedEditReviewProps {
 
 export function SuggestedEditReview({ editId, diff }: SuggestedEditReviewProps) {
   const router = useRouter();
+  const t = useTranslations("moderate");
   const [loading, setLoading] = useState(false);
 
   async function handleApply() {
@@ -40,11 +42,11 @@ export function SuggestedEditReview({ editId, diff }: SuggestedEditReviewProps) 
             <p className="font-medium">{field}</p>
             <div className="mt-1 grid gap-1 sm:grid-cols-2">
               <div className="rounded bg-red-500/10 p-1.5 text-xs">
-                <span className="font-medium text-red-600 dark:text-red-400">Old: </span>
+                <span className="font-medium text-red-600 dark:text-red-400">{t("revision.old")} </span>
                 {values.old ?? "(empty)"}
               </div>
               <div className="rounded bg-green-500/10 p-1.5 text-xs">
-                <span className="font-medium text-green-600 dark:text-green-400">New: </span>
+                <span className="font-medium text-green-600 dark:text-green-400">{t("revision.new")} </span>
                 {values.new ?? "(empty)"}
               </div>
             </div>
@@ -53,10 +55,10 @@ export function SuggestedEditReview({ editId, diff }: SuggestedEditReviewProps) 
       </div>
       <div className="flex gap-2">
         <Button size="sm" onClick={handleApply} disabled={loading}>
-          Apply Changes
+          {t("actions.applyChanges")}
         </Button>
         <Button variant="destructive" size="sm" onClick={handleReject} disabled={loading}>
-          Reject
+          {t("reject")}
         </Button>
       </div>
     </div>

@@ -588,7 +588,14 @@
     "metaTitle": "Moderálás — OpenClienting",
     "title": "Moderálási sor",
     "subtitle": "Közzétételre váró beküldött tartalmak felülvizsgálata.",
-    "history": "Előzmények",
+    "history": {
+      "title": "Szerkesztési előzmények",
+      "subtitle": "Szerzői revíziók a közzétett tartalomhoz, legújabb elöl.",
+      "noRevisions": "Még nem rögzítettünk revíziót.",
+      "before": "Előtte:",
+      "after": "Utána:",
+      "reviewerNote": "Ellenőri megjegyzés:"
+    },
     "editHistory": "Szerkesztési előzmények",
     "manageTags": "Címkék kezelése",
     "tags": "Címkék",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "Nyelvi változat",
       "orderLabel": "Megjelenítési sorrend",
+      "featuredOrderSummary": "{order}. sorrend",
       "button": {
         "feature": "Kiemelés a főoldalon",
         "unfeature": "Kiemelés visszavonása"
@@ -652,6 +660,58 @@
         "featured": "Jelenleg kiemelt",
         "notFeatured": "Nem kiemelt"
       }
+    },
+    "actions": {
+      "verify": "Jóváhagyás",
+      "revert": "Visszaállítás",
+      "applyChanges": "Módosítások alkalmazása",
+      "confirmReject": "Elutasítás megerősítése",
+      "rejectionReasonPlaceholder": "Elutasítás oka (opcionális)",
+      "reviewerNotesPlaceholder": "Ellenőri megjegyzések (opcionális)",
+      "verificationNotesLabel": "Megjegyzések (opcionális — döntéstől függetlenül rögzítve az auditnaplóban)",
+      "verificationNotesPlaceholder": "Jóváhagyás vagy elutasítás indoklása…",
+      "actionFailed": "A művelet sikertelen"
+    },
+    "revision": {
+      "before": "Előtte:",
+      "after": "Utána:",
+      "old": "Régi:",
+      "new": "Új:"
+    },
+    "successReport": {
+      "period": "Időszak:",
+      "scope": "Hatókör:",
+      "kpis": "KPI-k:",
+      "evidence": "Bizonyíték:",
+      "trueAttribution": "Valódi hozzárendelés",
+      "submitter": "Beküldő:",
+      "organization": "Szervezet:",
+      "publiclyHidden": "nyilvánosan rejtett",
+      "orgNone": "Nincs",
+      "decisionRecorded": "Döntés rögzítve: {status}",
+      "verifyButton": "Jóváhagyás"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "Fordítás:",
+      "notTranslated": "(nincs lefordítva)"
+    },
+    "problem": {
+      "description": "Leírás",
+      "requirements": "Követelmények ({count})",
+      "pilotFrameworks": "Pilot keretrendszerek ({count})",
+      "actions": "Műveletek",
+      "noneSubmitted": "Nincs beküldve.",
+      "scope": "Hatókör:",
+      "successCriteria": "Sikerkritériumok:",
+      "personVisibility": "személy: {visibility}",
+      "orgVisibility": "szervezet: {visibility}",
+      "visibilityHidden": "rejtett",
+      "visibilityVisible": "látható"
+    },
+    "tagsPage": {
+      "title": "Címkék kezelése",
+      "subtitle": "Címkék hozzáadása, szerkesztése vagy eltávolítása a problémák kategorizálásához."
     }
   },
   "featuredSuccessStory": {

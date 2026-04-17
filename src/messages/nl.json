@@ -588,7 +588,14 @@
     "metaTitle": "Moderatie — OpenClienting",
     "title": "Moderatiewachtrij",
     "subtitle": "Beoordeel ingediende inhoud die op publicatie wacht.",
-    "history": "Geschiedenis",
+    "history": {
+      "title": "Bewerkingsgeschiedenis",
+      "subtitle": "Auteursherzienigen op gepubliceerde inhoud, nieuwste eerst.",
+      "noRevisions": "Nog geen herzienigen vastgelegd.",
+      "before": "Voor:",
+      "after": "Na:",
+      "reviewerNote": "Opmerking van beoordelaar:"
+    },
     "editHistory": "Bewerkingsgeschiedenis",
     "manageTags": "Labels beheren",
     "tags": "Labels",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "Taal",
       "orderLabel": "Weergavevolgorde",
+      "featuredOrderSummary": "volgorde {order}",
       "button": {
         "feature": "Op homepage uitlichten",
         "unfeature": "Niet meer uitlichten"
@@ -652,6 +660,58 @@
         "featured": "Momenteel uitgelicht",
         "notFeatured": "Niet uitgelicht"
       }
+    },
+    "actions": {
+      "verify": "Verifiëren",
+      "revert": "Terugzetten",
+      "applyChanges": "Wijzigingen toepassen",
+      "confirmReject": "Afwijzing bevestigen",
+      "rejectionReasonPlaceholder": "Reden voor afwijzing (optioneel)",
+      "reviewerNotesPlaceholder": "Opmerkingen van beoordelaar (optioneel)",
+      "verificationNotesLabel": "Opmerkingen (optioneel — ongeacht de beslissing opgeslagen in het auditlogboek)",
+      "verificationNotesPlaceholder": "Reden voor goedkeuring of afwijzing…",
+      "actionFailed": "Actie mislukt"
+    },
+    "revision": {
+      "before": "Voor:",
+      "after": "Na:",
+      "old": "Oud:",
+      "new": "Nieuw:"
+    },
+    "successReport": {
+      "period": "Periode:",
+      "scope": "Bereik:",
+      "kpis": "KPI's:",
+      "evidence": "Bewijs:",
+      "trueAttribution": "Werkelijke toeschrijving",
+      "submitter": "Indiener:",
+      "organization": "Organisatie:",
+      "publiclyHidden": "openbaar verborgen",
+      "orgNone": "Geen",
+      "decisionRecorded": "Beslissing vastgelegd: {status}",
+      "verifyButton": "Verifiëren"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "Vertaling:",
+      "notTranslated": "(niet vertaald)"
+    },
+    "problem": {
+      "description": "Beschrijving",
+      "requirements": "Vereisten ({count})",
+      "pilotFrameworks": "Pilotkaders ({count})",
+      "actions": "Acties",
+      "noneSubmitted": "Niets ingediend.",
+      "scope": "Bereik:",
+      "successCriteria": "Succescriteria:",
+      "personVisibility": "persoon: {visibility}",
+      "orgVisibility": "org: {visibility}",
+      "visibilityHidden": "verborgen",
+      "visibilityVisible": "zichtbaar"
+    },
+    "tagsPage": {
+      "title": "Tags beheren",
+      "subtitle": "Tags toevoegen, bewerken of verwijderen die worden gebruikt voor het categoriseren van problemen."
     }
   },
   "featuredSuccessStory": {

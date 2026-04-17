@@ -588,7 +588,14 @@
     "metaTitle": "การกลั่นกรอง — OpenClienting",
     "title": "คิวการกลั่นกรอง",
     "subtitle": "ตรวจสอบเนื้อหาที่ส่งมาและรอการเผยแพร่",
-    "history": "ประวัติ",
+    "history": {
+      "title": "ประวัติการแก้ไข",
+      "subtitle": "การแก้ไขของผู้เขียนในเนื้อหาที่เผยแพร่แล้ว เรียงจากใหม่ไปเก่า",
+      "noRevisions": "ยังไม่มีการบันทึกการแก้ไขใดๆ",
+      "before": "ก่อน:",
+      "after": "หลัง:",
+      "reviewerNote": "หมายเหตุของผู้ตรวจสอบ:"
+    },
     "editHistory": "ประวัติการแก้ไข",
     "manageTags": "จัดการแท็ก",
     "tags": "แท็ก",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "ภาษา/ภูมิภาค",
       "orderLabel": "ลำดับการแสดงผล",
+      "featuredOrderSummary": "ลำดับที่ {order}",
       "button": {
         "feature": "แสดงบนหน้าแรก",
         "unfeature": "ยกเลิกการแสดง"
@@ -652,6 +660,58 @@
         "featured": "กำลังแสดงอยู่",
         "notFeatured": "ไม่ได้แสดง"
       }
+    },
+    "actions": {
+      "verify": "ยืนยัน",
+      "revert": "ย้อนกลับ",
+      "applyChanges": "บันทึกการเปลี่ยนแปลง",
+      "confirmReject": "ยืนยันการปฏิเสธ",
+      "rejectionReasonPlaceholder": "เหตุผลในการปฏิเสธ (ไม่บังคับ)",
+      "reviewerNotesPlaceholder": "หมายเหตุของผู้ตรวจสอบ (ไม่บังคับ)",
+      "verificationNotesLabel": "หมายเหตุ (ไม่บังคับ — บันทึกในบันทึกตรวจสอบไม่ว่าจะตัดสินใจอย่างไร)",
+      "verificationNotesPlaceholder": "เหตุผลในการอนุมัติหรือปฏิเสธ…",
+      "actionFailed": "การดำเนินการล้มเหลว"
+    },
+    "revision": {
+      "before": "ก่อน:",
+      "after": "หลัง:",
+      "old": "เดิม:",
+      "new": "ใหม่:"
+    },
+    "successReport": {
+      "period": "ช่วงเวลา:",
+      "scope": "ขอบเขต:",
+      "kpis": "KPIs:",
+      "evidence": "หลักฐาน:",
+      "trueAttribution": "การระบุแหล่งที่มาที่แท้จริง",
+      "submitter": "ผู้ส่ง:",
+      "organization": "องค์กร:",
+      "publiclyHidden": "ซ่อนจากสาธารณะ",
+      "orgNone": "ไม่มี",
+      "decisionRecorded": "บันทึกคำตัดสินแล้ว: {status}",
+      "verifyButton": "ยืนยัน"
+    },
+    "translationReview": {
+      "sourceLabel": "EN:",
+      "translationLabel": "คำแปล:",
+      "notTranslated": "(ยังไม่ได้แปล)"
+    },
+    "problem": {
+      "description": "คำอธิบาย",
+      "requirements": "ข้อกำหนด ({count})",
+      "pilotFrameworks": "กรอบการทดลองนำร่อง ({count})",
+      "actions": "การดำเนินการ",
+      "noneSubmitted": "ไม่มีการส่งข้อมูล",
+      "scope": "ขอบเขต:",
+      "successCriteria": "เกณฑ์ความสำเร็จ:",
+      "personVisibility": "บุคคล: {visibility}",
+      "orgVisibility": "องค์กร: {visibility}",
+      "visibilityHidden": "ซ่อน",
+      "visibilityVisible": "มองเห็น"
+    },
+    "tagsPage": {
+      "title": "จัดการแท็ก",
+      "subtitle": "เพิ่ม แก้ไข หรือลบแท็กที่ใช้สำหรับจัดหมวดหมู่ปัญหา"
     }
   },
   "featuredSuccessStory": {

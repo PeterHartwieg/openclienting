@@ -588,7 +588,14 @@
     "metaTitle": "モデレーション — OpenClienting",
     "title": "モデレーションキュー",
     "subtitle": "公開待ちの投稿コンテンツを審査します。",
-    "history": "履歴",
+    "history": {
+      "title": "編集履歴",
+      "subtitle": "公開済みコンテンツへの著者による修正（新しい順）。",
+      "noRevisions": "まだ修正履歴はありません。",
+      "before": "変更前：",
+      "after": "変更後：",
+      "reviewerNote": "レビュアーのメモ："
+    },
     "editHistory": "編集履歴",
     "manageTags": "タグを管理する",
     "tags": "タグ",
@@ -644,6 +651,7 @@
     "featureSuccessReport": {
       "localeLabel": "ロケール",
       "orderLabel": "表示順",
+      "featuredOrderSummary": "順序 {order}",
       "button": {
         "feature": "ホームページで特集",
         "unfeature": "特集を解除"
@@ -652,6 +660,58 @@
         "featured": "現在特集中",
         "notFeatured": "特集なし"
       }
+    },
+    "actions": {
+      "verify": "承認",
+      "revert": "元に戻す",
+      "applyChanges": "変更を適用",
+      "confirmReject": "却下を確定",
+      "rejectionReasonPlaceholder": "却下理由（任意）",
+      "reviewerNotesPlaceholder": "レビュアーのメモ（任意）",
+      "verificationNotesLabel": "メモ（任意 — 決定に関わらず監査ログに記録されます）",
+      "verificationNotesPlaceholder": "承認または却下の理由…",
+      "actionFailed": "操作に失敗しました"
+    },
+    "revision": {
+      "before": "変更前：",
+      "after": "変更後：",
+      "old": "旧：",
+      "new": "新："
+    },
+    "successReport": {
+      "period": "期間：",
+      "scope": "範囲：",
+      "kpis": "KPI：",
+      "evidence": "根拠：",
+      "trueAttribution": "真の帰属",
+      "submitter": "提出者：",
+      "organization": "組織：",
+      "publiclyHidden": "公開非表示",
+      "orgNone": "なし",
+      "decisionRecorded": "決定を記録しました：{status}",
+      "verifyButton": "承認"
+    },
+    "translationReview": {
+      "sourceLabel": "EN：",
+      "translationLabel": "翻訳：",
+      "notTranslated": "（未翻訳）"
+    },
+    "problem": {
+      "description": "説明",
+      "requirements": "要件（{count}）",
+      "pilotFrameworks": "パイロットフレームワーク（{count}）",
+      "actions": "アクション",
+      "noneSubmitted": "提出なし。",
+      "scope": "範囲：",
+      "successCriteria": "成功基準：",
+      "personVisibility": "個人：{visibility}",
+      "orgVisibility": "組織：{visibility}",
+      "visibilityHidden": "非表示",
+      "visibilityVisible": "表示"
+    },
+    "tagsPage": {
+      "title": "タグ管理",
+      "subtitle": "課題の分類に使用するタグを追加、編集、または削除します。"
     }
   },
   "featuredSuccessStory": {
