@@ -1,11 +1,41 @@
 "use client";
 
 import { useCallback, useEffect, useId, useRef, useState } from "react";
+import type { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Search } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { trackIaEvent } from "@/lib/analytics/ia-events";
+
+// Sentinels injected by the search_problems RPC via ts_headline.
+// These are improbable in user text and not valid HTML, so they cannot
+// form executable markup even if accidentally rendered raw.
+const HIGHLIGHT_START = "«OC-M»";
+const HIGHLIGHT_END = "«/OC-M»";
+
+/**
+ * Splits a sentinel-wrapped snippet into an array of plain text nodes and
+ * <b> elements for matched segments. React escapes all text automatically —
+ * no dangerouslySetInnerHTML needed.
+ */
+function renderHighlightedSnippet(snippet: string): ReactNode[] {
+  const parts = snippet.split(HIGHLIGHT_START);
+  const nodes: ReactNode[] = [];
+  parts.forEach((part, i) => {
+    const endIdx = part.indexOf(HIGHLIGHT_END);
+    if (endIdx === -1) {
+      // No closing sentinel — plain text segment
+      nodes.push(part);
+    } else {
+      const highlighted = part.slice(0, endIdx);
+      const rest = part.slice(endIdx + HIGHLIGHT_END.length);
+      nodes.push(<b key={i}>{highlighted}</b>);
+      if (rest) nodes.push(rest);
+    }
+  });
+  return nodes;
+}
 
 interface SearchResult {
   id: string;
@@ -170,13 +200,9 @@ export function GlobalSearch({ locale }: GlobalSearchProps) {
             >
               <p className="truncate text-sm font-medium">{result.title}</p>
               {result.snippet && (
-                <p
-                  className="mt-0.5 line-clamp-1 text-xs text-muted-foreground [&_b]:font-semibold [&_b]:text-foreground"
-                  // ts_headline wraps matches in <b> tags. The output is
-                  // generated entirely by Postgres from indexed content —
-                  // not from raw user input — so it is safe to render.
-                  dangerouslySetInnerHTML={{ __html: result.snippet }}
-                />
+                <p className="mt-0.5 line-clamp-1 text-xs text-muted-foreground [&_b]:font-semibold [&_b]:text-foreground">
+                  {renderHighlightedSnippet(result.snippet)}
+                </p>
               )}
             </li>
           ))}
