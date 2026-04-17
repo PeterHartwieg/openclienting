@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "सक्रिय फ़िल्टर:",
     "removeFilter": "{filter} फ़िल्टर हटाएँ",
     "noResultsTitle": "इन फ़िल्टर से कोई समस्या मेल नहीं खाती",
-    "noResultsResetCta": "फ़िल्टर रीसेट करें"
+    "noResultsResetCta": "फ़िल्टर रीसेट करें",
+    "errorTitle": "समस्याएँ लोड करने में विफल"
   },
   "problemDetail": {
     "metaTitleFallback": "समस्या — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "सबमिट किया जा रहा है…",
     "suggestEditCancel": "रद्द करें",
     "updatedLabel": "अद्यतन",
+    "errorTitle": "समस्या नहीं मिली",
     "verifiedOutcomesHeading": "सत्यापित परिणाम",
     "answerSummary": {
       "summaryLabel": "एक वाक्य में",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "आपके समाधान दृष्टिकोण",
     "noApproaches": "आपने अभी तक कोई समाधान दृष्टिकोण प्रस्तावित नहीं किया है।",
     "submittedAt": "{date} को सबमिट किया",
+    "orgPages": {
+      "list": {
+        "title": "संगठन",
+        "joinButton": "संगठन में शामिल हों",
+        "createButton": "संगठन बनाएँ",
+        "emptyState": "आप अभी तक किसी भी संगठन के सदस्य नहीं हैं।"
+      },
+      "join": {
+        "title": "किसी संगठन में शामिल हों",
+        "subtitle": "उच्च-विश्वास योगदान सक्षम करने के लिए किसी सत्यापित संगठन में सदस्यता का अनुरोध करें।",
+        "emptyState": "अभी तक कोई सत्यापित संगठन उपलब्ध नहीं है।"
+      },
+      "new": {
+        "title": "संगठन बनाएँ",
+        "subtitle": "सत्यापित योगदान सक्षम करने के लिए अपने संगठन को पंजीकृत करें।"
+      },
+      "detail": {
+        "logoHeading": "लोगो",
+        "editHeading": "संगठन संपादित करें",
+        "membersHeading": "सदस्य",
+        "noMembers": "कोई सदस्य नहीं।"
+      }
+    },
     "overview": {
       "notifications": {
         "title": "सूचनाएं",

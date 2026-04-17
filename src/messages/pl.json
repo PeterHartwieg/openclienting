@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "Aktywne filtry:",
     "removeFilter": "Usuń filtr {filter}",
     "noResultsTitle": "Żaden problem nie pasuje do tych filtrów",
-    "noResultsResetCta": "Resetuj filtry"
+    "noResultsResetCta": "Resetuj filtry",
+    "errorTitle": "Nie udało się załadować problemów"
   },
   "problemDetail": {
     "metaTitleFallback": "Problem — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "Przesyłanie…",
     "suggestEditCancel": "Anuluj",
     "updatedLabel": "Zaktualizowano",
+    "errorTitle": "Nie znaleziono problemu",
     "verifiedOutcomesHeading": "Zweryfikowane wyniki",
     "answerSummary": {
       "summaryLabel": "W jednym zdaniu",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "Twoje podejścia do rozwiązań",
     "noApproaches": "Nie zaproponowałeś jeszcze żadnych podejść do rozwiązań.",
     "submittedAt": "Przesłano {date}",
+    "orgPages": {
+      "list": {
+        "title": "Organizacje",
+        "joinButton": "Dołącz do organizacji",
+        "createButton": "Utwórz organizację",
+        "emptyState": "Nie jesteś jeszcze członkiem żadnej organizacji."
+      },
+      "join": {
+        "title": "Dołącz do organizacji",
+        "subtitle": "Poproś o członkostwo w zweryfikowanej organizacji, aby móc wnosić wkład o wysokim poziomie zaufania.",
+        "emptyState": "Brak dostępnych zweryfikowanych organizacji."
+      },
+      "new": {
+        "title": "Utwórz organizację",
+        "subtitle": "Zarejestruj swoją organizację, aby umożliwić zweryfikowane wkłady."
+      },
+      "detail": {
+        "logoHeading": "Logo",
+        "editHeading": "Edytuj organizację",
+        "membersHeading": "Członkowie",
+        "noMembers": "Brak członków."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "Powiadomienia",

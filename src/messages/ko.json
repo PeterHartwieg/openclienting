@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "적용된 필터:",
     "removeFilter": "{filter} 필터 제거",
     "noResultsTitle": "이 필터에 맞는 문제가 없습니다",
-    "noResultsResetCta": "필터 초기화"
+    "noResultsResetCta": "필터 초기화",
+    "errorTitle": "문제를 불러오지 못했습니다"
   },
   "problemDetail": {
     "metaTitleFallback": "문제 — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "제출 중…",
     "suggestEditCancel": "취소",
     "updatedLabel": "업데이트됨",
+    "errorTitle": "문제를 찾을 수 없습니다",
     "verifiedOutcomesHeading": "인증된 결과",
     "answerSummary": {
       "summaryLabel": "한 문장으로",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "내 솔루션 접근법",
     "noApproaches": "아직 제안한 솔루션 접근법이 없습니다.",
     "submittedAt": "{date}에 제출됨",
+    "orgPages": {
+      "list": {
+        "title": "조직",
+        "joinButton": "조직 가입",
+        "createButton": "조직 만들기",
+        "emptyState": "아직 가입된 조직이 없습니다."
+      },
+      "join": {
+        "title": "조직 가입",
+        "subtitle": "검증된 조직의 멤버십을 신청하여 높은 신뢰도의 기여를 활성화하세요.",
+        "emptyState": "현재 사용 가능한 검증된 조직이 없습니다."
+      },
+      "new": {
+        "title": "조직 만들기",
+        "subtitle": "조직을 등록하여 검증된 기여를 활성화하세요."
+      },
+      "detail": {
+        "logoHeading": "로고",
+        "editHeading": "조직 편집",
+        "membersHeading": "멤버",
+        "noMembers": "멤버가 없습니다."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "알림",

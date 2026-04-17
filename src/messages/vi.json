@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "Bộ lọc đang áp dụng:",
     "removeFilter": "Xóa bộ lọc {filter}",
     "noResultsTitle": "Không có vấn đề nào khớp với các bộ lọc này",
-    "noResultsResetCta": "Đặt lại bộ lọc"
+    "noResultsResetCta": "Đặt lại bộ lọc",
+    "errorTitle": "Không thể tải danh sách vấn đề"
   },
   "problemDetail": {
     "metaTitleFallback": "Vấn Đề — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "Đang gửi…",
     "suggestEditCancel": "Hủy",
     "updatedLabel": "Đã cập nhật",
+    "errorTitle": "Không tìm thấy vấn đề",
     "verifiedOutcomesHeading": "Kết quả đã xác minh",
     "answerSummary": {
       "summaryLabel": "Trong một câu",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "Hướng Tiếp Cận Giải Pháp Của Bạn",
     "noApproaches": "Bạn chưa đề xuất hướng tiếp cận giải pháp nào.",
     "submittedAt": "Đã gửi {date}",
+    "orgPages": {
+      "list": {
+        "title": "Tổ chức",
+        "joinButton": "Tham gia tổ chức",
+        "createButton": "Tạo tổ chức",
+        "emptyState": "Bạn chưa là thành viên của bất kỳ tổ chức nào."
+      },
+      "join": {
+        "title": "Tham gia một tổ chức",
+        "subtitle": "Yêu cầu tư cách thành viên trong một tổ chức đã xác minh để có thể đóng góp với độ tin cậy cao.",
+        "emptyState": "Hiện chưa có tổ chức đã xác minh nào."
+      },
+      "new": {
+        "title": "Tạo tổ chức",
+        "subtitle": "Đăng ký tổ chức của bạn để có thể thực hiện các đóng góp đã xác minh."
+      },
+      "detail": {
+        "logoHeading": "Logo",
+        "editHeading": "Chỉnh sửa tổ chức",
+        "membersHeading": "Thành viên",
+        "noMembers": "Không có thành viên."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "Thông Báo",

@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "عوامل التصفية النشطة:",
     "removeFilter": "إزالة عامل التصفية {filter}",
     "noResultsTitle": "لا توجد مشاكل تطابق هذه عوامل التصفية",
-    "noResultsResetCta": "إعادة ضبط عوامل التصفية"
+    "noResultsResetCta": "إعادة ضبط عوامل التصفية",
+    "errorTitle": "فشل تحميل المشكلات"
   },
   "problemDetail": {
     "metaTitleFallback": "مشكلة — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "جارٍ الإرسال…",
     "suggestEditCancel": "إلغاء",
     "updatedLabel": "تم التحديث",
+    "errorTitle": "المشكلة غير موجودة",
     "verifiedOutcomesHeading": "النتائج الموثّقة",
     "answerSummary": {
       "summaryLabel": "في جملة واحدة",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "مقاربات الحل الخاصة بك",
     "noApproaches": "لم تقترح أي مقاربات حلول بعد.",
     "submittedAt": "مُرسَلة {date}",
+    "orgPages": {
+      "list": {
+        "title": "المنظمات",
+        "joinButton": "الانضمام إلى منظمة",
+        "createButton": "إنشاء منظمة",
+        "emptyState": "أنت لست عضوًا في أي منظمة بعد."
+      },
+      "join": {
+        "title": "الانضمام إلى منظمة",
+        "subtitle": "اطلب العضوية في منظمة موثّقة لتفعيل المساهمات عالية الموثوقية.",
+        "emptyState": "لا توجد منظمات موثّقة متاحة بعد."
+      },
+      "new": {
+        "title": "إنشاء منظمة",
+        "subtitle": "سجّل منظمتك لتفعيل المساهمات الموثّقة."
+      },
+      "detail": {
+        "logoHeading": "الشعار",
+        "editHeading": "تعديل المنظمة",
+        "membersHeading": "الأعضاء",
+        "noMembers": "لا يوجد أعضاء."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "الإشعارات",

@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "Filtros activos:",
     "removeFilter": "Eliminar filtro {filter}",
     "noResultsTitle": "Ningún problema coincide con estos filtros",
-    "noResultsResetCta": "Restablecer filtros"
+    "noResultsResetCta": "Restablecer filtros",
+    "errorTitle": "Error al cargar los problemas"
   },
   "problemDetail": {
     "metaTitleFallback": "Problema — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "Enviando…",
     "suggestEditCancel": "Cancelar",
     "updatedLabel": "Actualizado",
+    "errorTitle": "Problema no encontrado",
     "verifiedOutcomesHeading": "Resultados verificados",
     "answerSummary": {
       "summaryLabel": "En una frase",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "Tus enfoques de solución",
     "noApproaches": "Aún no has propuesto ningún enfoque de solución.",
     "submittedAt": "Enviado el {date}",
+    "orgPages": {
+      "list": {
+        "title": "Organizaciones",
+        "joinButton": "Unirse a una organización",
+        "createButton": "Crear organización",
+        "emptyState": "Aún no perteneces a ninguna organización."
+      },
+      "join": {
+        "title": "Unirse a una organización",
+        "subtitle": "Solicita membresía en una organización verificada para habilitar contribuciones de alta confianza.",
+        "emptyState": "Aún no hay organizaciones verificadas disponibles."
+      },
+      "new": {
+        "title": "Crear organización",
+        "subtitle": "Registra tu organización para habilitar contribuciones verificadas."
+      },
+      "detail": {
+        "logoHeading": "Logotipo",
+        "editHeading": "Editar organización",
+        "membersHeading": "Miembros",
+        "noMembers": "Sin miembros."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "Notificaciones",

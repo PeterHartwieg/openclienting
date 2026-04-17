@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "Aktivní filtry:",
     "removeFilter": "Odebrat filtr {filter}",
     "noResultsTitle": "Žádné problémy neodpovídají těmto filtrům",
-    "noResultsResetCta": "Resetovat filtry"
+    "noResultsResetCta": "Resetovat filtry",
+    "errorTitle": "Načtení problémů se nezdařilo"
   },
   "problemDetail": {
     "metaTitleFallback": "Problém — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "Odesílání…",
     "suggestEditCancel": "Zrušit",
     "updatedLabel": "Aktualizováno",
+    "errorTitle": "Problém nebyl nalezen",
     "verifiedOutcomesHeading": "Ověřené výsledky",
     "answerSummary": {
       "summaryLabel": "Jednou větou",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "Vaše přístupy k řešení",
     "noApproaches": "Zatím jste nenavrhl(a) žádné přístupy k řešení.",
     "submittedAt": "Přidáno {date}",
+    "orgPages": {
+      "list": {
+        "title": "Organizace",
+        "joinButton": "Připojit se k organizaci",
+        "createButton": "Vytvořit organizaci",
+        "emptyState": "Zatím nejste členem žádné organizace."
+      },
+      "join": {
+        "title": "Připojit se k organizaci",
+        "subtitle": "Požádejte o členství ve ověřené organizaci a získejte přístup k příspěvkům s vysokou důvěryhodností.",
+        "emptyState": "Zatím nejsou k dispozici žádné ověřené organizace."
+      },
+      "new": {
+        "title": "Vytvořit organizaci",
+        "subtitle": "Zaregistrujte svou organizaci a umožněte ověřené příspěvky."
+      },
+      "detail": {
+        "logoHeading": "Logo",
+        "editHeading": "Upravit organizaci",
+        "membersHeading": "Členové",
+        "noMembers": "Žádní členové."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "Oznámení",

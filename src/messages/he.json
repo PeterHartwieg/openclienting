@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "מסננים פעילים:",
     "removeFilter": "הסר את מסנן {filter}",
     "noResultsTitle": "לא נמצאו בעיות התואמות לסינונים אלה",
-    "noResultsResetCta": "אפס מסננים"
+    "noResultsResetCta": "אפס מסננים",
+    "errorTitle": "טעינת הבעיות נכשלה"
   },
   "problemDetail": {
     "metaTitleFallback": "בעיה — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "שולח…",
     "suggestEditCancel": "ביטול",
     "updatedLabel": "עודכן",
+    "errorTitle": "הבעיה לא נמצאה",
     "verifiedOutcomesHeading": "תוצאות מאומתות",
     "answerSummary": {
       "summaryLabel": "במשפט אחד",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "גישות הפתרון שלך",
     "noApproaches": "טרם הצעת גישות פתרון.",
     "submittedAt": "הוגש {date}",
+    "orgPages": {
+      "list": {
+        "title": "ארגונים",
+        "joinButton": "הצטרף לארגון",
+        "createButton": "צור ארגון",
+        "emptyState": "אינך חבר באף ארגון עדיין."
+      },
+      "join": {
+        "title": "הצטרף לארגון",
+        "subtitle": "בקש חברות בארגון מאומת כדי לאפשר תרומות ברמת אמון גבוהה.",
+        "emptyState": "אין ארגונים מאומתים זמינים עדיין."
+      },
+      "new": {
+        "title": "צור ארגון",
+        "subtitle": "רשום את הארגון שלך כדי לאפשר תרומות מאומתות."
+      },
+      "detail": {
+        "logoHeading": "לוגו",
+        "editHeading": "ערוך ארגון",
+        "membersHeading": "חברים",
+        "noMembers": "אין חברים."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "התראות",

@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "已启用的筛选条件：",
     "removeFilter": "移除{filter}筛选条件",
     "noResultsTitle": "没有问题符合这些筛选条件",
-    "noResultsResetCta": "重置筛选条件"
+    "noResultsResetCta": "重置筛选条件",
+    "errorTitle": "加载问题失败"
   },
   "problemDetail": {
     "metaTitleFallback": "问题 — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "提交中…",
     "suggestEditCancel": "取消",
     "updatedLabel": "更新于",
+    "errorTitle": "未找到问题",
     "verifiedOutcomesHeading": "经验证的成果",
     "answerSummary": {
       "summaryLabel": "一句话概括",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "您的解决方案",
     "noApproaches": "您尚未提出任何解决方案。",
     "submittedAt": "提交于 {date}",
+    "orgPages": {
+      "list": {
+        "title": "组织",
+        "joinButton": "加入组织",
+        "createButton": "创建组织",
+        "emptyState": "您尚未加入任何组织。"
+      },
+      "join": {
+        "title": "加入组织",
+        "subtitle": "申请加入经过验证的组织，以启用高信任度贡献。",
+        "emptyState": "暂无已验证的组织。"
+      },
+      "new": {
+        "title": "创建组织",
+        "subtitle": "注册您的组织以启用经过验证的贡献。"
+      },
+      "detail": {
+        "logoHeading": "标志",
+        "editHeading": "编辑组织",
+        "membersHeading": "成员",
+        "noMembers": "暂无成员。"
+      }
+    },
     "overview": {
       "notifications": {
         "title": "通知",

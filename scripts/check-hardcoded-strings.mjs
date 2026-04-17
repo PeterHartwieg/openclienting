@@ -22,15 +22,21 @@
  *   - Purely numeric / whitespace strings
  *   - Strings that are clearly URLs, class names, IDs, route paths
  *   - Strings already inside a t() / useTranslations() / getTranslations() call
+ *   - Files under _content/ named <page>.<locale>.tsx — these are hand-authored
+ *     per-locale prose, not message-key consumers (e.g. privacy.en.tsx, terms.de.tsx).
  *
  * Add an inline comment to suppress a specific line:
  *   // i18n-ignore: <reason>
  */
 
 import { readdirSync, readFileSync, statSync } from "fs";
-import { resolve, relative, extname } from "path";
+import { resolve, relative, extname, sep } from "path";
 import { fileURLToPath } from "url";
 import { parse } from "@typescript-eslint/typescript-estree";
+
+// Files under _content/ named <page>.<locale>.tsx are hand-authored per-locale prose,
+// not message-key consumers — skip them entirely.
+const LOCALE_SIBLING_RE = /^[a-z0-9-]+\.[a-z]{2}(?:-[A-Za-z]{2,4})?\.tsx?$/;
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const ROOT = resolve(__dirname, "..");
@@ -238,6 +244,12 @@ function collectFiles(dir) {
       if (![".ts", ".tsx"].includes(ext)) continue;
       if (entry.endsWith(".test.ts") || entry.endsWith(".spec.ts")) continue;
       if (entry.endsWith(".test.tsx") || entry.endsWith(".spec.tsx")) continue;
+      // Skip hand-authored per-locale prose files inside _content/ directories
+      const parts = full.split(sep);
+      if (
+        parts.includes("_content") &&
+        LOCALE_SIBLING_RE.test(entry)
+      ) continue;
       out.push(full);
     }
   }

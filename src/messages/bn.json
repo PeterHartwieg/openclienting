@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "সক্রিয় ফিল্টার:",
     "removeFilter": "{filter} ফিল্টার সরান",
     "noResultsTitle": "এই ফিল্টারগুলির সাথে কোনো সমস্যা মেলেনি",
-    "noResultsResetCta": "ফিল্টার রিসেট করুন"
+    "noResultsResetCta": "ফিল্টার রিসেট করুন",
+    "errorTitle": "সমস্যাগুলি লোড করতে ব্যর্থ হয়েছে"
   },
   "problemDetail": {
     "metaTitleFallback": "সমস্যা — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "জমা হচ্ছে…",
     "suggestEditCancel": "বাতিল করুন",
     "updatedLabel": "আপডেট হয়েছে",
+    "errorTitle": "সমস্যাটি পাওয়া যায়নি",
     "verifiedOutcomesHeading": "যাচাইকৃত ফলাফল",
     "answerSummary": {
       "summaryLabel": "এক বাক্যে",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "আপনার সমাধান পদ্ধতিসমূহ",
     "noApproaches": "আপনি এখনো কোনো সমাধান পদ্ধতি প্রস্তাব করেননি।",
     "submittedAt": "{date} তারিখে জমা দেওয়া হয়েছে",
+    "orgPages": {
+      "list": {
+        "title": "প্রতিষ্ঠানসমূহ",
+        "joinButton": "প্রতিষ্ঠানে যোগ দিন",
+        "createButton": "প্রতিষ্ঠান তৈরি করুন",
+        "emptyState": "আপনি এখনো কোনো প্রতিষ্ঠানের সদস্য নন।"
+      },
+      "join": {
+        "title": "একটি প্রতিষ্ঠানে যোগ দিন",
+        "subtitle": "উচ্চ-বিশ্বাসযোগ্য অবদান সক্ষম করতে একটি যাচাইকৃত প্রতিষ্ঠানে সদস্যপদের অনুরোধ করুন।",
+        "emptyState": "এখনো কোনো যাচাইকৃত প্রতিষ্ঠান উপলব্ধ নেই।"
+      },
+      "new": {
+        "title": "প্রতিষ্ঠান তৈরি করুন",
+        "subtitle": "যাচাইকৃত অবদান সক্ষম করতে আপনার প্রতিষ্ঠান নিবন্ধন করুন।"
+      },
+      "detail": {
+        "logoHeading": "লোগো",
+        "editHeading": "প্রতিষ্ঠান সম্পাদনা করুন",
+        "membersHeading": "সদস্যগণ",
+        "noMembers": "কোনো সদস্য নেই।"
+      }
+    },
     "overview": {
       "notifications": {
         "title": "বিজ্ঞপ্তিসমূহ",

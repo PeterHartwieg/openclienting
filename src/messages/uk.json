@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "Активні фільтри:",
     "removeFilter": "Видалити фільтр {filter}",
     "noResultsTitle": "Жодна проблема не відповідає цим фільтрам",
-    "noResultsResetCta": "Скинути фільтри"
+    "noResultsResetCta": "Скинути фільтри",
+    "errorTitle": "Не вдалося завантажити проблеми"
   },
   "problemDetail": {
     "metaTitleFallback": "Проблема — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "Надсилання…",
     "suggestEditCancel": "Скасувати",
     "updatedLabel": "Оновлено",
+    "errorTitle": "Проблему не знайдено",
     "verifiedOutcomesHeading": "Верифіковані результати",
     "answerSummary": {
       "summaryLabel": "В одному реченні",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "Ваші підходи до рішень",
     "noApproaches": "Ви ще не пропонували жодних підходів до рішень.",
     "submittedAt": "Надіслано {date}",
+    "orgPages": {
+      "list": {
+        "title": "Організації",
+        "joinButton": "Приєднатися до організації",
+        "createButton": "Створити організацію",
+        "emptyState": "Ви ще не є членом жодної організації."
+      },
+      "join": {
+        "title": "Приєднатися до організації",
+        "subtitle": "Подайте запит на членство у верифікованій організації, щоб отримати можливість робити внески з високим рівнем довіри.",
+        "emptyState": "Поки що немає доступних верифікованих організацій."
+      },
+      "new": {
+        "title": "Створити організацію",
+        "subtitle": "Зареєструйте свою організацію, щоб отримати можливість робити верифіковані внески."
+      },
+      "detail": {
+        "logoHeading": "Логотип",
+        "editHeading": "Редагувати організацію",
+        "membersHeading": "Учасники",
+        "noMembers": "Немає учасників."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "Сповіщення",

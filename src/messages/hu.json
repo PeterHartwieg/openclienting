@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "Aktív szűrők:",
     "removeFilter": "{filter} szűrő eltávolítása",
     "noResultsTitle": "Nincs a szűrőknek megfelelő probléma",
-    "noResultsResetCta": "Szűrők visszaállítása"
+    "noResultsResetCta": "Szűrők visszaállítása",
+    "errorTitle": "A problémák betöltése sikertelen"
   },
   "problemDetail": {
     "metaTitleFallback": "Probléma — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "Beküldés…",
     "suggestEditCancel": "Mégse",
     "updatedLabel": "Frissítve",
+    "errorTitle": "A probléma nem található",
     "verifiedOutcomesHeading": "Ellenőrzött eredmények",
     "answerSummary": {
       "summaryLabel": "Egy mondatban",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "Megoldási megközelítéseid",
     "noApproaches": "Még nem javasoltál egyetlen megoldási megközelítést sem.",
     "submittedAt": "Beküldve: {date}",
+    "orgPages": {
+      "list": {
+        "title": "Szervezetek",
+        "joinButton": "Csatlakozás szervezethez",
+        "createButton": "Szervezet létrehozása",
+        "emptyState": "Még nem tagja egyetlen szervezetnek sem."
+      },
+      "join": {
+        "title": "Csatlakozás szervezethez",
+        "subtitle": "Kérjen tagságot egy ellenőrzött szervezetben, hogy magas megbízhatóságú hozzájárulásokat tehessen.",
+        "emptyState": "Egyelőre nincs elérhető ellenőrzött szervezet."
+      },
+      "new": {
+        "title": "Szervezet létrehozása",
+        "subtitle": "Regisztrálja szervezetét az ellenőrzött hozzájárulások engedélyezéséhez."
+      },
+      "detail": {
+        "logoHeading": "Logó",
+        "editHeading": "Szervezet szerkesztése",
+        "membersHeading": "Tagok",
+        "noMembers": "Nincsenek tagok."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "Értesítések",

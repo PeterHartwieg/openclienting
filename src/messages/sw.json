@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "Vichujio vinavyotumika:",
     "removeFilter": "Ondoa kichujio cha {filter}",
     "noResultsTitle": "Hakuna matatizo yanayolingana na vichujio hivi",
-    "noResultsResetCta": "Weka upya vichujio"
+    "noResultsResetCta": "Weka upya vichujio",
+    "errorTitle": "Imeshindwa kupakia matatizo"
   },
   "problemDetail": {
     "metaTitleFallback": "Tatizo — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "Inawasilisha…",
     "suggestEditCancel": "Ghairi",
     "updatedLabel": "Ilisasishwa",
+    "errorTitle": "Tatizo halipatikani",
     "verifiedOutcomesHeading": "Matokeo yaliyothibitishwa",
     "answerSummary": {
       "summaryLabel": "Kwa sentensi moja",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "Mbinu Zako za Suluhisho",
     "noApproaches": "Hujapenekeza mbinu zozote za suluhisho bado.",
     "submittedAt": "Iliwasilishwa {date}",
+    "orgPages": {
+      "list": {
+        "title": "Mashirika",
+        "joinButton": "Jiunge na Shirika",
+        "createButton": "Unda Shirika",
+        "emptyState": "Bado wewe si mwanachama wa shirika lolote."
+      },
+      "join": {
+        "title": "Jiunge na Shirika",
+        "subtitle": "Omba uanachama katika shirika lililothibitishwa ili kuwezesha michango yenye uaminifu wa hali ya juu.",
+        "emptyState": "Hakuna mashirika yaliyothibitishwa kwa sasa."
+      },
+      "new": {
+        "title": "Unda Shirika",
+        "subtitle": "Sajili shirika lako ili kuwezesha michango iliyothibitishwa."
+      },
+      "detail": {
+        "logoHeading": "Nembo",
+        "editHeading": "Hariri Shirika",
+        "membersHeading": "Wanachama",
+        "noMembers": "Hakuna wanachama."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "Arifa",

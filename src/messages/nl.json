@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "Actieve filters:",
     "removeFilter": "Filter {filter} verwijderen",
     "noResultsTitle": "Geen problemen komen overeen met deze filters",
-    "noResultsResetCta": "Filters resetten"
+    "noResultsResetCta": "Filters resetten",
+    "errorTitle": "Problemen laden mislukt"
   },
   "problemDetail": {
     "metaTitleFallback": "Probleem — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "Indienen…",
     "suggestEditCancel": "Annuleren",
     "updatedLabel": "Bijgewerkt",
+    "errorTitle": "Probleem niet gevonden",
     "verifiedOutcomesHeading": "Geverifieerde resultaten",
     "answerSummary": {
       "summaryLabel": "In één zin",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "Uw oplossingsbenaderingen",
     "noApproaches": "U heeft nog geen oplossingsbenaderingen voorgesteld.",
     "submittedAt": "Ingediend op {date}",
+    "orgPages": {
+      "list": {
+        "title": "Organisaties",
+        "joinButton": "Organisatie aansluiten",
+        "createButton": "Organisatie aanmaken",
+        "emptyState": "U bent nog geen lid van een organisatie."
+      },
+      "join": {
+        "title": "Sluit u aan bij een organisatie",
+        "subtitle": "Vraag lidmaatschap aan bij een geverifieerde organisatie om bijdragen met hoog vertrouwen mogelijk te maken.",
+        "emptyState": "Nog geen geverifieerde organisaties beschikbaar."
+      },
+      "new": {
+        "title": "Organisatie aanmaken",
+        "subtitle": "Registreer uw organisatie om geverifieerde bijdragen mogelijk te maken."
+      },
+      "detail": {
+        "logoHeading": "Logo",
+        "editHeading": "Organisatie bewerken",
+        "membersHeading": "Leden",
+        "noMembers": "Geen leden."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "Meldingen",

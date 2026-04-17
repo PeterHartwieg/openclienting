@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "Active filters:",
     "removeFilter": "Remove {filter} filter",
     "noResultsTitle": "No problems match these filters",
-    "noResultsResetCta": "Reset filters"
+    "noResultsResetCta": "Reset filters",
+    "errorTitle": "Failed to load problems"
   },
   "problemDetail": {
     "metaTitleFallback": "Problem — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "Submitting…",
     "suggestEditCancel": "Cancel",
     "updatedLabel": "Updated",
+    "errorTitle": "Problem not found",
     "verifiedOutcomesHeading": "Verified outcomes",
     "answerSummary": {
       "summaryLabel": "In one sentence",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "Your Solution Approaches",
     "noApproaches": "You haven't proposed any solution approaches yet.",
     "submittedAt": "Submitted {date}",
+    "orgPages": {
+      "list": {
+        "title": "Organizations",
+        "joinButton": "Join Organization",
+        "createButton": "Create Organization",
+        "emptyState": "You are not a member of any organizations yet."
+      },
+      "join": {
+        "title": "Join an Organization",
+        "subtitle": "Request membership in a verified organization to enable high-trust contributions.",
+        "emptyState": "No verified organizations available yet."
+      },
+      "new": {
+        "title": "Create Organization",
+        "subtitle": "Register your organization to enable verified contributions."
+      },
+      "detail": {
+        "logoHeading": "Logo",
+        "editHeading": "Edit Organization",
+        "membersHeading": "Members",
+        "noMembers": "No members."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "Notifications",

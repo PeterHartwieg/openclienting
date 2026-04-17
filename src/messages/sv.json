@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "Aktiva filter:",
     "removeFilter": "Ta bort {filter}-filter",
     "noResultsTitle": "Inga problem matchar dessa filter",
-    "noResultsResetCta": "Återställ filter"
+    "noResultsResetCta": "Återställ filter",
+    "errorTitle": "Det gick inte att läsa in problem"
   },
   "problemDetail": {
     "metaTitleFallback": "Problem — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "Skickar in…",
     "suggestEditCancel": "Avbryt",
     "updatedLabel": "Uppdaterad",
+    "errorTitle": "Problemet hittades inte",
     "verifiedOutcomesHeading": "Verifierade utfall",
     "answerSummary": {
       "summaryLabel": "I en mening",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "Dina lösningsansatser",
     "noApproaches": "Du har inte föreslagit några lösningsansatser än.",
     "submittedAt": "Inskickat {date}",
+    "orgPages": {
+      "list": {
+        "title": "Organisationer",
+        "joinButton": "Gå med i organisation",
+        "createButton": "Skapa organisation",
+        "emptyState": "Du är ännu inte medlem i några organisationer."
+      },
+      "join": {
+        "title": "Gå med i en organisation",
+        "subtitle": "Begär medlemskap i en verifierad organisation för att möjliggöra bidrag med hög tillförlitlighet.",
+        "emptyState": "Inga verifierade organisationer tillgängliga ännu."
+      },
+      "new": {
+        "title": "Skapa organisation",
+        "subtitle": "Registrera din organisation för att möjliggöra verifierade bidrag."
+      },
+      "detail": {
+        "logoHeading": "Logotyp",
+        "editHeading": "Redigera organisation",
+        "membersHeading": "Medlemmar",
+        "noMembers": "Inga medlemmar."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "Aviseringar",

@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "ตัวกรองที่ใช้งานอยู่:",
     "removeFilter": "ลบตัวกรอง {filter}",
     "noResultsTitle": "ไม่มีปัญหาที่ตรงกับตัวกรองเหล่านี้",
-    "noResultsResetCta": "รีเซ็ตตัวกรอง"
+    "noResultsResetCta": "รีเซ็ตตัวกรอง",
+    "errorTitle": "โหลดปัญหาไม่สำเร็จ"
   },
   "problemDetail": {
     "metaTitleFallback": "ปัญหา — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "กำลังส่ง…",
     "suggestEditCancel": "ยกเลิก",
     "updatedLabel": "อัปเดตแล้ว",
+    "errorTitle": "ไม่พบปัญหานี้",
     "verifiedOutcomesHeading": "ผลลัพธ์ที่ยืนยันแล้ว",
     "answerSummary": {
       "summaryLabel": "ในประโยคเดียว",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "แนวทางวิธีแก้ปัญหาของคุณ",
     "noApproaches": "คุณยังไม่ได้เสนอแนวทางวิธีแก้ปัญหาใดๆ",
     "submittedAt": "ส่งเมื่อ {date}",
+    "orgPages": {
+      "list": {
+        "title": "องค์กร",
+        "joinButton": "เข้าร่วมองค์กร",
+        "createButton": "สร้างองค์กร",
+        "emptyState": "คุณยังไม่ได้เป็นสมาชิกขององค์กรใดๆ"
+      },
+      "join": {
+        "title": "เข้าร่วมองค์กร",
+        "subtitle": "ขอเป็นสมาชิกในองค์กรที่ผ่านการยืนยันแล้ว เพื่อเปิดใช้งานการมีส่วนร่วมที่น่าเชื่อถือสูง",
+        "emptyState": "ยังไม่มีองค์กรที่ผ่านการยืนยันในขณะนี้"
+      },
+      "new": {
+        "title": "สร้างองค์กร",
+        "subtitle": "ลงทะเบียนองค์กรของคุณเพื่อเปิดใช้งานการมีส่วนร่วมที่ผ่านการยืนยัน"
+      },
+      "detail": {
+        "logoHeading": "โลโก้",
+        "editHeading": "แก้ไของค์กร",
+        "membersHeading": "สมาชิก",
+        "noMembers": "ไม่มีสมาชิก"
+      }
+    },
     "overview": {
       "notifications": {
         "title": "การแจ้งเตือน",

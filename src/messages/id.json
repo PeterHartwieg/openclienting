@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "Filter aktif:",
     "removeFilter": "Hapus filter {filter}",
     "noResultsTitle": "Tidak ada masalah yang cocok dengan filter ini",
-    "noResultsResetCta": "Reset filter"
+    "noResultsResetCta": "Reset filter",
+    "errorTitle": "Gagal memuat masalah"
   },
   "problemDetail": {
     "metaTitleFallback": "Masalah — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "Mengirim…",
     "suggestEditCancel": "Batal",
     "updatedLabel": "Diperbarui",
+    "errorTitle": "Masalah tidak ditemukan",
     "verifiedOutcomesHeading": "Hasil terverifikasi",
     "answerSummary": {
       "summaryLabel": "Dalam satu kalimat",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "Pendekatan Solusi Anda",
     "noApproaches": "Anda belum mengusulkan pendekatan solusi apa pun.",
     "submittedAt": "Dikirim {date}",
+    "orgPages": {
+      "list": {
+        "title": "Organisasi",
+        "joinButton": "Gabung Organisasi",
+        "createButton": "Buat Organisasi",
+        "emptyState": "Anda belum menjadi anggota organisasi mana pun."
+      },
+      "join": {
+        "title": "Gabung Organisasi",
+        "subtitle": "Ajukan keanggotaan di organisasi terverifikasi untuk mengaktifkan kontribusi kepercayaan tinggi.",
+        "emptyState": "Belum ada organisasi terverifikasi yang tersedia."
+      },
+      "new": {
+        "title": "Buat Organisasi",
+        "subtitle": "Daftarkan organisasi Anda untuk mengaktifkan kontribusi terverifikasi."
+      },
+      "detail": {
+        "logoHeading": "Logo",
+        "editHeading": "Edit Organisasi",
+        "membersHeading": "Anggota",
+        "noMembers": "Tidak ada anggota."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "Notifikasi",

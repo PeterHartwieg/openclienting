@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { getCurrentUser } from "@/lib/auth/roles";
 import { getVerifiedOrganizations } from "@/lib/queries/organizations";
 import {
@@ -21,19 +22,20 @@ export default async function JoinOrganizationPage({
     redirect(`/${locale}`);
   }
 
+  const t = await getTranslations({ locale, namespace: "dashboard.orgPages.join" });
   const organizations = await getVerifiedOrganizations();
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold tracking-tight">Join an Organization</h1>
+      <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
       <p className="mt-2 text-muted-foreground">
-        Request membership in a verified organization to enable high-trust contributions.
+        {t("subtitle")}
       </p>
 
       {organizations.length === 0 ? (
         <div className="mt-8 rounded-lg border border-dashed p-12 text-center">
           <p className="text-muted-foreground">
-            No verified organizations available yet.
+            {t("emptyState")}
           </p>
         </div>
       ) : (

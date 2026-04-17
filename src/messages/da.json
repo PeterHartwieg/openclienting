@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "Aktive filtre:",
     "removeFilter": "Fjern {filter}-filter",
     "noResultsTitle": "Ingen problemer matcher disse filtre",
-    "noResultsResetCta": "Nulstil filtre"
+    "noResultsResetCta": "Nulstil filtre",
+    "errorTitle": "Kunne ikke indlæse problemer"
   },
   "problemDetail": {
     "metaTitleFallback": "Problem — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "Indsender…",
     "suggestEditCancel": "Annuller",
     "updatedLabel": "Opdateret",
+    "errorTitle": "Problem ikke fundet",
     "verifiedOutcomesHeading": "Verificerede resultater",
     "answerSummary": {
       "summaryLabel": "I én sætning",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "Dine løsningstilgange",
     "noApproaches": "Du har endnu ikke foreslået nogen løsningstilgange.",
     "submittedAt": "Indsendt {date}",
+    "orgPages": {
+      "list": {
+        "title": "Organisationer",
+        "joinButton": "Tilmeld organisation",
+        "createButton": "Opret organisation",
+        "emptyState": "Du er endnu ikke medlem af nogen organisationer."
+      },
+      "join": {
+        "title": "Tilmeld en organisation",
+        "subtitle": "Anmod om medlemskab i en verificeret organisation for at aktivere bidrag med høj tillid.",
+        "emptyState": "Ingen verificerede organisationer tilgængelige endnu."
+      },
+      "new": {
+        "title": "Opret organisation",
+        "subtitle": "Registrer din organisation for at aktivere verificerede bidrag."
+      },
+      "detail": {
+        "logoHeading": "Logo",
+        "editHeading": "Rediger organisation",
+        "membersHeading": "Medlemmer",
+        "noMembers": "Ingen medlemmer."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "Notifikationer",

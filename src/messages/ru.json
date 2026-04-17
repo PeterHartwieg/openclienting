@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "Активные фильтры:",
     "removeFilter": "Удалить фильтр «{filter}»",
     "noResultsTitle": "Ни одна проблема не соответствует этим фильтрам",
-    "noResultsResetCta": "Сбросить фильтры"
+    "noResultsResetCta": "Сбросить фильтры",
+    "errorTitle": "Не удалось загрузить задачи"
   },
   "problemDetail": {
     "metaTitleFallback": "Проблема — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "Отправка…",
     "suggestEditCancel": "Отмена",
     "updatedLabel": "Обновлено",
+    "errorTitle": "Задача не найдена",
     "verifiedOutcomesHeading": "Верифицированные результаты",
     "answerSummary": {
       "summaryLabel": "В одном предложении",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "Ваши подходы к решению",
     "noApproaches": "Вы ещё не предложили ни одного подхода к решению.",
     "submittedAt": "Опубликовано {date}",
+    "orgPages": {
+      "list": {
+        "title": "Организации",
+        "joinButton": "Вступить в организацию",
+        "createButton": "Создать организацию",
+        "emptyState": "Вы пока не являетесь участником ни одной организации."
+      },
+      "join": {
+        "title": "Вступить в организацию",
+        "subtitle": "Запросите членство в верифицированной организации, чтобы получить возможность вносить вклад с высоким уровнем доверия.",
+        "emptyState": "Верифицированных организаций пока нет."
+      },
+      "new": {
+        "title": "Создать организацию",
+        "subtitle": "Зарегистрируйте вашу организацию, чтобы включить верифицированные публикации."
+      },
+      "detail": {
+        "logoHeading": "Логотип",
+        "editHeading": "Редактировать организацию",
+        "membersHeading": "Участники",
+        "noMembers": "Участников нет."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "Уведомления",

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { redirect, notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { getCurrentUser } from "@/lib/auth/roles";
 import { getOrganizationWithMembers } from "@/lib/queries/organizations";
 import { getOrgSizeTier } from "@/lib/utils";
@@ -37,6 +38,8 @@ export default async function OrganizationDetailPage({
   if (!user) {
     redirect(`/${locale}`);
   }
+
+  const t = await getTranslations({ locale, namespace: "dashboard.orgPages.detail" });
 
   let orgData;
   try {
@@ -114,7 +117,7 @@ export default async function OrganizationDetailPage({
       {isAdmin && (
         <>
           <div className="mt-10">
-            <h2 className="text-xl font-semibold">Logo</h2>
+            <h2 className="text-xl font-semibold">{t("logoHeading")}</h2>
             <div className="mt-4">
               <OrgLogoUpload
                 organizationId={org.id}
@@ -124,7 +127,7 @@ export default async function OrganizationDetailPage({
           </div>
 
           <div className="mt-10">
-            <h2 className="text-xl font-semibold">Edit Organization</h2>
+            <h2 className="text-xl font-semibold">{t("editHeading")}</h2>
             <div className="mt-4">
               <EditOrgForm
                 organizationId={org.id}
@@ -142,10 +145,10 @@ export default async function OrganizationDetailPage({
 
       {isAdmin && (
         <div className="mt-10">
-          <h2 className="text-xl font-semibold">Members</h2>
+          <h2 className="text-xl font-semibold">{t("membersHeading")}</h2>
           <div className="mt-4 space-y-2">
             {members.length === 0 ? (
-              <p className="text-muted-foreground">No members.</p>
+              <p className="text-muted-foreground">{t("noMembers")}</p>
             ) : (
               members.map((m) => (
                 <Card key={m.id}>

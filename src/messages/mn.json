@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "Идэвхтэй шүүлтүүрүүд:",
     "removeFilter": "{filter} шүүлтүүрийг арилгах",
     "noResultsTitle": "Эдгээр шүүлтүүрт тохирох асуудал алга",
-    "noResultsResetCta": "Шүүлтүүрийг дахиулах"
+    "noResultsResetCta": "Шүүлтүүрийг дахиулах",
+    "errorTitle": "Асуудлуудыг ачаалж чадсангүй"
   },
   "problemDetail": {
     "metaTitleFallback": "Асуудал — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "Илгээж байна…",
     "suggestEditCancel": "Цуцлах",
     "updatedLabel": "Шинэчлэгдсэн",
+    "errorTitle": "Асуудал олдсонгүй",
     "verifiedOutcomesHeading": "Баталгаажсан үр дүнгүүд",
     "answerSummary": {
       "summaryLabel": "Нэг өгүүлбэрээр",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "Таны шийдлийн арга замууд",
     "noApproaches": "Та одоохондоо ямар ч шийдлийн арга зам санал болгоогүй байна.",
     "submittedAt": "{date}-д илгээсэн",
+    "orgPages": {
+      "list": {
+        "title": "Байгууллагууд",
+        "joinButton": "Байгууллагад нэгдэх",
+        "createButton": "Байгууллага үүсгэх",
+        "emptyState": "Та одоогоор ямар ч байгууллагын гишүүн биш байна."
+      },
+      "join": {
+        "title": "Байгууллагад нэгдэх",
+        "subtitle": "Найдвартай оруулга хийх боломжийг нээхийн тулд баталгаажсан байгууллагад гишүүнчлэл хүсэлт гаргана уу.",
+        "emptyState": "Одоогоор баталгаажсан байгууллага байхгүй байна."
+      },
+      "new": {
+        "title": "Байгууллага үүсгэх",
+        "subtitle": "Баталгаажсан оруулга хийх боломжийг нээхийн тулд байгууллагаа бүртгүүлнэ үү."
+      },
+      "detail": {
+        "logoHeading": "Лого",
+        "editHeading": "Байгууллагыг засварлах",
+        "membersHeading": "Гишүүд",
+        "noMembers": "Гишүүн байхгүй."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "Мэдэгдлүүд",

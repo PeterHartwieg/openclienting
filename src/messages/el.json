@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "Ενεργά φίλτρα:",
     "removeFilter": "Κατάργηση φίλτρου {filter}",
     "noResultsTitle": "Κανένα πρόβλημα δεν ταιριάζει με αυτά τα φίλτρα",
-    "noResultsResetCta": "Επαναφορά φίλτρων"
+    "noResultsResetCta": "Επαναφορά φίλτρων",
+    "errorTitle": "Αποτυχία φόρτωσης προβλημάτων"
   },
   "problemDetail": {
     "metaTitleFallback": "Πρόβλημα — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "Υποβολή…",
     "suggestEditCancel": "Ακύρωση",
     "updatedLabel": "Ενημερώθηκε",
+    "errorTitle": "Το πρόβλημα δεν βρέθηκε",
     "verifiedOutcomesHeading": "Επαληθευμένα αποτελέσματα",
     "answerSummary": {
       "summaryLabel": "Σε μία πρόταση",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "Οι Προσεγγίσεις Λύσεών σας",
     "noApproaches": "Δεν έχετε προτείνει καμία προσέγγιση λύσης ακόμη.",
     "submittedAt": "Υποβλήθηκε {date}",
+    "orgPages": {
+      "list": {
+        "title": "Οργανισμοί",
+        "joinButton": "Εγγραφή σε Οργανισμό",
+        "createButton": "Δημιουργία Οργανισμού",
+        "emptyState": "Δεν είστε μέλος κανενός οργανισμού ακόμα."
+      },
+      "join": {
+        "title": "Εγγραφή σε Οργανισμό",
+        "subtitle": "Υποβάλετε αίτημα μέλους σε έναν επαληθευμένο οργανισμό για να ενεργοποιήσετε συνεισφορές υψηλής εμπιστοσύνης.",
+        "emptyState": "Δεν υπάρχουν διαθέσιμοι επαληθευμένοι οργανισμοί ακόμα."
+      },
+      "new": {
+        "title": "Δημιουργία Οργανισμού",
+        "subtitle": "Καταχωρίστε τον οργανισμό σας για να ενεργοποιήσετε επαληθευμένες συνεισφορές."
+      },
+      "detail": {
+        "logoHeading": "Λογότυπο",
+        "editHeading": "Επεξεργασία Οργανισμού",
+        "membersHeading": "Μέλη",
+        "noMembers": "Δεν υπάρχουν μέλη."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "Ειδοποιήσεις",

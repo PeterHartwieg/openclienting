@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "Aktive filtre:",
     "removeFilter": "Fjern {filter}-filter",
     "noResultsTitle": "Ingen problemer samsvarer med disse filtrene",
-    "noResultsResetCta": "Tilbakestill filtre"
+    "noResultsResetCta": "Tilbakestill filtre",
+    "errorTitle": "Kunne ikke laste problemer"
   },
   "problemDetail": {
     "metaTitleFallback": "Problem — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "Sender inn…",
     "suggestEditCancel": "Avbryt",
     "updatedLabel": "Oppdatert",
+    "errorTitle": "Problem ikke funnet",
     "verifiedOutcomesHeading": "Verifiserte resultater",
     "answerSummary": {
       "summaryLabel": "I én setning",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "Dine løsningstilnærminger",
     "noApproaches": "Du har ikke foreslått noen løsningstilnærminger ennå.",
     "submittedAt": "Innsendt {date}",
+    "orgPages": {
+      "list": {
+        "title": "Organisasjoner",
+        "joinButton": "Bli med i organisasjon",
+        "createButton": "Opprett organisasjon",
+        "emptyState": "Du er ikke medlem av noen organisasjoner ennå."
+      },
+      "join": {
+        "title": "Bli med i en organisasjon",
+        "subtitle": "Be om medlemskap i en verifisert organisasjon for å muliggjøre bidrag med høy tillit.",
+        "emptyState": "Ingen verifiserte organisasjoner tilgjengelig ennå."
+      },
+      "new": {
+        "title": "Opprett organisasjon",
+        "subtitle": "Registrer organisasjonen din for å muliggjøre verifiserte bidrag."
+      },
+      "detail": {
+        "logoHeading": "Logo",
+        "editHeading": "Rediger organisasjon",
+        "membersHeading": "Medlemmer",
+        "noMembers": "Ingen medlemmer."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "Varsler",

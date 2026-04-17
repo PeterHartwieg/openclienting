@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "Filtre active:",
     "removeFilter": "Elimină filtrul {filter}",
     "noResultsTitle": "Nicio problemă nu corespunde acestor filtre",
-    "noResultsResetCta": "Resetează filtrele"
+    "noResultsResetCta": "Resetează filtrele",
+    "errorTitle": "Eroare la încărcarea problemelor"
   },
   "problemDetail": {
     "metaTitleFallback": "Problemă — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "Se trimite…",
     "suggestEditCancel": "Anulează",
     "updatedLabel": "Actualizat",
+    "errorTitle": "Problema nu a fost găsită",
     "verifiedOutcomesHeading": "Rezultate verificate",
     "answerSummary": {
       "summaryLabel": "Într-o singură propoziție",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "Abordările tale de soluții",
     "noApproaches": "Nu ai propus încă nicio abordare de soluție.",
     "submittedAt": "Trimis {date}",
+    "orgPages": {
+      "list": {
+        "title": "Organizații",
+        "joinButton": "Alătură-te organizației",
+        "createButton": "Creează organizație",
+        "emptyState": "Nu ești încă membru al niciunei organizații."
+      },
+      "join": {
+        "title": "Alătură-te unei organizații",
+        "subtitle": "Solicită apartenența la o organizație verificată pentru a activa contribuții de înaltă încredere.",
+        "emptyState": "Nicio organizație verificată disponibilă momentan."
+      },
+      "new": {
+        "title": "Creează organizație",
+        "subtitle": "Înregistrează-ți organizația pentru a activa contribuții verificate."
+      },
+      "detail": {
+        "logoHeading": "Logo",
+        "editHeading": "Editează organizația",
+        "membersHeading": "Membri",
+        "noMembers": "Niciun membru."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "Notificări",

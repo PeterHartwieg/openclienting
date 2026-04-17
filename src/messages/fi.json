@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "Aktiiviset suodattimet:",
     "removeFilter": "Poista {filter}-suodatin",
     "noResultsTitle": "Mikään ongelma ei vastaa näitä suodattimia",
-    "noResultsResetCta": "Nollaa suodattimet"
+    "noResultsResetCta": "Nollaa suodattimet",
+    "errorTitle": "Ongelmien lataaminen epäonnistui"
   },
   "problemDetail": {
     "metaTitleFallback": "Ongelma — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "Lähetetään…",
     "suggestEditCancel": "Peruuta",
     "updatedLabel": "Päivitetty",
+    "errorTitle": "Ongelmaa ei löydy",
     "verifiedOutcomesHeading": "Varmennetut tulokset",
     "answerSummary": {
       "summaryLabel": "Yhdellä lauseella",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "Omat ratkaisulähestymistapasi",
     "noApproaches": "Et ole vielä ehdottanut yhtään ratkaisulähestymistapaa.",
     "submittedAt": "Lähetetty {date}",
+    "orgPages": {
+      "list": {
+        "title": "Organisaatiot",
+        "joinButton": "Liity organisaatioon",
+        "createButton": "Luo organisaatio",
+        "emptyState": "Et ole vielä minkään organisaation jäsen."
+      },
+      "join": {
+        "title": "Liity organisaatioon",
+        "subtitle": "Pyydä jäsenyyttä varmennetussa organisaatiossa ottaaksesi käyttöön luotettavat panokset.",
+        "emptyState": "Varmennetuja organisaatioita ei ole vielä saatavilla."
+      },
+      "new": {
+        "title": "Luo organisaatio",
+        "subtitle": "Rekisteröi organisaatiosi ottaaksesi käyttöön varmennetut panokset."
+      },
+      "detail": {
+        "logoHeading": "Logo",
+        "editHeading": "Muokkaa organisaatiota",
+        "membersHeading": "Jäsenet",
+        "noMembers": "Ei jäseniä."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "Ilmoitukset",

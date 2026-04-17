@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "Etkin filtreler:",
     "removeFilter": "{filter} filtresini kaldır",
     "noResultsTitle": "Bu filtrelerle eşleşen sorun yok",
-    "noResultsResetCta": "Filtreleri sıfırla"
+    "noResultsResetCta": "Filtreleri sıfırla",
+    "errorTitle": "Problemler yüklenemedi"
   },
   "problemDetail": {
     "metaTitleFallback": "Sorun — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "Gönderiliyor…",
     "suggestEditCancel": "İptal",
     "updatedLabel": "Güncellendi",
+    "errorTitle": "Problem bulunamadı",
     "verifiedOutcomesHeading": "Doğrulanmış sonuçlar",
     "answerSummary": {
       "summaryLabel": "Tek cümlede",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "Çözüm Yaklaşımlarınız",
     "noApproaches": "Henüz çözüm yaklaşımı önermediniz.",
     "submittedAt": "{date} tarihinde gönderildi",
+    "orgPages": {
+      "list": {
+        "title": "Organizasyonlar",
+        "joinButton": "Organizasyona Katıl",
+        "createButton": "Organizasyon Oluştur",
+        "emptyState": "Henüz hiçbir organizasyona üye değilsiniz."
+      },
+      "join": {
+        "title": "Bir Organizasyona Katıl",
+        "subtitle": "Yüksek güvenilirlikli katkılar sağlamak için doğrulanmış bir organizasyona üyelik talep edin.",
+        "emptyState": "Henüz doğrulanmış organizasyon bulunmamaktadır."
+      },
+      "new": {
+        "title": "Organizasyon Oluştur",
+        "subtitle": "Doğrulanmış katkılar sağlamak için organizasyonunuzu kaydedin."
+      },
+      "detail": {
+        "logoHeading": "Logo",
+        "editHeading": "Organizasyonu Düzenle",
+        "membersHeading": "Üyeler",
+        "noMembers": "Üye yok."
+      }
+    },
     "overview": {
       "notifications": {
         "title": "Bildirimler",

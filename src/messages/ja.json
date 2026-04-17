@@ -232,7 +232,8 @@
     "appliedFiltersLabel": "適用中のフィルター:",
     "removeFilter": "{filter}フィルターを削除",
     "noResultsTitle": "このフィルターに一致する問題はありません",
-    "noResultsResetCta": "フィルターをリセット"
+    "noResultsResetCta": "フィルターをリセット",
+    "errorTitle": "問題の読み込みに失敗しました"
   },
   "problemDetail": {
     "metaTitleFallback": "課題 — OpenClienting",
@@ -269,6 +270,7 @@
     "suggestEditSubmitting": "送信中…",
     "suggestEditCancel": "キャンセル",
     "updatedLabel": "更新日",
+    "errorTitle": "問題が見つかりません",
     "verifiedOutcomesHeading": "認証済み成果",
     "answerSummary": {
       "summaryLabel": "一文で",
@@ -401,6 +403,29 @@
     "yourSolutionApproaches": "提案したソリューションアプローチ",
     "noApproaches": "まだソリューションアプローチを提案していません。",
     "submittedAt": "{date}に投稿",
+    "orgPages": {
+      "list": {
+        "title": "組織",
+        "joinButton": "組織に参加",
+        "createButton": "組織を作成",
+        "emptyState": "まだどの組織にも所属していません。"
+      },
+      "join": {
+        "title": "組織に参加する",
+        "subtitle": "認証済み組織へのメンバーシップを申請して、高信頼性の投稿を有効にしてください。",
+        "emptyState": "現在、参加可能な認証済み組織はありません。"
+      },
+      "new": {
+        "title": "組織を作成",
+        "subtitle": "組織を登録して、認証済みの投稿を有効にしてください。"
+      },
+      "detail": {
+        "logoHeading": "ロゴ",
+        "editHeading": "組織を編集",
+        "membersHeading": "メンバー",
+        "noMembers": "メンバーはいません。"
+      }
+    },
     "overview": {
       "notifications": {
         "title": "通知",
