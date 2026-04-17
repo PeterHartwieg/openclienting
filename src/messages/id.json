@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "Ikhtisar",
+      "notifications": "Notifikasi",
       "myOrgs": "Organisasi Saya",
       "joinOrg": "Bergabung dengan Organisasi",
       "createOrg": "Buat Organisasi",
@@ -437,6 +438,9 @@
         "viewQueues": "Lihat Antrean",
         "pendingCount": "{count, plural, =0 {Tidak ada yang tertunda} one {1 item tertunda} other {# item tertunda}}"
       },
+      "recentNav": {
+        "title": "Lanjutkan"
+      },
       "kindLabels": {
         "problem": "Masalah",
         "requirement": "Persyaratan",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "Artikel"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "Cari masalah…",
+    "resultsLabel": "Hasil pencarian",
+    "resultCount": "{count, plural, =0 {Tidak ada hasil} one {1 hasil} other {# hasil}}"
   },
   "settings": {
     "metaTitle": "Pengaturan — OpenClienting",

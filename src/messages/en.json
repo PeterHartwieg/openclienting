@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "Overview",
+      "notifications": "Notifications",
       "myOrgs": "My Organizations",
       "joinOrg": "Join Organization",
       "createOrg": "Create Organization",
@@ -437,6 +438,9 @@
         "viewQueues": "View Queues",
         "pendingCount": "{count, plural, =0 {Nothing pending} one {1 item pending} other {# items pending}}"
       },
+      "recentNav": {
+        "title": "Jump back in"
+      },
       "kindLabels": {
         "problem": "Problem",
         "requirement": "Requirement",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "Article"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "Search problems…",
+    "resultsLabel": "Search results",
+    "resultCount": "{count, plural, =0 {No results} one {1 result} other {# results}}"
   },
   "settings": {
     "metaTitle": "Settings — OpenClienting",
