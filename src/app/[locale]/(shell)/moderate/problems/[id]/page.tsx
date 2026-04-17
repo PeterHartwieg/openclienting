@@ -65,7 +65,7 @@ export default async function ModerateProblemPage({
         <StatusBadge status={problem.status} />
         <span className="text-sm text-muted-foreground">
           {problem.content_origin === "editorial_curated"
-            ? `Editorial import · ${problem.packet_id ?? ""}`
+            ? `Editorial import · ${(problem.organizations as { name: string } | null)?.name ?? problem.packet_id ?? ""}`
             : t("byUser", {
                 name: problem.profiles?.display_name ?? t("unknown"),
               })}

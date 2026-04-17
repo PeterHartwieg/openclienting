@@ -129,7 +129,7 @@ export async function getProblemsQueue() {
   const { data } = await supabase
     .from("problem_templates")
     .select(
-      "id, title, status, content_origin, packet_id, created_at, profiles!problem_templates_author_id_fkey(display_name)",
+      "id, title, status, content_origin, packet_id, created_at, profiles!problem_templates_author_id_fkey(display_name), author_org:organizations!problem_templates_author_organization_id_fkey(name)",
     )
     .in("status", PENDING_STATUSES)
     .order("created_at", { ascending: true });

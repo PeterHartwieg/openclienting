@@ -58,7 +58,7 @@ export default async function ModerateProblemsQueuePage({
                 </div>
                 <p className="text-xs text-muted-foreground">
                   {(p as unknown as { content_origin?: string }).content_origin === "editorial_curated"
-                    ? `Editorial import · ${(p as unknown as { packet_id?: string }).packet_id ?? ""}`
+                    ? `Editorial import · ${(p as unknown as { author_org?: { name: string } | null }).author_org?.name ?? (p as unknown as { packet_id?: string }).packet_id ?? ""}`
                     : t("byUser", {
                         name:
                           (p.profiles as unknown as { display_name: string } | null)
