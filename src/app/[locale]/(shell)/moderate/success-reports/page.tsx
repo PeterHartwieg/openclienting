@@ -4,8 +4,10 @@ import { getSuccessReportsQueue } from "@/lib/queries/moderation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatusBadge } from "@/components/shared/status-badge";
 import { SuccessReportReview } from "@/components/moderate/success-report-review";
+import { FeatureSuccessReport } from "@/components/moderate/feature-success-report";
 import { EmptyState } from "@/components/shared/empty-state";
 import { formatDate } from "@/lib/i18n/format";
+import { createClient } from "@/lib/supabase/server";
 
 export async function generateMetadata({
   params,
@@ -20,6 +22,29 @@ export async function generateMetadata({
   };
 }
 
+/** Fetch current active featured rows for a set of success_report ids */
+async function getActiveFeaturedRows(reportIds: string[]) {
+  if (reportIds.length === 0) return {} as Record<string, { id: string; locale: string; display_order: number }[]>;
+
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("featured_success_report")
+    .select("id, success_report_id, locale, display_order")
+    .in("success_report_id", reportIds)
+    .is("unfeatured_at", null);
+
+  const map: Record<string, { id: string; locale: string; display_order: number }[]> = {};
+  for (const row of data ?? []) {
+    if (!map[row.success_report_id]) map[row.success_report_id] = [];
+    map[row.success_report_id].push({
+      id: row.id,
+      locale: row.locale,
+      display_order: row.display_order,
+    });
+  }
+  return map;
+}
+
 export default async function ModerateSuccessReportsQueuePage({
   params,
 }: {
@@ -29,6 +54,8 @@ export default async function ModerateSuccessReportsQueuePage({
   setRequestLocale(locale);
   const t = await getTranslations("moderate");
   const { items, count } = await getSuccessReportsQueue();
+
+  const featuredMap = await getActiveFeaturedRows(items.map((sr) => sr.id));
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
@@ -97,6 +124,12 @@ export default async function ModerateSuccessReportsQueuePage({
                         .is_org_anonymous
                     }
                     verificationStatus={sr.verification_status ?? "submitted"}
+                  />
+
+                  {/* Feature on homepage lever */}
+                  <FeatureSuccessReport
+                    successReportId={sr.id}
+                    activeFeaturedRows={featuredMap[sr.id] ?? []}
                   />
                 </CardContent>
               </Card>

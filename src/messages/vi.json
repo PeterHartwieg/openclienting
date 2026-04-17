@@ -640,7 +640,27 @@
       "totalPending": "{count, plural, one {1 mục} other {# mục}} trên tất cả hàng đợi đang chờ xem xét.",
       "queueEmpty": "Không có mục nào đang chờ.",
       "queuePending": "{count, plural, one {1 mục} other {# mục}} đang chờ xem xét."
+    },
+    "featureSuccessReport": {
+      "localeLabel": "Ngôn ngữ",
+      "orderLabel": "Thứ tự hiển thị",
+      "button": {
+        "feature": "Nổi bật trên trang chủ",
+        "unfeature": "Bỏ nổi bật"
+      },
+      "status": {
+        "featured": "Đang được nổi bật",
+        "notFeatured": "Chưa được nổi bật"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "Câu chuyện thành công nổi bật",
+    "verified": "Đã xác minh",
+    "industryLabel": "Ngành",
+    "outcomeLabel": "Kết quả",
+    "anonymousOrg": "Tổ chức ẩn danh",
+    "readMore": "Đọc thêm"
   },
   "translate": {
     "metaTitle": "Đóng góp bản dịch — OpenClienting",

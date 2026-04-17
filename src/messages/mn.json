@@ -640,7 +640,27 @@
       "totalPending": "Бүх дарааллуудад хяналт хүлээж буй {count, plural, one {1 зүйл} other {# зүйл}}.",
       "queueEmpty": "Хүлээж буй зүйл алга.",
       "queuePending": "Хяналт хүлээж буй {count, plural, one {1 зүйл} other {# зүйл}}."
+    },
+    "featureSuccessReport": {
+      "localeLabel": "Нутгийн тохиргоо",
+      "orderLabel": "Харуулах дараалал",
+      "button": {
+        "feature": "Нүүр хуудсанд онцлох",
+        "unfeature": "Онцлохыг болиулах"
+      },
+      "status": {
+        "featured": "Одоо онцлогдсон",
+        "notFeatured": "Онцлогдоогүй"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "Онцлох амжилтын түүх",
+    "verified": "Баталгаажсан",
+    "industryLabel": "Салбар",
+    "outcomeLabel": "Үр дүн",
+    "anonymousOrg": "Нэргүй байгууллага",
+    "readMore": "Дэлгэрэнгүй унших"
   },
   "translate": {
     "metaTitle": "Орчуулгад хувь нэмэр оруулах — OpenClienting",

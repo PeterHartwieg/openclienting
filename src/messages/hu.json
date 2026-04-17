@@ -640,7 +640,27 @@
       "totalPending": "{count, plural, one {1 elem} other {# elem}} vár felülvizsgálatra az összes sorban.",
       "queueEmpty": "Nincs várakozó elem.",
       "queuePending": "{count, plural, one {1 elem} other {# elem}} vár felülvizsgálatra."
+    },
+    "featureSuccessReport": {
+      "localeLabel": "Nyelvi változat",
+      "orderLabel": "Megjelenítési sorrend",
+      "button": {
+        "feature": "Kiemelés a főoldalon",
+        "unfeature": "Kiemelés visszavonása"
+      },
+      "status": {
+        "featured": "Jelenleg kiemelt",
+        "notFeatured": "Nem kiemelt"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "Kiemelt sikertörténet",
+    "verified": "Ellenőrzött",
+    "industryLabel": "Iparág",
+    "outcomeLabel": "Eredmény",
+    "anonymousOrg": "Névtelen szervezet",
+    "readMore": "Tovább olvasom"
   },
   "translate": {
     "metaTitle": "Fordítás hozzájárulása — OpenClienting",

@@ -640,7 +640,27 @@
       "totalPending": "{count, plural, one {1 objekt} other {# objekt}} i alla köer väntar på granskning.",
       "queueEmpty": "Inga objekt väntar.",
       "queuePending": "{count, plural, one {1 objekt} other {# objekt}} väntar på granskning."
+    },
+    "featureSuccessReport": {
+      "localeLabel": "Språk",
+      "orderLabel": "Visningsordning",
+      "button": {
+        "feature": "Visa på startsidan",
+        "unfeature": "Ta bort från startsidan"
+      },
+      "status": {
+        "featured": "Visas för närvarande",
+        "notFeatured": "Visas inte"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "Utvald framgångsberättelse",
+    "verified": "Verifierad",
+    "industryLabel": "Bransch",
+    "outcomeLabel": "Resultat",
+    "anonymousOrg": "Anonym organisation",
+    "readMore": "Läs mer"
   },
   "translate": {
     "metaTitle": "Bidra med en översättning — OpenClienting",

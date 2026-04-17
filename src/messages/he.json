@@ -640,7 +640,27 @@
       "totalPending": "{count, plural, one {פריט 1} other {# פריטים}} בכל התורים ממתינים לסקירה.",
       "queueEmpty": "אין פריטים ממתינים.",
       "queuePending": "{count, plural, one {פריט 1} other {# פריטים}} ממתינים לסקירה."
+    },
+    "featureSuccessReport": {
+      "localeLabel": "שפה/אזור",
+      "orderLabel": "סדר תצוגה",
+      "button": {
+        "feature": "הצג בדף הבית",
+        "unfeature": "הסר מהתצוגה"
+      },
+      "status": {
+        "featured": "מוצג כעת",
+        "notFeatured": "לא מוצג"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "סיפור הצלחה מומלץ",
+    "verified": "מאומת",
+    "industryLabel": "תעשייה",
+    "outcomeLabel": "תוצאה",
+    "anonymousOrg": "ארגון אנונימי",
+    "readMore": "קרא עוד"
   },
   "translate": {
     "metaTitle": "תרום תרגום — OpenClienting",

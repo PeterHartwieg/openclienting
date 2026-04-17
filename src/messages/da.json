@@ -640,7 +640,27 @@
       "totalPending": "{count, plural, one {1 element} other {# elementer}} på tværs af alle køer afventer gennemgang.",
       "queueEmpty": "Ingen elementer afventer.",
       "queuePending": "{count, plural, one {1 element} other {# elementer}} afventer gennemgang."
+    },
+    "featureSuccessReport": {
+      "localeLabel": "Sprog",
+      "orderLabel": "Visningsrækkefølge",
+      "button": {
+        "feature": "Fremhæv på forsiden",
+        "unfeature": "Fjern fremhævning"
+      },
+      "status": {
+        "featured": "Fremhævet i øjeblikket",
+        "notFeatured": "Ikke fremhævet"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "Fremhævet succeshistorie",
+    "verified": "Verificeret",
+    "industryLabel": "Branche",
+    "outcomeLabel": "Resultat",
+    "anonymousOrg": "Anonym organisation",
+    "readMore": "Læs mere"
   },
   "translate": {
     "metaTitle": "Bidrag med en oversættelse — OpenClienting",

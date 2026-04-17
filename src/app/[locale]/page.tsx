@@ -178,7 +178,7 @@ export default async function HomePage({
         <FeaturedProblems locale={locale} />
       </Suspense>
 
-      {/* Featured Success Story (feature-flagged) */}
+      {/* Featured Success Story — renders nothing when no story is curated */}
       <FeaturedSuccessStory locale={locale} />
 
       {/* For SMEs */}

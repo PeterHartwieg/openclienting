@@ -640,7 +640,27 @@
       "totalPending": "{count, plural, one {1 รายการ} other {# รายการ}} ในทุกคิวที่รอการตรวจสอบ",
       "queueEmpty": "ไม่มีรายการที่รอ",
       "queuePending": "{count, plural, one {1 รายการ} other {# รายการ}} ที่รอการตรวจสอบ"
+    },
+    "featureSuccessReport": {
+      "localeLabel": "ภาษา/ภูมิภาค",
+      "orderLabel": "ลำดับการแสดงผล",
+      "button": {
+        "feature": "แสดงบนหน้าแรก",
+        "unfeature": "ยกเลิกการแสดง"
+      },
+      "status": {
+        "featured": "กำลังแสดงอยู่",
+        "notFeatured": "ไม่ได้แสดง"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "เรื่องราวความสำเร็จที่แนะนำ",
+    "verified": "ยืนยันแล้ว",
+    "industryLabel": "อุตสาหกรรม",
+    "outcomeLabel": "ผลลัพธ์",
+    "anonymousOrg": "องค์กรนิรนาม",
+    "readMore": "อ่านเพิ่มเติม"
   },
   "translate": {
     "metaTitle": "มีส่วนร่วมในการแปล — OpenClienting",

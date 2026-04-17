@@ -640,7 +640,27 @@
       "totalPending": "{count, plural, one {1 položka} other {# položek}} ve všech frontách čeká na kontrolu.",
       "queueEmpty": "Žádné položky nečekají.",
       "queuePending": "{count, plural, one {1 položka} other {# položek}} čeká na kontrolu."
+    },
+    "featureSuccessReport": {
+      "localeLabel": "Jazyk",
+      "orderLabel": "Pořadí zobrazení",
+      "button": {
+        "feature": "Zobrazit na hlavní stránce",
+        "unfeature": "Odebrat z hlavní stránky"
+      },
+      "status": {
+        "featured": "Aktuálně zobrazeno",
+        "notFeatured": "Nezobrazeno"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "Vybraný příběh úspěchu",
+    "verified": "Ověřeno",
+    "industryLabel": "Odvětví",
+    "outcomeLabel": "Výsledek",
+    "anonymousOrg": "Anonymní organizace",
+    "readMore": "Číst více"
   },
   "translate": {
     "metaTitle": "Přispět překladem — OpenClienting",

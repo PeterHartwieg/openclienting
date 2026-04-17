@@ -209,6 +209,87 @@ export async function moderateSuccessReport(params: {
   return { success: true };
 }
 
+// ---------------------------------------------------------------------------
+// Feature / unfeature a success report on the homepage.
+// Only moderators/admins may call these actions.
+// Both invalidate "featured_success_report" so the loader cache clears.
+// ---------------------------------------------------------------------------
+
+export async function featureSuccessReport(opts: {
+  successReportId: string;
+  locale: string;
+  displayOrder?: number;
+}): Promise<{ success: true } | { success: false; error: string }> {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { success: false, error: "Unauthorized" };
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+
+  if (!profile || !["moderator", "admin"].includes(profile.role)) {
+    return { success: false, error: "Forbidden" };
+  }
+
+  // Upsert: on conflict of (success_report_id, locale) re-feature the row
+  // by resetting unfeatured_at to null and updating the mutable fields.
+  const { error } = await supabase
+    .from("featured_success_report")
+    .upsert(
+      {
+        success_report_id: opts.successReportId,
+        locale: opts.locale,
+        display_order: opts.displayOrder ?? 0,
+        featured_by: user.id,
+        featured_at: new Date().toISOString(),
+        unfeatured_at: null,
+      },
+      { onConflict: "success_report_id,locale" },
+    );
+
+  if (error) return { success: false, error: error.message };
+
+  updateTag("featured_success_report");
+  return { success: true };
+}
+
+export async function unfeatureSuccessReport(opts: {
+  featuredId: string;
+}): Promise<{ success: true } | { success: false; error: string }> {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return { success: false, error: "Unauthorized" };
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", user.id)
+    .single();
+
+  if (!profile || !["moderator", "admin"].includes(profile.role)) {
+    return { success: false, error: "Forbidden" };
+  }
+
+  const { error } = await supabase
+    .from("featured_success_report")
+    .update({ unfeatured_at: new Date().toISOString() })
+    .eq("id", opts.featuredId);
+
+  if (error) return { success: false, error: error.message };
+
+  updateTag("featured_success_report");
+  return { success: true };
+}
+
 export async function approveRevision(revisionId: string, reviewerNotes?: string) {
   const supabase = await createClient();
 

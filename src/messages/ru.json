@@ -640,7 +640,27 @@
       "totalPending": "{count, plural, one {1 элемент} few {# элемента} other {# элементов}} во всех очередях ожидают проверки.",
       "queueEmpty": "Нет элементов в ожидании.",
       "queuePending": "{count, plural, one {1 элемент} few {# элемента} other {# элементов}} ожидают проверки."
+    },
+    "featureSuccessReport": {
+      "localeLabel": "Локаль",
+      "orderLabel": "Порядок отображения",
+      "button": {
+        "feature": "Разместить на главной",
+        "unfeature": "Снять с размещения"
+      },
+      "status": {
+        "featured": "Сейчас размещено",
+        "notFeatured": "Не размещено"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "Рекомендуемый успешный кейс",
+    "verified": "Подтверждено",
+    "industryLabel": "Отрасль",
+    "outcomeLabel": "Результат",
+    "anonymousOrg": "Анонимная организация",
+    "readMore": "Читать далее"
   },
   "translate": {
     "metaTitle": "Внести перевод — OpenClienting",

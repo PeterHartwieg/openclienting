@@ -640,7 +640,27 @@
       "totalPending": "{count, plural, one {1 елемент} few {# елементи} other {# елементів}} у всіх чергах очікує на розгляд.",
       "queueEmpty": "Елементів, що очікують, немає.",
       "queuePending": "{count, plural, one {1 елемент} few {# елементи} other {# елементів}} очікує на розгляд."
+    },
+    "featureSuccessReport": {
+      "localeLabel": "Локаль",
+      "orderLabel": "Порядок відображення",
+      "button": {
+        "feature": "Розмістити на головній",
+        "unfeature": "Прибрати з головної"
+      },
+      "status": {
+        "featured": "Зараз розміщено",
+        "notFeatured": "Не розміщено"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "Вибрана історія успіху",
+    "verified": "Підтверджено",
+    "industryLabel": "Галузь",
+    "outcomeLabel": "Результат",
+    "anonymousOrg": "Анонімна організація",
+    "readMore": "Читати далі"
   },
   "translate": {
     "metaTitle": "Долучити переклад — OpenClienting",

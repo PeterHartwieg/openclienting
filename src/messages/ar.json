@@ -640,7 +640,27 @@
       "totalPending": "{count, plural, one {عنصر واحد} other {# عناصر}} عبر جميع الطوابير بانتظار المراجعة.",
       "queueEmpty": "لا توجد عناصر بانتظار.",
       "queuePending": "{count, plural, one {عنصر واحد} other {# عناصر}} بانتظار المراجعة."
+    },
+    "featureSuccessReport": {
+      "localeLabel": "اللغة",
+      "orderLabel": "ترتيب العرض",
+      "button": {
+        "feature": "تمييز على الصفحة الرئيسية",
+        "unfeature": "إلغاء التمييز"
+      },
+      "status": {
+        "featured": "مميز حالياً",
+        "notFeatured": "غير مميز"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "قصة نجاح مميزة",
+    "verified": "موثّق",
+    "industryLabel": "القطاع",
+    "outcomeLabel": "النتيجة",
+    "anonymousOrg": "منظمة مجهولة الهوية",
+    "readMore": "اقرأ المزيد"
   },
   "translate": {
     "metaTitle": "ساهم بترجمة — OpenClienting",

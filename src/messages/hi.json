@@ -640,7 +640,27 @@
       "totalPending": "सभी कतारों में {count, plural, one {1 आइटम} other {# आइटम}} समीक्षा की प्रतीक्षा में।",
       "queueEmpty": "कोई आइटम प्रतीक्षा में नहीं।",
       "queuePending": "{count, plural, one {1 आइटम} other {# आइटम}} समीक्षा की प्रतीक्षा में।"
+    },
+    "featureSuccessReport": {
+      "localeLabel": "लोकेल",
+      "orderLabel": "प्रदर्शन क्रम",
+      "button": {
+        "feature": "होमपेज पर फ़ीचर करें",
+        "unfeature": "अनफ़ीचर करें"
+      },
+      "status": {
+        "featured": "वर्तमान में फ़ीचर्ड",
+        "notFeatured": "फ़ीचर्ड नहीं"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "फ़ीचर्ड सफलता की कहानी",
+    "verified": "सत्यापित",
+    "industryLabel": "उद्योग",
+    "outcomeLabel": "परिणाम",
+    "anonymousOrg": "अज्ञात संगठन",
+    "readMore": "और पढ़ें"
   },
   "translate": {
     "metaTitle": "अनुवाद में योगदान करें — OpenClienting",

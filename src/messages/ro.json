@@ -640,7 +640,27 @@
       "totalPending": "{count, plural, one {1 element} other {# elemente}} în toate cozile care așteaptă revizuire.",
       "queueEmpty": "Niciun element în așteptare.",
       "queuePending": "{count, plural, one {1 element} other {# elemente}} în așteptarea revizuirii."
+    },
+    "featureSuccessReport": {
+      "localeLabel": "Limbă",
+      "orderLabel": "Ordinea afișării",
+      "button": {
+        "feature": "Prezintă pe pagina principală",
+        "unfeature": "Elimină din prezentare"
+      },
+      "status": {
+        "featured": "Prezentată în prezent",
+        "notFeatured": "Neprezentată"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "Poveste de succes prezentată",
+    "verified": "Verificat",
+    "industryLabel": "Industrie",
+    "outcomeLabel": "Rezultat",
+    "anonymousOrg": "Organizație anonimă",
+    "readMore": "Citește mai mult"
   },
   "translate": {
     "metaTitle": "Contribuie cu o traducere — OpenClienting",

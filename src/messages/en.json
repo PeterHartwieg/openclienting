@@ -640,7 +640,23 @@
       "totalPending": "{count, plural, one {1 item} other {# items}} across all queues waiting for review.",
       "queueEmpty": "No items waiting.",
       "queuePending": "{count, plural, one {1 item} other {# items}} waiting for review."
+    },
+    "featureSuccessReport": {
+      "button.feature": "Feature on homepage",
+      "button.unfeature": "Unfeature",
+      "localeLabel": "Locale",
+      "orderLabel": "Display order",
+      "status.featured": "Currently featured",
+      "status.notFeatured": "Not featured"
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "Featured success story",
+    "verified": "Verified",
+    "industryLabel": "Industry",
+    "outcomeLabel": "Outcome",
+    "anonymousOrg": "Anonymous organization",
+    "readMore": "Read more"
   },
   "translate": {
     "metaTitle": "Contribute a translation — OpenClienting",

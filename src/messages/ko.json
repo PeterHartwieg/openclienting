@@ -640,7 +640,27 @@
       "totalPending": "모든 대기열에 검토를 기다리는 {count, plural, one {항목 1개} other {항목 # 개}}.",
       "queueEmpty": "대기 중인 항목이 없습니다.",
       "queuePending": "검토를 기다리는 {count, plural, one {항목 1개} other {항목 # 개}}."
+    },
+    "featureSuccessReport": {
+      "localeLabel": "로케일",
+      "orderLabel": "표시 순서",
+      "button": {
+        "feature": "홈페이지에 특집 게재",
+        "unfeature": "특집 해제"
+      },
+      "status": {
+        "featured": "현재 특집 게재 중",
+        "notFeatured": "특집 게재 안 됨"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "특집 성공 사례",
+    "verified": "인증됨",
+    "industryLabel": "산업",
+    "outcomeLabel": "성과",
+    "anonymousOrg": "익명 조직",
+    "readMore": "더 보기"
   },
   "translate": {
     "metaTitle": "번역 기여 — OpenClienting",

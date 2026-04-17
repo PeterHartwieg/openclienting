@@ -640,7 +640,27 @@
       "totalPending": "{count, plural, one {1 elemento} other {# elementos}} en todas las colas esperando revisión.",
       "queueEmpty": "No hay elementos en espera.",
       "queuePending": "{count, plural, one {1 elemento} other {# elementos}} esperando revisión."
+    },
+    "featureSuccessReport": {
+      "localeLabel": "Idioma",
+      "orderLabel": "Orden de visualización",
+      "button": {
+        "feature": "Destacar en la página de inicio",
+        "unfeature": "Quitar destacado"
+      },
+      "status": {
+        "featured": "Actualmente destacado",
+        "notFeatured": "No destacado"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "Historia de éxito destacada",
+    "verified": "Verificado",
+    "industryLabel": "Sector",
+    "outcomeLabel": "Resultado",
+    "anonymousOrg": "Organización anónima",
+    "readMore": "Leer más"
   },
   "translate": {
     "metaTitle": "Contribuir con una traducción — OpenClienting",

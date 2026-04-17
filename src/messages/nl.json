@@ -640,7 +640,27 @@
       "totalPending": "{count, plural, one {1 item} other {# items}} in alle wachtrijen wacht op beoordeling.",
       "queueEmpty": "Geen items in behandeling.",
       "queuePending": "{count, plural, one {1 item} other {# items}} wacht op beoordeling."
+    },
+    "featureSuccessReport": {
+      "localeLabel": "Taal",
+      "orderLabel": "Weergavevolgorde",
+      "button": {
+        "feature": "Op homepage uitlichten",
+        "unfeature": "Niet meer uitlichten"
+      },
+      "status": {
+        "featured": "Momenteel uitgelicht",
+        "notFeatured": "Niet uitgelicht"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "Uitgelicht succesverhaal",
+    "verified": "Geverifieerd",
+    "industryLabel": "Sector",
+    "outcomeLabel": "Resultaat",
+    "anonymousOrg": "Anonieme organisatie",
+    "readMore": "Meer lezen"
   },
   "translate": {
     "metaTitle": "Bijdragen aan een vertaling — OpenClienting",

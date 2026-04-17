@@ -640,7 +640,27 @@
       "totalPending": "{count, plural, one {1 kohde} other {# kohdetta}} kaikissa jonoissa odottaa tarkistusta.",
       "queueEmpty": "Ei odottavia kohteita.",
       "queuePending": "{count, plural, one {1 kohde} other {# kohdetta}} odottaa tarkistusta."
+    },
+    "featureSuccessReport": {
+      "localeLabel": "Kielialue",
+      "orderLabel": "Näyttöjärjestys",
+      "button": {
+        "feature": "Nosta etusivulle",
+        "unfeature": "Poista nostosta"
+      },
+      "status": {
+        "featured": "Tällä hetkellä nostettu",
+        "notFeatured": "Ei nostettu"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "Nostettu menestystarina",
+    "verified": "Vahvistettu",
+    "industryLabel": "Toimiala",
+    "outcomeLabel": "Tulos",
+    "anonymousOrg": "Anonyymi organisaatio",
+    "readMore": "Lue lisää"
   },
   "translate": {
     "metaTitle": "Osallistu käännökseen — OpenClienting",

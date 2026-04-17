@@ -640,7 +640,27 @@
       "totalPending": "{count, plural, one {1 element} other {# elementów}} we wszystkich kolejkach oczekuje na recenzję.",
       "queueEmpty": "Brak oczekujących elementów.",
       "queuePending": "{count, plural, one {1 element} other {# elementów}} oczekuje na recenzję."
+    },
+    "featureSuccessReport": {
+      "localeLabel": "Język",
+      "orderLabel": "Kolejność wyświetlania",
+      "button": {
+        "feature": "Wyróżnij na stronie głównej",
+        "unfeature": "Usuń wyróżnienie"
+      },
+      "status": {
+        "featured": "Aktualnie wyróżnione",
+        "notFeatured": "Niewyróżnione"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "Wyróżniona historia sukcesu",
+    "verified": "Zweryfikowane",
+    "industryLabel": "Branża",
+    "outcomeLabel": "Rezultat",
+    "anonymousOrg": "Anonimowa organizacja",
+    "readMore": "Czytaj więcej"
   },
   "translate": {
     "metaTitle": "Dodaj tłumaczenie — OpenClienting",

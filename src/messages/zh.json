@@ -640,7 +640,27 @@
       "totalPending": "所有队列共有 {count, plural, one {1 项} other {# 项}} 等待审核。",
       "queueEmpty": "暂无等待中的内容。",
       "queuePending": "{count, plural, one {1 项} other {# 项}} 等待审核。"
+    },
+    "featureSuccessReport": {
+      "localeLabel": "语言区域",
+      "orderLabel": "显示顺序",
+      "button": {
+        "feature": "在首页推荐",
+        "unfeature": "取消推荐"
+      },
+      "status": {
+        "featured": "当前已推荐",
+        "notFeatured": "未推荐"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "精选成功案例",
+    "verified": "已认证",
+    "industryLabel": "行业",
+    "outcomeLabel": "成果",
+    "anonymousOrg": "匿名组织",
+    "readMore": "阅读更多"
   },
   "translate": {
     "metaTitle": "贡献翻译 — OpenClienting",

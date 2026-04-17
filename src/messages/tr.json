@@ -640,7 +640,27 @@
       "totalPending": "Tüm kuyruklarda inceleme bekleyen {count, plural, one {1 öğe} other {# öğe}}.",
       "queueEmpty": "Bekleyen öğe yok.",
       "queuePending": "İnceleme bekleyen {count, plural, one {1 öğe} other {# öğe}}."
+    },
+    "featureSuccessReport": {
+      "localeLabel": "Dil",
+      "orderLabel": "Görüntüleme sırası",
+      "button": {
+        "feature": "Ana sayfada öne çıkar",
+        "unfeature": "Öne çıkarmayı kaldır"
+      },
+      "status": {
+        "featured": "Şu anda öne çıkarılıyor",
+        "notFeatured": "Öne çıkarılmıyor"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "Öne çıkarılan başarı hikayesi",
+    "verified": "Doğrulandı",
+    "industryLabel": "Sektör",
+    "outcomeLabel": "Sonuç",
+    "anonymousOrg": "Anonim kuruluş",
+    "readMore": "Daha fazla oku"
   },
   "translate": {
     "metaTitle": "Çeviri katkısında bulun — OpenClienting",

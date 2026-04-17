@@ -640,7 +640,27 @@
       "totalPending": "{count, plural, one {1 στοιχείο} other {# στοιχεία}} σε όλες τις ουρές που αναμένουν αξιολόγηση.",
       "queueEmpty": "Κανένα στοιχείο δεν αναμένει.",
       "queuePending": "{count, plural, one {1 στοιχείο} other {# στοιχεία}} αναμένουν αξιολόγηση."
+    },
+    "featureSuccessReport": {
+      "localeLabel": "Γλώσσα",
+      "orderLabel": "Σειρά εμφάνισης",
+      "button": {
+        "feature": "Προβολή στην αρχική σελίδα",
+        "unfeature": "Κατάργηση προβολής"
+      },
+      "status": {
+        "featured": "Προβάλλεται αυτήν τη στιγμή",
+        "notFeatured": "Δεν προβάλλεται"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "Επιλεγμένη ιστορία επιτυχίας",
+    "verified": "Επαληθευμένο",
+    "industryLabel": "Κλάδος",
+    "outcomeLabel": "Αποτέλεσμα",
+    "anonymousOrg": "Ανώνυμος οργανισμός",
+    "readMore": "Διαβάστε περισσότερα"
   },
   "translate": {
     "metaTitle": "Συνεισφορά μετάφρασης — OpenClienting",

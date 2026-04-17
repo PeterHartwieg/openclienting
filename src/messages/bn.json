@@ -640,7 +640,27 @@
       "totalPending": "সব কিউ জুড়ে পর্যালোচনার অপেক্ষায় {count, plural, one {১টি আইটেম} other {# টি আইটেম}}।",
       "queueEmpty": "কোনো আইটেম অপেক্ষায় নেই।",
       "queuePending": "পর্যালোচনার অপেক্ষায় {count, plural, one {১টি আইটেম} other {# টি আইটেম}}।"
+    },
+    "featureSuccessReport": {
+      "localeLabel": "লোকেল",
+      "orderLabel": "প্রদর্শন ক্রম",
+      "button": {
+        "feature": "হোমপেজে ফিচার করুন",
+        "unfeature": "ফিচার সরান"
+      },
+      "status": {
+        "featured": "বর্তমানে ফিচার করা হয়েছে",
+        "notFeatured": "ফিচার করা হয়নি"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "বৈশিষ্ট্যযুক্ত সাফল্যের গল্প",
+    "verified": "যাচাইকৃত",
+    "industryLabel": "শিল্প",
+    "outcomeLabel": "ফলাফল",
+    "anonymousOrg": "বেনামী প্রতিষ্ঠান",
+    "readMore": "আরও পড়ুন"
   },
   "translate": {
     "metaTitle": "অনুবাদে অবদান রাখুন — OpenClienting",

@@ -640,7 +640,27 @@
       "totalPending": "{count, plural, one {1 element} other {# elementer}} på tvers av alle køer venter på gjennomgang.",
       "queueEmpty": "Ingen elementer venter.",
       "queuePending": "{count, plural, one {1 element} other {# elementer}} venter på gjennomgang."
+    },
+    "featureSuccessReport": {
+      "localeLabel": "Språk",
+      "orderLabel": "Visningsrekkefølge",
+      "button": {
+        "feature": "Fremhev på forsiden",
+        "unfeature": "Fjern fremheving"
+      },
+      "status": {
+        "featured": "Fremhevet for øyeblikket",
+        "notFeatured": "Ikke fremhevet"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "Fremhevet suksesshistorie",
+    "verified": "Verifisert",
+    "industryLabel": "Bransje",
+    "outcomeLabel": "Resultat",
+    "anonymousOrg": "Anonym organisasjon",
+    "readMore": "Les mer"
   },
   "translate": {
     "metaTitle": "Bidra med en oversettelse — OpenClienting",

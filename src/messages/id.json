@@ -640,7 +640,27 @@
       "totalPending": "{count, plural, one {1 item} other {# item}} di semua antrean menunggu tinjauan.",
       "queueEmpty": "Tidak ada item yang menunggu.",
       "queuePending": "{count, plural, one {1 item} other {# item}} menunggu tinjauan."
+    },
+    "featureSuccessReport": {
+      "localeLabel": "Lokal",
+      "orderLabel": "Urutan tampilan",
+      "button": {
+        "feature": "Tampilkan di halaman utama",
+        "unfeature": "Hapus dari tampilan"
+      },
+      "status": {
+        "featured": "Sedang ditampilkan",
+        "notFeatured": "Tidak ditampilkan"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "Kisah sukses unggulan",
+    "verified": "Terverifikasi",
+    "industryLabel": "Industri",
+    "outcomeLabel": "Hasil",
+    "anonymousOrg": "Organisasi anonim",
+    "readMore": "Baca selengkapnya"
   },
   "translate": {
     "metaTitle": "Kontribusikan terjemahan — OpenClienting",

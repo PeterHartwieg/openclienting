@@ -640,7 +640,27 @@
       "totalPending": "{count, plural, one {kitu 1} other {vitu #}} katika foleni zote vinasubiri mapitio.",
       "queueEmpty": "Hakuna vitu vinavyosubiri.",
       "queuePending": "{count, plural, one {kitu 1} other {vitu #}} vinavyosubiri mapitio."
+    },
+    "featureSuccessReport": {
+      "localeLabel": "Lugha",
+      "orderLabel": "Mpangilio wa kuonyesha",
+      "button": {
+        "feature": "Onyesha kwenye ukurasa wa nyumbani",
+        "unfeature": "Ondoa uonyeshaji"
+      },
+      "status": {
+        "featured": "Inaonyeshwa sasa hivi",
+        "notFeatured": "Haionyeshwi"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "Hadithi ya mafanikio iliyochaguliwa",
+    "verified": "Imethibitishwa",
+    "industryLabel": "Sekta",
+    "outcomeLabel": "Matokeo",
+    "anonymousOrg": "Shirika lisilotajwa jina",
+    "readMore": "Soma zaidi"
   },
   "translate": {
     "metaTitle": "Changia tafsiri — OpenClienting",

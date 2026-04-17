@@ -640,7 +640,27 @@
       "totalPending": "すべてのキューで{count, plural, one {1件} other {#件}}が審査待ちです。",
       "queueEmpty": "待機中のアイテムはありません。",
       "queuePending": "{count, plural, one {1件} other {#件}}が審査待ちです。"
+    },
+    "featureSuccessReport": {
+      "localeLabel": "ロケール",
+      "orderLabel": "表示順",
+      "button": {
+        "feature": "ホームページで特集",
+        "unfeature": "特集を解除"
+      },
+      "status": {
+        "featured": "現在特集中",
+        "notFeatured": "特集なし"
+      }
     }
+  },
+  "featuredSuccessStory": {
+    "sectionTitle": "特集成功事例",
+    "verified": "認証済み",
+    "industryLabel": "業種",
+    "outcomeLabel": "成果",
+    "anonymousOrg": "匿名組織",
+    "readMore": "続きを読む"
   },
   "translate": {
     "metaTitle": "翻訳に貢献する — OpenClienting",
