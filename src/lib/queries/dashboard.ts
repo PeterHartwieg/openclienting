@@ -96,14 +96,14 @@ export const getDashboardOverview = cache(
         .eq("user_id", userId)
         .eq("read", false),
 
-      // 2 most-recent notifications for the card preview (unread first).
+      // 3 most-recent notifications for the card preview (unread first).
       supabase
         .from("notifications")
         .select("id, title, body, link, read, created_at")
         .eq("user_id", userId)
         .order("read", { ascending: true })
         .order("created_at", { ascending: false })
-        .limit(2),
+        .limit(3),
 
       supabase
         .from("problem_templates")

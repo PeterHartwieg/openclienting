@@ -79,8 +79,8 @@ export default async function DashboardPage({
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
 
         {/* ── 1. Notifications ── top, spans 2 cols on sm+ */}
-        <div className="sm:col-span-2">
-          <Card>
+        <div className="sm:col-span-2 h-full">
+          <Card className="h-full">
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -138,7 +138,7 @@ export default async function DashboardPage({
         </div>
 
         {/* ── 2. Pending Review ── */}
-        <Card>
+        <Card className="h-full">
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle>{t("overview.pendingReview.title")}</CardTitle>
