@@ -740,5 +740,18 @@
       "knowledgeArticles": "artykuły wiedzy",
       "translations": "tłumaczenia"
     }
+  },
+  "moderationHistory": {
+    "title": "Historia moderacji",
+    "actions": {
+      "submitted": "Przesłano",
+      "approved": "Zatwierdzono",
+      "rejected": "Odrzucono",
+      "edited": "Edytowano",
+      "published": "Opublikowano",
+      "reverted": "Przywrócono"
+    },
+    "reviewer": "Moderator",
+    "noReason": "Nie podano powodu"
   }
 }

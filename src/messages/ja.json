@@ -740,5 +740,18 @@
       "knowledgeArticles": "ナレッジ記事",
       "translations": "翻訳"
     }
+  },
+  "moderationHistory": {
+    "title": "モデレーション履歴",
+    "actions": {
+      "submitted": "提出済み",
+      "approved": "承認済み",
+      "rejected": "却下済み",
+      "edited": "編集済み",
+      "published": "公開済み",
+      "reverted": "差し戻し済み"
+    },
+    "reviewer": "モデレーター",
+    "noReason": "理由が提供されていません"
   }
 }

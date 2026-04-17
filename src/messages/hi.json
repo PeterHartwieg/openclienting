@@ -740,5 +740,18 @@
       "knowledgeArticles": "ज्ञान लेख",
       "translations": "अनुवाद"
     }
+  },
+  "moderationHistory": {
+    "title": "मॉडरेशन इतिहास",
+    "actions": {
+      "submitted": "सबमिट किया गया",
+      "approved": "स्वीकृत",
+      "rejected": "अस्वीकृत",
+      "edited": "संपादित किया गया",
+      "published": "प्रकाशित",
+      "reverted": "वापस किया गया"
+    },
+    "reviewer": "मॉडरेटर",
+    "noReason": "कोई कारण नहीं दिया गया"
   }
 }

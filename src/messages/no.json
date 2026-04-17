@@ -740,5 +740,18 @@
       "knowledgeArticles": "kunnskapsartikler",
       "translations": "oversettelser"
     }
+  },
+  "moderationHistory": {
+    "title": "Moderasjonshistorikk",
+    "actions": {
+      "submitted": "Innsendt",
+      "approved": "Godkjent",
+      "rejected": "Avvist",
+      "edited": "Redigert",
+      "published": "Publisert",
+      "reverted": "Tilbakestilt"
+    },
+    "reviewer": "Moderator",
+    "noReason": "Ingen begrunnelse oppgitt"
   }
 }

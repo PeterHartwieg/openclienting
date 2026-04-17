@@ -35,6 +35,7 @@ import { problemArticleSchema } from "@/lib/seo/schema";
 import { getSchemaSiteContext } from "@/lib/seo/site-context";
 import { getTagLabel } from "@/lib/i18n/tags";
 import { localeTags, type Locale } from "@/i18n/config";
+import { ModerationHistoryTimeline } from "@/components/problems/moderation-history-timeline";
 import { generateProblemMetadata } from "./page.metadata";
 
 export async function generateMetadata({
@@ -490,6 +491,8 @@ export default async function ProblemDetailPage({
               </div>
             )}
           </ProblemSection>
+
+          <ModerationHistoryTimeline problemId={problem.id} locale={locale} />
 
           <ProblemSection
             id="discussion"

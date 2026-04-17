@@ -740,5 +740,18 @@
       "knowledgeArticles": "articles de base de connaissances",
       "translations": "traductions"
     }
+  },
+  "moderationHistory": {
+    "title": "Historique de modération",
+    "actions": {
+      "submitted": "Soumis",
+      "approved": "Approuvé",
+      "rejected": "Rejeté",
+      "edited": "Modifié",
+      "published": "Publié",
+      "reverted": "Annulé"
+    },
+    "reviewer": "Modérateur",
+    "noReason": "Aucune raison fournie"
   }
 }

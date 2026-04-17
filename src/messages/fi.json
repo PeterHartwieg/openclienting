@@ -740,5 +740,18 @@
       "knowledgeArticles": "tietoartikkelit",
       "translations": "käännökset"
     }
+  },
+  "moderationHistory": {
+    "title": "Moderointihistoria",
+    "actions": {
+      "submitted": "Lähetetty",
+      "approved": "Hyväksytty",
+      "rejected": "Hylätty",
+      "edited": "Muokattu",
+      "published": "Julkaistu",
+      "reverted": "Palautettu"
+    },
+    "reviewer": "Moderaattori",
+    "noReason": "Syytä ei annettu"
   }
 }

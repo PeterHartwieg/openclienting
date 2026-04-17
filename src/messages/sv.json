@@ -740,5 +740,18 @@
       "knowledgeArticles": "kunskapsartiklar",
       "translations": "översättningar"
     }
+  },
+  "moderationHistory": {
+    "title": "Moderation historik",
+    "actions": {
+      "submitted": "Inskickad",
+      "approved": "Godkänd",
+      "rejected": "Avvisad",
+      "edited": "Redigerad",
+      "published": "Publicerad",
+      "reverted": "Återställd"
+    },
+    "reviewer": "Moderator",
+    "noReason": "Ingen anledning angiven"
   }
 }

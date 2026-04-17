@@ -740,5 +740,18 @@
       "knowledgeArticles": "articole de cunoștințe",
       "translations": "traduceri"
     }
+  },
+  "moderationHistory": {
+    "title": "Istoricul moderării",
+    "actions": {
+      "submitted": "Trimis",
+      "approved": "Aprobat",
+      "rejected": "Respins",
+      "edited": "Editat",
+      "published": "Publicat",
+      "reverted": "Revocat"
+    },
+    "reviewer": "Moderator",
+    "noReason": "Niciun motiv furnizat"
   }
 }

@@ -740,5 +740,18 @@
       "knowledgeArticles": "tudástár-cikkek",
       "translations": "fordítások"
     }
+  },
+  "moderationHistory": {
+    "title": "Moderációs előzmények",
+    "actions": {
+      "submitted": "Beküldve",
+      "approved": "Jóváhagyva",
+      "rejected": "Elutasítva",
+      "edited": "Szerkesztve",
+      "published": "Közzétéve",
+      "reverted": "Visszaállítva"
+    },
+    "reviewer": "Moderátor",
+    "noReason": "Nincs megadott indok"
   }
 }

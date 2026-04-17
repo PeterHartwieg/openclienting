@@ -740,5 +740,18 @@
       "knowledgeArticles": "άρθρα γνώσης",
       "translations": "μεταφράσεις"
     }
+  },
+  "moderationHistory": {
+    "title": "Ιστορικό συντονισμού",
+    "actions": {
+      "submitted": "Υποβλήθηκε",
+      "approved": "Εγκρίθηκε",
+      "rejected": "Απορρίφθηκε",
+      "edited": "Επεξεργάστηκε",
+      "published": "Δημοσιεύθηκε",
+      "reverted": "Επαναφέρθηκε"
+    },
+    "reviewer": "Συντονιστής",
+    "noReason": "Δεν δόθηκε αιτιολογία"
   }
 }

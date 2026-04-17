@@ -740,5 +740,18 @@
       "knowledgeArticles": "জ্ঞানভান্ডার নিবন্ধ",
       "translations": "অনুবাদসমূহ"
     }
+  },
+  "moderationHistory": {
+    "title": "মডারেশন ইতিহাস",
+    "actions": {
+      "submitted": "জমা দেওয়া হয়েছে",
+      "approved": "অনুমোদিত",
+      "rejected": "প্রত্যাখ্যাত",
+      "edited": "সম্পাদিত",
+      "published": "প্রকাশিত",
+      "reverted": "পূর্বাবস্থায় ফেরানো হয়েছে"
+    },
+    "reviewer": "মডারেটর",
+    "noReason": "কোনো কারণ প্রদান করা হয়নি"
   }
 }

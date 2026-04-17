@@ -740,5 +740,18 @@
       "knowledgeArticles": "vidensartikler",
       "translations": "oversættelser"
     }
+  },
+  "moderationHistory": {
+    "title": "Moderationshistorik",
+    "actions": {
+      "submitted": "Indsendt",
+      "approved": "Godkendt",
+      "rejected": "Afvist",
+      "edited": "Redigeret",
+      "published": "Publiceret",
+      "reverted": "Fortrudt"
+    },
+    "reviewer": "Moderator",
+    "noReason": "Ingen begrundelse angivet"
   }
 }

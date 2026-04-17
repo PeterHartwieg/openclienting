@@ -740,5 +740,18 @@
       "knowledgeArticles": "bài viết kiến thức",
       "translations": "bản dịch"
     }
+  },
+  "moderationHistory": {
+    "title": "Lịch sử kiểm duyệt",
+    "actions": {
+      "submitted": "Đã gửi",
+      "approved": "Đã phê duyệt",
+      "rejected": "Đã từ chối",
+      "edited": "Đã chỉnh sửa",
+      "published": "Đã xuất bản",
+      "reverted": "Đã hoàn nguyên"
+    },
+    "reviewer": "Người kiểm duyệt",
+    "noReason": "Không có lý do được cung cấp"
   }
 }

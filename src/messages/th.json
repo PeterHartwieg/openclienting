@@ -740,5 +740,18 @@
       "knowledgeArticles": "บทความความรู้",
       "translations": "การแปล"
     }
+  },
+  "moderationHistory": {
+    "title": "ประวัติการกลั่นกรอง",
+    "actions": {
+      "submitted": "ส่งแล้ว",
+      "approved": "อนุมัติแล้ว",
+      "rejected": "ปฏิเสธแล้ว",
+      "edited": "แก้ไขแล้ว",
+      "published": "เผยแพร่แล้ว",
+      "reverted": "ย้อนกลับแล้ว"
+    },
+    "reviewer": "ผู้กลั่นกรอง",
+    "noReason": "ไม่มีเหตุผลที่ระบุ"
   }
 }

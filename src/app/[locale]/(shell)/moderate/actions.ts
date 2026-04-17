@@ -63,6 +63,18 @@ async function requireModerator(
   return { ok: true };
 }
 
+// Map from the plural table-name TargetType (used by callers) to the
+// singular target_type token the moderate_item_v1 RPC expects.
+const tableToRpcTargetType: Record<TargetType, string> = {
+  problem_templates:    "problem_template",
+  requirements:         "requirement",
+  pilot_frameworks:     "pilot_framework",
+  solution_approaches:  "solution_approach",
+  success_reports:      "success_report",
+  suggested_edits:      "suggested_edit",
+  knowledge_articles:   "knowledge_article",
+};
+
 export async function moderateItem(params: {
   targetType: TargetType;
   targetId: string;
@@ -71,46 +83,24 @@ export async function moderateItem(params: {
 }) {
   const supabase = await createClient();
 
+  // Auth check — we still need the user for analytics/logging even though
+  // the RPC re-validates the moderator role server-side.
   const {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return { success: false, error: "Unauthorized" };
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("role")
-    .eq("id", user.id)
-    .single();
+  const p_target_type = tableToRpcTargetType[params.targetType];
+  const p_decision = params.action === "publish" ? "approved" : "rejected";
 
-  if (!profile || !["moderator", "admin"].includes(profile.role)) {
-    return { success: false, error: "Forbidden" };
-  }
-
-  const newStatus = params.action === "publish" ? "published" : "rejected";
-
-  const updateData: Record<string, string | null> = { status: newStatus };
-  if (params.action === "reject" && params.targetType === "problem_templates") {
-    updateData.rejection_reason = params.rejectionReason ?? null;
-  }
-
-  const { error } = await supabase
-    .from(params.targetType)
-    .update(updateData)
-    .eq("id", params.targetId);
+  const { error } = await supabase.rpc("moderate_item_v1", {
+    p_target_type,
+    p_target_id: params.targetId,
+    p_decision,
+    p_reason: params.rejectionReason ?? null,
+  });
 
   if (error) return { success: false, error: error.message };
-
-  // Cascade: when approving a problem, also approve its author's initial
-  // requirement and pilot_framework. We route through a SECURITY DEFINER
-  // RPC instead of separate updates so it can set `app.skip_notify`
-  // transaction-locally — that silences the per-row notify-status-change
-  // webhooks for the cascaded children. The problem_template UPDATE above
-  // still emails normally; the author gets exactly one approval email.
-  if (params.targetType === "problem_templates" && params.action === "publish") {
-    await supabase.rpc("cascade_approve_initial_content", {
-      p_problem_id: params.targetId,
-    });
-  }
 
   // Invalidate any unstable_cache entries affected by this mutation.
   if (params.targetType === "problem_templates") {
@@ -120,6 +110,7 @@ export async function moderateItem(params: {
   } else if (params.targetType === "knowledge_articles") {
     updateTag("knowledge_articles");
   }
+  updateTag("moderation_events");
 
   return { success: true };
 }

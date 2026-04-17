@@ -740,5 +740,18 @@
       "knowledgeArticles": "지식 문서",
       "translations": "번역"
     }
+  },
+  "moderationHistory": {
+    "title": "검토 기록",
+    "actions": {
+      "submitted": "제출됨",
+      "approved": "승인됨",
+      "rejected": "거부됨",
+      "edited": "수정됨",
+      "published": "게시됨",
+      "reverted": "되돌려짐"
+    },
+    "reviewer": "검토자",
+    "noReason": "사유가 제공되지 않음"
   }
 }

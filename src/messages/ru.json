@@ -740,5 +740,18 @@
       "knowledgeArticles": "статьи базы знаний",
       "translations": "переводы"
     }
+  },
+  "moderationHistory": {
+    "title": "История модерации",
+    "actions": {
+      "submitted": "Отправлено",
+      "approved": "Одобрено",
+      "rejected": "Отклонено",
+      "edited": "Отредактировано",
+      "published": "Опубликовано",
+      "reverted": "Отменено"
+    },
+    "reviewer": "Модератор",
+    "noReason": "Причина не указана"
   }
 }

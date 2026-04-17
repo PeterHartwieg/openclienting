@@ -740,5 +740,18 @@
       "knowledgeArticles": "статті бази знань",
       "translations": "переклади"
     }
+  },
+  "moderationHistory": {
+    "title": "Історія модерації",
+    "actions": {
+      "submitted": "Подано",
+      "approved": "Схвалено",
+      "rejected": "Відхилено",
+      "edited": "Відредаговано",
+      "published": "Опубліковано",
+      "reverted": "Скасовано"
+    },
+    "reviewer": "Модератор",
+    "noReason": "Причину не вказано"
   }
 }

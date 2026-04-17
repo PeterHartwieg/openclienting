@@ -740,5 +740,18 @@
       "knowledgeArticles": "Wissensartikel",
       "translations": "Übersetzungen"
     }
+  },
+  "moderationHistory": {
+    "title": "Moderationsverlauf",
+    "actions": {
+      "submitted": "Eingereicht",
+      "approved": "Genehmigt",
+      "rejected": "Abgelehnt",
+      "edited": "Bearbeitet",
+      "published": "Veröffentlicht",
+      "reverted": "Zurückgesetzt"
+    },
+    "reviewer": "Moderator",
+    "noReason": "Kein Grund angegeben"
   }
 }

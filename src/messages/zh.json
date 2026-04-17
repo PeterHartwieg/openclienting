@@ -740,5 +740,18 @@
       "knowledgeArticles": "知识文章",
       "translations": "翻译"
     }
+  },
+  "moderationHistory": {
+    "title": "审核历史",
+    "actions": {
+      "submitted": "已提交",
+      "approved": "已批准",
+      "rejected": "已拒绝",
+      "edited": "已编辑",
+      "published": "已发布",
+      "reverted": "已撤销"
+    },
+    "reviewer": "审核员",
+    "noReason": "未提供原因"
   }
 }

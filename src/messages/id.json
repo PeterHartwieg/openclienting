@@ -740,5 +740,18 @@
       "knowledgeArticles": "artikel pengetahuan",
       "translations": "terjemahan"
     }
+  },
+  "moderationHistory": {
+    "title": "Riwayat moderasi",
+    "actions": {
+      "submitted": "Dikirimkan",
+      "approved": "Disetujui",
+      "rejected": "Ditolak",
+      "edited": "Diedit",
+      "published": "Diterbitkan",
+      "reverted": "Dikembalikan"
+    },
+    "reviewer": "Moderator",
+    "noReason": "Tidak ada alasan yang diberikan"
   }
 }

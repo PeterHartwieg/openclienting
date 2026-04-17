@@ -740,5 +740,18 @@
       "knowledgeArticles": "מאמרי ידע",
       "translations": "תרגומים"
     }
+  },
+  "moderationHistory": {
+    "title": "היסטוריית מודרציה",
+    "actions": {
+      "submitted": "הוגש",
+      "approved": "אושר",
+      "rejected": "נדחה",
+      "edited": "נערך",
+      "published": "פורסם",
+      "reverted": "שוחזר"
+    },
+    "reviewer": "מנהל תוכן",
+    "noReason": "לא סופקה סיבה"
   }
 }

@@ -740,5 +740,18 @@
       "knowledgeArticles": "articoli della knowledge base",
       "translations": "traduzioni"
     }
+  },
+  "moderationHistory": {
+    "title": "Cronologia della moderazione",
+    "actions": {
+      "submitted": "Inviato",
+      "approved": "Approvato",
+      "rejected": "Rifiutato",
+      "edited": "Modificato",
+      "published": "Pubblicato",
+      "reverted": "Ripristinato"
+    },
+    "reviewer": "Moderatore",
+    "noReason": "Nessun motivo fornito"
   }
 }

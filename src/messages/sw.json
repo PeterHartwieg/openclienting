@@ -740,5 +740,18 @@
       "knowledgeArticles": "makala za maarifa",
       "translations": "tafsiri"
     }
+  },
+  "moderationHistory": {
+    "title": "Historia ya udhibiti",
+    "actions": {
+      "submitted": "Imewasilishwa",
+      "approved": "Imeidhinishwa",
+      "rejected": "Imekataliwa",
+      "edited": "Imehaririwa",
+      "published": "Imechapishwa",
+      "reverted": "Imerudishwa"
+    },
+    "reviewer": "Msimamizi",
+    "noReason": "Hakuna sababu iliyotolewa"
   }
 }

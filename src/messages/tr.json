@@ -740,5 +740,18 @@
       "knowledgeArticles": "bilgi makaleleri",
       "translations": "çeviriler"
     }
+  },
+  "moderationHistory": {
+    "title": "Moderasyon geçmişi",
+    "actions": {
+      "submitted": "Gönderildi",
+      "approved": "Onaylandı",
+      "rejected": "Reddedildi",
+      "edited": "Düzenlendi",
+      "published": "Yayınlandı",
+      "reverted": "Geri alındı"
+    },
+    "reviewer": "Moderatör",
+    "noReason": "Neden belirtilmedi"
   }
 }

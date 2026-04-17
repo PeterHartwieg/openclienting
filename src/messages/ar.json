@@ -740,5 +740,18 @@
       "knowledgeArticles": "مقالات المعرفة",
       "translations": "الترجمات"
     }
+  },
+  "moderationHistory": {
+    "title": "سجل الإشراف",
+    "actions": {
+      "submitted": "مُقدَّم",
+      "approved": "مُوافَق عليه",
+      "rejected": "مرفوض",
+      "edited": "مُعدَّل",
+      "published": "مُنشَر",
+      "reverted": "مُستعاد"
+    },
+    "reviewer": "المشرف",
+    "noReason": "لم يُقدَّم أي سبب"
   }
 }

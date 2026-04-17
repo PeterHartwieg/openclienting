@@ -740,5 +740,18 @@
       "knowledgeArticles": "články znalostní báze",
       "translations": "překlady"
     }
+  },
+  "moderationHistory": {
+    "title": "Historie moderování",
+    "actions": {
+      "submitted": "Odesláno",
+      "approved": "Schváleno",
+      "rejected": "Zamítnuto",
+      "edited": "Upraveno",
+      "published": "Zveřejněno",
+      "reverted": "Vráceno zpět"
+    },
+    "reviewer": "Moderátor",
+    "noReason": "Důvod nebyl uveden"
   }
 }

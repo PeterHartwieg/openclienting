@@ -740,5 +740,18 @@
       "knowledgeArticles": "мэдлэгийн нийтлэлүүд",
       "translations": "орчуулгууд"
     }
+  },
+  "moderationHistory": {
+    "title": "Хяналтын түүх",
+    "actions": {
+      "submitted": "Илгээсэн",
+      "approved": "Зөвшөөрсөн",
+      "rejected": "Татгалзсан",
+      "edited": "Засварласан",
+      "published": "Нийтэлсэн",
+      "reverted": "Буцаасан"
+    },
+    "reviewer": "Хянагч",
+    "noReason": "Шалтгаан заагаагүй"
   }
 }

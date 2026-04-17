@@ -740,5 +740,18 @@
       "knowledgeArticles": "kennisartikelen",
       "translations": "vertalingen"
     }
+  },
+  "moderationHistory": {
+    "title": "Moderatiegeschiedenis",
+    "actions": {
+      "submitted": "Ingediend",
+      "approved": "Goedgekeurd",
+      "rejected": "Afgewezen",
+      "edited": "Bewerkt",
+      "published": "Gepubliceerd",
+      "reverted": "Teruggedraaid"
+    },
+    "reviewer": "Moderator",
+    "noReason": "Geen reden opgegeven"
   }
 }
