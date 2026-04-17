@@ -8,7 +8,7 @@ import {
   Lightbulb,
   MessageCircle,
 } from "lucide-react";
-import { getProblemById } from "@/lib/queries/problems";
+import { getProblemById, getProblemCitations } from "@/lib/queries/problems";
 import { translateProblem } from "@/lib/queries/content-translations";
 import { getUserVerifiedMemberships } from "@/lib/queries/organizations";
 import { createClient } from "@/lib/supabase/server";
@@ -36,6 +36,7 @@ import { getSchemaSiteContext } from "@/lib/seo/site-context";
 import { getTagLabel } from "@/lib/i18n/tags";
 import { localeTags, type Locale } from "@/i18n/config";
 import { ModerationHistoryTimeline } from "@/components/problems/moderation-history-timeline";
+import { ProblemCitations } from "@/components/problems/problem-citations";
 import { generateProblemMetadata } from "./page.metadata";
 
 export async function generateMetadata({
@@ -101,6 +102,14 @@ export default async function ProblemDetailPage({
   // visitor explicitly asked for the original-language view via ?original=1.
   if (!showingOriginal) {
     problem = await translateProblem(problem, locale);
+  }
+
+  // Fetch citations for editorial-curated problems (deduplicated by source_url)
+  let citations: import("@/lib/queries/problems").ContentCitation[] = [];
+  if (problem.content_origin === "editorial_curated") {
+    const reqIds = (problem.requirements ?? []).map((r: { id: string }) => r.id);
+    const pfIds = (problem.pilot_frameworks ?? []).map((f: { id: string }) => f.id);
+    citations = await getProblemCitations(problem.id, reqIds, pfIds);
   }
 
   // Get current user's votes for this problem's content
@@ -507,6 +516,8 @@ export default async function ProblemDetailPage({
               </div>
             )}
           </ProblemSection>
+
+          <ProblemCitations citations={citations} locale={locale} />
 
           <ModerationHistoryTimeline problemId={problem.id} locale={locale} />
 

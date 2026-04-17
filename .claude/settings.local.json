@@ -5,7 +5,10 @@
       "Bash(npx tsc:*)",
       "Bash(xargs grep:*)",
       "mcp__Claude_Preview__preview_start",
-      "Bash(npx eslint *)"
+      "Bash(npx eslint *)",
+      "Bash(npx next *)",
+      "Bash(supabase db *)",
+      "WebSearch"
     ]
   }
 }

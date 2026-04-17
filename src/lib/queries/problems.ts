@@ -330,3 +330,54 @@ export const getProblemById = cache(async (id: string) => {
   if (error) throw error;
   return problem;
 });
+
+export interface ContentCitation {
+  source_url: string;
+  source_title: string | null;
+  publisher: string | null;
+  source_type: string | null;
+  access_date: string | null;
+  evidence_note: string | null;
+  is_sourced_fact: boolean;
+}
+
+const CITATION_COLUMNS = "source_url, source_title, publisher, source_type, access_date, evidence_note, is_sourced_fact";
+
+export async function getProblemCitations(
+  problemId: string,
+  requirementIds: string[],
+  pilotFrameworkIds: string[],
+): Promise<ContentCitation[]> {
+  const supabase = createPublicClient();
+
+  async function fetchEq(targetType: string, targetId: string): Promise<ContentCitation[]> {
+    const { data } = await supabase
+      .from("content_citations")
+      .select(CITATION_COLUMNS)
+      .eq("target_type", targetType)
+      .eq("target_id", targetId);
+    return (data ?? []) as ContentCitation[];
+  }
+
+  async function fetchIn(targetType: string, ids: string[]): Promise<ContentCitation[]> {
+    const { data } = await supabase
+      .from("content_citations")
+      .select(CITATION_COLUMNS)
+      .eq("target_type", targetType)
+      .in("target_id", ids);
+    return (data ?? []) as ContentCitation[];
+  }
+
+  const pending: Promise<ContentCitation[]>[] = [fetchEq("problem_template", problemId)];
+  if (requirementIds.length > 0) pending.push(fetchIn("requirement", requirementIds));
+  if (pilotFrameworkIds.length > 0) pending.push(fetchIn("pilot_framework", pilotFrameworkIds));
+
+  const all = (await Promise.all(pending)).flat();
+
+  const seen = new Set<string>();
+  return all.filter((c) => {
+    if (seen.has(c.source_url)) return false;
+    seen.add(c.source_url);
+    return true;
+  });
+}
