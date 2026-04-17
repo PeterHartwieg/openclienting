@@ -212,12 +212,22 @@ export async function uploadOrgLogo(formData: FormData) {
     return { success: false as const, error: "Organization ID and file are required" };
   }
 
-  // Server-side validation: 512 KB max, images only
+  // Server-side validation: 512 KB max, explicit MIME allowlist.
+  // SVG is intentionally excluded — it is a script-XSS surface when served
+  // from a public bucket (the browser renders it as a live HTML document).
+  const ALLOWED_LOGO_TYPES: Record<string, string> = {
+    "image/jpeg": "jpg",
+    "image/png": "png",
+    "image/webp": "webp",
+  };
   if (file.size > 512 * 1024) {
     return { success: false as const, error: "Logo must be under 512 KB" };
   }
-  if (!file.type.startsWith("image/")) {
-    return { success: false as const, error: "File must be an image" };
+  if (!(file.type in ALLOWED_LOGO_TYPES)) {
+    return {
+      success: false as const,
+      error: "Only JPEG, PNG, and WebP images are accepted as org logos",
+    };
   }
 
   // Check user is org admin
@@ -232,7 +242,8 @@ export async function uploadOrgLogo(formData: FormData) {
     return { success: false as const, error: "Only organization admins can upload logos" };
   }
 
-  const ext = file.name.split(".").pop() || "png";
+  // Derive extension from the validated MIME type — never trust the filename.
+  const ext = ALLOWED_LOGO_TYPES[file.type];
   const path = `${organizationId}/logo.${ext}`;
 
   const { error: uploadError } = await supabase.storage
