@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "اللغة",
     "switchTo": "تبديل اللغة"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "إرسال مشكلة",
+    "mySubmissions": "مقدّماتي",
+    "notifications": "الإشعارات",
+    "notificationsWithCount": "الإشعارات، {count} غير مقروءة",
+    "reviewQueue": "قائمة المراجعة",
+    "reviewQueueWithCount": "قائمة المراجعة: {count} {queue} قيد الانتظار",
+    "allNavLabel": "كل عناصر التنقل",
+    "expandGroup": "توسيع {group}",
+    "collapseGroup": "طيّ {group}",
+    "queueLabels": {
+      "problems": "المشكلات",
+      "requirements": "المتطلبات",
+      "frameworks": "الأطر",
+      "solutions": "الحلول",
+      "successReports": "تقارير النجاح",
+      "suggestedEdits": "التعديلات المقترحة",
+      "organizationVerification": "التحقق من المنظمات",
+      "liveRevisions": "المراجعات المباشرة",
+      "knowledgeArticles": "مقالات المعرفة",
+      "translations": "الترجمات"
+    }
   }
 }

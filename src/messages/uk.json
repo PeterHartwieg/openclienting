@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "Мова",
     "switchTo": "Змінити мову"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Надіслати проблему",
+    "mySubmissions": "Мої подання",
+    "notifications": "Сповіщення",
+    "notificationsWithCount": "Сповіщення, {count} непрочитаних",
+    "reviewQueue": "Черга перевірки",
+    "reviewQueueWithCount": "Черга перевірки: {count} {queue} очікує",
+    "allNavLabel": "Вся навігація",
+    "expandGroup": "Розгорнути {group}",
+    "collapseGroup": "Згорнути {group}",
+    "queueLabels": {
+      "problems": "проблеми",
+      "requirements": "вимоги",
+      "frameworks": "фреймворки",
+      "solutions": "рішення",
+      "successReports": "звіти про успіх",
+      "suggestedEdits": "запропоновані правки",
+      "organizationVerification": "верифікації організацій",
+      "liveRevisions": "активні ревізії",
+      "knowledgeArticles": "статті бази знань",
+      "translations": "переклади"
+    }
   }
 }

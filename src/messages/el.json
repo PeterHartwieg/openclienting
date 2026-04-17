@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "Γλώσσα",
     "switchTo": "Αλλαγή γλώσσας"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Υποβολή προβλήματος",
+    "mySubmissions": "Οι υποβολές μου",
+    "notifications": "Ειδοποιήσεις",
+    "notificationsWithCount": "Ειδοποιήσεις, {count} αδιάβαστες",
+    "reviewQueue": "Ουρά αξιολόγησης",
+    "reviewQueueWithCount": "Ουρά αξιολόγησης: {count} {queue} σε αναμονή",
+    "allNavLabel": "Όλη η πλοήγηση",
+    "expandGroup": "Ανάπτυξη {group}",
+    "collapseGroup": "Σύμπτυξη {group}",
+    "queueLabels": {
+      "problems": "προβλήματα",
+      "requirements": "απαιτήσεις",
+      "frameworks": "πλαίσια",
+      "solutions": "λύσεις",
+      "successReports": "αναφορές επιτυχίας",
+      "suggestedEdits": "προτεινόμενες επεξεργασίες",
+      "organizationVerification": "επαληθεύσεις οργανισμών",
+      "liveRevisions": "live αναθεωρήσεις",
+      "knowledgeArticles": "άρθρα γνώσης",
+      "translations": "μεταφράσεις"
+    }
   }
 }

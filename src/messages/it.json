@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "Lingua",
     "switchTo": "Cambia lingua"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Segnala un problema",
+    "mySubmissions": "Le mie segnalazioni",
+    "notifications": "Notifiche",
+    "notificationsWithCount": "Notifiche, {count} non lette",
+    "reviewQueue": "Coda di revisione",
+    "reviewQueueWithCount": "Coda di revisione: {count} {queue} in attesa",
+    "allNavLabel": "Navigazione completa",
+    "expandGroup": "Espandi {group}",
+    "collapseGroup": "Comprimi {group}",
+    "queueLabels": {
+      "problems": "problemi",
+      "requirements": "requisiti",
+      "frameworks": "framework",
+      "solutions": "soluzioni",
+      "successReports": "rapporti di successo",
+      "suggestedEdits": "modifiche suggerite",
+      "organizationVerification": "verifiche organizzazioni",
+      "liveRevisions": "revisioni in produzione",
+      "knowledgeArticles": "articoli della knowledge base",
+      "translations": "traduzioni"
+    }
   }
 }

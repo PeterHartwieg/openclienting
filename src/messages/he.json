@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "שפה",
     "switchTo": "החלף שפה"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "הגשת בעיה",
+    "mySubmissions": "ההגשות שלי",
+    "notifications": "התראות",
+    "notificationsWithCount": "התראות, {count} שלא נקראו",
+    "reviewQueue": "תור סקירה",
+    "reviewQueueWithCount": "תור סקירה: {count} {queue} ממתינים",
+    "allNavLabel": "כל הניווט",
+    "expandGroup": "הרחבת {group}",
+    "collapseGroup": "כיווץ {group}",
+    "queueLabels": {
+      "problems": "בעיות",
+      "requirements": "דרישות",
+      "frameworks": "מסגרות",
+      "solutions": "פתרונות",
+      "successReports": "דוחות הצלחה",
+      "suggestedEdits": "עריכות מוצעות",
+      "organizationVerification": "אימותי ארגונים",
+      "liveRevisions": "תיקונים פעילים",
+      "knowledgeArticles": "מאמרי ידע",
+      "translations": "תרגומים"
+    }
   }
 }

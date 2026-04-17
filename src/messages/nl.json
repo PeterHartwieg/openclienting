@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "Taal",
     "switchTo": "Taal wisselen"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Een probleem indienen",
+    "mySubmissions": "Mijn inzendingen",
+    "notifications": "Meldingen",
+    "notificationsWithCount": "Meldingen, {count} ongelezen",
+    "reviewQueue": "Beoordelingswachtrij",
+    "reviewQueueWithCount": "Beoordelingswachtrij: {count} {queue} in behandeling",
+    "allNavLabel": "Alle navigatie",
+    "expandGroup": "{group} uitklappen",
+    "collapseGroup": "{group} inklappen",
+    "queueLabels": {
+      "problems": "problemen",
+      "requirements": "vereisten",
+      "frameworks": "frameworks",
+      "solutions": "oplossingen",
+      "successReports": "succesverhalen",
+      "suggestedEdits": "voorgestelde bewerkingen",
+      "organizationVerification": "organisatieverificaties",
+      "liveRevisions": "live revisies",
+      "knowledgeArticles": "kennisartikelen",
+      "translations": "vertalingen"
+    }
   }
 }

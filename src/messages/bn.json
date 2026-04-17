@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "ভাষা",
     "switchTo": "ভাষা পরিবর্তন করুন"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "একটি সমস্যা জমা দিন",
+    "mySubmissions": "আমার জমাকৃত বিষয়সমূহ",
+    "notifications": "বিজ্ঞপ্তি",
+    "notificationsWithCount": "বিজ্ঞপ্তি, {count}টি অপঠিত",
+    "reviewQueue": "পর্যালোচনা সারি",
+    "reviewQueueWithCount": "পর্যালোচনা সারি: {count}টি {queue} মুলতুবি",
+    "allNavLabel": "সমস্ত নেভিগেশন",
+    "expandGroup": "{group} প্রসারিত করুন",
+    "collapseGroup": "{group} সংকুচিত করুন",
+    "queueLabels": {
+      "problems": "সমস্যাসমূহ",
+      "requirements": "প্রয়োজনীয়তাসমূহ",
+      "frameworks": "ফ্রেমওয়ার্কসমূহ",
+      "solutions": "সমাধানসমূহ",
+      "successReports": "সাফল্যের প্রতিবেদন",
+      "suggestedEdits": "প্রস্তাবিত সম্পাদনা",
+      "organizationVerification": "প্রতিষ্ঠান যাচাইকরণ",
+      "liveRevisions": "লাইভ সংশোধনী",
+      "knowledgeArticles": "জ্ঞানভান্ডার নিবন্ধ",
+      "translations": "অনুবাদসমূহ"
+    }
   }
 }

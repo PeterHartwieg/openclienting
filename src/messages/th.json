@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "ภาษา",
     "switchTo": "เปลี่ยนภาษา"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "ส่งปัญหา",
+    "mySubmissions": "การส่งของฉัน",
+    "notifications": "การแจ้งเตือน",
+    "notificationsWithCount": "การแจ้งเตือน, {count} ยังไม่ได้อ่าน",
+    "reviewQueue": "คิวตรวจสอบ",
+    "reviewQueueWithCount": "คิวตรวจสอบ: {count} {queue} รอดำเนินการ",
+    "allNavLabel": "การนำทางทั้งหมด",
+    "expandGroup": "ขยาย {group}",
+    "collapseGroup": "ย่อ {group}",
+    "queueLabels": {
+      "problems": "ปัญหา",
+      "requirements": "ข้อกำหนด",
+      "frameworks": "กรอบการทำงาน",
+      "solutions": "วิธีแก้ปัญหา",
+      "successReports": "รายงานความสำเร็จ",
+      "suggestedEdits": "การแก้ไขที่แนะนำ",
+      "organizationVerification": "การยืนยันองค์กร",
+      "liveRevisions": "การแก้ไขที่เผยแพร่แล้ว",
+      "knowledgeArticles": "บทความความรู้",
+      "translations": "การแปล"
+    }
   }
 }

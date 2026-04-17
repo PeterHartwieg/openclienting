@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "Lugha",
     "switchTo": "Badilisha lugha"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Wasilisha tatizo",
+    "mySubmissions": "Mawasilisho yangu",
+    "notifications": "Arifa",
+    "notificationsWithCount": "Arifa, {count} hazijasomwa",
+    "reviewQueue": "Foleni ya ukaguzi",
+    "reviewQueueWithCount": "Foleni ya ukaguzi: {count} {queue} zinasubiri",
+    "allNavLabel": "Urambazaji wote",
+    "expandGroup": "Panua {group}",
+    "collapseGroup": "Kunja {group}",
+    "queueLabels": {
+      "problems": "matatizo",
+      "requirements": "mahitaji",
+      "frameworks": "mifumo",
+      "solutions": "suluhisho",
+      "successReports": "ripoti za mafanikio",
+      "suggestedEdits": "mhariri zilizopendekezwa",
+      "organizationVerification": "uthibitisho wa shirika",
+      "liveRevisions": "marekebisho ya moja kwa moja",
+      "knowledgeArticles": "makala za maarifa",
+      "translations": "tafsiri"
+    }
   }
 }

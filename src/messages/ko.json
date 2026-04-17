@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "언어",
     "switchTo": "언어 변경"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "문제 제출",
+    "mySubmissions": "내 제출물",
+    "notifications": "알림",
+    "notificationsWithCount": "알림, {count}개 읽지 않음",
+    "reviewQueue": "검토 대기열",
+    "reviewQueueWithCount": "검토 대기열: {count}개 {queue} 대기 중",
+    "allNavLabel": "전체 탐색",
+    "expandGroup": "{group} 펼치기",
+    "collapseGroup": "{group} 접기",
+    "queueLabels": {
+      "problems": "문제",
+      "requirements": "요구사항",
+      "frameworks": "프레임워크",
+      "solutions": "솔루션",
+      "successReports": "성공 사례 보고서",
+      "suggestedEdits": "수정 제안",
+      "organizationVerification": "조직 인증",
+      "liveRevisions": "라이브 수정",
+      "knowledgeArticles": "지식 문서",
+      "translations": "번역"
+    }
   }
 }

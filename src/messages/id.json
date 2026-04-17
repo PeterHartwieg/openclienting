@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "Bahasa",
     "switchTo": "Ganti bahasa"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Kirim masalah",
+    "mySubmissions": "Kiriman saya",
+    "notifications": "Notifikasi",
+    "notificationsWithCount": "Notifikasi, {count} belum dibaca",
+    "reviewQueue": "Antrean tinjauan",
+    "reviewQueueWithCount": "Antrean tinjauan: {count} {queue} menunggu",
+    "allNavLabel": "Semua navigasi",
+    "expandGroup": "Perluas {group}",
+    "collapseGroup": "Ciutkan {group}",
+    "queueLabels": {
+      "problems": "masalah",
+      "requirements": "persyaratan",
+      "frameworks": "kerangka kerja",
+      "solutions": "solusi",
+      "successReports": "laporan keberhasilan",
+      "suggestedEdits": "suntingan yang disarankan",
+      "organizationVerification": "verifikasi organisasi",
+      "liveRevisions": "revisi langsung",
+      "knowledgeArticles": "artikel pengetahuan",
+      "translations": "terjemahan"
+    }
   }
 }

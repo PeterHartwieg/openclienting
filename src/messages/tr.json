@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "Dil",
     "switchTo": "Dil değiştir"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Sorun gönder",
+    "mySubmissions": "Gönderilerim",
+    "notifications": "Bildirimler",
+    "notificationsWithCount": "Bildirimler, {count} okunmamış",
+    "reviewQueue": "İnceleme kuyruğu",
+    "reviewQueueWithCount": "İnceleme kuyruğu: {count} {queue} bekliyor",
+    "allNavLabel": "Tüm gezinti",
+    "expandGroup": "{group} grubunu genişlet",
+    "collapseGroup": "{group} grubunu daralt",
+    "queueLabels": {
+      "problems": "sorunlar",
+      "requirements": "gereksinimler",
+      "frameworks": "çerçeveler",
+      "solutions": "çözümler",
+      "successReports": "başarı raporları",
+      "suggestedEdits": "önerilen düzenlemeler",
+      "organizationVerification": "kuruluş doğrulamaları",
+      "liveRevisions": "canlı revizyonlar",
+      "knowledgeArticles": "bilgi makaleleri",
+      "translations": "çeviriler"
+    }
   }
 }

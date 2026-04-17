@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "Språk",
     "switchTo": "Bytt språk"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Send inn et problem",
+    "mySubmissions": "Mine innleveringer",
+    "notifications": "Varsler",
+    "notificationsWithCount": "Varsler, {count} uleste",
+    "reviewQueue": "Gjennomgangskø",
+    "reviewQueueWithCount": "Gjennomgangskø: {count} {queue} venter",
+    "allNavLabel": "All navigasjon",
+    "expandGroup": "Utvid {group}",
+    "collapseGroup": "Skjul {group}",
+    "queueLabels": {
+      "problems": "problemer",
+      "requirements": "krav",
+      "frameworks": "rammeverk",
+      "solutions": "løsninger",
+      "successReports": "suksessrapporter",
+      "suggestedEdits": "foreslåtte redigeringer",
+      "organizationVerification": "organisasjonsverifiseringer",
+      "liveRevisions": "live-revisjoner",
+      "knowledgeArticles": "kunnskapsartikler",
+      "translations": "oversettelser"
+    }
   }
 }

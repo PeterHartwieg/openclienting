@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "Язык",
     "switchTo": "Сменить язык"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Отправить проблему",
+    "mySubmissions": "Мои материалы",
+    "notifications": "Уведомления",
+    "notificationsWithCount": "Уведомления, {count} непрочитанных",
+    "reviewQueue": "Очередь проверки",
+    "reviewQueueWithCount": "Очередь проверки: {count} {queue} ожидает",
+    "allNavLabel": "Вся навигация",
+    "expandGroup": "Развернуть {group}",
+    "collapseGroup": "Свернуть {group}",
+    "queueLabels": {
+      "problems": "проблемы",
+      "requirements": "требования",
+      "frameworks": "фреймворки",
+      "solutions": "решения",
+      "successReports": "отчёты об успехах",
+      "suggestedEdits": "предложенные правки",
+      "organizationVerification": "верификация организаций",
+      "liveRevisions": "правки в публикациях",
+      "knowledgeArticles": "статьи базы знаний",
+      "translations": "переводы"
+    }
   }
 }

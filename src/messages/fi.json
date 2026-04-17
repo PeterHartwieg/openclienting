@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "Kieli",
     "switchTo": "Vaihda kieltä"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Lähetä ongelma",
+    "mySubmissions": "Omat lähetykset",
+    "notifications": "Ilmoitukset",
+    "notificationsWithCount": "Ilmoitukset, {count} lukematta",
+    "reviewQueue": "Tarkastusjonо",
+    "reviewQueueWithCount": "Tarkastusjono: {count} {queue} odottaa",
+    "allNavLabel": "Kaikki navigointi",
+    "expandGroup": "Laajenna {group}",
+    "collapseGroup": "Tiivistä {group}",
+    "queueLabels": {
+      "problems": "ongelmat",
+      "requirements": "vaatimukset",
+      "frameworks": "viitekehykset",
+      "solutions": "ratkaisut",
+      "successReports": "onnistumisraportit",
+      "suggestedEdits": "ehdotetut muokkaukset",
+      "organizationVerification": "organisaatiovarmistukset",
+      "liveRevisions": "julkaistut revisiot",
+      "knowledgeArticles": "tietoartikkelit",
+      "translations": "käännökset"
+    }
   }
 }

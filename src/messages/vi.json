@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "Ngôn Ngữ",
     "switchTo": "Chuyển ngôn ngữ"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Gửi vấn đề",
+    "mySubmissions": "Bài gửi của tôi",
+    "notifications": "Thông báo",
+    "notificationsWithCount": "Thông báo, {count} chưa đọc",
+    "reviewQueue": "Hàng chờ duyệt",
+    "reviewQueueWithCount": "Hàng chờ duyệt: {count} {queue} đang chờ",
+    "allNavLabel": "Tất cả điều hướng",
+    "expandGroup": "Mở rộng {group}",
+    "collapseGroup": "Thu gọn {group}",
+    "queueLabels": {
+      "problems": "vấn đề",
+      "requirements": "yêu cầu",
+      "frameworks": "khung làm việc",
+      "solutions": "giải pháp",
+      "successReports": "báo cáo thành công",
+      "suggestedEdits": "chỉnh sửa đề xuất",
+      "organizationVerification": "xác minh tổ chức",
+      "liveRevisions": "sửa đổi trực tiếp",
+      "knowledgeArticles": "bài viết kiến thức",
+      "translations": "bản dịch"
+    }
   }
 }
