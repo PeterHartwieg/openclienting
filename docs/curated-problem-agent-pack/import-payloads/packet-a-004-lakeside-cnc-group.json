@@ -15,7 +15,7 @@
     "country": ""
   },
   "problem": {
-    "title": "Needs to replace spreadsheet-based CNC repair intake with a scalable service workflow",
+    "title": "Spreadsheet-based service intake cannot scale with CNC repair demand",
     "description": "Lakeside CNC Group outgrew spreadsheets and basic email-based tracking as its repair-management workload increased. The case study says customer questions and service requests were still being recorded in spreadsheets, which limited visibility and made it harder to manage a growing technical repair operation.",
     "source_language": "en",
     "tag_ids": [

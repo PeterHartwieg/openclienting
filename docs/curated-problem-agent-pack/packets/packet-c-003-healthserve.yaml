@@ -15,7 +15,7 @@ problem_owner_organization:
     match_note: ""
 
 problem_statement:
-  title: "Needs structured intake and follow-up workflows for rising migrant-worker support demand"
+  title: "Rising demand exposes gaps in migrant-worker support intake and follow-up"
   title_citation_refs: ["cite_healthserve_zoho"]
   description: "HealthServe expanded beyond clinic care into counselling, casework, and mental health support, then saw a major spike in incoming calls during COVID-19. The public case study says the organization needed a system that could manage every call, log each grievance, and help a small team and volunteer network follow through until support had been provided."
   description_citation_refs: ["cite_healthserve_zoho", "cite_healthserve_site"]

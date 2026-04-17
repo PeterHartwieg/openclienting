@@ -15,7 +15,7 @@
     "country": ""
   },
   "problem": {
-    "title": "Needs ecommerce operations that remove manual accounting and order-tracking workload",
+    "title": "Disconnected ecommerce and accounting create manual reconciliation burden",
     "description": "My Wall Panels moved online but still faced manual accounting and customer-service friction. The case study says Magento lacked suitable accounting and product tracking, which left the business handling order-status questions by email and still relying on ledgers for returns and invoices.",
     "source_language": "en",
     "tag_ids": [

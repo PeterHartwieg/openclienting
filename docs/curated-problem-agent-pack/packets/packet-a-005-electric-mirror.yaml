@@ -15,7 +15,7 @@ problem_owner_organization:
     match_note: ""
 
 problem_statement:
-  title: "Needs a lower-friction CRM and operations stack than its legacy Salesforce setup"
+  title: "Legacy Salesforce creates friction across CRM and daily operations"
   title_citation_refs: ["cite_electric_zoho"]
   description: "Electric Mirror was using Salesforce but needed a system that was easier to implement, easier for staff to learn, and better aligned to day-to-day operational efficiency. The case study says the manufacturer wanted a quick implementation with minimal training and viewed its previous setup as a poor fit for how the business needed to run."
   description_citation_refs: ["cite_electric_zoho"]

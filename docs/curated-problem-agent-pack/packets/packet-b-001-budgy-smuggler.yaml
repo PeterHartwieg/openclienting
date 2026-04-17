@@ -15,7 +15,7 @@ problem_owner_organization:
     match_note: ""
 
 problem_statement:
-  title: "Needs a scalable workflow for custom retail orders, leads, and customer updates"
+  title: "Custom retail order management breaks down at scale"
   title_citation_refs: ["cite_budgy_monday"]
   description: "Budgy Smuggler outgrew spreadsheets as its order volume grew from tens of orders a week to hundreds and then thousands. The case study says expansion added staff, manufacturers, and locations, making it harder to manage the growing custom-design division, keep customers updated, and streamline incoming leads and website orders."
   description_citation_refs: ["cite_budgy_monday"]

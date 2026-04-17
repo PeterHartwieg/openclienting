@@ -15,7 +15,7 @@ problem_owner_organization:
     match_note: ""
 
 problem_statement:
-  title: "Needs a unified, data-driven operating system instead of fragmented business tools"
+  title: "Siloed business tools prevent data-driven operations"
   title_citation_refs: ["cite_counter_zoho"]
   description: "Counter Culture needed better visibility across customers, distributors, suppliers, and internal processes. The public Zoho case study says the company had been relying on Salesforce plus a patchwork of software, email, and spreadsheets, and wanted a unified and data-driven system that would support more proactive operations."
   description_citation_refs: ["cite_counter_zoho"]

@@ -15,7 +15,7 @@ problem_owner_organization:
     match_note: ""
 
 problem_statement:
-  title: "Needs faster, lower-error customer onboarding and outlet audit workflows"
+  title: "Slow, error-prone customer onboarding and outlet audit processes"
   title_citation_refs: ["cite_green_zoho"]
   description: "Green Endeavour needed to improve customer management across onboarding and retail-outlet auditing processes. The public case study says the business reduced manual data entry and user errors and moved toward a paperless workflow, indicating that customer and compliance-related processes had been too manual and inefficient."
   description_citation_refs: ["cite_green_zoho"]

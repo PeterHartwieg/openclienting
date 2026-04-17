@@ -15,7 +15,7 @@ problem_owner_organization:
     match_note: ""
 
 problem_statement:
-  title: "Needs unified, analyzable clinical data to support interoperability and decision-making"
+  title: "Siloed clinical data blocks interoperability and evidence-based decisions"
   title_citation_refs: ["cite_curantis_aws"]
   description: "Curantis had valuable healthcare data but faced the challenge of making it interoperable, easier to analyze, and more useful to internal teams and customers. The AWS case study says the SMB needed to address FHIR-related compliance and that, before its new setup, its data was difficult to access and analyze for leaders who needed timely insight."
   description_citation_refs: ["cite_curantis_aws"]
