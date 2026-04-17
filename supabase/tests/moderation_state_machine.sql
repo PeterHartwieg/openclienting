@@ -15,7 +15,7 @@
 
 begin;
 
-select plan(9);
+select plan(15);
 
 -- ----------------------------------------------------------------
 -- Setup: insert a real auth user + profile so FK constraints pass
@@ -241,6 +241,163 @@ select is(
    where target_id = 'eeeeeeee-0000-0000-0000-000000000001'),
   2::bigint,
   'moderate_item_v1: exactly two moderation_event rows for the first problem'
+);
+
+-- ================================================================
+-- SUITE 2 EXTENSION: submit_problem_v1 + create_organization_v1
+-- ================================================================
+
+-- Seed a tag so tag_ids can reference a real row
+insert into public.tags (id, name, slug, category)
+values (
+  'ffffffff-0000-0000-0000-000000000001',
+  'pgTAP Tag',
+  'pgtap-tag',
+  'problem_category'
+) on conflict (id) do nothing;
+
+-- Switch to the author context
+set local "request.jwt.claim.sub" to 'dddddddd-0000-0000-0000-000000000002';
+
+-- ----------------------------------------------------------------
+-- TEST 9: submit_problem_v1 succeeds and creates all child rows
+-- ----------------------------------------------------------------
+select lives_ok(
+  $$
+    select public.submit_problem_v1(
+      jsonb_build_object(
+        'title',                   'pgTAP submission test problem',
+        'description',             'Test description for submit_problem_v1',
+        'is_publicly_anonymous',   false,
+        'is_org_anonymous',        false,
+        'author_organization_id',  null,
+        'source_language',         'en',
+        'tag_ids',                 jsonb_build_array('ffffffff-0000-0000-0000-000000000001'),
+        'requirements',            jsonb_build_array(
+                                     jsonb_build_object('body', 'req one', 'source_language', 'en'),
+                                     jsonb_build_object('body', 'req two', 'source_language', 'en')
+                                   ),
+        'pilot_frameworks',        jsonb_build_array(
+                                     jsonb_build_object(
+                                       'scope',               'small',
+                                       'suggested_kpis',      'kpi1',
+                                       'success_criteria',    'criteria',
+                                       'common_pitfalls',     'pitfalls',
+                                       'duration',            '3 months',
+                                       'resource_commitment', 'low',
+                                       'source_language',     'en'
+                                     )
+                                   )
+      )
+    )
+  $$,
+  'submit_problem_v1: should not raise for valid payload'
+);
+
+-- Helper: capture the id of the problem just inserted
+do $$
+declare v_id uuid;
+begin
+  select id into v_id from public.problem_templates
+  where title = 'pgTAP submission test problem'
+    and author_id = 'dddddddd-0000-0000-0000-000000000002';
+  -- store for reuse; pgTAP runs in same tx so we can use a temp table
+  create temp table if not exists _pgtap_submit_ids (problem_id uuid);
+  insert into _pgtap_submit_ids values (v_id);
+end $$;
+
+-- TEST 10: one moderation_event with action='submitted'
+select is(
+  (select count(*) from public.moderation_event me
+   join _pgtap_submit_ids s on s.problem_id = me.target_id
+   where me.target_type = 'problem_template'
+     and me.action      = 'submitted'),
+  1::bigint,
+  'submit_problem_v1: exactly one moderation_event with action=submitted'
+);
+
+-- TEST 11: problem_tags count matches
+select is(
+  (select count(*) from public.problem_tags pt
+   join _pgtap_submit_ids s on s.problem_id = pt.problem_id),
+  1::bigint,
+  'submit_problem_v1: one problem_tag row inserted'
+);
+
+-- TEST 12: requirements count matches
+select is(
+  (select count(*) from public.requirements r
+   join _pgtap_submit_ids s on s.problem_id = r.problem_id),
+  2::bigint,
+  'submit_problem_v1: two requirement rows inserted'
+);
+
+-- TEST 13: pilot_frameworks count matches
+select is(
+  (select count(*) from public.pilot_frameworks pf
+   join _pgtap_submit_ids s on s.problem_id = pf.problem_id),
+  1::bigint,
+  'submit_problem_v1: one pilot_framework row inserted'
+);
+
+-- ----------------------------------------------------------------
+-- TEST 14: submit_problem_v1 raises when unauthenticated
+-- ----------------------------------------------------------------
+set local "request.jwt.claim.sub" to '';
+
+select throws_ok(
+  $$
+    select public.submit_problem_v1(
+      jsonb_build_object(
+        'title',       'should fail',
+        'description', 'unauthenticated call',
+        'tag_ids',     '[]'::jsonb
+      )
+    )
+  $$,
+  'authentication required',
+  'submit_problem_v1: raises when unauthenticated'
+);
+
+-- Restore author context for org test
+set local "request.jwt.claim.sub" to 'dddddddd-0000-0000-0000-000000000002';
+
+-- ----------------------------------------------------------------
+-- TEST 15: create_organization_v1 creates membership + moderation_event
+-- ----------------------------------------------------------------
+select lives_ok(
+  $$
+    select public.create_organization_v1(
+      'pgTAP Org',
+      'pgtap-org',
+      'pgTAP test org description',
+      'https://pgtap.example.com'
+    )
+  $$,
+  'create_organization_v1: should not raise'
+);
+
+-- Verify the admin membership was created
+select is(
+  (select count(*) from public.organization_memberships om
+   join public.organizations o on o.id = om.organization_id
+   where o.slug = 'pgtap-org'
+     and om.user_id         = 'dddddddd-0000-0000-0000-000000000002'
+     and om.role            = 'admin'
+     and om.membership_status = 'active'),
+  1::bigint,
+  'create_organization_v1: one admin/active membership created'
+);
+
+-- Verify the moderation_event was written
+select is(
+  (select count(*) from public.moderation_event me
+   join public.organizations o on o.id = me.target_id
+   where o.slug        = 'pgtap-org'
+     and me.target_type = 'organization'
+     and me.action      = 'submitted'),
+  1::bigint,
+  'create_organization_v1: one moderation_event with action=submitted'
 );
 
 select * from finish();

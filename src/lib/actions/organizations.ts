@@ -25,18 +25,13 @@ export async function createOrganization(params: {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 
-  const { data: org, error } = await supabase
-    .from("organizations")
-    .insert({
-      name,
-      slug,
-      website: params.website?.trim() || null,
-      description: params.description?.trim() || null,
-      employee_count: params.employeeCount ?? null,
-      created_by: user.id,
-    })
-    .select("id")
-    .single();
+  // Atomic RPC: org + admin membership + moderation_event in one transaction
+  const { data: org, error } = await supabase.rpc("create_organization_v1", {
+    p_name: name,
+    p_slug: slug,
+    p_description: params.description?.trim() || null,
+    p_website: params.website?.trim() || null,
+  });
 
   if (error) {
     if (error.code === "23505") {
@@ -45,19 +40,11 @@ export async function createOrganization(params: {
     return { success: false as const, error: error.message };
   }
 
-  // Auto-create membership as admin
-  const { error: memberError } = await supabase
-    .from("organization_memberships")
-    .insert({
-      organization_id: org.id,
-      user_id: user.id,
-      role: "admin",
-      membership_status: "active",
-    });
+  // Invalidate caches so server-component org lists pick up the new org
+  updateTag("organizations");
+  updateTag("moderation_events");
 
-  if (memberError) return { success: false as const, error: memberError.message };
-
-  return { success: true as const, organizationId: org.id };
+  return { success: true as const, organizationId: (org as { id: string }).id };
 }
 
 export async function requestOrganizationVerification(organizationId: string) {

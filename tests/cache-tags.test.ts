@@ -192,13 +192,6 @@ function hasCacheInvalidation(body: string): boolean {
 // remove them from this list.
 // ---------------------------------------------------------------------------
 const EXPECTED_OFFENDERS = new Set<string>([
-  // submit/actions.ts — submitProblem: inserts problem + tags + requirements + pilot_framework
-  // but never calls updateTag / revalidatePath. No home feed invalidation today.
-  "src/app/[locale]/(shell)/submit/actions.ts::submitProblem",
-
-  // organizations.ts — createOrganization: inserts org + membership but no cache invalidation.
-  "src/lib/actions/organizations.ts::createOrganization",
-
   // organizations.ts — requestOrganizationVerification: updates org.verification_status, no cache.
   "src/lib/actions/organizations.ts::requestOrganizationVerification",
 
