@@ -21,6 +21,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/i18n/format";
 import { TrackedCardLink } from "@/components/analytics/tracked-card-link";
+import { JumpBackInCard } from "@/components/dashboard/jump-back-in-card";
 
 export async function generateMetadata({
   params,
@@ -435,7 +436,10 @@ export default async function DashboardPage({
           </Card>
         </div>
 
-        {/* ── 7. Moderation ── only for moderator / admin */}
+        {/* ── 7. Jump back in ── client-rendered, hides itself when empty */}
+        <JumpBackInCard />
+
+        {/* ── 8. Moderation ── only for moderator / admin */}
         {isModerator && (
           <Card>
             <CardHeader>

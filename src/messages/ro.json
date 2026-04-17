@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "Prezentare generală",
+      "notifications": "Notificări",
       "myOrgs": "Organizațiile mele",
       "joinOrg": "Alătură-te unei organizații",
       "createOrg": "Creează organizație",
@@ -437,6 +438,9 @@
         "viewQueues": "Vezi cozile",
         "pendingCount": "{count, plural, =0 {Nimic în așteptare} one {1 element în așteptare} other {# elemente în așteptare}}"
       },
+      "recentNav": {
+        "title": "Continuă de unde ai rămas"
+      },
       "kindLabels": {
         "problem": "Problemă",
         "requirement": "Cerință",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "Articol"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "Caută probleme…",
+    "resultsLabel": "Rezultate căutare",
+    "resultCount": "{count, plural, =0 {Niciun rezultat} one {1 rezultat} other {# rezultate}}"
   },
   "settings": {
     "metaTitle": "Setări — OpenClienting",
@@ -607,5 +616,28 @@
   "languageSwitcher": {
     "label": "Limbă",
     "switchTo": "Schimbă limba"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Trimite o problemă",
+    "mySubmissions": "Trimiterile mele",
+    "notifications": "Notificări",
+    "notificationsWithCount": "Notificări, {count} necitite",
+    "reviewQueue": "Coadă de revizuire",
+    "reviewQueueWithCount": "Coadă de revizuire: {count} {queue} în așteptare",
+    "allNavLabel": "Toată navigarea",
+    "expandGroup": "Extinde {group}",
+    "collapseGroup": "Restrânge {group}",
+    "queueLabels": {
+      "problems": "probleme",
+      "requirements": "cerințe",
+      "frameworks": "cadre metodologice",
+      "solutions": "soluții",
+      "successReports": "rapoarte de succes",
+      "suggestedEdits": "modificări sugerate",
+      "organizationVerification": "verificări organizații",
+      "liveRevisions": "revizuiri active",
+      "knowledgeArticles": "articole de cunoștințe",
+      "translations": "traduceri"
+    }
   }
 }

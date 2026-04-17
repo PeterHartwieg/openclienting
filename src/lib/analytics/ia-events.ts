@@ -16,7 +16,7 @@ function isAnalyticsConsented(): boolean {
 }
 
 export type IaShell = "public" | "workspace";
-export type IaSurface = "header" | "sidebar" | "drawer";
+export type IaSurface = "header" | "sidebar" | "drawer" | "search";
 
 export type DashboardCard =
   | "unread-notifications"
@@ -25,7 +25,8 @@ export type DashboardCard =
   | "recent-orgs"
   | "recent-submissions"
   | "quick-action"
-  | "moderator-queue-summary";
+  | "moderator-queue-summary"
+  | "recent-nav";
 
 export type IaEvent =
   | {

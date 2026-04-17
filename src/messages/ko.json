@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "개요",
+      "notifications": "알림",
       "myOrgs": "내 조직",
       "joinOrg": "조직 참여",
       "createOrg": "조직 생성",
@@ -437,6 +438,9 @@
         "viewQueues": "대기열 보기",
         "pendingCount": "{count, plural, =0 {대기 중 없음} one {1개 대기 중} other {# 개 대기 중}}"
       },
+      "recentNav": {
+        "title": "이어서 계속하기"
+      },
       "kindLabels": {
         "problem": "문제",
         "requirement": "요구사항",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "아티클"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "문제 검색…",
+    "resultsLabel": "검색 결과",
+    "resultCount": "{count, plural, =0 {결과 없음} one {결과 1개} other {결과 #개}}"
   },
   "settings": {
     "metaTitle": "설정 — OpenClienting",
@@ -607,5 +616,28 @@
   "languageSwitcher": {
     "label": "언어",
     "switchTo": "언어 변경"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "문제 제출",
+    "mySubmissions": "내 제출물",
+    "notifications": "알림",
+    "notificationsWithCount": "알림, {count}개 읽지 않음",
+    "reviewQueue": "검토 대기열",
+    "reviewQueueWithCount": "검토 대기열: {count}개 {queue} 대기 중",
+    "allNavLabel": "전체 탐색",
+    "expandGroup": "{group} 펼치기",
+    "collapseGroup": "{group} 접기",
+    "queueLabels": {
+      "problems": "문제",
+      "requirements": "요구사항",
+      "frameworks": "프레임워크",
+      "solutions": "솔루션",
+      "successReports": "성공 사례 보고서",
+      "suggestedEdits": "편집 제안",
+      "organizationVerification": "기관 인증",
+      "liveRevisions": "라이브 수정",
+      "knowledgeArticles": "지식 문서",
+      "translations": "번역"
+    }
   }
 }

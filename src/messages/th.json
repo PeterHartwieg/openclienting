@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "ภาพรวม",
+      "notifications": "การแจ้งเตือน",
       "myOrgs": "องค์กรของฉัน",
       "joinOrg": "เข้าร่วมองค์กร",
       "createOrg": "สร้างองค์กร",
@@ -437,6 +438,9 @@
         "viewQueues": "ดูคิว",
         "pendingCount": "{count, plural, =0 {ไม่มีรายการที่รอ} one {1 รายการที่รอ} other {# รายการที่รอ}}"
       },
+      "recentNav": {
+        "title": "กลับไปต่อ"
+      },
       "kindLabels": {
         "problem": "ปัญหา",
         "requirement": "ข้อกำหนด",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "บทความ"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "ค้นหาปัญหา…",
+    "resultsLabel": "ผลการค้นหา",
+    "resultCount": "{count, plural, =0 {ไม่พบผลลัพธ์} one {1 รายการ} other {# รายการ}}"
   },
   "settings": {
     "metaTitle": "การตั้งค่า — OpenClienting",
@@ -607,5 +616,28 @@
   "languageSwitcher": {
     "label": "ภาษา",
     "switchTo": "เปลี่ยนภาษา"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "ส่งปัญหา",
+    "mySubmissions": "การส่งของฉัน",
+    "notifications": "การแจ้งเตือน",
+    "notificationsWithCount": "การแจ้งเตือน, {count} ที่ยังไม่ได้อ่าน",
+    "reviewQueue": "คิวรีวิว",
+    "reviewQueueWithCount": "คิวรีวิว: {count} {queue} รอดำเนินการ",
+    "allNavLabel": "การนำทางทั้งหมด",
+    "expandGroup": "ขยาย {group}",
+    "collapseGroup": "ยุบ {group}",
+    "queueLabels": {
+      "problems": "ปัญหา",
+      "requirements": "ข้อกำหนด",
+      "frameworks": "กรอบงาน",
+      "solutions": "วิธีแก้ไข",
+      "successReports": "รายงานความสำเร็จ",
+      "suggestedEdits": "การแก้ไขที่แนะนำ",
+      "organizationVerification": "การยืนยันองค์กร",
+      "liveRevisions": "การแก้ไขที่เผยแพร่อยู่",
+      "knowledgeArticles": "บทความความรู้",
+      "translations": "การแปล"
+    }
   }
 }

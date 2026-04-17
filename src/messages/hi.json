@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "अवलोकन",
+      "notifications": "सूचनाएँ",
       "myOrgs": "मेरे संगठन",
       "joinOrg": "संगठन से जुड़ें",
       "createOrg": "संगठन बनाएं",
@@ -437,6 +438,9 @@
         "viewQueues": "कतारें देखें",
         "pendingCount": "{count, plural, =0 {कुछ भी लंबित नहीं} one {1 आइटम लंबित} other {# आइटम लंबित}}"
       },
+      "recentNav": {
+        "title": "वापस जाएँ"
+      },
       "kindLabels": {
         "problem": "समस्या",
         "requirement": "आवश्यकता",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "लेख"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "समस्याएँ खोजें…",
+    "resultsLabel": "खोज परिणाम",
+    "resultCount": "{count, plural, =0 {कोई परिणाम नहीं} one {1 परिणाम} other {# परिणाम}}"
   },
   "settings": {
     "metaTitle": "सेटिंग्स — OpenClienting",
@@ -607,5 +616,28 @@
   "languageSwitcher": {
     "label": "भाषा",
     "switchTo": "भाषा बदलें"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "समस्या सबमिट करें",
+    "mySubmissions": "मेरे सबमिशन",
+    "notifications": "सूचनाएँ",
+    "notificationsWithCount": "सूचनाएँ, {count} अपठित",
+    "reviewQueue": "समीक्षा कतार",
+    "reviewQueueWithCount": "समीक्षा कतार: {count} {queue} लंबित",
+    "allNavLabel": "सभी नेविगेशन",
+    "expandGroup": "{group} विस्तृत करें",
+    "collapseGroup": "{group} संकुचित करें",
+    "queueLabels": {
+      "problems": "समस्याएँ",
+      "requirements": "आवश्यकताएँ",
+      "frameworks": "फ्रेमवर्क",
+      "solutions": "समाधान",
+      "successReports": "सफलता रिपोर्ट",
+      "suggestedEdits": "सुझाए गए संपादन",
+      "organizationVerification": "संगठन सत्यापन",
+      "liveRevisions": "लाइव संशोधन",
+      "knowledgeArticles": "ज्ञान लेख",
+      "translations": "अनुवाद"
+    }
   }
 }

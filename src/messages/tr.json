@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "Genel Bakış",
+      "notifications": "Bildirimler",
       "myOrgs": "Kuruluşlarım",
       "joinOrg": "Kuruluşa Katıl",
       "createOrg": "Kuruluş Oluştur",
@@ -437,6 +438,9 @@
         "viewQueues": "Kuyrukları Görüntüle",
         "pendingCount": "{count, plural, =0 {Bekleyen yok} one {1 öğe bekliyor} other {# öğe bekliyor}}"
       },
+      "recentNav": {
+        "title": "Kaldığın yerden devam et"
+      },
       "kindLabels": {
         "problem": "Sorun",
         "requirement": "Gereksinim",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "Makale"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "Sorun ara…",
+    "resultsLabel": "Arama sonuçları",
+    "resultCount": "{count, plural, =0 {Sonuç bulunamadı} one {1 sonuç} other {# sonuç}}"
   },
   "settings": {
     "metaTitle": "Ayarlar — OpenClienting",
@@ -607,5 +616,28 @@
   "languageSwitcher": {
     "label": "Dil",
     "switchTo": "Dil değiştir"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Sorun gönder",
+    "mySubmissions": "Gönderilerim",
+    "notifications": "Bildirimler",
+    "notificationsWithCount": "Bildirimler, {count} okunmamış",
+    "reviewQueue": "İnceleme kuyruğu",
+    "reviewQueueWithCount": "İnceleme kuyruğu: {count} bekleyen {queue}",
+    "allNavLabel": "Tüm gezinti",
+    "expandGroup": "{group} grubunu genişlet",
+    "collapseGroup": "{group} grubunu daralt",
+    "queueLabels": {
+      "problems": "sorunlar",
+      "requirements": "gereksinimler",
+      "frameworks": "çerçeveler",
+      "solutions": "çözümler",
+      "successReports": "başarı raporları",
+      "suggestedEdits": "önerilen düzenlemeler",
+      "organizationVerification": "kuruluş doğrulamaları",
+      "liveRevisions": "canlı revizyonlar",
+      "knowledgeArticles": "bilgi makaleleri",
+      "translations": "çeviriler"
+    }
   }
 }

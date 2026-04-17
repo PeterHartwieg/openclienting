@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "Oversikt",
+      "notifications": "Varsler",
       "myOrgs": "Mine organisasjoner",
       "joinOrg": "Bli med i organisasjon",
       "createOrg": "Opprett organisasjon",
@@ -437,6 +438,9 @@
         "viewQueues": "Se køer",
         "pendingCount": "{count, plural, =0 {Ingenting venter} one {1 element venter} other {# elementer venter}}"
       },
+      "recentNav": {
+        "title": "Fortsett der du slapp"
+      },
       "kindLabels": {
         "problem": "Problem",
         "requirement": "Krav",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "Artikkel"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "Søk etter problemer…",
+    "resultsLabel": "Søkeresultater",
+    "resultCount": "{count, plural, =0 {Ingen resultater} one {1 resultat} other {# resultater}}"
   },
   "settings": {
     "metaTitle": "Innstillinger — OpenClienting",
@@ -607,5 +616,28 @@
   "languageSwitcher": {
     "label": "Språk",
     "switchTo": "Bytt språk"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Send inn et problem",
+    "mySubmissions": "Mine innsendinger",
+    "notifications": "Varsler",
+    "notificationsWithCount": "Varsler, {count} uleste",
+    "reviewQueue": "Gjennomgangskø",
+    "reviewQueueWithCount": "Gjennomgangskø: {count} {queue} venter",
+    "allNavLabel": "All navigasjon",
+    "expandGroup": "Utvid {group}",
+    "collapseGroup": "Skjul {group}",
+    "queueLabels": {
+      "problems": "problemer",
+      "requirements": "krav",
+      "frameworks": "rammeverk",
+      "solutions": "løsninger",
+      "successReports": "suksessrapporter",
+      "suggestedEdits": "foreslåtte redigeringer",
+      "organizationVerification": "organisasjonsverifiseringer",
+      "liveRevisions": "live-revisjoner",
+      "knowledgeArticles": "kunnskapsartikler",
+      "translations": "oversettelser"
+    }
   }
 }

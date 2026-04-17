@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "概览",
+      "notifications": "通知",
       "myOrgs": "我的组织",
       "joinOrg": "加入组织",
       "createOrg": "创建组织",
@@ -437,6 +438,9 @@
         "viewQueues": "查看队列",
         "pendingCount": "{count, plural, =0 {暂无待处理} one {1 项待处理} other {# 项待处理}}"
       },
+      "recentNav": {
+        "title": "继续上次"
+      },
       "kindLabels": {
         "problem": "问题",
         "requirement": "需求",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "文章"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "搜索问题…",
+    "resultsLabel": "搜索结果",
+    "resultCount": "{count, plural, =0 {无结果} one {1 条结果} other {# 条结果}}"
   },
   "settings": {
     "metaTitle": "设置 — OpenClienting",
@@ -607,5 +616,28 @@
   "languageSwitcher": {
     "label": "语言",
     "switchTo": "切换语言"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "提交问题",
+    "mySubmissions": "我的提交",
+    "notifications": "通知",
+    "notificationsWithCount": "通知，{count} 条未读",
+    "reviewQueue": "审核队列",
+    "reviewQueueWithCount": "审核队列：{count} 条 {queue} 待处理",
+    "allNavLabel": "所有导航",
+    "expandGroup": "展开 {group}",
+    "collapseGroup": "收起 {group}",
+    "queueLabels": {
+      "problems": "问题",
+      "requirements": "需求",
+      "frameworks": "框架",
+      "solutions": "解决方案",
+      "successReports": "成功案例报告",
+      "suggestedEdits": "建议编辑",
+      "organizationVerification": "组织认证",
+      "liveRevisions": "线上修订",
+      "knowledgeArticles": "知识文章",
+      "translations": "翻译"
+    }
   }
 }

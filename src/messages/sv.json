@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "Översikt",
+      "notifications": "Notifieringar",
       "myOrgs": "Mina organisationer",
       "joinOrg": "Gå med i organisation",
       "createOrg": "Skapa organisation",
@@ -437,6 +438,9 @@
         "viewQueues": "Visa köer",
         "pendingCount": "{count, plural, =0 {Inget väntar} one {1 objekt väntar} other {# objekt väntar}}"
       },
+      "recentNav": {
+        "title": "Fortsätt där du var"
+      },
       "kindLabels": {
         "problem": "Problem",
         "requirement": "Krav",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "Artikel"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "Sök problem…",
+    "resultsLabel": "Sökresultat",
+    "resultCount": "{count, plural, =0 {Inga resultat} one {1 resultat} other {# resultat}}"
   },
   "settings": {
     "metaTitle": "Inställningar — OpenClienting",
@@ -607,5 +616,28 @@
   "languageSwitcher": {
     "label": "Språk",
     "switchTo": "Byt språk"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Skicka in ett problem",
+    "mySubmissions": "Mina inlämningar",
+    "notifications": "Notifieringar",
+    "notificationsWithCount": "Notifieringar, {count} olästa",
+    "reviewQueue": "Granskningskö",
+    "reviewQueueWithCount": "Granskningskö: {count} {queue} väntar",
+    "allNavLabel": "All navigering",
+    "expandGroup": "Expandera {group}",
+    "collapseGroup": "Komprimera {group}",
+    "queueLabels": {
+      "problems": "problem",
+      "requirements": "krav",
+      "frameworks": "ramverk",
+      "solutions": "lösningar",
+      "successReports": "framgångsrapporter",
+      "suggestedEdits": "föreslagna redigeringar",
+      "organizationVerification": "organisationsverifieringar",
+      "liveRevisions": "live-revisioner",
+      "knowledgeArticles": "kunskapsartiklar",
+      "translations": "översättningar"
+    }
   }
 }

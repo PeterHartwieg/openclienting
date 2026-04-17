@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "Επισκόπηση",
+      "notifications": "Ειδοποιήσεις",
       "myOrgs": "Οι Οργανισμοί μου",
       "joinOrg": "Συμμετοχή σε Οργανισμό",
       "createOrg": "Δημιουργία Οργανισμού",
@@ -437,6 +438,9 @@
         "viewQueues": "Προβολή Ουρών",
         "pendingCount": "{count, plural, =0 {Τίποτα εκκρεμές} one {1 στοιχείο εκκρεμές} other {# στοιχεία εκκρεμή}}"
       },
+      "recentNav": {
+        "title": "Συνεχίστε από εκεί που μείνατε"
+      },
       "kindLabels": {
         "problem": "Πρόβλημα",
         "requirement": "Απαίτηση",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "Άρθρο"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "Αναζήτηση προβλημάτων…",
+    "resultsLabel": "Αποτελέσματα αναζήτησης",
+    "resultCount": "{count, plural, =0 {Κανένα αποτέλεσμα} one {1 αποτέλεσμα} other {# αποτελέσματα}}"
   },
   "settings": {
     "metaTitle": "Ρυθμίσεις — OpenClienting",
@@ -607,5 +616,28 @@
   "languageSwitcher": {
     "label": "Γλώσσα",
     "switchTo": "Αλλαγή γλώσσας"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Υποβολή προβλήματος",
+    "mySubmissions": "Οι υποβολές μου",
+    "notifications": "Ειδοποιήσεις",
+    "notificationsWithCount": "Ειδοποιήσεις, {count} αδιάβαστες",
+    "reviewQueue": "Ουρά ελέγχου",
+    "reviewQueueWithCount": "Ουρά ελέγχου: {count} {queue} σε αναμονή",
+    "allNavLabel": "Όλη η πλοήγηση",
+    "expandGroup": "Ανάπτυξη {group}",
+    "collapseGroup": "Σύμπτυξη {group}",
+    "queueLabels": {
+      "problems": "προβλήματα",
+      "requirements": "απαιτήσεις",
+      "frameworks": "πλαίσια",
+      "solutions": "λύσεις",
+      "successReports": "αναφορές επιτυχίας",
+      "suggestedEdits": "προτεινόμενες επεξεργασίες",
+      "organizationVerification": "επαληθεύσεις οργανισμών",
+      "liveRevisions": "ζωντανές αναθεωρήσεις",
+      "knowledgeArticles": "άρθρα γνώσης",
+      "translations": "μεταφράσεις"
+    }
   }
 }

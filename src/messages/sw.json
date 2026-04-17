@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "Muhtasari",
+      "notifications": "Arifa",
       "myOrgs": "Mashirika Yangu",
       "joinOrg": "Jiunge na Shirika",
       "createOrg": "Unda Shirika",
@@ -437,6 +438,9 @@
         "viewQueues": "Angalia Foleni",
         "pendingCount": "{count, plural, =0 {Hakuna kinachosubiri} one {kitu 1 kinasubiri} other {vitu # vinavyosubiri}}"
       },
+      "recentNav": {
+        "title": "Rudi ulipoacha"
+      },
       "kindLabels": {
         "problem": "Tatizo",
         "requirement": "Mahitaji",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "Makala"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "Tafuta matatizo…",
+    "resultsLabel": "Matokeo ya utafutaji",
+    "resultCount": "{count, plural, =0 {Hakuna matokeo} one {matokeo 1} other {matokeo #}}"
   },
   "settings": {
     "metaTitle": "Mipangilio — OpenClienting",
@@ -607,5 +616,28 @@
   "languageSwitcher": {
     "label": "Lugha",
     "switchTo": "Badilisha lugha"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Wasilisha tatizo",
+    "mySubmissions": "Mawasilisho yangu",
+    "notifications": "Arifa",
+    "notificationsWithCount": "Arifa, {count} hazijasomwa",
+    "reviewQueue": "Foleni ya ukaguzi",
+    "reviewQueueWithCount": "Foleni ya ukaguzi: {count} {queue} zinasubiri",
+    "allNavLabel": "Urambazaji wote",
+    "expandGroup": "Panua {group}",
+    "collapseGroup": "Funga {group}",
+    "queueLabels": {
+      "problems": "matatizo",
+      "requirements": "mahitaji",
+      "frameworks": "mifumo",
+      "solutions": "suluhisho",
+      "successReports": "ripoti za mafanikio",
+      "suggestedEdits": "marekebisho yaliyopendekezwa",
+      "organizationVerification": "uthibitisho wa shirika",
+      "liveRevisions": "marekebisho ya moja kwa moja",
+      "knowledgeArticles": "makala za maarifa",
+      "translations": "tafsiri"
+    }
   }
 }

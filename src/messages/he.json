@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "סקירה כללית",
+      "notifications": "התראות",
       "myOrgs": "הארגונים שלי",
       "joinOrg": "הצטרף לארגון",
       "createOrg": "צור ארגון",
@@ -437,6 +438,9 @@
         "viewQueues": "צפה בתורים",
         "pendingCount": "{count, plural, =0 {אין ממתינים} one {פריט 1 ממתין} other {# פריטים ממתינים}}"
       },
+      "recentNav": {
+        "title": "חזור למקום שעצרת"
+      },
       "kindLabels": {
         "problem": "בעיה",
         "requirement": "דרישה",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "מאמר"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "חפש בעיות…",
+    "resultsLabel": "תוצאות חיפוש",
+    "resultCount": "{count, plural, =0 {אין תוצאות} one {תוצאה אחת} other {# תוצאות}}"
   },
   "settings": {
     "metaTitle": "הגדרות — OpenClienting",
@@ -607,5 +616,28 @@
   "languageSwitcher": {
     "label": "שפה",
     "switchTo": "החלף שפה"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "הגש בעיה",
+    "mySubmissions": "ההגשות שלי",
+    "notifications": "התראות",
+    "notificationsWithCount": "התראות, {count} שלא נקראו",
+    "reviewQueue": "תור לבדיקה",
+    "reviewQueueWithCount": "תור לבדיקה: {count} {queue} ממתינים",
+    "allNavLabel": "כל הניווט",
+    "expandGroup": "הרחב את {group}",
+    "collapseGroup": "כווץ את {group}",
+    "queueLabels": {
+      "problems": "בעיות",
+      "requirements": "דרישות",
+      "frameworks": "מסגרות",
+      "solutions": "פתרונות",
+      "successReports": "דוחות הצלחה",
+      "suggestedEdits": "עריכות מוצעות",
+      "organizationVerification": "אימותי ארגון",
+      "liveRevisions": "עדכונים פעילים",
+      "knowledgeArticles": "מאמרי ידע",
+      "translations": "תרגומים"
+    }
   }
 }

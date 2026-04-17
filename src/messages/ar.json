@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "نظرة عامة",
+      "notifications": "الإشعارات",
       "myOrgs": "مؤسساتي",
       "joinOrg": "انضم إلى مؤسسة",
       "createOrg": "إنشاء مؤسسة",
@@ -437,6 +438,9 @@
         "viewQueues": "عرض الطوابير",
         "pendingCount": "{count, plural, =0 {لا شيء معلّق} one {عنصر واحد معلّق} other {# عناصر معلّقة}}"
       },
+      "recentNav": {
+        "title": "العودة إلى ما كنت تعمل عليه"
+      },
       "kindLabels": {
         "problem": "مشكلة",
         "requirement": "متطلب",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "مقالة"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "البحث في المشكلات…",
+    "resultsLabel": "نتائج البحث",
+    "resultCount": "{count, plural, =0 {لا توجد نتائج} one {نتيجة واحدة} other {# نتيجة}}"
   },
   "settings": {
     "metaTitle": "الإعدادات — OpenClienting",
@@ -607,5 +616,28 @@
   "languageSwitcher": {
     "label": "اللغة",
     "switchTo": "تبديل اللغة"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "إرسال مشكلة",
+    "mySubmissions": "مقدَّماتي",
+    "notifications": "الإشعارات",
+    "notificationsWithCount": "الإشعارات، {count} غير مقروء",
+    "reviewQueue": "قائمة المراجعة",
+    "reviewQueueWithCount": "قائمة المراجعة: {count} {queue} قيد الانتظار",
+    "allNavLabel": "جميع عناصر التنقل",
+    "expandGroup": "توسيع {group}",
+    "collapseGroup": "طي {group}",
+    "queueLabels": {
+      "problems": "المشكلات",
+      "requirements": "المتطلبات",
+      "frameworks": "الأطر",
+      "solutions": "الحلول",
+      "successReports": "تقارير النجاح",
+      "suggestedEdits": "التعديلات المقترحة",
+      "organizationVerification": "التحقق من المؤسسات",
+      "liveRevisions": "المراجعات المباشرة",
+      "knowledgeArticles": "مقالات المعرفة",
+      "translations": "الترجمات"
+    }
   }
 }

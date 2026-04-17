@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "Tổng Quan",
+      "notifications": "Thông báo",
       "myOrgs": "Tổ Chức Của Tôi",
       "joinOrg": "Tham Gia Tổ Chức",
       "createOrg": "Tạo Tổ Chức",
@@ -437,6 +438,9 @@
         "viewQueues": "Xem Hàng Đợi",
         "pendingCount": "{count, plural, =0 {Không có gì đang chờ} one {1 mục đang chờ} other {# mục đang chờ}}"
       },
+      "recentNav": {
+        "title": "Tiếp tục từ đây"
+      },
       "kindLabels": {
         "problem": "Vấn Đề",
         "requirement": "Yêu Cầu",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "Bài Viết"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "Tìm kiếm vấn đề…",
+    "resultsLabel": "Kết quả tìm kiếm",
+    "resultCount": "{count, plural, =0 {Không có kết quả} one {1 kết quả} other {# kết quả}}"
   },
   "settings": {
     "metaTitle": "Cài Đặt — OpenClienting",
@@ -607,5 +616,28 @@
   "languageSwitcher": {
     "label": "Ngôn Ngữ",
     "switchTo": "Chuyển ngôn ngữ"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Gửi vấn đề",
+    "mySubmissions": "Bài gửi của tôi",
+    "notifications": "Thông báo",
+    "notificationsWithCount": "Thông báo, {count} chưa đọc",
+    "reviewQueue": "Hàng đợi xét duyệt",
+    "reviewQueueWithCount": "Hàng đợi xét duyệt: {count} {queue} đang chờ",
+    "allNavLabel": "Tất cả điều hướng",
+    "expandGroup": "Mở rộng {group}",
+    "collapseGroup": "Thu gọn {group}",
+    "queueLabels": {
+      "problems": "vấn đề",
+      "requirements": "yêu cầu",
+      "frameworks": "khung làm việc",
+      "solutions": "giải pháp",
+      "successReports": "báo cáo thành công",
+      "suggestedEdits": "chỉnh sửa đề xuất",
+      "organizationVerification": "xác minh tổ chức",
+      "liveRevisions": "sửa đổi trực tiếp",
+      "knowledgeArticles": "bài viết kiến thức",
+      "translations": "bản dịch"
+    }
   }
 }

@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "Ерөнхий тойм",
+      "notifications": "Мэдэгдэл",
       "myOrgs": "Миний байгууллагууд",
       "joinOrg": "Байгууллагад нэгдэх",
       "createOrg": "Байгууллага үүсгэх",
@@ -437,6 +438,9 @@
         "viewQueues": "Дарааллуудыг харах",
         "pendingCount": "{count, plural, =0 {Хүлээж буй зүйл алга} one {1 зүйл хүлээж байна} other {# зүйл хүлээж байна}}"
       },
+      "recentNav": {
+        "title": "Үргэлжлүүлэх"
+      },
       "kindLabels": {
         "problem": "Асуудал",
         "requirement": "Шаардлага",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "Нийтлэл"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "Асуудал хайх…",
+    "resultsLabel": "Хайлтын үр дүн",
+    "resultCount": "{count, plural, =0 {Үр дүн олдсонгүй} one {1 үр дүн} other {# үр дүн}}"
   },
   "settings": {
     "metaTitle": "Тохиргоо — OpenClienting",
@@ -607,5 +616,28 @@
   "languageSwitcher": {
     "label": "Хэл",
     "switchTo": "Хэл солих"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Асуудал илгээх",
+    "mySubmissions": "Миний илгээлтүүд",
+    "notifications": "Мэдэгдэл",
+    "notificationsWithCount": "Мэдэгдэл, {count} уншаагүй",
+    "reviewQueue": "Хянах дараалал",
+    "reviewQueueWithCount": "Хянах дараалал: {count} {queue} хүлээгдэж буй",
+    "allNavLabel": "Бүх навигаци",
+    "expandGroup": "{group}-г дэлгэх",
+    "collapseGroup": "{group}-г хураах",
+    "queueLabels": {
+      "problems": "асуудлууд",
+      "requirements": "шаардлагууд",
+      "frameworks": "хүрээнүүд",
+      "solutions": "шийдлүүд",
+      "successReports": "амжилтын тайлангууд",
+      "suggestedEdits": "санал болгосон засварууд",
+      "organizationVerification": "байгууллага баталгаажуулалт",
+      "liveRevisions": "шууд засварууд",
+      "knowledgeArticles": "мэдлэгийн нийтлэлүүд",
+      "translations": "орчуулгууд"
+    }
   }
 }

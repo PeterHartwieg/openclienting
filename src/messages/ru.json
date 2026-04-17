@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "Обзор",
+      "notifications": "Уведомления",
       "myOrgs": "Мои организации",
       "joinOrg": "Вступить в организацию",
       "createOrg": "Создать организацию",
@@ -437,6 +438,9 @@
         "viewQueues": "Смотреть очереди",
         "pendingCount": "{count, plural, =0 {Ничего не ожидает} one {1 элемент ожидает} few {# элемента ожидают} other {# элементов ожидают}}"
       },
+      "recentNav": {
+        "title": "Вернуться к работе"
+      },
       "kindLabels": {
         "problem": "Проблема",
         "requirement": "Требование",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "Статья"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "Поиск проблем…",
+    "resultsLabel": "Результаты поиска",
+    "resultCount": "{count, plural, =0 {Нет результатов} one {1 результат} few {# результата} other {# результатов}}"
   },
   "settings": {
     "metaTitle": "Настройки — OpenClienting",
@@ -607,5 +616,28 @@
   "languageSwitcher": {
     "label": "Язык",
     "switchTo": "Сменить язык"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Отправить проблему",
+    "mySubmissions": "Мои заявки",
+    "notifications": "Уведомления",
+    "notificationsWithCount": "Уведомления, {count} непрочитанных",
+    "reviewQueue": "Очередь проверки",
+    "reviewQueueWithCount": "Очередь проверки: {count} {queue} ожидает",
+    "allNavLabel": "Вся навигация",
+    "expandGroup": "Развернуть {group}",
+    "collapseGroup": "Свернуть {group}",
+    "queueLabels": {
+      "problems": "проблемы",
+      "requirements": "требования",
+      "frameworks": "фреймворки",
+      "solutions": "решения",
+      "successReports": "отчёты об успехе",
+      "suggestedEdits": "предложенные правки",
+      "organizationVerification": "верификация организаций",
+      "liveRevisions": "активные ревизии",
+      "knowledgeArticles": "статьи базы знаний",
+      "translations": "переводы"
+    }
   }
 }

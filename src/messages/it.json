@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "Panoramica",
+      "notifications": "Notifiche",
       "myOrgs": "Le mie organizzazioni",
       "joinOrg": "Unisciti a un'organizzazione",
       "createOrg": "Crea un'organizzazione",
@@ -437,6 +438,9 @@
         "viewQueues": "Vedi le code",
         "pendingCount": "{count, plural, =0 {Nessun elemento in attesa} one {1 elemento in attesa} other {# elementi in attesa}}"
       },
+      "recentNav": {
+        "title": "Riprendi da dove eri"
+      },
       "kindLabels": {
         "problem": "Problema",
         "requirement": "Requisito",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "Articolo"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "Cerca problemi…",
+    "resultsLabel": "Risultati della ricerca",
+    "resultCount": "{count, plural, =0 {Nessun risultato} one {1 risultato} other {# risultati}}"
   },
   "settings": {
     "metaTitle": "Impostazioni — OpenClienting",
@@ -607,5 +616,28 @@
   "languageSwitcher": {
     "label": "Lingua",
     "switchTo": "Cambia lingua"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Invia un problema",
+    "mySubmissions": "I miei invii",
+    "notifications": "Notifiche",
+    "notificationsWithCount": "Notifiche, {count} non lette",
+    "reviewQueue": "Coda di revisione",
+    "reviewQueueWithCount": "Coda di revisione: {count} {queue} in attesa",
+    "allNavLabel": "Tutta la navigazione",
+    "expandGroup": "Espandi {group}",
+    "collapseGroup": "Comprimi {group}",
+    "queueLabels": {
+      "problems": "problemi",
+      "requirements": "requisiti",
+      "frameworks": "framework",
+      "solutions": "soluzioni",
+      "successReports": "report di successo",
+      "suggestedEdits": "modifiche suggerite",
+      "organizationVerification": "verifiche organizzazione",
+      "liveRevisions": "revisioni in diretta",
+      "knowledgeArticles": "articoli della knowledge base",
+      "translations": "traduzioni"
+    }
   }
 }
