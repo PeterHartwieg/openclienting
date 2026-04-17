@@ -8,6 +8,7 @@ import { Menu, X } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { isNavItemActive, publicNavItems } from "@/lib/nav/config";
+import { trackIaEvent } from "@/lib/analytics/ia-events";
 
 interface MobileNavProps {
   locale: string;
@@ -52,7 +53,15 @@ export function MobileNav({ locale, authSlot }: MobileNavProps) {
                 <Link
                   key={item.id}
                   href={item.href}
-                  onClick={() => setOpen(false)}
+                  onClick={() => {
+                    trackIaEvent({
+                      name: "ia_nav_click",
+                      section: item.id,
+                      shell: "public",
+                      surface: "drawer",
+                    });
+                    setOpen(false);
+                  }}
                   aria-current={active ? "page" : undefined}
                   className={cn(
                     "rounded-md px-3 py-2 text-sm font-medium transition-colors",

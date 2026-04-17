@@ -12,6 +12,11 @@ import {
   type NavRole,
   type WorkspaceCounts,
 } from "@/lib/nav/config";
+import {
+  trackIaEvent,
+  navItemIdToSection,
+  type IaSurface,
+} from "@/lib/analytics/ia-events";
 
 interface WorkspaceNavProps {
   locale: string;
@@ -19,6 +24,7 @@ interface WorkspaceNavProps {
   counts: WorkspaceCounts;
   moderationCounts?: ModerationCounts | null;
   onNavigate?: () => void;
+  surface?: IaSurface;
   className?: string;
 }
 
@@ -28,6 +34,7 @@ export function WorkspaceNav({
   counts,
   moderationCounts,
   onNavigate,
+  surface = "sidebar",
   className,
 }: WorkspaceNavProps) {
   const pathname = usePathname();
@@ -55,7 +62,15 @@ export function WorkspaceNav({
                 <li key={item.id}>
                   <Link
                     href={item.href}
-                    onClick={onNavigate}
+                    onClick={() => {
+                      trackIaEvent({
+                        name: "ia_nav_click",
+                        section: navItemIdToSection(item.id),
+                        shell: "workspace",
+                        surface,
+                      });
+                      onNavigate?.();
+                    }}
                     aria-current={active ? "page" : undefined}
                     className={cn(
                       "flex items-center gap-2.5 rounded-md px-3 py-2 text-sm transition-colors",
