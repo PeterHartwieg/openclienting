@@ -1,5 +1,3 @@
-import { redirect } from "next/navigation";
-import { requireRole } from "@/lib/auth/roles";
 import { getTagsGroupedByCategory } from "@/lib/queries/tags";
 import { TagManager } from "@/components/moderate/tag-manager";
 
@@ -9,12 +7,6 @@ export default async function TagManagementPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-
-  try {
-    await requireRole("moderator");
-  } catch {
-    redirect(`/${locale}`);
-  }
 
   const tagsByCategory = await getTagsGroupedByCategory(locale);
 

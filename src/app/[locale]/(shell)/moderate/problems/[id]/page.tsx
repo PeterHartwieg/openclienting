@@ -1,5 +1,4 @@
-import { notFound, redirect } from "next/navigation";
-import { requireRole } from "@/lib/auth/roles";
+import { notFound } from "next/navigation";
 import { getProblemById } from "@/lib/queries/problems";
 import { TagBadge } from "@/components/shared/tag-badge";
 import { StatusBadge } from "@/components/shared/status-badge";
@@ -13,12 +12,6 @@ export default async function ModerateProblemPage({
   params: Promise<{ locale: string; id: string }>;
 }) {
   const { locale, id } = await params;
-
-  try {
-    await requireRole("moderator");
-  } catch {
-    redirect(`/${locale}`);
-  }
 
   let problem;
   try {

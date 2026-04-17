@@ -14,6 +14,7 @@ This is the live status block. Update it at the end of every IA-touching session
 - **Phase 3 — Moderation restructuring.** Old 517-line tab monolith split into a Moderation Overview page plus 10 deep-linkable per-queue routes under `src/app/[locale]/(shell)/moderate/`. `getModerationCounts()` (`cache()`-wrapped, 10 parallel head-only queries) drives sidebar badges. `requireRole("moderator")` enforced at the layout level. Shipped in commit `0ebea4f`.
 - **Sidebar everywhere except landing.** Workspace shell extended via Next.js route group `[locale]/(shell)/...` so every page except the landing page (`[locale]/page.tsx`) gets the sidebar. Anonymous visitors see an `AnonymousNav` with sign-in CTA + public discovery links; signed-in users see the full workspace nav. Shipped in commit `e8ea890`.
 - **Dashboard Overview command-center redesign** (proposal §C). Replaced the lists-of-things page with prioritized cards: unread notifications, pending review, drafts, recent organizations, recent submissions, quick actions, plus a moderator-only queue summary tile. Shipped in commit `56d076c`.
+- **Problems list — filter context** (proposal §E). Added result count, applied-filters chip strip with per-chip remove, single reset action, and filtered empty state. Saved filters explicitly deferred. Shipped in commits `07475de`, `1b9c853`, `365f5c5`.
 - **i18n tooling overhaul.** `scripts/translate-messages.mjs` now (a) auto-selects backend (Anthropic SDK if `ANTHROPIC_API_KEY` set, else Claude Code CLI subprocess), (b) defaults to **gap-fill mode** — only translates keys missing from the target locale file (~22× faster than full retranslation), (c) `--full` flag forces complete rewrite, (d) isolated per-locale failure handling, (e) German rejoined the auto-flow now that gap-fill preserves hand-tuned strings. Shipped in commit `3290ee0`.
 - **30 locales fully in sync** with `en.json` — adds Mongolian (Cyrillic, Khalkha) at `mn` as the 30th. Shipped in commit `6784765`.
 - **Dev tooling.** `scripts/dev-login.mjs` mints a Supabase magic-link URL for a seeded test moderator/admin so logged-in features are testable in the local preview without going through real OAuth. `scripts/hooks/notify-translation-needed.mjs` + `.claude/settings.json` adds a PostToolUse hook reminding Claude to run `translate-messages.mjs` whenever `src/messages/en.json` is modified.
@@ -22,12 +23,10 @@ This is the live status block. Update it at the end of every IA-touching session
 
 In rough suggested order:
 
-1. **Problems list — filter context** (proposal §E). Add result count, applied-filters chip strip with per-chip remove, single reset action, filtered empty state. Saved filters explicitly deferred. Detailed implementation prompt for a Sonnet session is drafted (ask the prior session for it, or rebuild from §E).
-2. **Problem detail polish** (proposal §F). Confirm "Problems" section highlight is wired through breadcrumbs end-to-end now that the sidebar wraps every inner page. May already work; needs visual verification.
-3. **Mobile drawer UX** (proposal §B). Drawer currently mirrors desktop nav 1:1. Proposal calls for an intentional small-screen redesign — task-flow-first rather than category-first.
-4. **Phase 4 productivity.** Global search, recent items, saved filters (the deferred slot from §E), quick actions surface on workspace pages, command palette if justified.
-5. **Measurement layer (Phase 5).** GA4 is wired but no IA-specific events defined. Need: time to first action after login, clicks to key destinations, dashboard return rate, multi-area-visit rate, before/after comparison once a baseline window exists.
-6. **Tiny cleanup.** Pre-existing `requireRole("moderator")` calls in `(shell)/moderate/problems/[id]`, `(shell)/moderate/history`, `(shell)/moderate/tags` are now redundant (the `(shell)/moderate/layout.tsx` enforces this). Safe to delete or leave as defense-in-depth.
+1. **Problem detail polish** (proposal §F). Confirm "Problems" section highlight is wired through breadcrumbs end-to-end now that the sidebar wraps every inner page. May already work; needs visual verification.
+2. **Mobile drawer UX** (proposal §B). Drawer currently mirrors desktop nav 1:1. Proposal calls for an intentional small-screen redesign — task-flow-first rather than category-first.
+3. **Phase 4 productivity.** Global search, recent items, saved filters (the deferred slot from §E), quick actions surface on workspace pages, command palette if justified.
+4. **Measurement layer (Phase 5).** GA4 is wired but no IA-specific events defined. Need: time to first action after login, clicks to key destinations, dashboard return rate, multi-area-visit rate, before/after comparison once a baseline window exists.
 
 ### How to use this status block
 

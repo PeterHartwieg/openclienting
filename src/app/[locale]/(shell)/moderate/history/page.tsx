@@ -1,5 +1,3 @@
-import { redirect } from "next/navigation";
-import { requireRole } from "@/lib/auth/roles";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -11,19 +9,7 @@ const statusColors: Record<string, string> = {
   reverted: "bg-red-500/10 text-red-700 dark:text-red-400",
 };
 
-export default async function EditHistoryPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-
-  try {
-    await requireRole("moderator");
-  } catch {
-    redirect(`/${locale}`);
-  }
-
+export default async function EditHistoryPage() {
   const supabase = await createClient();
   const { data: revisions } = await supabase
     .from("content_revisions")
