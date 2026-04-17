@@ -16,7 +16,7 @@ function isAnalyticsConsented(): boolean {
 }
 
 export type IaShell = "public" | "workspace";
-export type IaSurface = "header" | "sidebar" | "drawer" | "search";
+export type IaSurface = "header" | "sidebar" | "drawer" | "search" | "mobile_search";
 
 export type DashboardCard =
   | "unread-notifications"

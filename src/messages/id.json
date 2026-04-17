@@ -61,6 +61,13 @@
       "moderationTranslations": "Terjemahan",
       "moderationTags": "Tag",
       "moderationHistory": "Riwayat"
+    },
+    "search": {
+      "trigger": "Cari",
+      "sheetTitle": "Cari",
+      "placeholder": "Cari masalah…",
+      "empty": "Tidak ada hasil",
+      "recent": "Terkini"
     }
   },
   "footer": {

@@ -61,6 +61,13 @@
       "moderationTranslations": "Bản Dịch",
       "moderationTags": "Thẻ",
       "moderationHistory": "Lịch Sử"
+    },
+    "search": {
+      "trigger": "Tìm kiếm",
+      "sheetTitle": "Tìm kiếm",
+      "placeholder": "Tìm kiếm vấn đề…",
+      "empty": "Không có kết quả",
+      "recent": "Gần đây"
     }
   },
   "footer": {

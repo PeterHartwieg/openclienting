@@ -61,6 +61,13 @@
       "moderationTranslations": "תרגומים",
       "moderationTags": "תגיות",
       "moderationHistory": "היסטוריה"
+    },
+    "search": {
+      "trigger": "חיפוש",
+      "sheetTitle": "חיפוש",
+      "placeholder": "חפש בעיות…",
+      "empty": "אין תוצאות",
+      "recent": "אחרון"
     }
   },
   "footer": {

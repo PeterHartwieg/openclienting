@@ -61,6 +61,13 @@
       "moderationTranslations": "Překlady",
       "moderationTags": "Štítky",
       "moderationHistory": "Historie"
+    },
+    "search": {
+      "trigger": "Hledat",
+      "sheetTitle": "Hledat",
+      "placeholder": "Hledat problémy…",
+      "empty": "Žádné výsledky",
+      "recent": "Nedávné"
     }
   },
   "footer": {

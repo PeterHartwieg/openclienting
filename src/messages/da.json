@@ -61,6 +61,13 @@
       "moderationTranslations": "Oversættelser",
       "moderationTags": "Tags",
       "moderationHistory": "Historik"
+    },
+    "search": {
+      "trigger": "Søg",
+      "sheetTitle": "Søg",
+      "placeholder": "Søg problemer…",
+      "empty": "Ingen resultater",
+      "recent": "Seneste"
     }
   },
   "footer": {

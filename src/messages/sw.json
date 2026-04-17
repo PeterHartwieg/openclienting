@@ -61,6 +61,13 @@
       "moderationTranslations": "Tafsiri",
       "moderationTags": "Vitambulisho",
       "moderationHistory": "Historia"
+    },
+    "search": {
+      "trigger": "Tafuta",
+      "sheetTitle": "Tafuta",
+      "placeholder": "Tafuta matatizo…",
+      "empty": "Hakuna matokeo",
+      "recent": "Ya hivi karibuni"
     }
   },
   "footer": {

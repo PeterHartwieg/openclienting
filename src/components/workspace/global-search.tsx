@@ -46,9 +46,15 @@ interface SearchResult {
 
 interface GlobalSearchProps {
   locale: string;
+  variant?: "desktop" | "mobile";
+  onNavigate?: () => void;
 }
 
-export function GlobalSearch({ locale }: GlobalSearchProps) {
+export function GlobalSearch({
+  locale,
+  variant = "desktop",
+  onNavigate,
+}: GlobalSearchProps) {
   const t = useTranslations("globalSearch");
   const router = useRouter();
   const listboxId = useId();
@@ -97,12 +103,13 @@ export function GlobalSearch({ locale }: GlobalSearchProps) {
     trackIaEvent({
       name: "ia_nav_click",
       section: "problems",
-      surface: "search",
+      surface: variant === "mobile" ? "mobile_search" : "search",
       shell: "workspace",
     });
     router.push(`/${locale}/problems/${result.id}`);
     close();
     setQuery("");
+    onNavigate?.();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -148,8 +155,13 @@ export function GlobalSearch({ locale }: GlobalSearchProps) {
   const activeOptionId =
     activeIndex >= 0 ? `${listboxId}-option-${activeIndex}` : undefined;
 
+  const isMobile = variant === "mobile";
+
   return (
-    <div ref={containerRef} className="relative w-full max-w-sm">
+    <div
+      ref={containerRef}
+      className={isMobile ? "flex flex-1 flex-col" : "relative w-full max-w-sm"}
+    >
       {/* Screen-reader live region for result count */}
       <div aria-live="polite" aria-atomic="true" className="sr-only">
         {open
@@ -159,11 +171,12 @@ export function GlobalSearch({ locale }: GlobalSearchProps) {
 
       <div className="relative">
         <Search
-          className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground"
+          className={`pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground ${isMobile ? "h-5 w-5" : "h-4 w-4"}`}
           aria-hidden="true"
         />
         <input
           ref={inputRef}
+          autoFocus={isMobile}
           role="combobox"
           aria-expanded={open}
           aria-controls={listboxId}
@@ -175,16 +188,16 @@ export function GlobalSearch({ locale }: GlobalSearchProps) {
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           placeholder={t("placeholder")}
-          className="h-9 w-full rounded-md border border-input bg-background pl-9 pr-3 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+          className={`w-full rounded-md border border-input bg-background pl-10 pr-3 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring ${isMobile ? "h-12 text-base" : "h-9"}`}
         />
       </div>
 
-      {open && (
+      {isMobile ? (
         <ul
           id={listboxId}
           role="listbox"
           aria-label={t("resultsLabel")}
-          className="absolute left-0 right-0 top-full z-50 mt-1 max-h-80 overflow-y-auto rounded-md border bg-popover shadow-md"
+          className="mt-2 flex-1 overflow-y-auto rounded-md"
         >
           {results.map((result, i) => (
             <li
@@ -194,7 +207,7 @@ export function GlobalSearch({ locale }: GlobalSearchProps) {
               aria-selected={i === activeIndex}
               onMouseEnter={() => setActiveIndex(i)}
               onClick={() => navigate(result)}
-              className={`cursor-pointer px-3 py-2.5 ${
+              className={`cursor-pointer px-3 py-3 ${
                 i === activeIndex ? "bg-accent text-accent-foreground" : ""
               }`}
             >
@@ -207,6 +220,36 @@ export function GlobalSearch({ locale }: GlobalSearchProps) {
             </li>
           ))}
         </ul>
+      ) : (
+        open && (
+          <ul
+            id={listboxId}
+            role="listbox"
+            aria-label={t("resultsLabel")}
+            className="absolute left-0 right-0 top-full z-50 mt-1 max-h-80 overflow-y-auto rounded-md border bg-popover shadow-md"
+          >
+            {results.map((result, i) => (
+              <li
+                key={result.id}
+                id={`${listboxId}-option-${i}`}
+                role="option"
+                aria-selected={i === activeIndex}
+                onMouseEnter={() => setActiveIndex(i)}
+                onClick={() => navigate(result)}
+                className={`cursor-pointer px-3 py-2.5 ${
+                  i === activeIndex ? "bg-accent text-accent-foreground" : ""
+                }`}
+              >
+                <p className="truncate text-sm font-medium">{result.title}</p>
+                {result.snippet && (
+                  <p className="mt-0.5 line-clamp-1 text-xs text-muted-foreground [&_b]:font-semibold [&_b]:text-foreground">
+                    {renderHighlightedSnippet(result.snippet)}
+                  </p>
+                )}
+              </li>
+            ))}
+          </ul>
+        )
       )}
     </div>
   );

@@ -61,6 +61,13 @@
       "moderationTranslations": "Fordítások",
       "moderationTags": "Címkék",
       "moderationHistory": "Előzmények"
+    },
+    "search": {
+      "trigger": "Keresés",
+      "sheetTitle": "Keresés",
+      "placeholder": "Problémák keresése…",
+      "empty": "Nincs találat",
+      "recent": "Legutóbbi"
     }
   },
   "footer": {

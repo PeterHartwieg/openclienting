@@ -61,6 +61,13 @@
       "moderationTranslations": "অনুবাদসমূহ",
       "moderationTags": "ট্যাগসমূহ",
       "moderationHistory": "ইতিহাস"
+    },
+    "search": {
+      "trigger": "অনুসন্ধান",
+      "sheetTitle": "অনুসন্ধান",
+      "placeholder": "সমস্যা অনুসন্ধান করুন…",
+      "empty": "কোনো ফলাফল নেই",
+      "recent": "সাম্প্রতিক"
     }
   },
   "footer": {

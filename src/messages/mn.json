@@ -61,6 +61,13 @@
       "moderationTranslations": "Орчуулгууд",
       "moderationTags": "Шошгонууд",
       "moderationHistory": "Түүх"
+    },
+    "search": {
+      "trigger": "Хайх",
+      "sheetTitle": "Хайх",
+      "placeholder": "Асуудал хайх…",
+      "empty": "Үр дүн олдсонгүй",
+      "recent": "Сүүлийн хайлтууд"
     }
   },
   "footer": {

@@ -61,6 +61,13 @@
       "moderationTranslations": "الترجمات",
       "moderationTags": "الوسوم",
       "moderationHistory": "السجل"
+    },
+    "search": {
+      "trigger": "بحث",
+      "sheetTitle": "بحث",
+      "placeholder": "ابحث عن المشكلات…",
+      "empty": "لا توجد نتائج",
+      "recent": "الأخيرة"
     }
   },
   "footer": {

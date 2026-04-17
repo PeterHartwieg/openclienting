@@ -61,6 +61,13 @@
       "moderationTranslations": "Μεταφράσεις",
       "moderationTags": "Ετικέτες",
       "moderationHistory": "Ιστορικό"
+    },
+    "search": {
+      "trigger": "Αναζήτηση",
+      "sheetTitle": "Αναζήτηση",
+      "placeholder": "Αναζήτηση προβλημάτων…",
+      "empty": "Δεν βρέθηκαν αποτελέσματα",
+      "recent": "Πρόσφατα"
     }
   },
   "footer": {

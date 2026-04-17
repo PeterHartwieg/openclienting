@@ -61,6 +61,13 @@
       "moderationTranslations": "Käännökset",
       "moderationTags": "Tunnisteet",
       "moderationHistory": "Historia"
+    },
+    "search": {
+      "trigger": "Haku",
+      "sheetTitle": "Haku",
+      "placeholder": "Etsi ongelmia…",
+      "empty": "Ei tuloksia",
+      "recent": "Viimeisimmät"
     }
   },
   "footer": {

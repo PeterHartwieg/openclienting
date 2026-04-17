@@ -61,6 +61,13 @@
       "moderationTranslations": "Vertalingen",
       "moderationTags": "Labels",
       "moderationHistory": "Geschiedenis"
+    },
+    "search": {
+      "trigger": "Zoeken",
+      "sheetTitle": "Zoeken",
+      "placeholder": "Zoek problemen…",
+      "empty": "Geen resultaten",
+      "recent": "Recent"
     }
   },
   "footer": {

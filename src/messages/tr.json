@@ -61,6 +61,13 @@
       "moderationTranslations": "Çeviriler",
       "moderationTags": "Etiketler",
       "moderationHistory": "Geçmiş"
+    },
+    "search": {
+      "trigger": "Ara",
+      "sheetTitle": "Ara",
+      "placeholder": "Sorunları ara…",
+      "empty": "Sonuç bulunamadı",
+      "recent": "Son aramalar"
     }
   },
   "footer": {

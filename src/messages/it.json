@@ -61,6 +61,13 @@
       "moderationTranslations": "Traduzioni",
       "moderationTags": "Tag",
       "moderationHistory": "Cronologia"
+    },
+    "search": {
+      "trigger": "Cerca",
+      "sheetTitle": "Cerca",
+      "placeholder": "Cerca problemi…",
+      "empty": "Nessun risultato",
+      "recent": "Recenti"
     }
   },
   "footer": {

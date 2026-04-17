@@ -61,6 +61,13 @@
       "moderationTranslations": "การแปล",
       "moderationTags": "แท็ก",
       "moderationHistory": "ประวัติ"
+    },
+    "search": {
+      "trigger": "ค้นหา",
+      "sheetTitle": "ค้นหา",
+      "placeholder": "ค้นหาปัญหา…",
+      "empty": "ไม่พบผลลัพธ์",
+      "recent": "ล่าสุด"
     }
   },
   "footer": {

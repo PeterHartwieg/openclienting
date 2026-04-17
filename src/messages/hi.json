@@ -61,6 +61,13 @@
       "moderationTranslations": "अनुवाद",
       "moderationTags": "टैग",
       "moderationHistory": "इतिहास"
+    },
+    "search": {
+      "trigger": "खोजें",
+      "sheetTitle": "खोजें",
+      "placeholder": "समस्याएँ खोजें…",
+      "empty": "कोई परिणाम नहीं",
+      "recent": "हाल के"
     }
   },
   "footer": {

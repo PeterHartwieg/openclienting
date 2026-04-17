@@ -61,6 +61,13 @@
       "moderationTranslations": "Översättningar",
       "moderationTags": "Taggar",
       "moderationHistory": "Historik"
+    },
+    "search": {
+      "trigger": "Sök",
+      "sheetTitle": "Sök",
+      "placeholder": "Sök problem…",
+      "empty": "Inga träffar",
+      "recent": "Senaste"
     }
   },
   "footer": {

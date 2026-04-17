@@ -6,11 +6,13 @@ import { useTranslations } from "next-intl";
 import {
   Bell,
   Menu,
+  Search,
   Send,
   ShieldCheck,
   X,
   LayoutDashboard,
 } from "lucide-react";
+import { GlobalSearch } from "./global-search";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -97,22 +99,28 @@ export function WorkspaceMobileBar({
   const [openAt, setOpenAt] = useState<string | null>(null);
   const open = openAt === pathname;
   const setOpen = (next: boolean) => setOpenAt(next ? pathname : null);
+  // Same pathname-keyed pattern as the drawer: any route change naturally closes search.
+  const [searchOpenAt, setSearchOpenAt] = useState<string | null>(null);
+  const searchOpen = searchOpenAt === pathname;
+  const setSearchOpen = (next: boolean) =>
+    setSearchOpenAt(next ? pathname : null);
   const tNav = useTranslations("nav");
   const tCommon = useTranslations("common");
   const tWorkspace = useTranslations("workspace");
   const tDrawer = useTranslations("workspaceDrawer");
   const tDashboard = useTranslations("dashboard");
+  const tSearch = useTranslations("workspace.search");
 
-  // Prevent background scroll while the drawer is open. This syncs React
-  // state out to the DOM, which is the intended use of useEffect.
+  // Prevent background scroll while the drawer or search overlay is open.
+  // This syncs React state out to the DOM, which is the intended use of useEffect.
   useEffect(() => {
-    if (!open) return;
+    if (!open && !searchOpen) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = prev;
     };
-  }, [open]);
+  }, [open, searchOpen]);
 
   const isMod = role === "moderator" || role === "admin";
 
@@ -149,7 +157,53 @@ export function WorkspaceMobileBar({
           <Menu className="size-4" aria-hidden />
           <span>{tWorkspace("title")}</span>
         </Button>
+        <Button
+          variant="ghost"
+          size="icon-sm"
+          onClick={() => setSearchOpen(true)}
+          aria-label={tSearch("trigger")}
+        >
+          <Search className="size-4" aria-hidden />
+        </Button>
       </div>
+
+      {searchOpen && (
+        <>
+          <div
+            className="fixed inset-0 z-50 bg-black/40 lg:hidden"
+            onClick={() => setSearchOpen(false)}
+            aria-hidden
+          />
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={tSearch("sheetTitle")}
+            className="fixed inset-0 z-50 flex h-[100dvh] flex-col bg-background px-4 pt-4 pb-safe lg:hidden"
+          >
+            <div className="flex items-center gap-2 pb-3">
+              <span className="sr-only">{tSearch("sheetTitle")}</span>
+              <div className="flex-1">
+                <GlobalSearch
+                  locale={locale}
+                  variant="mobile"
+                  onNavigate={() => {
+                    setSearchOpen(false);
+                    setOpen(false);
+                  }}
+                />
+              </div>
+              <Button
+                variant="ghost"
+                size="icon-sm"
+                onClick={() => setSearchOpen(false)}
+                aria-label={tCommon("close")}
+              >
+                <X className="size-4" aria-hidden />
+              </Button>
+            </div>
+          </div>
+        </>
+      )}
 
       {open ? (
         <>

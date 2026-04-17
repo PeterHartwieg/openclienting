@@ -61,6 +61,13 @@
       "moderationTranslations": "Traductions",
       "moderationTags": "Étiquettes",
       "moderationHistory": "Historique"
+    },
+    "search": {
+      "trigger": "Rechercher",
+      "sheetTitle": "Rechercher",
+      "placeholder": "Rechercher des problèmes…",
+      "empty": "Aucun résultat",
+      "recent": "Récent"
     }
   },
   "footer": {

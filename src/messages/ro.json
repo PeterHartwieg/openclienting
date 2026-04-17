@@ -61,6 +61,13 @@
       "moderationTranslations": "Traduceri",
       "moderationTags": "Etichete",
       "moderationHistory": "Istoric"
+    },
+    "search": {
+      "trigger": "Căutare",
+      "sheetTitle": "Căutare",
+      "placeholder": "Caută probleme…",
+      "empty": "Nicio potrivire",
+      "recent": "Recente"
     }
   },
   "footer": {

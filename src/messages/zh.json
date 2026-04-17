@@ -61,6 +61,13 @@
       "moderationTranslations": "翻译",
       "moderationTags": "标签",
       "moderationHistory": "历史记录"
+    },
+    "search": {
+      "trigger": "搜索",
+      "sheetTitle": "搜索",
+      "placeholder": "搜索问题…",
+      "empty": "无匹配结果",
+      "recent": "最近"
     }
   },
   "footer": {

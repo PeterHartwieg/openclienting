@@ -61,6 +61,13 @@
       "moderationTranslations": "번역",
       "moderationTags": "태그",
       "moderationHistory": "기록"
+    },
+    "search": {
+      "trigger": "검색",
+      "sheetTitle": "검색",
+      "placeholder": "문제 검색…",
+      "empty": "결과 없음",
+      "recent": "최근"
     }
   },
   "footer": {

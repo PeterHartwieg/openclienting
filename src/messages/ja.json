@@ -61,6 +61,13 @@
       "moderationTranslations": "翻訳",
       "moderationTags": "タグ",
       "moderationHistory": "履歴"
+    },
+    "search": {
+      "trigger": "検索",
+      "sheetTitle": "検索",
+      "placeholder": "課題を検索…",
+      "empty": "一致する結果がありません",
+      "recent": "最近の検索"
     }
   },
   "footer": {

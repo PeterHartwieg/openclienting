@@ -61,6 +61,13 @@
       "moderationTranslations": "Переводы",
       "moderationTags": "Теги",
       "moderationHistory": "История"
+    },
+    "search": {
+      "trigger": "Поиск",
+      "sheetTitle": "Поиск",
+      "placeholder": "Поиск проблем…",
+      "empty": "Ничего не найдено",
+      "recent": "Недавние"
     }
   },
   "footer": {
