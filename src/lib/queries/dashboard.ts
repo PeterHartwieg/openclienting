@@ -10,8 +10,18 @@ export type ContentKind =
   | "success_report"
   | "knowledge_article";
 
+export type RecentNotification = {
+  id: string;
+  title: string;
+  body: string | null;
+  link: string | null;
+  read: boolean;
+  createdAt: string;
+};
+
 export type DashboardOverview = {
   unreadNotifications: number;
+  recentNotifications: RecentNotification[];
   pendingReview: {
     count: number;
     recent: Array<{
@@ -64,6 +74,7 @@ export const getDashboardOverview = cache(
 
     const [
       notifResult,
+      recentNotifsResult,
       probPending,
       reqPending,
       fwkPending,
@@ -78,11 +89,21 @@ export const getDashboardOverview = cache(
       srPublished,
       kaPublished,
     ] = await Promise.all([
+      // Unread count — head-only, no data payload needed.
       supabase
         .from("notifications")
         .select("id", { count: "exact", head: true })
         .eq("user_id", userId)
         .eq("read", false),
+
+      // 2 most-recent notifications for the card preview (unread first).
+      supabase
+        .from("notifications")
+        .select("id, title, body, link, read, created_at")
+        .eq("user_id", userId)
+        .order("read", { ascending: true })
+        .order("created_at", { ascending: false })
+        .limit(2),
 
       supabase
         .from("problem_templates")
@@ -321,8 +342,20 @@ export const getDashboardOverview = cache(
       .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
       .slice(0, 5);
 
+    const recentNotifications: RecentNotification[] = (
+      recentNotifsResult.data ?? []
+    ).map((n) => ({
+      id: n.id as string,
+      title: n.title as string,
+      body: n.body as string | null,
+      link: n.link as string | null,
+      read: n.read as boolean,
+      createdAt: n.created_at as string,
+    }));
+
     return {
       unreadNotifications: notifResult.count ?? 0,
+      recentNotifications,
       pendingReview: { count: pendingCount, recent: pendingRecent },
       drafts: { count: draftsCount, recent: draftRecent },
       organizations,

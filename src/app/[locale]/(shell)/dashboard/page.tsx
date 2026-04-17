@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getCurrentUser } from "@/lib/auth/roles";
-import { getDashboardOverview, type ContentKind } from "@/lib/queries/dashboard";
+import { getDashboardOverview, type ContentKind, type RecentNotification } from "@/lib/queries/dashboard";
 import { getModerationCounts } from "@/lib/queries/moderation";
 import { StatusBadge } from "@/components/shared/status-badge";
 import { EmptyState } from "@/components/shared/empty-state";
@@ -83,9 +83,14 @@ export default async function DashboardPage({
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>{t("overview.notifications.title")}</CardTitle>
+                <div className="flex items-center gap-2">
+                  <CardTitle>{t("overview.notifications.title")}</CardTitle>
+                  {data.unreadNotifications > 0 && (
+                    <Badge variant="secondary">{data.unreadNotifications}</Badge>
+                  )}
+                </div>
                 <Link
-                  href={`/${locale}/dashboard`}
+                  href={`/${locale}/dashboard/notifications`}
                   className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
                 >
                   {t("overview.notifications.viewAll")}
@@ -93,21 +98,40 @@ export default async function DashboardPage({
               </div>
             </CardHeader>
             <CardContent>
-              {data.unreadNotifications === 0 ? (
+              {data.recentNotifications.length === 0 ? (
                 <p className="text-sm text-muted-foreground">
                   {t("overview.notifications.empty")}
                 </p>
               ) : (
-                <div className="flex items-baseline gap-3">
-                  <span className="text-5xl font-bold tabular-nums">
-                    {data.unreadNotifications}
-                  </span>
-                  <span className="text-base text-muted-foreground">
-                    {t("overview.notifications.unreadLabel", {
-                      count: data.unreadNotifications,
-                    })}
-                  </span>
-                </div>
+                <ul className="space-y-3">
+                  {data.recentNotifications.map((n: RecentNotification) => (
+                    <li key={n.id} className="flex items-start gap-3">
+                      {!n.read && (
+                        <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-primary" />
+                      )}
+                      <div className={cn("min-w-0 flex-1", n.read && "pl-5")}>
+                        {n.link ? (
+                          <Link
+                            href={n.link}
+                            className="text-sm font-medium hover:underline"
+                          >
+                            {n.title}
+                          </Link>
+                        ) : (
+                          <p className="text-sm font-medium">{n.title}</p>
+                        )}
+                        {n.body && (
+                          <p className="mt-0.5 truncate text-xs text-muted-foreground">
+                            {n.body}
+                          </p>
+                        )}
+                      </div>
+                      <span className="shrink-0 text-xs text-muted-foreground">
+                        {formatDate(n.createdAt, locale, "short")}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               )}
             </CardContent>
           </Card>
