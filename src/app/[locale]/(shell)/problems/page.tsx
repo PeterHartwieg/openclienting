@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import {
@@ -13,12 +14,14 @@ import { ProblemsPagination } from "@/components/problems/pagination";
 import { SearchBar } from "@/components/layout/search-bar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { EmptyState } from "@/components/shared/empty-state";
+import { buttonVariants } from "@/components/ui/button";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
 import { JsonLd } from "@/components/seo/json-ld";
 import { getLanguageAlternates } from "@/lib/site";
 import { problemsCollectionSchema } from "@/lib/seo/schema";
 import { getSchemaSiteContext } from "@/lib/seo/site-context";
 import { localeTags, type Locale } from "@/i18n/config";
+import { getTagLabel } from "@/lib/i18n/tags";
 
 export async function generateMetadata({
   params,
@@ -104,6 +107,67 @@ export default async function BrowseProblemsPage({
 
   const problems = problemsPage.rows;
 
+  // Build active-filter chip data. Each entry carries the URL that removes
+  // only that one filter so chip "×" links can be built server-side.
+  const FILTER_PARAMS = [
+    "industry",
+    "function",
+    "problem_category",
+    "company_size",
+    "solution_status",
+  ] as const;
+  type FilterParam = (typeof FILTER_PARAMS)[number];
+
+  const filterCategoryLabels: Record<FilterParam, string> = {
+    industry: t("filterIndustry"),
+    function: t("filterFunction"),
+    problem_category: t("filterCategory"),
+    company_size: t("filterCompanySize"),
+    solution_status: t("filterSolutionStatus"),
+  };
+  const solutionStatusLabels: Record<string, string> = {
+    unsolved: t("statusUnsolved"),
+    has_approaches: t("statusHasApproaches"),
+    successful_pilot: t("statusSuccessfulPilot"),
+  };
+
+  const activeFilters = FILTER_PARAMS.flatMap((param) => {
+    const value = sp[param];
+    if (typeof value !== "string" || !value) return [];
+    const valueLabel =
+      param === "solution_status"
+        ? (solutionStatusLabels[value] ?? value)
+        : (() => {
+            const tag = (tagsByCategory[param] ?? []).find(
+              (tg) => tg.slug === value,
+            );
+            return tag ? getTagLabel(tag, locale) : value;
+          })();
+    const removeParams = new URLSearchParams();
+    for (const [key, val] of Object.entries(sp)) {
+      if (val === undefined || key === param || key === "page") continue;
+      if (Array.isArray(val)) {
+        for (const v of val) removeParams.append(key, v);
+      } else {
+        removeParams.set(key, val);
+      }
+    }
+    const removeHref = removeParams.toString()
+      ? `/${locale}/problems?${removeParams.toString()}`
+      : `/${locale}/problems`;
+    return [
+      {
+        param,
+        categoryLabel: filterCategoryLabels[param],
+        valueLabel,
+        removeHref,
+      },
+    ];
+  });
+
+  const hasActiveFilters = activeFilters.length > 0;
+  const clearHref = `/${locale}/problems`;
+
   // Build breadcrumbs and CollectionPage schema. ItemList is capped at the
   // first 50 rendered problems so the JSON-LD payload stays under a sensible
   // size even if filters return a large set. Schema reflects the currently
@@ -132,31 +196,76 @@ export default async function BrowseProblemsPage({
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <JsonLd data={collectionSchema} />
       <Breadcrumbs items={breadcrumbItems} className="mb-4 text-sm text-muted-foreground" />
-      <div className="mb-8">
+      <div className="mb-6">
         <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
         <p className="mt-1 text-sm text-muted-foreground">{t("subtitle")}</p>
-        <div className="mt-4 max-w-xl">
-          <Suspense fallback={<Skeleton className="h-10 w-full" />}>
-            <SearchBar locale={locale} initialQuery={q} />
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          <div className="w-full sm:w-64">
+            <Suspense fallback={<Skeleton className="h-8 w-full" />}>
+              <SearchBar locale={locale} initialQuery={q} />
+            </Suspense>
+          </div>
+          <Suspense fallback={<Skeleton className="h-8 w-48" />}>
+            <ProblemFilters tagsByCategory={tagsByCategory} locale={locale} />
           </Suspense>
         </div>
       </div>
 
-      <div className="flex flex-col gap-8 lg:flex-row">
-        {/* Sidebar filters */}
-        <div className="w-full shrink-0 lg:w-64">
-          <Suspense fallback={<Skeleton className="h-64 w-full" />}>
-            <ProblemFilters tagsByCategory={tagsByCategory} locale={locale} />
-          </Suspense>
-        </div>
-
         {/* Problem grid */}
-        <div className="flex-1">
+        <div>
+          {/* Results context strip */}
+          <div className="mb-4 flex flex-wrap items-center gap-2">
+            <span className="shrink-0 text-sm text-muted-foreground">
+              {hasActiveFilters
+                ? t("resultsCountFiltered", { count: problemsPage.total })
+                : t("resultsCount", { count: problemsPage.total })}
+            </span>
+            {hasActiveFilters && (
+              <>
+                <span className="sr-only">{t("appliedFiltersLabel")}</span>
+                {activeFilters.map(({ param, categoryLabel, valueLabel, removeHref }) => (
+                  <span
+                    key={param}
+                    className="inline-flex items-center gap-1 rounded-full border border-border bg-secondary px-2.5 py-0.5 text-xs font-medium text-secondary-foreground"
+                  >
+                    {categoryLabel}: {valueLabel}
+                    <Link
+                      href={removeHref}
+                      aria-label={t("removeFilter", { filter: `${categoryLabel}: ${valueLabel}` })}
+                      className="ml-0.5 rounded-full leading-none hover:text-foreground"
+                    >
+                      ×
+                    </Link>
+                  </span>
+                ))}
+                <div className="ml-auto shrink-0">
+                  {/* later: saved filters */}
+                  <Link href={clearHref} className={buttonVariants({ variant: "ghost", size: "sm" })}>
+                    {t("filterClear")}
+                  </Link>
+                </div>
+              </>
+            )}
+          </div>
+
           {problems.length === 0 ? (
-            <EmptyState state="match" message={t("noResults")} />
+            hasActiveFilters ? (
+              <EmptyState
+                state="match"
+                title={t("noResultsTitle")}
+                message={t("noResults")}
+                action={
+                  <Link href={clearHref} className={buttonVariants({ variant: "outline", size: "sm" })}>
+                    {t("noResultsResetCta")}
+                  </Link>
+                }
+              />
+            ) : (
+              <EmptyState state="match" message={t("noResults")} />
+            )
           ) : (
             <>
-              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {problems.map((problem) => (
                   <ProblemCard
                     key={problem.id}
@@ -189,7 +298,6 @@ export default async function BrowseProblemsPage({
             </>
           )}
         </div>
-      </div>
     </div>
   );
 }

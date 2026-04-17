@@ -3,8 +3,13 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import { useTranslations } from "next-intl";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 import { getTagLabel } from "@/lib/i18n/tags";
 
 interface TagOption {
@@ -25,36 +30,19 @@ export function ProblemFilters({ tagsByCategory, locale }: ProblemFiltersProps) 
   const searchParams = useSearchParams();
   const t = useTranslations("problemsList");
 
-  const categoryLabels: Record<string, string> = {
-    industry: t("filterIndustry"),
-    function: t("filterFunction"),
-    problem_category: t("filterCategory"),
-    company_size: t("filterCompanySize"),
-  };
-
-  const toggleFilter = useCallback(
-    (category: string, slug: string) => {
+  const setFilter = useCallback(
+    (category: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
-      if (params.get(category) === slug) {
+      if (!value) {
         params.delete(category);
       } else {
-        params.set(category, slug);
+        params.set(category, value);
       }
-      // Facet change invalidates the current page offset: previous page
-      // numbers may exceed the new totalPages and land on an empty slice.
       params.delete("page");
       const qs = params.toString();
       router.push(qs ? `/${locale}/problems?${qs}` : `/${locale}/problems`);
     },
-    [router, searchParams, locale]
-  );
-
-  const clearFilters = useCallback(() => {
-    router.push(`/${locale}/problems`);
-  }, [router, locale]);
-
-  const hasActiveFilters = ["industry", "function", "problem_category", "company_size", "solution_status"].some(
-    (cat) => searchParams.has(cat)
+    [router, searchParams, locale],
   );
 
   const solutionStatusOptions = [
@@ -63,57 +51,71 @@ export function ProblemFilters({ tagsByCategory, locale }: ProblemFiltersProps) 
     { slug: "successful_pilot", label: t("statusSuccessfulPilot") },
   ];
 
+  const tagCategories = [
+    { key: "industry" as const, label: t("filterIndustry") },
+    { key: "function" as const, label: t("filterFunction") },
+    { key: "problem_category" as const, label: t("filterCategory") },
+    { key: "company_size" as const, label: t("filterCompanySize") },
+  ];
+
+  const activeStatus = searchParams.get("solution_status");
+  const activeStatusLabel = solutionStatusOptions.find((o) => o.slug === activeStatus)?.label;
+
   return (
-    <aside className="w-full space-y-6">
-      {hasActiveFilters && (
-        <Button variant="ghost" size="sm" onClick={clearFilters}>
-          {t("filterClear")}
-        </Button>
-      )}
-
-      <div>
-        <h3 className="mb-2 text-sm font-semibold">{t("filterSolutionStatus")}</h3>
-        <div className="flex flex-wrap gap-1.5">
+    <div className="flex flex-wrap gap-2">
+      {/* Solution Status */}
+      <Select
+        value={activeStatus ?? ""}
+        onValueChange={(val) => setFilter("solution_status", val ?? "")}
+      >
+        <SelectTrigger className="min-w-[9rem]">
+          <span
+            data-slot="select-value"
+            className={cn("flex flex-1 text-left", !activeStatus && "text-muted-foreground")}
+          >
+            {activeStatusLabel ?? t("filterSolutionStatus")}
+          </span>
+        </SelectTrigger>
+        <SelectContent align="start">
           {solutionStatusOptions.map((opt) => (
-            <Button
-              key={opt.slug}
-              variant={searchParams.get("solution_status") === opt.slug ? "default" : "outline"}
-              size="sm"
-              onClick={() => toggleFilter("solution_status", opt.slug)}
-              aria-pressed={searchParams.get("solution_status") === opt.slug}
-            >
+            <SelectItem key={opt.slug} value={opt.slug}>
               {opt.label}
-            </Button>
+            </SelectItem>
           ))}
-        </div>
-        <Separator className="mt-4" />
-      </div>
+        </SelectContent>
+      </Select>
 
-      {Object.entries(categoryLabels).map(([category, label]) => {
-        const tags = tagsByCategory[category] ?? [];
+      {/* Tag-based filters */}
+      {tagCategories.map(({ key, label }) => {
+        const tags = tagsByCategory[key] ?? [];
         if (tags.length === 0) return null;
-        const activeSlug = searchParams.get(category);
-
+        const activeSlug = searchParams.get(key);
+        const activeTag = tags.find((tg) => tg.slug === activeSlug);
+        const activeLabel = activeTag ? getTagLabel(activeTag, locale) : null;
         return (
-          <div key={category}>
-            <h3 className="mb-2 text-sm font-semibold">{label}</h3>
-            <div className="flex flex-wrap gap-1.5">
+          <Select
+            key={key}
+            value={activeSlug ?? ""}
+            onValueChange={(val) => setFilter(key, val ?? "")}
+          >
+            <SelectTrigger className="min-w-[8rem]">
+              <span
+                data-slot="select-value"
+                className={cn("flex flex-1 text-left", !activeSlug && "text-muted-foreground")}
+              >
+                {activeLabel ?? label}
+              </span>
+            </SelectTrigger>
+            <SelectContent align="start">
               {tags.map((tag) => (
-                <Button
-                  key={tag.id}
-                  variant={activeSlug === tag.slug ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => toggleFilter(category, tag.slug)}
-                  aria-pressed={activeSlug === tag.slug}
-                >
+                <SelectItem key={tag.id} value={tag.slug}>
                   {getTagLabel(tag, locale)}
-                </Button>
+                </SelectItem>
               ))}
-            </div>
-            <Separator className="mt-4" />
-          </div>
+            </SelectContent>
+          </Select>
         );
       })}
-    </aside>
+    </div>
   );
 }
