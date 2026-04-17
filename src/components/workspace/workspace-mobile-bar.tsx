@@ -18,6 +18,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { WorkspaceNav } from "./workspace-nav";
 import { AnonymousNav } from "./anonymous-nav";
+import { useRecentNav } from "@/lib/hooks/use-recent-nav";
 import { trackIaEvent } from "@/lib/analytics/ia-events";
 import type {
   ModerationCounts,
@@ -100,6 +101,7 @@ export function WorkspaceMobileBar({
   const tCommon = useTranslations("common");
   const tWorkspace = useTranslations("workspace");
   const tDrawer = useTranslations("workspaceDrawer");
+  const tDashboard = useTranslations("dashboard");
 
   // Prevent background scroll while the drawer is open. This syncs React
   // state out to the DOM, which is the intended use of useEffect.
@@ -182,13 +184,12 @@ export function WorkspaceMobileBar({
               {user && role && counts ? (
                 <>
                   {/* --------------------------------------------------------
-                      Block 1 — "Jump back in" (recent items placeholder)
-                      TODO (Slice E): slot in the <RecentItems> primitive here
-                      once it lands. Slice E will ship a reusable hook
-                      (e.g. useRecentItems) and a companion component. Do NOT
-                      build a localStorage implementation in this file — that
-                      is Slice E's responsibility.
+                      Block 1 — "Jump back in" (recent items, Slice E hook)
                   --------------------------------------------------------- */}
+                  <DrawerRecentNav
+                    title={tDashboard("overview.recentNav.title")}
+                    onNavigate={() => setOpen(false)}
+                  />
 
                   {/* --------------------------------------------------------
                       Block 2 — Primary task-flow items
@@ -330,5 +331,44 @@ export function WorkspaceMobileBar({
         </>
       ) : null}
     </>
+  );
+}
+
+interface DrawerRecentNavProps {
+  title: string;
+  onNavigate: () => void;
+}
+
+function DrawerRecentNav({ title, onNavigate }: DrawerRecentNavProps) {
+  const entries = useRecentNav().slice(0, 3);
+  if (entries.length === 0) return null;
+
+  return (
+    <div className="border-b px-3 py-3">
+      <div className="px-1 pb-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+        {title}
+      </div>
+      <ul className="flex flex-col gap-0.5">
+        {entries.map((entry) => (
+          <li key={entry.href}>
+            <Link
+              href={entry.href}
+              onClick={() => {
+                trackIaEvent({
+                  name: "ia_nav_click",
+                  section: "recent",
+                  shell: "workspace",
+                  surface: "drawer",
+                });
+                onNavigate();
+              }}
+              className="block truncate rounded-md px-2 py-1.5 text-sm hover:bg-muted/50"
+            >
+              {entry.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

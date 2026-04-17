@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "Огляд",
+      "notifications": "Сповіщення",
       "myOrgs": "Мої організації",
       "joinOrg": "Приєднатися до організації",
       "createOrg": "Створити організацію",
@@ -437,6 +438,9 @@
         "viewQueues": "Переглянути черги",
         "pendingCount": "{count, plural, =0 {Нічого не очікує} one {1 елемент очікує} few {# елементи очікують} other {# елементів очікує}}"
       },
+      "recentNav": {
+        "title": "Повернутися назад"
+      },
       "kindLabels": {
         "problem": "Проблема",
         "requirement": "Вимога",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "Стаття"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "Пошук проблем…",
+    "resultsLabel": "Результати пошуку",
+    "resultCount": "{count, plural, =0 {Немає результатів} one {1 результат} few {# результати} many {# результатів} other {# результатів}}"
   },
   "settings": {
     "metaTitle": "Налаштування — OpenClienting",

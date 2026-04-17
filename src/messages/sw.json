@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "Muhtasari",
+      "notifications": "Arifa",
       "myOrgs": "Mashirika Yangu",
       "joinOrg": "Jiunge na Shirika",
       "createOrg": "Unda Shirika",
@@ -437,6 +438,9 @@
         "viewQueues": "Angalia Foleni",
         "pendingCount": "{count, plural, =0 {Hakuna kinachosubiri} one {kitu 1 kinasubiri} other {vitu # vinavyosubiri}}"
       },
+      "recentNav": {
+        "title": "Rudi haraka"
+      },
       "kindLabels": {
         "problem": "Tatizo",
         "requirement": "Mahitaji",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "Makala"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "Tafuta matatizo…",
+    "resultsLabel": "Matokeo ya utafutaji",
+    "resultCount": "{count, plural, =0 {Hakuna matokeo} one {Matokeo 1} other {Matokeo #}}"
   },
   "settings": {
     "metaTitle": "Mipangilio — OpenClienting",

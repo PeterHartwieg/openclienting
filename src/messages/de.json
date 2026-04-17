@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "Übersicht",
+      "notifications": "Benachrichtigungen",
       "myOrgs": "Meine Organisationen",
       "joinOrg": "Organisation beitreten",
       "createOrg": "Organisation erstellen",
@@ -437,6 +438,9 @@
         "viewQueues": "Warteschlangen öffnen",
         "pendingCount": "{count, plural, one {1 Eintrag} other {# Einträge}} warten auf Prüfung"
       },
+      "recentNav": {
+        "title": "Weitermachen"
+      },
       "kindLabels": {
         "problem": "Problem",
         "requirement": "Anforderung",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "Wissensartikel"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "Probleme suchen…",
+    "resultsLabel": "Suchergebnisse",
+    "resultCount": "{count, plural, =0 {Keine Ergebnisse} one {1 Ergebnis} other {# Ergebnisse}}"
   },
   "settings": {
     "metaTitle": "Einstellungen — OpenClienting",

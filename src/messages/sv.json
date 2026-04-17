@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "Översikt",
+      "notifications": "Notifikationer",
       "myOrgs": "Mina organisationer",
       "joinOrg": "Gå med i organisation",
       "createOrg": "Skapa organisation",
@@ -437,6 +438,9 @@
         "viewQueues": "Visa köer",
         "pendingCount": "{count, plural, =0 {Inget väntar} one {1 objekt väntar} other {# objekt väntar}}"
       },
+      "recentNav": {
+        "title": "Fortsätt där du slutade"
+      },
       "kindLabels": {
         "problem": "Problem",
         "requirement": "Krav",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "Artikel"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "Sök problem…",
+    "resultsLabel": "Sökresultat",
+    "resultCount": "{count, plural, =0 {Inga resultat} one {1 resultat} other {# resultat}}"
   },
   "settings": {
     "metaTitle": "Inställningar — OpenClienting",

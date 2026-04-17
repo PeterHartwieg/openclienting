@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "সারসংক্ষেপ",
+      "notifications": "বিজ্ঞপ্তি",
       "myOrgs": "আমার প্রতিষ্ঠানসমূহ",
       "joinOrg": "প্রতিষ্ঠানে যোগ দিন",
       "createOrg": "প্রতিষ্ঠান তৈরি করুন",
@@ -437,6 +438,9 @@
         "viewQueues": "কিউ দেখুন",
         "pendingCount": "{count, plural, =0 {কিছু মুলতুবি নেই} one {১টি আইটেম মুলতুবি} other {# টি আইটেম মুলতুবি}}"
       },
+      "recentNav": {
+        "title": "আবার শুরু করুন"
+      },
       "kindLabels": {
         "problem": "সমস্যা",
         "requirement": "প্রয়োজনীয়তা",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "নিবন্ধ"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "সমস্যা খুঁজুন…",
+    "resultsLabel": "অনুসন্ধানের ফলাফল",
+    "resultCount": "{count, plural, =0 {কোনো ফলাফল নেই} one {১টি ফলাফল} other {# টি ফলাফল}}"
   },
   "settings": {
     "metaTitle": "সেটিংস — OpenClienting",

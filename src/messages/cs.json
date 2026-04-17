@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "Přehled",
+      "notifications": "Oznámení",
       "myOrgs": "Moje organizace",
       "joinOrg": "Připojit se k organizaci",
       "createOrg": "Vytvořit organizaci",
@@ -437,6 +438,9 @@
         "viewQueues": "Zobrazit fronty",
         "pendingCount": "{count, plural, =0 {Nic nečeká} one {1 položka čeká} other {# položek čeká}}"
       },
+      "recentNav": {
+        "title": "Pokračovat tam, kde jste skončili"
+      },
       "kindLabels": {
         "problem": "Problém",
         "requirement": "Požadavek",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "Článek"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "Hledat problémy…",
+    "resultsLabel": "Výsledky hledání",
+    "resultCount": "{count, plural, =0 {Žádné výsledky} one {1 výsledek} few {# výsledky} other {# výsledků}}"
   },
   "settings": {
     "metaTitle": "Nastavení — OpenClienting",

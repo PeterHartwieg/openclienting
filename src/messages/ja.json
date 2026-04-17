@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "概要",
+      "notifications": "通知",
       "myOrgs": "所属組織",
       "joinOrg": "組織に参加",
       "createOrg": "組織を作成",
@@ -437,6 +438,9 @@
         "viewQueues": "キューを見る",
         "pendingCount": "{count, plural, =0 {保留中なし} one {1件保留中} other {#件保留中}}"
       },
+      "recentNav": {
+        "title": "続きから始める"
+      },
       "kindLabels": {
         "problem": "課題",
         "requirement": "要件",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "記事"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "問題を検索…",
+    "resultsLabel": "検索結果",
+    "resultCount": "{count, plural, =0 {結果なし} one {1件の結果} other {#件の結果}}"
   },
   "settings": {
     "metaTitle": "設定 — OpenClienting",

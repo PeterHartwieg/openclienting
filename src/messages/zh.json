@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "概览",
+      "notifications": "通知",
       "myOrgs": "我的组织",
       "joinOrg": "加入组织",
       "createOrg": "创建组织",
@@ -437,6 +438,9 @@
         "viewQueues": "查看队列",
         "pendingCount": "{count, plural, =0 {暂无待处理} one {1 项待处理} other {# 项待处理}}"
       },
+      "recentNav": {
+        "title": "继续上次"
+      },
       "kindLabels": {
         "problem": "问题",
         "requirement": "需求",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "文章"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "搜索问题…",
+    "resultsLabel": "搜索结果",
+    "resultCount": "{count, plural, =0 {无结果} one {1 个结果} other {# 个结果}}"
   },
   "settings": {
     "metaTitle": "设置 — OpenClienting",

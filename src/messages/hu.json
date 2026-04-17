@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "Áttekintés",
+      "notifications": "Értesítések",
       "myOrgs": "Szervezeteim",
       "joinOrg": "Szervezethez csatlakozás",
       "createOrg": "Szervezet létrehozása",
@@ -437,6 +438,9 @@
         "viewQueues": "Sorok megtekintése",
         "pendingCount": "{count, plural, =0 {Nincs függőben} one {1 elem függőben} other {# elem függőben}}"
       },
+      "recentNav": {
+        "title": "Folytatás ott, ahol abbahagyta"
+      },
       "kindLabels": {
         "problem": "Probléma",
         "requirement": "Követelmény",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "Cikk"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "Problémák keresése…",
+    "resultsLabel": "Keresési eredmények",
+    "resultCount": "{count, plural, =0 {Nincs eredmény} one {1 eredmény} other {# eredmény}}"
   },
   "settings": {
     "metaTitle": "Beállítások — OpenClienting",

@@ -43,6 +43,7 @@
     },
     "items": {
       "overview": "Yleiskatsaus",
+      "notifications": "Ilmoitukset",
       "myOrgs": "Omat organisaatiot",
       "joinOrg": "Liity organisaatioon",
       "createOrg": "Luo organisaatio",
@@ -437,6 +438,9 @@
         "viewQueues": "Näytä jonot",
         "pendingCount": "{count, plural, =0 {Ei odottavia} one {1 kohde odottaa} other {# kohdetta odottaa}}"
       },
+      "recentNav": {
+        "title": "Jatka siitä mihin jäit"
+      },
       "kindLabels": {
         "problem": "Ongelma",
         "requirement": "Vaatimus",
@@ -446,6 +450,11 @@
         "knowledgeArticle": "Artikkeli"
       }
     }
+  },
+  "globalSearch": {
+    "placeholder": "Etsi ongelmia…",
+    "resultsLabel": "Hakutulokset",
+    "resultCount": "{count, plural, =0 {Ei tuloksia} one {1 tulos} other {# tulosta}}"
   },
   "settings": {
     "metaTitle": "Asetukset — OpenClienting",
