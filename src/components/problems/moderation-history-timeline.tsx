@@ -74,7 +74,7 @@ export async function ModerationHistoryTimeline({
                 {actionIcon(event.action)}
               </span>
 
-              <div className="flex flex-col gap-0.5">
+              <div className="flex flex-col gap-0.5 pl-2">
                 <div className="flex items-center gap-2 text-sm">
                   <span className="font-medium text-foreground">{actionLabel}</span>
                   <span className="text-muted-foreground">·</span>
