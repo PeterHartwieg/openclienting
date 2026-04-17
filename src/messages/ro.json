@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "Limbă",
     "switchTo": "Schimbă limba"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Trimite o problemă",
+    "mySubmissions": "Trimiterile mele",
+    "notifications": "Notificări",
+    "notificationsWithCount": "Notificări, {count} necitite",
+    "reviewQueue": "Coadă de revizuire",
+    "reviewQueueWithCount": "Coadă de revizuire: {count} {queue} în așteptare",
+    "allNavLabel": "Toate navigările",
+    "expandGroup": "Extinde {group}",
+    "collapseGroup": "Restrânge {group}",
+    "queueLabels": {
+      "problems": "probleme",
+      "requirements": "cerințe",
+      "frameworks": "cadre",
+      "solutions": "soluții",
+      "successReports": "rapoarte de succes",
+      "suggestedEdits": "editări sugerate",
+      "organizationVerification": "verificări de organizații",
+      "liveRevisions": "revizuiri active",
+      "knowledgeArticles": "articole de cunoștințe",
+      "translations": "traduceri"
+    }
   }
 }

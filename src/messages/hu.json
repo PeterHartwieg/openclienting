@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "Nyelv",
     "switchTo": "Nyelvváltás"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Probléma beküldése",
+    "mySubmissions": "Beküldéseim",
+    "notifications": "Értesítések",
+    "notificationsWithCount": "Értesítések, {count} olvasatlan",
+    "reviewQueue": "Felülvizsgálati sor",
+    "reviewQueueWithCount": "Felülvizsgálati sor: {count} függőben lévő {queue}",
+    "allNavLabel": "Összes navigáció",
+    "expandGroup": "{group} kibontása",
+    "collapseGroup": "{group} összecsukása",
+    "queueLabels": {
+      "problems": "problémák",
+      "requirements": "követelmények",
+      "frameworks": "keretrendszerek",
+      "solutions": "megoldások",
+      "successReports": "sikerbeszámolók",
+      "suggestedEdits": "javasolt szerkesztések",
+      "organizationVerification": "szervezeti ellenőrzések",
+      "liveRevisions": "élő felülvizsgálatok",
+      "knowledgeArticles": "tudástár-cikkek",
+      "translations": "fordítások"
+    }
   }
 }

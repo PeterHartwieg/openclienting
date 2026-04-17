@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "Language",
     "switchTo": "Switch language"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Submit a problem",
+    "mySubmissions": "My submissions",
+    "notifications": "Notifications",
+    "notificationsWithCount": "Notifications, {count} unread",
+    "reviewQueue": "Review queue",
+    "reviewQueueWithCount": "Review queue: {count} {queue} pending",
+    "allNavLabel": "All navigation",
+    "expandGroup": "Expand {group}",
+    "collapseGroup": "Collapse {group}",
+    "queueLabels": {
+      "problems": "problems",
+      "requirements": "requirements",
+      "frameworks": "frameworks",
+      "solutions": "solutions",
+      "successReports": "success reports",
+      "suggestedEdits": "suggested edits",
+      "organizationVerification": "org verifications",
+      "liveRevisions": "live revisions",
+      "knowledgeArticles": "knowledge articles",
+      "translations": "translations"
+    }
   }
 }

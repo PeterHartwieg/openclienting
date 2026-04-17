@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "भाषा",
     "switchTo": "भाषा बदलें"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "समस्या सबमिट करें",
+    "mySubmissions": "मेरी सबमिशन",
+    "notifications": "सूचनाएँ",
+    "notificationsWithCount": "सूचनाएँ, {count} अपठित",
+    "reviewQueue": "समीक्षा कतार",
+    "reviewQueueWithCount": "समीक्षा कतार: {count} {queue} लंबित",
+    "allNavLabel": "सभी नेविगेशन",
+    "expandGroup": "{group} विस्तृत करें",
+    "collapseGroup": "{group} संकुचित करें",
+    "queueLabels": {
+      "problems": "समस्याएँ",
+      "requirements": "आवश्यकताएँ",
+      "frameworks": "फ्रेमवर्क",
+      "solutions": "समाधान",
+      "successReports": "सफलता रिपोर्ट",
+      "suggestedEdits": "सुझाए गए संपादन",
+      "organizationVerification": "संगठन सत्यापन",
+      "liveRevisions": "लाइव संशोधन",
+      "knowledgeArticles": "ज्ञान लेख",
+      "translations": "अनुवाद"
+    }
   }
 }

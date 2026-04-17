@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "Jazyk",
     "switchTo": "Přepnout jazyk"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Nahlásit problém",
+    "mySubmissions": "Moje příspěvky",
+    "notifications": "Oznámení",
+    "notificationsWithCount": "Oznámení, {count} nepřečtených",
+    "reviewQueue": "Fronta ke kontrole",
+    "reviewQueueWithCount": "Fronta ke kontrole: {count} {queue} čekajících",
+    "allNavLabel": "Celá navigace",
+    "expandGroup": "Rozbalit {group}",
+    "collapseGroup": "Sbalit {group}",
+    "queueLabels": {
+      "problems": "problémy",
+      "requirements": "požadavky",
+      "frameworks": "rámce",
+      "solutions": "řešení",
+      "successReports": "zprávy o úspěchu",
+      "suggestedEdits": "navrhované úpravy",
+      "organizationVerification": "ověření organizací",
+      "liveRevisions": "živé revize",
+      "knowledgeArticles": "články znalostní báze",
+      "translations": "překlady"
+    }
   }
 }

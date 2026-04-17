@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "Хэл",
     "switchTo": "Хэл солих"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Асуудал илгээх",
+    "mySubmissions": "Миний илгээсэн материалууд",
+    "notifications": "Мэдэгдлүүд",
+    "notificationsWithCount": "Мэдэгдлүүд, {count} уншаагүй",
+    "reviewQueue": "Хяналтын дараалал",
+    "reviewQueueWithCount": "Хяналтын дараалал: {count} {queue} хүлээгдэж байна",
+    "allNavLabel": "Бүх навигаци",
+    "expandGroup": "{group}-г дэлгэх",
+    "collapseGroup": "{group}-г хураах",
+    "queueLabels": {
+      "problems": "асуудлууд",
+      "requirements": "шаардлагууд",
+      "frameworks": "хүрээнүүд",
+      "solutions": "шийдлүүд",
+      "successReports": "амжилтын тайлангууд",
+      "suggestedEdits": "санал болгосон засварууд",
+      "organizationVerification": "байгууллагын баталгаажуулалтууд",
+      "liveRevisions": "шууд засварууд",
+      "knowledgeArticles": "мэдлэгийн нийтлэлүүд",
+      "translations": "орчуулгууд"
+    }
   }
 }

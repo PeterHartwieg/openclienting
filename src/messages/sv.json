@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "Språk",
     "switchTo": "Byt språk"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Skicka in ett problem",
+    "mySubmissions": "Mina inlämningar",
+    "notifications": "Aviseringar",
+    "notificationsWithCount": "Aviseringar, {count} olästa",
+    "reviewQueue": "Granskningskö",
+    "reviewQueueWithCount": "Granskningskö: {count} {queue} väntande",
+    "allNavLabel": "All navigering",
+    "expandGroup": "Expandera {group}",
+    "collapseGroup": "Dölj {group}",
+    "queueLabels": {
+      "problems": "problem",
+      "requirements": "krav",
+      "frameworks": "ramverk",
+      "solutions": "lösningar",
+      "successReports": "framgångsrapporter",
+      "suggestedEdits": "föreslagna redigeringar",
+      "organizationVerification": "organisationsverifieringar",
+      "liveRevisions": "livegranskningar",
+      "knowledgeArticles": "kunskapsartiklar",
+      "translations": "översättningar"
+    }
   }
 }

@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "Idioma",
     "switchTo": "Mudar idioma"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "Submeter um problema",
+    "mySubmissions": "Minhas submissões",
+    "notifications": "Notificações",
+    "notificationsWithCount": "Notificações, {count} não lidas",
+    "reviewQueue": "Fila de revisão",
+    "reviewQueueWithCount": "Fila de revisão: {count} {queue} pendentes",
+    "allNavLabel": "Toda a navegação",
+    "expandGroup": "Expandir {group}",
+    "collapseGroup": "Recolher {group}",
+    "queueLabels": {
+      "problems": "problemas",
+      "requirements": "requisitos",
+      "frameworks": "frameworks",
+      "solutions": "soluções",
+      "successReports": "relatórios de sucesso",
+      "suggestedEdits": "edições sugeridas",
+      "organizationVerification": "verificações de org",
+      "liveRevisions": "revisões em vigor",
+      "knowledgeArticles": "artigos de conhecimento",
+      "translations": "traduções"
+    }
   }
 }

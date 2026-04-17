@@ -607,5 +607,28 @@
   "languageSwitcher": {
     "label": "言語",
     "switchTo": "言語を切り替える"
+  },
+  "workspaceDrawer": {
+    "submitProblem": "問題を送信",
+    "mySubmissions": "自分の投稿",
+    "notifications": "通知",
+    "notificationsWithCount": "通知、{count}件未読",
+    "reviewQueue": "レビューキュー",
+    "reviewQueueWithCount": "レビューキュー: {count}件の{queue}が保留中",
+    "allNavLabel": "すべてのナビゲーション",
+    "expandGroup": "{group}を展開",
+    "collapseGroup": "{group}を折りたたむ",
+    "queueLabels": {
+      "problems": "問題",
+      "requirements": "要件",
+      "frameworks": "フレームワーク",
+      "solutions": "解決策",
+      "successReports": "成功事例レポート",
+      "suggestedEdits": "編集提案",
+      "organizationVerification": "組織認証",
+      "liveRevisions": "公開中の修正",
+      "knowledgeArticles": "ナレッジ記事",
+      "translations": "翻訳"
+    }
   }
 }
