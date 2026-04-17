@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getCurrentUser } from "@/lib/auth/roles";
 import { getDashboardOverview, type ContentKind, type RecentNotification } from "@/lib/queries/dashboard";
+import { MarkAllReadButton } from "@/components/dashboard/mark-all-read-button";
 import { getModerationCounts } from "@/lib/queries/moderation";
 import { StatusBadge } from "@/components/shared/status-badge";
 import { EmptyState } from "@/components/shared/empty-state";
@@ -89,12 +90,18 @@ export default async function DashboardPage({
                     <Badge variant="secondary">{data.unreadNotifications}</Badge>
                   )}
                 </div>
-                <Link
-                  href={`/${locale}/dashboard/notifications`}
-                  className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
-                >
-                  {t("overview.notifications.viewAll")}
-                </Link>
+                <div className="flex items-center gap-1">
+                  <MarkAllReadButton
+                    unreadCount={data.unreadNotifications}
+                    label={t("overview.notifications.markAllRead")}
+                  />
+                  <Link
+                    href={`/${locale}/dashboard/notifications`}
+                    className={cn(buttonVariants({ variant: "ghost", size: "sm" }))}
+                  >
+                    {t("overview.notifications.viewAll")}
+                  </Link>
+                </div>
               </div>
             </CardHeader>
             <CardContent>

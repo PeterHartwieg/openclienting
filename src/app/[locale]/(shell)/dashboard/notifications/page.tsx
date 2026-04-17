@@ -6,6 +6,7 @@ import { getCurrentUser } from "@/lib/auth/roles";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent } from "@/components/ui/card";
 import { EmptyState } from "@/components/shared/empty-state";
+import { MarkAllReadButton } from "@/components/dashboard/mark-all-read-button";
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/i18n/format";
 
@@ -44,6 +45,7 @@ export default async function NotificationsPage({
     .limit(50);
 
   const items = notifications ?? [];
+  const unreadCount = items.filter((n) => !(n.read as boolean)).length;
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
@@ -56,9 +58,15 @@ export default async function NotificationsPage({
         </Link>
       </div>
 
-      <h1 className="mb-6 text-2xl font-bold tracking-tight">
-        {t("overview.notifications.title")}
-      </h1>
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className="text-2xl font-bold tracking-tight">
+          {t("overview.notifications.title")}
+        </h1>
+        <MarkAllReadButton
+          unreadCount={unreadCount}
+          label={t("overview.notifications.markAllRead")}
+        />
+      </div>
 
       {items.length === 0 ? (
         <EmptyState

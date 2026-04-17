@@ -391,6 +391,7 @@
       "notifications": {
         "title": "Notifications",
         "viewAll": "View all",
+        "markAllRead": "Mark all as read",
         "empty": "You're all caught up.",
         "unreadLabel": "{count, plural, one {unread notification} other {unread notifications}}"
       },
