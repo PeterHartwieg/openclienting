@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { invalidateForMany } from "@/lib/cache/tags";
 
 export async function submitSuccessReport(params: {
   solutionApproachId: string;
@@ -57,5 +58,10 @@ export async function submitSuccessReport(params: {
   });
 
   if (error) return { success: false, error: error.message };
+
+  // getPublishedProblemForMarkdown joins success_reports (via solution_approaches)
+  // without filtering by child status, so a newly submitted report appears in the
+  // cached problem detail. Also bust success_reports for home stats loader.
+  invalidateForMany(["success_report", "problem"]);
   return { success: true };
 }

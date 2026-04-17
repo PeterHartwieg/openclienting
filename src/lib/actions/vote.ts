@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { invalidateFor } from "@/lib/cache/tags";
 
 export async function toggleVote(targetType: "requirement" | "pilot_framework" | "solution_approach", targetId: string) {
   const supabase = await createClient();
@@ -23,6 +24,9 @@ export async function toggleVote(targetType: "requirement" | "pilot_framework" |
     // Remove vote
     const { error } = await supabase.from("votes").delete().eq("id", existing.id);
     if (error) return { success: false, error: error.message };
+    // A DB trigger updates upvote_count on the voted entity row.
+    // getPublishedProblemForMarkdown caches upvote_count — bust it.
+    invalidateFor("problem");
     return { success: true, voted: false };
   } else {
     // Add vote
@@ -32,6 +36,8 @@ export async function toggleVote(targetType: "requirement" | "pilot_framework" |
       target_id: targetId,
     });
     if (error) return { success: false, error: error.message };
+    // Same: bust the problem cache so vote counts stay fresh.
+    invalidateFor("problem");
     return { success: true, voted: true };
   }
 }

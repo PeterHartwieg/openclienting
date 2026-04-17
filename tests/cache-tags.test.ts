@@ -4,11 +4,11 @@
  * Static analysis: for every exported async function in actions files whose
  * body contains a Supabase mutation (.insert / .update / .delete / .upsert),
  * assert the same function body also calls a cache-invalidation primitive
- * (updateTag / revalidateTag / revalidatePath).
+ * (updateTag / revalidateTag / revalidatePath / invalidateFor / invalidateForMany).
  *
  * This test does NOT fix offenders — it only prevents NEW ones from being
  * introduced silently. Known existing offenders are allowlisted below with
- * a TODO referencing PR 5 where they will be fixed.
+ * a documented reason.
  *
  * Approach: regex-based extraction of function bodies. We locate each
  * exported function's opening brace and then track brace depth to find
@@ -172,7 +172,11 @@ function extractExportedFunctions(source: string, filePath: string): FunctionEnt
 // Pattern matchers
 // ---------------------------------------------------------------------------
 const MUTATION_RE = /\.(insert|update|delete|upsert)\s*\(/;
-const CACHE_INVALIDATION_RE = /\b(updateTag|revalidateTag|revalidatePath)\s*\(/;
+// Recognise all current and future cache-invalidation call forms:
+//   - updateTag("...") / revalidateTag("...") / revalidatePath("...")  — direct Next.js API
+//   - invalidateFor(...)  / invalidateForMany(...)                      — registry helpers (PR 6+)
+const CACHE_INVALIDATION_RE =
+  /\b(updateTag|revalidateTag|revalidatePath|invalidateFor|invalidateForMany)\s*\(/;
 
 function hasMutation(body: string): boolean {
   return MUTATION_RE.test(body);
@@ -185,72 +189,110 @@ function hasCacheInvalidation(body: string): boolean {
 // ---------------------------------------------------------------------------
 // EXPECTED_OFFENDERS allowlist
 //
-// Format: "relative/path/to/file.ts::functionName"
-// Relative to project root (src/... or full path pattern)
+// Format: { file, function, reason }
+//   file     — relative path from project root (src/...)
+//   function — exported function name
+//   reason   — one-line justification for why this offender is acceptable
 //
-// TODO (PR 5): add cache invalidation to all allowlisted functions and
-// remove them from this list.
+// Remove an entry when you add proper cache invalidation to that function.
 // ---------------------------------------------------------------------------
-const EXPECTED_OFFENDERS = new Set<string>([
-  // organizations.ts — requestOrganizationVerification: updates org.verification_status, no cache.
-  "src/lib/actions/organizations.ts::requestOrganizationVerification",
+interface AllowlistEntry {
+  file: string;
+  function: string;
+  reason: string;
+}
 
-  // organizations.ts — requestMembership: updates/inserts membership, no cache.
-  "src/lib/actions/organizations.ts::requestMembership",
+const ALLOWLIST: AllowlistEntry[] = [
+  {
+    file: "src/lib/actions/organizations.ts",
+    function: "requestOrganizationVerification",
+    reason:
+      "sets org.verification_status to 'pending'; org remains hidden from cached directory (verified-only filter) until a moderator approves",
+  },
+  {
+    file: "src/lib/actions/organizations.ts",
+    function: "requestMembership",
+    reason:
+      "writes to organization_memberships which has no unstable_cache reader; getUserOrganizations and getUserVerifiedMemberships use per-request createClient calls",
+  },
+  {
+    file: "src/lib/actions/organizations.ts",
+    function: "leaveOrganization",
+    reason:
+      "updates organization_memberships.membership_status; membership table has no unstable_cache reader",
+  },
+  {
+    file: "src/lib/actions/organizations.ts",
+    function: "reviewMembership",
+    reason:
+      "updates organization_memberships.membership_status; membership table has no unstable_cache reader",
+  },
+  {
+    file: "src/lib/actions/account.ts",
+    function: "setOrChangePassword",
+    reason:
+      "updates auth credentials only; no row in any cached Supabase table changes",
+  },
+  {
+    file: "src/lib/actions/comments.ts",
+    function: "submitComment",
+    reason:
+      "inserts into comments; no unstable_cache reader for comments exists (comment lists are per-request React.cache or live-fetched)",
+  },
+  {
+    file: "src/lib/actions/knowledge-articles.ts",
+    function: "proposeKnowledgeArticle",
+    reason:
+      "inserts with status='submitted'; the only cached reader (getPublishedArticlesCached) filters status='published', so no cached data changes",
+  },
+  {
+    file: "src/lib/actions/notifications.ts",
+    function: "markNotificationRead",
+    reason:
+      "updates notifications.read; getDashboardOverview uses React.cache (per-request RPC), no persistent unstable_cache",
+  },
+  {
+    file: "src/lib/actions/notifications.ts",
+    function: "markAllNotificationsRead",
+    reason:
+      "updates notifications.read for all rows; same — no persistent unstable_cache reader",
+  },
+  {
+    file: "src/lib/actions/notifications.ts",
+    function: "updateNotificationPreferences",
+    reason:
+      "upserts notification_preferences; no unstable_cache reader for this table",
+  },
+  {
+    file: "src/lib/actions/suggested-edits.ts",
+    function: "submitSuggestedEdit",
+    reason:
+      "inserts into suggested_edits with status='submitted'; no unstable_cache reader for the suggested_edits table in submitted state",
+  },
+  {
+    file: "src/app/[locale]/(shell)/moderate/actions.ts",
+    function: "approveRevision",
+    reason:
+      "updates content_revisions.revision_status to 'approved' only; the live content was already updated (and its cache busted) when the author called editProblem/editSolutionApproach — approving the revision record does not change public content again",
+  },
+  {
+    file: "src/app/[locale]/(shell)/translate/actions.ts",
+    function: "proposeTranslation",
+    reason:
+      "inserts content_translations with status='submitted'; getPublishedTranslations uses React.cache (per-request) and filters status='published', so no persistent cached data changes",
+  },
+  {
+    file: "src/app/[locale]/(shell)/translate/actions.ts",
+    function: "rejectTranslation",
+    reason:
+      "sets status='rejected' on a non-published translation row; no published cached data changes (same React.cache reasoning as proposeTranslation)",
+  },
+];
 
-  // organizations.ts — uploadOrgLogo: updates organizations.logo_url, no cache invalidation.
-  "src/lib/actions/organizations.ts::uploadOrgLogo",
-
-  // organizations.ts — leaveOrganization: updates membership_status, no cache.
-  "src/lib/actions/organizations.ts::leaveOrganization",
-
-  // organizations.ts — reviewMembership: updates membership_status, no cache.
-  "src/lib/actions/organizations.ts::reviewMembership",
-
-  // account.ts — profile/avatar mutations don't invalidate any Next.js cache tags.
-  "src/lib/actions/account.ts::updateProfile",
-  "src/lib/actions/account.ts::uploadAvatar",
-  "src/lib/actions/account.ts::removeAvatar",
-  "src/lib/actions/account.ts::setOrChangePassword",
-
-  // comments.ts — submitComment: inserts a comment, no cache invalidation.
-  "src/lib/actions/comments.ts::submitComment",
-
-  // knowledge-articles.ts — proposeKnowledgeArticle: inserts, no cache.
-  "src/lib/actions/knowledge-articles.ts::proposeKnowledgeArticle",
-
-  // notifications.ts — notification reads/prefs don't need cache invalidation.
-  "src/lib/actions/notifications.ts::markNotificationRead",
-  "src/lib/actions/notifications.ts::markAllNotificationsRead",
-  "src/lib/actions/notifications.ts::updateNotificationPreferences",
-
-  // pilot-frameworks.ts — submitPilotFramework: inserts, no cache.
-  "src/lib/actions/pilot-frameworks.ts::submitPilotFramework",
-
-  // requirements.ts — submitRequirement: inserts, no cache.
-  "src/lib/actions/requirements.ts::submitRequirement",
-
-  // solution-approaches.ts — submitSolutionApproach: inserts, no cache.
-  "src/lib/actions/solution-approaches.ts::submitSolutionApproach",
-
-  // success-reports.ts — submitSuccessReport: inserts, no cache.
-  "src/lib/actions/success-reports.ts::submitSuccessReport",
-
-  // suggested-edits.ts — submitSuggestedEdit: inserts, no cache.
-  "src/lib/actions/suggested-edits.ts::submitSuggestedEdit",
-
-  // vote.ts — toggleVote: insert/delete on votes table, no cache invalidation.
-  "src/lib/actions/vote.ts::toggleVote",
-
-  // moderate/actions.ts — approveRevision: updates content_revisions, no cache invalidation.
-  "src/app/[locale]/(shell)/moderate/actions.ts::approveRevision",
-
-  // translate/actions.ts — proposeTranslation: inserts content_translations, no cache.
-  "src/app/[locale]/(shell)/translate/actions.ts::proposeTranslation",
-
-  // translate/actions.ts — rejectTranslation: updates content_translations, no cache.
-  "src/app/[locale]/(shell)/translate/actions.ts::rejectTranslation",
-]);
+// Build a Set of "file::function" keys for fast lookup
+const EXPECTED_OFFENDERS = new Set<string>(
+  ALLOWLIST.map((e) => `${e.file}::${e.function}`),
+);
 
 // ---------------------------------------------------------------------------
 // The test
@@ -292,7 +334,7 @@ describe("cache-tag coverage snapshot", () => {
 
     if (allowlistedButClean.length > 0) {
       console.warn(
-        "\n[cache-tags] Stale allowlist entries (no longer have mutations — remove from EXPECTED_OFFENDERS):\n" +
+        "\n[cache-tags] Stale allowlist entries (no longer have mutations — remove from ALLOWLIST):\n" +
           allowlistedButClean.map((k) => `  - ${k}`).join("\n"),
       );
     }
@@ -300,15 +342,29 @@ describe("cache-tag coverage snapshot", () => {
     if (newOffenders.length > 0) {
       const msg =
         "\n[cache-tags] NEW mutation functions missing cache invalidation.\n" +
-        "Either add updateTag/revalidateTag/revalidatePath to these functions,\n" +
-        "or add them to EXPECTED_OFFENDERS in tests/cache-tags.test.ts with a TODO:\n\n" +
+        "Either add invalidateFor/invalidateForMany to these functions,\n" +
+        "or add them to ALLOWLIST in tests/cache-tags.test.ts with a reason:\n\n" +
         newOffenders.map((k) => `  - ${k}`).join("\n") +
         "\n";
       expect.fail(msg);
     }
   });
 
-  it("EXPECTED_OFFENDERS set is not empty (self-test: allowlist is being read)", () => {
-    expect(EXPECTED_OFFENDERS.size).toBeGreaterThan(0);
+  it("ALLOWLIST has documented reasons for each entry", () => {
+    for (const entry of ALLOWLIST) {
+      expect(entry.reason, `${entry.file}::${entry.function} is missing a reason`).toBeTruthy();
+    }
+  });
+
+  it("ALLOWLIST is ≤15 entries — keep the list tight", () => {
+    // If this fails, it means new offenders were added without proper
+    // cache invalidation. Either fix them or document a genuine reason.
+    expect(ALLOWLIST.length).toBeLessThanOrEqual(15);
+    if (ALLOWLIST.length > 0) {
+      console.info(
+        "\n[cache-tags] Current allowlist (" + ALLOWLIST.length + " entries):\n" +
+          ALLOWLIST.map((e) => `  ${e.file}::${e.function}\n    → ${e.reason}`).join("\n"),
+      );
+    }
   });
 });

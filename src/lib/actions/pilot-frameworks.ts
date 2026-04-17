@@ -2,6 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { detectLanguage } from "@/lib/i18n/detect-language";
+import { invalidateFor } from "@/lib/cache/tags";
 
 export async function submitPilotFramework(params: {
   problemId: string;
@@ -53,5 +54,10 @@ export async function submitPilotFramework(params: {
   });
 
   if (error) return { success: false, error: error.message };
+
+  // getPublishedProblemForMarkdown joins pilot_frameworks without filtering
+  // by child status, so a newly submitted framework appears in the cached
+  // problem detail immediately. Bust the problem_templates cache.
+  invalidateFor("pilot_framework");
   return { success: true };
 }

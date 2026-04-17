@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { detectLanguage } from "@/lib/i18n/detect-language";
 import { resolveVerifiedMembership } from "@/lib/auth/org-membership";
+import { invalidateFor } from "@/lib/cache/tags";
 
 export async function submitRequirement(params: {
   problemId: string;
@@ -41,5 +42,10 @@ export async function submitRequirement(params: {
   });
 
   if (error) return { success: false, error: error.message };
+
+  // getPublishedProblemForMarkdown joins requirements without filtering by
+  // child status, so a newly submitted requirement appears in the cached
+  // problem detail. Bust the problem_templates cache.
+  invalidateFor("requirement");
   return { success: true };
 }

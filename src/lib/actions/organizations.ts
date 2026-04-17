@@ -1,7 +1,7 @@
 "use server";
 
-import { updateTag } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { invalidateFor } from "@/lib/cache/tags";
 
 export async function createOrganization(params: {
   name: string;
@@ -41,8 +41,7 @@ export async function createOrganization(params: {
   }
 
   // Invalidate caches so server-component org lists pick up the new org
-  updateTag("organizations");
-  updateTag("moderation_events");
+  invalidateFor("organization");
 
   return { success: true as const, organizationId: (org as { id: string }).id };
 }
@@ -176,11 +175,9 @@ export async function updateOrganization(params: {
 
   if (error) return { success: false as const, error: error.message };
 
-  // The public problems list embeds `organizations.name` via a join. Bust the
-  // cache if the visible name changed; other fields aren't in the list query.
-  if (params.name !== undefined) {
-    updateTag("problem_templates");
-  }
+  // The public problems list and org directory embed the org name and other
+  // fields via joins. Bust both caches on any successful org edit.
+  invalidateFor("organization");
   return { success: true as const };
 }
 
@@ -249,6 +246,9 @@ export async function uploadOrgLogo(formData: FormData) {
     .eq("id", organizationId);
 
   if (updateError) return { success: false as const, error: updateError.message };
+
+  // Logo appears in the cached org directory and profile pages.
+  invalidateFor("organization");
   return { success: true as const, logoUrl: urlData.publicUrl };
 }
 

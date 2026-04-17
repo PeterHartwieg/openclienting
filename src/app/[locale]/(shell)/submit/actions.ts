@@ -1,7 +1,7 @@
 "use server";
 
-import { updateTag } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { invalidateFor } from "@/lib/cache/tags";
 import { detectLanguage } from "@/lib/i18n/detect-language";
 import { resolveVerifiedMembership } from "@/lib/auth/org-membership";
 
@@ -128,8 +128,7 @@ export async function submitProblem(data: ProblemSubmission) {
   }
 
   // Invalidate caches so server-component lists pick up the new problem
-  updateTag("problem_templates");
-  updateTag("moderation_events");
+  invalidateFor("problem");
 
   return { success: true, problemId: problemId as string };
 }

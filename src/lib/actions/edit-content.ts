@@ -1,8 +1,8 @@
 "use server";
 
-import { updateTag } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import type { EditTargetType, EditDiff } from "@/lib/types/database";
+import { invalidateFor } from "@/lib/cache/tags";
 
 function computeDiff(
   oldValues: Record<string, string | null>,
@@ -102,7 +102,7 @@ export async function editProblem(params: {
     userId: user.id,
   });
   // Title/description appear in the cached public problems list.
-  if (result.success) updateTag("problem_templates");
+  if (result.success) invalidateFor("problem");
   return result;
 }
 
@@ -127,7 +127,7 @@ export async function editRequirement(params: {
   const newValues: Record<string, string | null> = {};
   if (params.body !== undefined) newValues.body = params.body.trim();
 
-  return logAndUpdate({
+  const result = await logAndUpdate({
     targetType: "requirement",
     tableName: "requirements",
     targetId: params.requirementId,
@@ -135,6 +135,9 @@ export async function editRequirement(params: {
     newValues,
     userId: user.id,
   });
+  // requirement body appears in the getPublishedProblemForMarkdown cache.
+  if (result.success) invalidateFor("requirement");
+  return result;
 }
 
 export async function editPilotFramework(params: {
@@ -168,7 +171,7 @@ export async function editPilotFramework(params: {
   if (params.duration !== undefined) newValues.duration = params.duration.trim() || null;
   if (params.resourceCommitment !== undefined) newValues.resource_commitment = params.resourceCommitment.trim() || null;
 
-  return logAndUpdate({
+  const result = await logAndUpdate({
     targetType: "pilot_framework",
     tableName: "pilot_frameworks",
     targetId: params.frameworkId,
@@ -183,6 +186,9 @@ export async function editPilotFramework(params: {
     newValues,
     userId: user.id,
   });
+  // pilot_framework fields appear in the getPublishedProblemForMarkdown cache.
+  if (result.success) invalidateFor("pilot_framework");
+  return result;
 }
 
 export async function editSolutionApproach(params: {
@@ -212,7 +218,7 @@ export async function editSolutionApproach(params: {
   if (params.complexity !== undefined) newValues.complexity = params.complexity.trim() || null;
   if (params.priceRange !== undefined) newValues.price_range = params.priceRange.trim() || null;
 
-  return logAndUpdate({
+  const result = await logAndUpdate({
     targetType: "solution_approach",
     tableName: "solution_approaches",
     targetId: params.approachId,
@@ -225,4 +231,8 @@ export async function editSolutionApproach(params: {
     newValues,
     userId: user.id,
   });
+  // solution_approach fields appear in getPublishedProblemForMarkdown and
+  // getOrganizationContributions caches.
+  if (result.success) invalidateFor("solution");
+  return result;
 }

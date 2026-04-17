@@ -11,6 +11,17 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 
 // ---------------------------------------------------------------------------
+// Mock next/cache — must be hoisted before the action import.
+// updateTag/revalidateTag can only run inside a Server Action context;
+// in tests we stub them to no-ops so invalidateFor() calls don't throw.
+// ---------------------------------------------------------------------------
+vi.mock("next/cache", () => ({
+  updateTag: vi.fn(),
+  revalidateTag: vi.fn(),
+  unstable_cache: vi.fn(<T>(fn: () => T) => fn),
+}));
+
+// ---------------------------------------------------------------------------
 // Mock next/headers — must be hoisted before the action import
 // ---------------------------------------------------------------------------
 vi.mock("next/headers", () => ({

@@ -1,8 +1,8 @@
 "use server";
 
-import { updateTag } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import type { VerificationDecision } from "@/lib/types/database";
+import { invalidateFor } from "@/lib/cache/tags";
 
 export async function reviewOrganizationVerification(params: {
   organizationId: string;
@@ -27,7 +27,7 @@ export async function reviewOrganizationVerification(params: {
   if (error) return { success: false, error: error.message };
 
   // Invalidate the cached org directory / profile pages
-  updateTag("organizations");
+  invalidateFor("organization");
 
   return { success: true };
 }

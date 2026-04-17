@@ -1,7 +1,7 @@
 "use server";
 
-import { updateTag } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { invalidateFor, invalidateForMany } from "@/lib/cache/tags";
 
 import type { EditDiff, EditTargetType } from "@/lib/types/database";
 import { filterEditableDiff } from "@/lib/suggested-edits/fields";
@@ -18,25 +18,6 @@ const targetTypeToTable: Record<EditTargetType, string> = {
   solution_approach: "solution_approaches",
   knowledge_article: "knowledge_articles",
 };
-
-// Map an edit target type to the unstable_cache tags that must be revalidated
-// when that target's rows change. Keep in sync with cache definitions in
-// `src/lib/queries/*.ts` and `src/lib/queries/home.ts`.
-function tagsForEditTarget(target: EditTargetType): string[] {
-  switch (target) {
-    case "problem_template":
-      return ["problem_templates"];
-    case "solution_approach":
-      return ["solution_approaches"];
-    case "knowledge_article":
-      return ["knowledge_articles"];
-    // requirements and pilot_frameworks aren't in any cached list query; they
-    // live on problem detail, which is React.cache per request only.
-    case "requirement":
-    case "pilot_framework":
-      return [];
-  }
-}
 
 // Server actions are not a security boundary on their own — any caller who
 // can hit the action endpoint can invoke them. RLS protects most tables, but
@@ -104,13 +85,22 @@ export async function moderateItem(params: {
 
   // Invalidate any unstable_cache entries affected by this mutation.
   if (params.targetType === "problem_templates") {
-    updateTag("problem_templates");
+    invalidateFor("problem");
   } else if (params.targetType === "solution_approaches") {
-    updateTag("solution_approaches");
+    invalidateFor("solution");
   } else if (params.targetType === "knowledge_articles") {
-    updateTag("knowledge_articles");
+    invalidateFor("knowledge_article");
+  } else if (params.targetType === "success_reports") {
+    invalidateFor("success_report");
+  } else if (params.targetType === "requirements") {
+    invalidateFor("requirement");
+  } else if (params.targetType === "pilot_frameworks") {
+    invalidateFor("pilot_framework");
+  } else {
+    // For suggested_edits — moderation events still need busting even though
+    // the suggested_edit rows themselves have no cached loader in submitted state.
+    invalidateFor("moderation_event");
   }
-  updateTag("moderation_events");
 
   return { success: true };
 }
@@ -136,10 +126,8 @@ export async function createTag(params: {
   });
 
   if (error) return { success: false, error: error.message };
-  updateTag("tags");
-  // Problems list embeds tag metadata via problem_tags join, so the tag tag
-  // alone isn't enough — also bust the problem list cache.
-  updateTag("problem_templates");
+  // Problems list embeds tag metadata via problem_tags join — bust both.
+  invalidateFor("tag");
   return { success: true };
 }
 
@@ -159,8 +147,7 @@ export async function updateTagTranslation(params: {
     .eq("id", params.tagId);
 
   if (error) return { success: false, error: error.message };
-  updateTag("tags");
-  updateTag("problem_templates");
+  invalidateFor("tag");
   return { success: true };
 }
 
@@ -202,10 +189,9 @@ export async function moderateSuccessReport(params: {
 
   if (error) return { success: false, error: error.message };
 
-  updateTag("success_reports");
   // A verified report can flip the parent problem's solution_status to
-  // successful_pilot, so the problems list and home stats must refresh too.
-  updateTag("problem_templates");
+  // successful_pilot, so bust both success_reports and problem_templates.
+  invalidateForMany(["success_report", "problem"]);
   return { success: true };
 }
 
@@ -255,7 +241,7 @@ export async function featureSuccessReport(opts: {
 
   if (error) return { success: false, error: error.message };
 
-  updateTag("featured_success_report");
+  invalidateFor("featured_success_report");
   return { success: true };
 }
 
@@ -286,7 +272,7 @@ export async function unfeatureSuccessReport(opts: {
 
   if (error) return { success: false, error: error.message };
 
-  updateTag("featured_success_report");
+  invalidateFor("featured_success_report");
   return { success: true };
 }
 
@@ -376,7 +362,18 @@ export async function revertRevision(revisionId: string, reviewerNotes?: string)
 
   if (revisionError) return { success: false, error: revisionError.message };
 
-  for (const tag of tagsForEditTarget(targetType)) updateTag(tag);
+  // Bust the caches for the restored content type.
+  if (targetType === "problem_template") {
+    invalidateFor("problem");
+  } else if (targetType === "solution_approach") {
+    invalidateFor("solution");
+  } else if (targetType === "knowledge_article") {
+    invalidateFor("knowledge_article");
+  } else if (targetType === "requirement") {
+    invalidateFor("requirement");
+  } else if (targetType === "pilot_framework") {
+    invalidateFor("pilot_framework");
+  }
   return { success: true };
 }
 
@@ -389,8 +386,7 @@ export async function deleteTag(tagId: string) {
   const { error } = await supabase.from("tags").delete().eq("id", tagId);
 
   if (error) return { success: false, error: error.message };
-  updateTag("tags");
-  updateTag("problem_templates");
+  invalidateFor("tag");
   return { success: true };
 }
 
@@ -471,6 +467,17 @@ export async function applySuggestedEdit(editId: string) {
 
   if (statusError) return { success: false, error: statusError.message };
 
-  for (const tag of tagsForEditTarget(targetType)) updateTag(tag);
+  // Bust the caches for the edited content type.
+  if (targetType === "problem_template") {
+    invalidateFor("problem");
+  } else if (targetType === "solution_approach") {
+    invalidateFor("solution");
+  } else if (targetType === "knowledge_article") {
+    invalidateFor("knowledge_article");
+  } else if (targetType === "requirement") {
+    invalidateFor("requirement");
+  } else if (targetType === "pilot_framework") {
+    invalidateFor("pilot_framework");
+  }
   return { success: true };
 }

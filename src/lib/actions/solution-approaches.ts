@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { detectLanguage } from "@/lib/i18n/detect-language";
 import { resolveVerifiedMembership } from "@/lib/auth/org-membership";
 import type { TechnologyType, Maturity } from "@/lib/types/database";
+import { invalidateForMany } from "@/lib/cache/tags";
 
 export async function submitSolutionApproach(params: {
   problemId: string;
@@ -54,5 +55,11 @@ export async function submitSolutionApproach(params: {
   });
 
   if (error) return { success: false, error: error.message };
+
+  // getPublishedProblemForMarkdown joins solution_approaches without filtering
+  // by child status, so a newly submitted solution appears in the cached
+  // problem detail. Bust problem_templates; also bust solution_approaches so
+  // the home stats loader reflects the new submission count.
+  invalidateForMany(["solution", "problem"]);
   return { success: true };
 }

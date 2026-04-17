@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { LANGUAGE_CODES } from "@/i18n/languages";
 import { validatePassword } from "@/lib/auth/password";
+import { invalidateFor } from "@/lib/cache/tags";
 
 // ----------------------------------------------------------------
 // Profile fields
@@ -73,6 +74,11 @@ export async function updateProfile(params: {
     .eq("id", user.id);
 
   if (error) return { success: false as const, error: error.message };
+
+  // display_name and avatar_url appear in the getPublishedProblemForMarkdown
+  // unstable_cache query (via profiles join). Bust that cache so renamed
+  // authors appear correctly in the Markdown route and sitemap.
+  invalidateFor("problem");
   return { success: true as const };
 }
 
@@ -140,6 +146,8 @@ export async function uploadAvatar(formData: FormData) {
     .eq("id", user.id);
   if (updateError) return { success: false as const, error: updateError.message };
 
+  // avatar_url is embedded in the getPublishedProblemForMarkdown cache.
+  invalidateFor("problem");
   return { success: true as const, avatarUrl };
 }
 
@@ -164,6 +172,9 @@ export async function removeAvatar() {
     .update({ avatar_url: null })
     .eq("id", user.id);
   if (error) return { success: false as const, error: error.message };
+
+  // avatar_url is embedded in the getPublishedProblemForMarkdown cache.
+  invalidateFor("problem");
   return { success: true as const };
 }
 

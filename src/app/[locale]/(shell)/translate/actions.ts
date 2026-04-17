@@ -1,7 +1,7 @@
 "use server";
 
-import { updateTag } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { invalidateFor, invalidateForMany } from "@/lib/cache/tags";
 import type {
   TranslationFields,
   TranslationTargetType,
@@ -176,16 +176,16 @@ export async function approveTranslation(
     .eq("id", translationId);
   if (error) return { success: false, error: error.message };
 
-  // Bust any cached list queries that include the translated target.
-  // Problem detail fetches use React.cache (per-request), so they
-  // don't need busting — only the list pages (home, problems list)
-  // cache across requests.
+  // Bust cached list queries that include the translated target.
+  // Problem detail fetches use React.cache (per-request) so they
+  // don't need busting — only persistent list caches need it.
   if (translation.target_type === "problem_template") {
-    updateTag("problem_templates");
+    invalidateForMany(["translation", "problem"]);
   } else if (translation.target_type === "solution_approach") {
-    updateTag("solution_approaches");
+    invalidateForMany(["translation", "solution"]);
+  } else {
+    invalidateFor("translation");
   }
-  updateTag("content_translations");
   return { success: true };
 }
 
