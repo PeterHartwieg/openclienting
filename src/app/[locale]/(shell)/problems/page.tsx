@@ -200,7 +200,7 @@ export default async function BrowseProblemsPage({
         <h1 className="text-3xl font-bold tracking-tight">{t("title")}</h1>
         <p className="mt-1 text-sm text-muted-foreground">{t("subtitle")}</p>
         <div className="mt-4 flex flex-wrap items-center gap-2">
-          <div className="w-full sm:w-64">
+          <div className="w-48 shrink-0">
             <Suspense fallback={<Skeleton className="h-8 w-full" />}>
               <SearchBar locale={locale} initialQuery={q} />
             </Suspense>
