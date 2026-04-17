@@ -1,5 +1,6 @@
 "use server";
 
+import { updateTag } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import type { VerificationDecision } from "@/lib/types/database";
 
@@ -10,42 +11,23 @@ export async function reviewOrganizationVerification(params: {
 }) {
   const supabase = await createClient();
 
+  // Fast-fail auth guard (better error messages than a bare RLS silence)
   const {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return { success: false, error: "Unauthorized" };
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("role")
-    .eq("id", user.id)
-    .single();
-
-  if (!profile || !["moderator", "admin"].includes(profile.role)) {
-    return { success: false, error: "Forbidden" };
-  }
-
-  const newStatus = params.decision === "approved" ? "verified" : "rejected";
-
-  const { error } = await supabase
-    .from("organizations")
-    .update({ verification_status: newStatus })
-    .eq("id", params.organizationId);
+  // Single atomic RPC: role check + org update + audit insert in one transaction
+  const { error } = await supabase.rpc("review_organization_verification", {
+    p_org: params.organizationId,
+    p_decision: params.decision,
+    p_notes: params.notes ?? null,
+  });
 
   if (error) return { success: false, error: error.message };
 
-  // Log the review
-  const { error: reviewError } = await supabase
-    .from("verification_reviews")
-    .insert({
-      target_type: "organization",
-      target_id: params.organizationId,
-      reviewer_id: user.id,
-      decision: params.decision,
-      notes: params.notes?.trim() || null,
-    });
-
-  if (reviewError) return { success: false, error: reviewError.message };
+  // Invalidate the cached org directory / profile pages
+  updateTag("organizations");
 
   return { success: true };
 }
