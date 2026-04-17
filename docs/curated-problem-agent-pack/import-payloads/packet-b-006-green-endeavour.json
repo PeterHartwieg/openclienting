@@ -1,0 +1,133 @@
+{
+  "packet_id": "curated-sme-b-006-green-endeavour",
+  "problem_owner_org": {
+    "organization_id": null,
+    "name": "Green Endeavour",
+    "website": "https://greenendeavour.com.au/",
+    "description": "Australian fresh produce and gourmet food supply business serving food service and retail customers.",
+    "country": "Australia"
+  },
+  "solution_provider_org": {
+    "organization_id": null,
+    "name": "Zoho CRM",
+    "website": "https://www.zoho.com/crm/",
+    "description": "",
+    "country": ""
+  },
+  "problem": {
+    "title": "Needs faster, lower-error customer onboarding and outlet audit workflows",
+    "description": "Green Endeavour needed to improve customer management across onboarding and retail-outlet auditing processes. The public case study says the business reduced manual data entry and user errors and moved toward a paperless workflow, indicating that customer and compliance-related processes had been too manual and inefficient.",
+    "source_language": "en",
+    "tag_ids": [
+      "7facd157-fd0a-4e75-9fda-53cc3e8c336a",
+      "9e24245f-8c27-43c5-b82c-9bf711f0970d"
+    ]
+  },
+  "requirements": [
+    {
+      "body": "Reduce manual data entry across customer-management workflows.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/crm/customers/green-endeavour.html",
+          "source_title": "Green Endeavour digitalises its business process to achieve efficient and faster customer management using Zoho CRM.",
+          "publisher": "Zoho CRM",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee band, the business context, and the reduction of manual data entry, user errors, and paper-based workflow in onboarding and audit-related processes.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Lower user-error rates in onboarding and related operational processes.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/crm/customers/green-endeavour.html",
+          "source_title": "Green Endeavour digitalises its business process to achieve efficient and faster customer management using Zoho CRM.",
+          "publisher": "Zoho CRM",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee band, the business context, and the reduction of manual data entry, user errors, and paper-based workflow in onboarding and audit-related processes.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Support faster onboarding of customers.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/crm/customers/green-endeavour.html",
+          "source_title": "Green Endeavour digitalises its business process to achieve efficient and faster customer management using Zoho CRM.",
+          "publisher": "Zoho CRM",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee band, the business context, and the reduction of manual data entry, user errors, and paper-based workflow in onboarding and audit-related processes.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Enable paperless workflows for customer and outlet-management processes.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/crm/customers/green-endeavour.html",
+          "source_title": "Green Endeavour digitalises its business process to achieve efficient and faster customer management using Zoho CRM.",
+          "publisher": "Zoho CRM",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee band, the business context, and the reduction of manual data entry, user errors, and paper-based workflow in onboarding and audit-related processes.",
+          "is_sourced_fact": true
+        }
+      ]
+    }
+  ],
+  "pilot_framework": {
+    "scope": "Pilot the workflow on customer onboarding, retail-outlet auditing, and associated digital form and signature steps for one region or customer segment.",
+    "suggested_kpis": "Track onboarding cycle time, manual entry volume, data error rate, percentage of documents completed paperlessly, and audit completion turnaround.",
+    "success_criteria": "The pilot succeeds if onboarding and auditing become faster and more consistent, paper handling declines, and customer records require less rework.",
+    "common_pitfalls": "Common pitfalls include keeping document approvals outside the workflow, duplicating customer data entry, and not standardizing audit requirements across locations.",
+    "duration": "A 4- to 6-week pilot is appropriate for a contained onboarding and audit workflow with a limited user group.",
+    "resource_commitment": "Requires an operations or customer-success owner, one audit or compliance contact, and light admin support for forms, signatures, and process mapping.",
+    "citations": [
+      {
+        "source_url": "https://greenendeavour.com.au/",
+        "source_title": "Home - Green Endeavour",
+        "publisher": "Green Endeavour",
+        "source_type": "primary",
+        "access_date": "2026-04-17",
+        "evidence_note": "Supports organization identity, website, and food-service and retail supply business context.",
+        "is_sourced_fact": false
+      },
+      {
+        "source_url": "https://www.zoho.com/crm/customers/green-endeavour.html",
+        "source_title": "Green Endeavour digitalises its business process to achieve efficient and faster customer management using Zoho CRM.",
+        "publisher": "Zoho CRM",
+        "source_type": "secondary",
+        "access_date": "2026-04-17",
+        "evidence_note": "Supports employee band, the business context, and the reduction of manual data entry, user errors, and paper-based workflow in onboarding and audit-related processes.",
+        "is_sourced_fact": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "source_url": "https://greenendeavour.com.au/",
+      "source_title": "Home - Green Endeavour",
+      "publisher": "Green Endeavour",
+      "source_type": "primary",
+      "access_date": "2026-04-17",
+      "evidence_note": "Supports organization identity, website, and food-service and retail supply business context.",
+      "is_sourced_fact": false
+    },
+    {
+      "source_url": "https://www.zoho.com/crm/customers/green-endeavour.html",
+      "source_title": "Green Endeavour digitalises its business process to achieve efficient and faster customer management using Zoho CRM.",
+      "publisher": "Zoho CRM",
+      "source_type": "secondary",
+      "access_date": "2026-04-17",
+      "evidence_note": "Supports employee band, the business context, and the reduction of manual data entry, user errors, and paper-based workflow in onboarding and audit-related processes.",
+      "is_sourced_fact": true
+    }
+  ],
+  "curator_note": "Phase 2 packet drafted from approved Phase 1 research candidate B-006."
+}

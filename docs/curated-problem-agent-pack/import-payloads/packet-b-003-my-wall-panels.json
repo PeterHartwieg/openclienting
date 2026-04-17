@@ -1,0 +1,126 @@
+{
+  "packet_id": "curated-sme-b-003-my-wall-panels",
+  "problem_owner_org": {
+    "organization_id": null,
+    "name": "My Wall Panels",
+    "website": "https://mywallpanels.co.uk/",
+    "description": "Wall panel retailer serving business customers through online and offline channels.",
+    "country": "United Kingdom"
+  },
+  "solution_provider_org": {
+    "organization_id": null,
+    "name": "Zoho Commerce",
+    "website": "https://www.zoho.com/commerce/",
+    "description": "",
+    "country": ""
+  },
+  "problem": {
+    "title": "Needs ecommerce operations that remove manual accounting and order-tracking workload",
+    "description": "My Wall Panels moved online but still faced manual accounting and customer-service friction. The case study says Magento lacked suitable accounting and product tracking, which left the business handling order-status questions by email and still relying on ledgers for returns and invoices.",
+    "source_language": "en",
+    "tag_ids": [
+      "6ddafadc-942e-4b42-a05b-9b7c3adbdd52",
+      "02bb6ae2-908c-4990-9222-b62b9ea5df5a",
+      "7facd157-fd0a-4e75-9fda-53cc3e8c336a",
+      "101a20de-f7ba-4988-ae4e-88f46ca1c33e"
+    ]
+  },
+  "requirements": [
+    {
+      "body": "Provide built-in order tracking and customer status communication to reduce manual email handling.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/commerce/mywallpanels-casestudy.html",
+          "source_title": "How Zoho Commerce helped Mr Sajjan to migrate his entire business from Magento and why.",
+          "publisher": "Zoho Commerce",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports size band, the Magento limitations, the manual accounting burden, customer tracking emails, and staffing pressure.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Support accounting and invoicing workflows that reduce manual ledger work.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/commerce/mywallpanels-casestudy.html",
+          "source_title": "How Zoho Commerce helped Mr Sajjan to migrate his entire business from Magento and why.",
+          "publisher": "Zoho Commerce",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports size band, the Magento limitations, the manual accounting burden, customer tracking emails, and staffing pressure.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Avoid needing extra staff just to compensate for platform limitations.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/commerce/mywallpanels-casestudy.html",
+          "source_title": "How Zoho Commerce helped Mr Sajjan to migrate his entire business from Magento and why.",
+          "publisher": "Zoho Commerce",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports size band, the Magento limitations, the manual accounting burden, customer tracking emails, and staffing pressure.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Give the business better insight into traffic and digital demand so online growth can be managed more effectively.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/commerce/mywallpanels-casestudy.html",
+          "source_title": "How Zoho Commerce helped Mr Sajjan to migrate his entire business from Magento and why.",
+          "publisher": "Zoho Commerce",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports size band, the Magento limitations, the manual accounting burden, customer tracking emails, and staffing pressure.",
+          "is_sourced_fact": false
+        }
+      ]
+    }
+  ],
+  "pilot_framework": {
+    "scope": "Pilot improved workflows across online order tracking, customer notifications, invoicing, and finance administration for the main ecommerce store.",
+    "suggested_kpis": "Track customer inquiries about order status, time spent on manual invoice handling, percentage of orders with automated tracking updates, and staff time saved in online order administration.",
+    "success_criteria": "The pilot succeeds if order updates are automated, manual finance work is reduced, and online operations can be managed without hiring additional staff to cover basic process gaps.",
+    "common_pitfalls": "Common pitfalls include leaving invoice exceptions outside the workflow, inconsistent product-status updates, and failing to connect customer communications to order records.",
+    "duration": "A 4- to 6-week pilot is appropriate for one ecommerce storefront and its associated finance and order-status workflows.",
+    "resource_commitment": "Requires an ecommerce owner, one finance or operations contact, and limited admin support to configure notifications, invoices, and order-status handling.",
+    "citations": [
+      {
+        "source_url": "https://www.zoho.com/commerce/mywallpanels-casestudy.html",
+        "source_title": "How Zoho Commerce helped Mr Sajjan to migrate his entire business from Magento and why.",
+        "publisher": "Zoho Commerce",
+        "source_type": "secondary",
+        "access_date": "2026-04-17",
+        "evidence_note": "Supports size band, the Magento limitations, the manual accounting burden, customer tracking emails, and staffing pressure.",
+        "is_sourced_fact": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "source_url": "https://mywallpanels.co.uk/contact/",
+      "source_title": "Contact us - My Wall Panels",
+      "publisher": "My Wall Panels",
+      "source_type": "primary",
+      "access_date": "2026-04-17",
+      "evidence_note": "Supports the organization website and company identity.",
+      "is_sourced_fact": true
+    },
+    {
+      "source_url": "https://www.zoho.com/commerce/mywallpanels-casestudy.html",
+      "source_title": "How Zoho Commerce helped Mr Sajjan to migrate his entire business from Magento and why.",
+      "publisher": "Zoho Commerce",
+      "source_type": "secondary",
+      "access_date": "2026-04-17",
+      "evidence_note": "Supports size band, the Magento limitations, the manual accounting burden, customer tracking emails, and staffing pressure.",
+      "is_sourced_fact": true
+    }
+  ],
+  "curator_note": "Phase 2 packet drafted from approved Phase 1 research candidate B-003."
+}

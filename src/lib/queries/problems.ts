@@ -298,6 +298,7 @@ export const getProblemById = cache(async (id: string) => {
       ),
       profiles!problem_templates_author_id_fkey (display_name, avatar_url),
       organizations!problem_templates_author_organization_id_fkey (id, name, slug, verification_status),
+      solution_provider_org:organizations!problem_templates_solution_provider_organization_id_fkey (id, name, slug, verification_status),
       requirements (
         id, body, is_publicly_anonymous, is_org_anonymous, status, source_language, upvote_count, created_at, author_id,
         profiles!requirements_author_id_fkey (display_name, avatar_url),

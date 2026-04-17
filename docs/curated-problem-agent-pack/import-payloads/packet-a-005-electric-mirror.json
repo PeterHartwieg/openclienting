@@ -1,0 +1,126 @@
+{
+  "packet_id": "curated-sme-a-005-electric-mirror",
+  "problem_owner_org": {
+    "organization_id": null,
+    "name": "Electric Mirror",
+    "website": "https://www.electricmirror.com/",
+    "description": "US manufacturer of lighted mirrors and related hospitality-focused mirror products.",
+    "country": "United States"
+  },
+  "solution_provider_org": {
+    "organization_id": null,
+    "name": "Zoho CRM Plus",
+    "website": "https://www.zoho.com/crm/crmplus/",
+    "description": "",
+    "country": ""
+  },
+  "problem": {
+    "title": "Needs a lower-friction CRM and operations stack than its legacy Salesforce setup",
+    "description": "Electric Mirror was using Salesforce but needed a system that was easier to implement, easier for staff to learn, and better aligned to day-to-day operational efficiency. The case study says the manufacturer wanted a quick implementation with minimal training and viewed its previous setup as a poor fit for how the business needed to run.",
+    "source_language": "en",
+    "tag_ids": [
+      "b62612f5-4cb2-4a26-aa5c-a10edd416374",
+      "c0ac22e3-d753-4c96-807d-e646c3a4672c",
+      "7facd157-fd0a-4e75-9fda-53cc3e8c336a",
+      "97a2cec3-d2d0-499b-9348-7a761f95670c"
+    ]
+  },
+  "requirements": [
+    {
+      "body": "Reduce the training burden for staff using customer and sales workflow tools.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/crm/crmplus/customers/electric-mirror.html",
+          "source_title": "US-based manufacturer replaces Salesforce with Zoho CRM Plus and says they will never go back",
+          "publisher": "Zoho CRM Plus",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee count, company background, the previous Salesforce setup, and the need for easier implementation and operational efficiency.",
+          "is_sourced_fact": false
+        }
+      ]
+    },
+    {
+      "body": "Support lead-to-deal tracking, customer information management, and quote documentation in one workflow.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/crm/crmplus/customers/electric-mirror.html",
+          "source_title": "US-based manufacturer replaces Salesforce with Zoho CRM Plus and says they will never go back",
+          "publisher": "Zoho CRM Plus",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee count, company background, the previous Salesforce setup, and the need for easier implementation and operational efficiency.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Improve operational efficiency without extending implementation timelines or adding unnecessary system complexity.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/crm/crmplus/customers/electric-mirror.html",
+          "source_title": "US-based manufacturer replaces Salesforce with Zoho CRM Plus and says they will never go back",
+          "publisher": "Zoho CRM Plus",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee count, company background, the previous Salesforce setup, and the need for easier implementation and operational efficiency.",
+          "is_sourced_fact": false
+        }
+      ]
+    },
+    {
+      "body": "Give the business an extensible foundation for broader process integration over time.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/crm/crmplus/customers/electric-mirror.html",
+          "source_title": "US-based manufacturer replaces Salesforce with Zoho CRM Plus and says they will never go back",
+          "publisher": "Zoho CRM Plus",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee count, company background, the previous Salesforce setup, and the need for easier implementation and operational efficiency.",
+          "is_sourced_fact": false
+        }
+      ]
+    }
+  ],
+  "pilot_framework": {
+    "scope": "Pilot the replacement workflow across customer record management, lead-to-deal tracking, marketing campaigns, and quote documentation for a defined sales segment.",
+    "suggested_kpis": "Track user onboarding time, quote turnaround time, percentage of active opportunities updated in the system, and time spent on manual customer record administration.",
+    "success_criteria": "The pilot succeeds if teams can manage core customer and sales workflows with less training friction, faster routine execution, and stronger use of shared records and quotes.",
+    "common_pitfalls": "Common pitfalls include incomplete migration of customer data, leaving quoting outside the system, and undertraining teams on the new workflow.",
+    "duration": "A 6-week pilot is appropriate for one sales and customer-management team using a narrower production workflow before wider rollout.",
+    "resource_commitment": "Requires a sales operations lead, a small group of end users, and admin support for migration, workflow setup, and adoption review.",
+    "citations": [
+      {
+        "source_url": "https://www.zoho.com/crm/crmplus/customers/electric-mirror.html",
+        "source_title": "US-based manufacturer replaces Salesforce with Zoho CRM Plus and says they will never go back",
+        "publisher": "Zoho CRM Plus",
+        "source_type": "secondary",
+        "access_date": "2026-04-17",
+        "evidence_note": "Supports employee count, company background, the previous Salesforce setup, and the need for easier implementation and operational efficiency.",
+        "is_sourced_fact": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "source_url": "https://www.electricmirror.com/",
+      "source_title": "Electric Mirror | Luxury Lighted Mirrors & Vanities",
+      "publisher": "Electric Mirror",
+      "source_type": "primary",
+      "access_date": "2026-04-17",
+      "evidence_note": "Supports the organization identity, website, and product focus.",
+      "is_sourced_fact": true
+    },
+    {
+      "source_url": "https://www.zoho.com/crm/crmplus/customers/electric-mirror.html",
+      "source_title": "US-based manufacturer replaces Salesforce with Zoho CRM Plus and says they will never go back",
+      "publisher": "Zoho CRM Plus",
+      "source_type": "secondary",
+      "access_date": "2026-04-17",
+      "evidence_note": "Supports employee count, company background, the previous Salesforce setup, and the need for easier implementation and operational efficiency.",
+      "is_sourced_fact": true
+    }
+  ],
+  "curator_note": "Phase 2 packet drafted from approved Phase 1 research candidate A-005."
+}

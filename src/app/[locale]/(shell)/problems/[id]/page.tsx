@@ -310,6 +310,18 @@ export default async function ProblemDetailPage({
   const heroOrgSlug = heroOrgRow?.slug ?? null;
   const heroOrgVerification = heroOrgRow?.verification_status ?? null;
 
+  const heroProviderOrgRow = problem.is_org_anonymous
+    ? null
+    : (problem.solution_provider_org as {
+        id: string;
+        name: string;
+        slug?: string | null;
+        verification_status?: string | null;
+      } | null);
+  const heroProviderOrgName = heroProviderOrgRow?.name ?? null;
+  const heroProviderOrgSlug = heroProviderOrgRow?.slug ?? null;
+  const heroProviderOrgVerification = heroProviderOrgRow?.verification_status ?? null;
+
   // Breadcrumbs + Article JSON-LD.
   const bt = await getTranslations({ locale, namespace: "breadcrumbs" });
   const siteCtx = getSchemaSiteContext();
@@ -364,6 +376,10 @@ export default async function ProblemDetailPage({
         orgName={heroOrgName}
         orgSlug={heroOrgSlug}
         orgVerificationStatus={heroOrgVerification}
+        providerOrgName={heroProviderOrgName}
+        providerOrgSlug={heroProviderOrgSlug}
+        providerOrgVerificationStatus={heroProviderOrgVerification}
+        contentOrigin={problem.content_origin ?? null}
         createdAt={problem.created_at}
         updatedAt={problem.updated_at ?? null}
         tags={tags}

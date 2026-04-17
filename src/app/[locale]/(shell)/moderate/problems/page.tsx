@@ -57,11 +57,13 @@ export default async function ModerateProblemsQueuePage({
                   <StatusBadge status={p.status} />
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  {t("byUser", {
-                    name:
-                      (p.profiles as unknown as { display_name: string } | null)
-                        ?.display_name ?? t("unknown"),
-                  })}{" "}
+                  {(p as unknown as { content_origin?: string }).content_origin === "editorial_curated"
+                    ? `Editorial import · ${(p as unknown as { packet_id?: string }).packet_id ?? ""}`
+                    : t("byUser", {
+                        name:
+                          (p.profiles as unknown as { display_name: string } | null)
+                            ?.display_name ?? t("unknown"),
+                      })}{" "}
                   · {formatDate(p.created_at, locale, "medium")}
                 </p>
               </CardHeader>

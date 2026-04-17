@@ -15,7 +15,7 @@
 
 begin;
 
-select plan(15);
+select plan(21);
 
 -- ----------------------------------------------------------------
 -- Setup: insert a real auth user + profile so FK constraints pass
@@ -184,6 +184,7 @@ select throws_ok(
       'INVALID_DECISION'
     )
   $$,
+  'invalid decision: INVALID_DECISION. Must be ''approved'' or ''rejected''.',
   'moderate_item_v1: invalid decision raises'
 );
 
@@ -229,6 +230,7 @@ select throws_ok(
       'approved'
     )
   $$,
+  'invalid target_type: nonexistent_type',
   'moderate_item_v1: invalid target_type raises'
 );
 
@@ -241,6 +243,47 @@ select is(
    where target_id = 'eeeeeeee-0000-0000-0000-000000000001'),
   2::bigint,
   'moderate_item_v1: exactly two moderation_event rows for the first problem'
+);
+
+-- ----------------------------------------------------------------
+-- TEST 8b: moderation_event allows NULL decision for submitted actions
+-- ----------------------------------------------------------------
+select lives_ok(
+  $$
+    insert into public.moderation_event (
+      target_type,
+      target_id,
+      reviewer_id,
+      action,
+      decision,
+      notes,
+      before_status,
+      after_status,
+      metadata
+    ) values (
+      'problem_template',
+      'eeeeeeee-0000-0000-0000-000000000001',
+      'dddddddd-0000-0000-0000-000000000001',
+      'submitted',
+      null,
+      null,
+      null,
+      'submitted',
+      '{}'::jsonb
+    )
+  $$,
+  'moderation_event permits NULL decision for submitted actions'
+);
+
+select ok(
+  exists(
+    select 1 from public.moderation_event
+    where target_type = 'problem_template'
+      and target_id = 'eeeeeeee-0000-0000-0000-000000000001'
+      and action = 'submitted'
+      and decision is null
+  ),
+  'moderation_event stored a submitted row with NULL decision'
 );
 
 -- ================================================================
@@ -307,6 +350,8 @@ begin
 end $$;
 
 -- TEST 10: one moderation_event with action='submitted'
+set local "request.jwt.claim.sub" to 'dddddddd-0000-0000-0000-000000000001';
+
 select is(
   (select count(*) from public.moderation_event me
    join _pgtap_submit_ids s on s.problem_id = me.target_id
@@ -343,6 +388,8 @@ select is(
 -- ----------------------------------------------------------------
 -- TEST 14: submit_problem_v1 raises when unauthenticated
 -- ----------------------------------------------------------------
+reset role;
+set local "request.jwt.claims" to '{}';
 set local "request.jwt.claim.sub" to '';
 
 select throws_ok(
@@ -360,6 +407,9 @@ select throws_ok(
 );
 
 -- Restore author context for org test
+set local role authenticated;
+set local "request.jwt.claims" to
+  '{"sub":"dddddddd-0000-0000-0000-000000000002","role":"authenticated","aud":"authenticated"}';
 set local "request.jwt.claim.sub" to 'dddddddd-0000-0000-0000-000000000002';
 
 -- ----------------------------------------------------------------
@@ -390,6 +440,8 @@ select is(
 );
 
 -- Verify the moderation_event was written
+set local "request.jwt.claim.sub" to 'dddddddd-0000-0000-0000-000000000001';
+
 select is(
   (select count(*) from public.moderation_event me
    join public.organizations o on o.id = me.target_id

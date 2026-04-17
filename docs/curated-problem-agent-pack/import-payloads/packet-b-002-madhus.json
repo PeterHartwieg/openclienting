@@ -1,0 +1,124 @@
+{
+  "packet_id": "curated-sme-b-002-madhus",
+  "problem_owner_org": {
+    "organization_id": null,
+    "name": "Madhu's",
+    "website": "https://www.madhus.co.uk/",
+    "description": "UK hospitality, catering, and events business with restaurant and venue operations.",
+    "country": "United Kingdom"
+  },
+  "solution_provider_org": {
+    "organization_id": null,
+    "name": "Zoho One",
+    "website": "https://www.zoho.com/one/",
+    "description": "",
+    "country": ""
+  },
+  "problem": {
+    "title": "Needs to replace spreadsheet-led event and workforce administration with integrated operations workflows",
+    "description": "Madhu's runs a complex hospitality and events operation that includes venue coordination, quotes, contracts, payment schedules, and workforce administration. The case study says employee data was still managed on spreadsheets and that the business needed software capable of taking the company to the next level across events and staff operations.",
+    "source_language": "en",
+    "tag_ids": [
+      "7facd157-fd0a-4e75-9fda-53cc3e8c336a",
+      "97a2cec3-d2d0-499b-9348-7a761f95670c"
+    ]
+  },
+  "requirements": [
+    {
+      "body": "Replace spreadsheet-based employee administration for shifts, leave, and onboarding.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/one/customers/madhu.html",
+          "source_title": "From Buckingham Palace to 10 Downing Street; Madhu's prestigious events are powered by Zoho One",
+          "publisher": "Zoho One",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee count, spreadsheet-based employee administration, event workflow complexity, and the documented need for integrated operational software.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Support event quoting, contract generation, and payment schedule communication in a structured workflow.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/one/customers/madhu.html",
+          "source_title": "From Buckingham Palace to 10 Downing Street; Madhu's prestigious events are powered by Zoho One",
+          "publisher": "Zoho One",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee count, spreadsheet-based employee administration, event workflow complexity, and the documented need for integrated operational software.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Give sales and operations teams a single place to work with venue, event, and contact information.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/one/customers/madhu.html",
+          "source_title": "From Buckingham Palace to 10 Downing Street; Madhu's prestigious events are powered by Zoho One",
+          "publisher": "Zoho One",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee count, spreadsheet-based employee administration, event workflow complexity, and the documented need for integrated operational software.",
+          "is_sourced_fact": false
+        }
+      ]
+    },
+    {
+      "body": "Create a more scalable operational backbone for a business that combines hospitality, catering, and event-planning complexity.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/one/customers/madhu.html",
+          "source_title": "From Buckingham Palace to 10 Downing Street; Madhu's prestigious events are powered by Zoho One",
+          "publisher": "Zoho One",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee count, spreadsheet-based employee administration, event workflow complexity, and the documented need for integrated operational software.",
+          "is_sourced_fact": false
+        }
+      ]
+    }
+  ],
+  "pilot_framework": {
+    "scope": "Pilot the integrated workflow on event quoting, contracts, payment schedules, venue coordination, and employee record administration for one operating unit.",
+    "suggested_kpis": "Track quote turnaround time, contract completion time, percentage of event workflows handled without spreadsheets, employee administration time saved, and payment reminder completion rates.",
+    "success_criteria": "The pilot succeeds if events can be quoted and documented more consistently, employee administration moves out of spreadsheets, and teams can manage venue and payment workflows from a shared system.",
+    "common_pitfalls": "Common pitfalls include leaving exceptions outside the workflow, failing to model venue-specific pricing rules, and retaining spreadsheet-based HR side processes.",
+    "duration": "A 6- to 10-week pilot is appropriate for one end-to-end event workflow plus employee administration setup.",
+    "resource_commitment": "Requires an operations owner, event-sales staff, HR or people admin support, and light implementation help to map pricing logic, documents, and employee records.",
+    "citations": [
+      {
+        "source_url": "https://www.zoho.com/one/customers/madhu.html",
+        "source_title": "From Buckingham Palace to 10 Downing Street; Madhu's prestigious events are powered by Zoho One",
+        "publisher": "Zoho One",
+        "source_type": "secondary",
+        "access_date": "2026-04-17",
+        "evidence_note": "Supports employee count, spreadsheet-based employee administration, event workflow complexity, and the documented need for integrated operational software.",
+        "is_sourced_fact": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "source_url": "https://www.madhus.co.uk/",
+      "source_title": "Madhu's",
+      "publisher": "Madhu's",
+      "source_type": "primary",
+      "access_date": "2026-04-17",
+      "evidence_note": "Supports organization identity, website, and hospitality business context.",
+      "is_sourced_fact": true
+    },
+    {
+      "source_url": "https://www.zoho.com/one/customers/madhu.html",
+      "source_title": "From Buckingham Palace to 10 Downing Street; Madhu's prestigious events are powered by Zoho One",
+      "publisher": "Zoho One",
+      "source_type": "secondary",
+      "access_date": "2026-04-17",
+      "evidence_note": "Supports employee count, spreadsheet-based employee administration, event workflow complexity, and the documented need for integrated operational software.",
+      "is_sourced_fact": true
+    }
+  ],
+  "curator_note": "Phase 2 packet drafted from approved Phase 1 research candidate B-002."
+}

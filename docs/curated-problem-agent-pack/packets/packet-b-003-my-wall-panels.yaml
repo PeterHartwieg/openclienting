@@ -1,0 +1,125 @@
+packet_version: 3
+packet_id: "curated-sme-b-003-my-wall-panels"
+
+problem_owner_organization:
+  name: "My Wall Panels"
+  website: "https://mywallpanels.co.uk/"
+  short_description: "Wall panel retailer serving business customers through online and offline channels."
+  country: "United Kingdom"
+  sme_evidence:
+    text: "The public Zoho Commerce case study lists My Wall Panels at a size band of 50-60 and describes the business as a B2B retail operation."
+    citation_refs: ["cite_mwp_zoho"]
+  existing_org_match:
+    matched: false
+    organization_id: null
+    match_note: ""
+
+problem_statement:
+  title: "Needs ecommerce operations that remove manual accounting and order-tracking workload"
+  title_citation_refs: ["cite_mwp_zoho"]
+  description: "My Wall Panels moved online but still faced manual accounting and customer-service friction. The case study says Magento lacked suitable accounting and product tracking, which left the business handling order-status questions by email and still relying on ledgers for returns and invoices."
+  description_citation_refs: ["cite_mwp_zoho"]
+  proposed_tags:
+    - "ecommerce operations"
+    - "order tracking"
+    - "retail workflow"
+    - "finance process"
+  requirements:
+    - text: "Provide built-in order tracking and customer status communication to reduce manual email handling."
+      source_basis: "direct"
+      citation_refs: ["cite_mwp_zoho"]
+      note: "The source directly says the owner was flooded with order-status and tracking emails."
+    - text: "Support accounting and invoicing workflows that reduce manual ledger work."
+      source_basis: "direct"
+      citation_refs: ["cite_mwp_zoho"]
+      note: "The source directly says the prior setup still required ledgers for returns and invoices."
+    - text: "Avoid needing extra staff just to compensate for platform limitations."
+      source_basis: "direct"
+      citation_refs: ["cite_mwp_zoho"]
+      note: "The source directly says the owner realized he still needed more employees because of the prior platform's limitations."
+    - text: "Give the business better insight into traffic and digital demand so online growth can be managed more effectively."
+      source_basis: "inference"
+      citation_refs: ["cite_mwp_zoho"]
+      note: "Inferred from the source's discussion of website analytics and growth after migration."
+  pilot_framework:
+    scope:
+      text: "Pilot improved workflows across online order tracking, customer notifications, invoicing, and finance administration for the main ecommerce store."
+      source_basis: "inference"
+      citation_refs: ["cite_mwp_zoho"]
+      note: "Scoped directly from the operational pain points described in the case study."
+    suggested_kpis:
+      text: "Track customer inquiries about order status, time spent on manual invoice handling, percentage of orders with automated tracking updates, and staff time saved in online order administration."
+      source_basis: "inference"
+      citation_refs: ["cite_mwp_zoho"]
+      note: "KPIs are inferred from the stated issues of tracking emails, manual ledgers, and staffing pressure."
+    success_criteria:
+      text: "The pilot succeeds if order updates are automated, manual finance work is reduced, and online operations can be managed without hiring additional staff to cover basic process gaps."
+      source_basis: "inference"
+      citation_refs: ["cite_mwp_zoho"]
+      note: "Success criteria are conservative inferences from the documented problem."
+    common_pitfalls:
+      text: "Common pitfalls include leaving invoice exceptions outside the workflow, inconsistent product-status updates, and failing to connect customer communications to order records."
+      source_basis: "inference"
+      citation_refs: ["cite_mwp_zoho"]
+      note: "Operational risks are inferred from the case-study pain points."
+    duration:
+      text: "A 4- to 6-week pilot is appropriate for one ecommerce storefront and its associated finance and order-status workflows."
+      source_basis: "inference"
+      citation_refs: ["cite_mwp_zoho"]
+      note: "The source describes the operational need but not a formal pilot timeline."
+    resource_commitment:
+      text: "Requires an ecommerce owner, one finance or operations contact, and limited admin support to configure notifications, invoices, and order-status handling."
+      source_basis: "inference"
+      citation_refs: ["cite_mwp_zoho"]
+      note: "Resource estimate is inferred from the business context described."
+
+tag_resolution:
+  status: "pending"
+  resolved_tags: []
+  unresolved_proposed_tags: []
+  note: ""
+
+citations:
+  - citation_key: "cite_mwp_site"
+    source_url: "https://mywallpanels.co.uk/contact/"
+    source_title: "Contact us - My Wall Panels"
+    publisher: "My Wall Panels"
+    source_type: "primary"
+    source_language: "en"
+    access_date: "2026-04-17"
+    evidence_note: "Supports the organization website and company identity."
+  - citation_key: "cite_mwp_zoho"
+    source_url: "https://www.zoho.com/commerce/mywallpanels-casestudy.html"
+    source_title: "How Zoho Commerce helped Mr Sajjan to migrate his entire business from Magento and why."
+    publisher: "Zoho Commerce"
+    source_type: "secondary"
+    source_language: "en"
+    access_date: "2026-04-17"
+    evidence_note: "Supports size band, the Magento limitations, the manual accounting burden, customer tracking emails, and staffing pressure."
+
+solution_provider_organization:
+  present: true
+  name: "Zoho Commerce"
+  website: "https://www.zoho.com/commerce/"
+  short_description: ""
+  country: ""
+  provider_evidence:
+    text: "The customer case study publicly identifies Zoho Commerce as the platform My Wall Panels used after moving away from Magento."
+    citation_refs: ["cite_mwp_zoho"]
+  existing_org_match:
+    matched: false
+    organization_id: null
+    match_note: ""
+
+provenance:
+  authored_by_profile: "system"
+  content_origin: "curated"
+  curator_note: "Phase 2 packet drafted from approved Phase 1 research candidate B-003."
+
+inference_notes:
+  - "Pilot framework and part of the requirements are inferred from the documented manual order-tracking, finance, and staffing pain points rather than presented as a formal company specification."
+
+validation:
+  status: "approved"
+  notes:
+    - "Validated for SME evidence, provider attribution, English-language sources, and claim-to-source alignment."

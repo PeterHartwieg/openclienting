@@ -1,0 +1,125 @@
+packet_version: 3
+packet_id: "curated-sme-b-002-madhus"
+
+problem_owner_organization:
+  name: "Madhu's"
+  website: "https://www.madhus.co.uk/"
+  short_description: "UK hospitality, catering, and events business with restaurant and venue operations."
+  country: "United Kingdom"
+  sme_evidence:
+    text: "The public Zoho customer story says Madhu's employs 180 full-time colleagues and relies on a wider pool of agency workers to run its events operation."
+    citation_refs: ["cite_madhus_zoho"]
+  existing_org_match:
+    matched: false
+    organization_id: null
+    match_note: ""
+
+problem_statement:
+  title: "Needs to replace spreadsheet-led event and workforce administration with integrated operations workflows"
+  title_citation_refs: ["cite_madhus_zoho"]
+  description: "Madhu's runs a complex hospitality and events operation that includes venue coordination, quotes, contracts, payment schedules, and workforce administration. The case study says employee data was still managed on spreadsheets and that the business needed software capable of taking the company to the next level across events and staff operations."
+  description_citation_refs: ["cite_madhus_zoho"]
+  proposed_tags:
+    - "hospitality operations"
+    - "event management"
+    - "workforce administration"
+    - "workflow automation"
+  requirements:
+    - text: "Replace spreadsheet-based employee administration for shifts, leave, and onboarding."
+      source_basis: "direct"
+      citation_refs: ["cite_madhus_zoho"]
+      note: "The source directly says employee data had been tracked on spreadsheets."
+    - text: "Support event quoting, contract generation, and payment schedule communication in a structured workflow."
+      source_basis: "direct"
+      citation_refs: ["cite_madhus_zoho"]
+      note: "The source directly describes quote building, contract handling, and automated payment reminders."
+    - text: "Give sales and operations teams a single place to work with venue, event, and contact information."
+      source_basis: "inference"
+      citation_refs: ["cite_madhus_zoho"]
+      note: "Inferred from the venue directory and contact-management workflow described."
+    - text: "Create a more scalable operational backbone for a business that combines hospitality, catering, and event-planning complexity."
+      source_basis: "inference"
+      citation_refs: ["cite_madhus_zoho"]
+      note: "Inferred from the source's emphasis on unusual event complexity and the need for next-level software."
+  pilot_framework:
+    scope:
+      text: "Pilot the integrated workflow on event quoting, contracts, payment schedules, venue coordination, and employee record administration for one operating unit."
+      source_basis: "inference"
+      citation_refs: ["cite_madhus_zoho"]
+      note: "Scoped directly from the main operational areas described in the case study."
+    suggested_kpis:
+      text: "Track quote turnaround time, contract completion time, percentage of event workflows handled without spreadsheets, employee administration time saved, and payment reminder completion rates."
+      source_basis: "inference"
+      citation_refs: ["cite_madhus_zoho"]
+      note: "KPIs are inferred from the documented workflow bottlenecks and automations."
+    success_criteria:
+      text: "The pilot succeeds if events can be quoted and documented more consistently, employee administration moves out of spreadsheets, and teams can manage venue and payment workflows from a shared system."
+      source_basis: "inference"
+      citation_refs: ["cite_madhus_zoho"]
+      note: "Success criteria reflect the operational pain points and use cases directly described in the source."
+    common_pitfalls:
+      text: "Common pitfalls include leaving exceptions outside the workflow, failing to model venue-specific pricing rules, and retaining spreadsheet-based HR side processes."
+      source_basis: "inference"
+      citation_refs: ["cite_madhus_zoho"]
+      note: "These are implementation risks inferred from the complexity described in the source."
+    duration:
+      text: "A 6- to 10-week pilot is appropriate for one end-to-end event workflow plus employee administration setup."
+      source_basis: "inference"
+      citation_refs: ["cite_madhus_zoho"]
+      note: "The source supports the workflow need but not a formal pilot timeline."
+    resource_commitment:
+      text: "Requires an operations owner, event-sales staff, HR or people admin support, and light implementation help to map pricing logic, documents, and employee records."
+      source_basis: "inference"
+      citation_refs: ["cite_madhus_zoho"]
+      note: "Resource commitment is inferred from the cross-functional nature of the documented workflow."
+
+tag_resolution:
+  status: "pending"
+  resolved_tags: []
+  unresolved_proposed_tags: []
+  note: ""
+
+citations:
+  - citation_key: "cite_madhus_site"
+    source_url: "https://www.madhus.co.uk/"
+    source_title: "Madhu's"
+    publisher: "Madhu's"
+    source_type: "primary"
+    source_language: "en"
+    access_date: "2026-04-17"
+    evidence_note: "Supports organization identity, website, and hospitality business context."
+  - citation_key: "cite_madhus_zoho"
+    source_url: "https://www.zoho.com/one/customers/madhu.html"
+    source_title: "From Buckingham Palace to 10 Downing Street; Madhu's prestigious events are powered by Zoho One"
+    publisher: "Zoho One"
+    source_type: "secondary"
+    source_language: "en"
+    access_date: "2026-04-17"
+    evidence_note: "Supports employee count, spreadsheet-based employee administration, event workflow complexity, and the documented need for integrated operational software."
+
+solution_provider_organization:
+  present: true
+  name: "Zoho One"
+  website: "https://www.zoho.com/one/"
+  short_description: ""
+  country: ""
+  provider_evidence:
+    text: "The customer story publicly identifies Zoho One as the application bundle Madhu's adopted to support event and employee-management workflows."
+    citation_refs: ["cite_madhus_zoho"]
+  existing_org_match:
+    matched: false
+    organization_id: null
+    match_note: ""
+
+provenance:
+  authored_by_profile: "system"
+  content_origin: "curated"
+  curator_note: "Phase 2 packet drafted from approved Phase 1 research candidate B-002."
+
+inference_notes:
+  - "Requirements and pilot framework are conservatively inferred from the documented spreadsheet use, event-complexity issues, and integrated workflow needs."
+
+validation:
+  status: "approved"
+  notes:
+    - "Validated for SME evidence, provider attribution, English-language sources, and claim-to-source alignment."

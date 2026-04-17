@@ -1,0 +1,124 @@
+{
+  "packet_id": "curated-sme-b-001-budgy-smuggler",
+  "problem_owner_org": {
+    "organization_id": null,
+    "name": "Budgy Smuggler",
+    "website": "https://budgysmuggler.com/",
+    "description": "Australian swimwear brand operating retail stores, ecommerce, and custom design workflows.",
+    "country": "Australia"
+  },
+  "solution_provider_org": {
+    "organization_id": null,
+    "name": "monday.com",
+    "website": "https://monday.com/",
+    "description": "",
+    "country": ""
+  },
+  "problem": {
+    "title": "Needs a scalable workflow for custom retail orders, leads, and customer updates",
+    "description": "Budgy Smuggler outgrew spreadsheets as its order volume grew from tens of orders a week to hundreds and then thousands. The case study says expansion added staff, manufacturers, and locations, making it harder to manage the growing custom-design division, keep customers updated, and streamline incoming leads and website orders.",
+    "source_language": "en",
+    "tag_ids": [
+      "6ddafadc-942e-4b42-a05b-9b7c3adbdd52",
+      "7facd157-fd0a-4e75-9fda-53cc3e8c336a"
+    ]
+  },
+  "requirements": [
+    {
+      "body": "Replace spreadsheet-based order and workflow tracking with a system that scales as order volume increases.",
+      "citations": [
+        {
+          "source_url": "https://monday.com/customers/budgy-smuggler",
+          "source_title": "How Budgy Smuggler streamlines its custom retail processes on monday.com",
+          "publisher": "monday.com",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee count, multi-office operations, growth from spreadsheet use, and the need to manage custom design, customer updates, leads, and orders.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Reduce manual work involved in keeping customers updated on order progress.",
+      "citations": [
+        {
+          "source_url": "https://monday.com/customers/budgy-smuggler",
+          "source_title": "How Budgy Smuggler streamlines its custom retail processes on monday.com",
+          "publisher": "monday.com",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee count, multi-office operations, growth from spreadsheet use, and the need to manage custom design, customer updates, leads, and orders.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Improve management of the growing custom-design division.",
+      "citations": [
+        {
+          "source_url": "https://monday.com/customers/budgy-smuggler",
+          "source_title": "How Budgy Smuggler streamlines its custom retail processes on monday.com",
+          "publisher": "monday.com",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee count, multi-office operations, growth from spreadsheet use, and the need to manage custom design, customer updates, leads, and orders.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Streamline management of leads and website orders across locations.",
+      "citations": [
+        {
+          "source_url": "https://monday.com/customers/budgy-smuggler",
+          "source_title": "How Budgy Smuggler streamlines its custom retail processes on monday.com",
+          "publisher": "monday.com",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee count, multi-office operations, growth from spreadsheet use, and the need to manage custom design, customer updates, leads, and orders.",
+          "is_sourced_fact": true
+        }
+      ]
+    }
+  ],
+  "pilot_framework": {
+    "scope": "Pilot the workflow on custom-order intake, lead handling, website-order routing, and customer update processes for one region or business line.",
+    "suggested_kpis": "Track time to process custom orders, percentage of customer updates sent automatically, lead-to-order response time, and order-routing accuracy by region.",
+    "success_criteria": "The pilot succeeds if the team can manage high-volume orders without spreadsheets, reduce manual customer-update work, and give staff clearer visibility into leads and orders.",
+    "common_pitfalls": "Common pitfalls include keeping separate local processes by office, incomplete routing rules for orders, and failing to standardize updates for custom-design customers.",
+    "duration": "A 6- to 8-week pilot is appropriate for one high-volume order workflow with cross-functional staff involvement.",
+    "resource_commitment": "Requires an operations lead, sales or ecommerce staff, and light configuration support to map workflows, routing rules, and customer communications.",
+    "citations": [
+      {
+        "source_url": "https://monday.com/customers/budgy-smuggler",
+        "source_title": "How Budgy Smuggler streamlines its custom retail processes on monday.com",
+        "publisher": "monday.com",
+        "source_type": "secondary",
+        "access_date": "2026-04-17",
+        "evidence_note": "Supports employee count, multi-office operations, growth from spreadsheet use, and the need to manage custom design, customer updates, leads, and orders.",
+        "is_sourced_fact": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "source_url": "https://budgysmuggler.com/pages/about-us",
+      "source_title": "About Us",
+      "publisher": "Budgy Smuggler",
+      "source_type": "primary",
+      "access_date": "2026-04-17",
+      "evidence_note": "Supports the organization identity, website, and Australian swimwear brand background.",
+      "is_sourced_fact": true
+    },
+    {
+      "source_url": "https://monday.com/customers/budgy-smuggler",
+      "source_title": "How Budgy Smuggler streamlines its custom retail processes on monday.com",
+      "publisher": "monday.com",
+      "source_type": "secondary",
+      "access_date": "2026-04-17",
+      "evidence_note": "Supports employee count, multi-office operations, growth from spreadsheet use, and the need to manage custom design, customer updates, leads, and orders.",
+      "is_sourced_fact": true
+    }
+  ],
+  "curator_note": "Phase 2 packet drafted from approved Phase 1 research candidate B-001."
+}

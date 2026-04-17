@@ -1,0 +1,125 @@
+packet_version: 3
+packet_id: "curated-sme-b-004-counter-culture"
+
+problem_owner_organization:
+  name: "Counter Culture Coffee"
+  website: "https://counterculturecoffee.com/"
+  short_description: "US specialty coffee roaster with retail, ecommerce, and education operations."
+  country: "United States"
+  sme_evidence:
+    text: "The public Zoho customer story says Counter Culture had 120 employees and was operating across thirteen cities while remaining a specialty coffee business built around quality, sustainability, and education."
+    citation_refs: ["cite_counter_zoho"]
+  existing_org_match:
+    matched: false
+    organization_id: null
+    match_note: ""
+
+problem_statement:
+  title: "Needs a unified, data-driven operating system instead of fragmented business tools"
+  title_citation_refs: ["cite_counter_zoho"]
+  description: "Counter Culture needed better visibility across customers, distributors, suppliers, and internal processes. The public Zoho case study says the company had been relying on Salesforce plus a patchwork of software, email, and spreadsheets, and wanted a unified and data-driven system that would support more proactive operations."
+  description_citation_refs: ["cite_counter_zoho"]
+  proposed_tags:
+    - "retail operations"
+    - "data visibility"
+    - "business systems"
+    - "process centralization"
+  requirements:
+    - text: "Centralize customer, distributor, and supplier information in one system with real-time visibility."
+      source_basis: "direct"
+      citation_refs: ["cite_counter_zoho"]
+      note: "The source directly cites the need for a unified, data-driven solution with real-time visibility."
+    - text: "Reduce dependence on fragmented tools, email, and spreadsheets."
+      source_basis: "direct"
+      citation_refs: ["cite_counter_zoho"]
+      note: "The source directly describes the prior process as a patchwork of software, email, and spreadsheets."
+    - text: "Enable employees to spend more time on higher-value work instead of low-value manual coordination."
+      source_basis: "direct"
+      citation_refs: ["cite_counter_zoho"]
+      note: "The source explicitly says centralized processes let employees devote time to higher-value work."
+    - text: "Support a more proactive operating model as the company grows across locations."
+      source_basis: "inference"
+      citation_refs: ["cite_counter_zoho"]
+      note: "Inferred from the source's framing of the business becoming more proactive through process centralization."
+  pilot_framework:
+    scope:
+      text: "Pilot the unified workflow across customer records, distributor and supplier visibility, support workflows, and core reporting for one operating segment."
+      source_basis: "inference"
+      citation_refs: ["cite_counter_zoho"]
+      note: "Scoped from the exact business entities and coordination needs described in the source."
+    suggested_kpis:
+      text: "Track time spent on manual coordination, completeness of shared customer and partner records, reporting latency, and employee time freed for higher-value work."
+      source_basis: "inference"
+      citation_refs: ["cite_counter_zoho"]
+      note: "KPIs are inferred from the stated goals of visibility, proactivity, and higher-value work."
+    success_criteria:
+      text: "The pilot succeeds if staff can work from shared records instead of disconnected tools, visibility improves across commercial relationships, and routine coordination effort declines."
+      source_basis: "inference"
+      citation_refs: ["cite_counter_zoho"]
+      note: "Success criteria reflect the operating improvements directly described in the source."
+    common_pitfalls:
+      text: "Common pitfalls include partial data migration, leaving supplier or distributor processes outside the workflow, and failing to standardize cross-functional data ownership."
+      source_basis: "inference"
+      citation_refs: ["cite_counter_zoho"]
+      note: "Risks are inferred from the shift away from fragmented tools."
+    duration:
+      text: "A 6- to 8-week pilot is appropriate for one business segment covering shared records and reporting workflows."
+      source_basis: "inference"
+      citation_refs: ["cite_counter_zoho"]
+      note: "The source documents the business need, not a formal pilot timeline."
+    resource_commitment:
+      text: "Requires an operations or commercial lead, a small cross-functional user group, and admin support for migration, reporting, and workflow standardization."
+      source_basis: "inference"
+      citation_refs: ["cite_counter_zoho"]
+      note: "Resource estimate is inferred from the documented cross-functional nature of the problem."
+
+tag_resolution:
+  status: "pending"
+  resolved_tags: []
+  unresolved_proposed_tags: []
+  note: ""
+
+citations:
+  - citation_key: "cite_counter_site"
+    source_url: "https://counterculturecoffee.com/"
+    source_title: "Counter Culture Coffee"
+    publisher: "Counter Culture Coffee"
+    source_type: "primary"
+    source_language: "en"
+    access_date: "2026-04-17"
+    evidence_note: "Supports organization identity and coffee retail and roasting context."
+  - citation_key: "cite_counter_zoho"
+    source_url: "https://www.zoho.com/one/customers/counter-culture.html"
+    source_title: "Counter Culture Coffee grows across the country with Zoho One"
+    publisher: "Zoho One"
+    source_type: "secondary"
+    source_language: "en"
+    access_date: "2026-04-17"
+    evidence_note: "Supports employee count, multi-city expansion, the fragmented-tool problem, and the need for a unified, data-driven operating system."
+
+solution_provider_organization:
+  present: true
+  name: "Zoho One"
+  website: "https://www.zoho.com/one/"
+  short_description: ""
+  country: ""
+  provider_evidence:
+    text: "The public customer story identifies Zoho One as the platform Counter Culture used to centralize business processes."
+    citation_refs: ["cite_counter_zoho"]
+  existing_org_match:
+    matched: false
+    organization_id: null
+    match_note: ""
+
+provenance:
+  authored_by_profile: "system"
+  content_origin: "curated"
+  curator_note: "Phase 2 packet drafted from approved Phase 1 research candidate B-004."
+
+inference_notes:
+  - "Pilot framework and part of the requirements are operational inferences from the documented need for unified visibility and process centralization."
+
+validation:
+  status: "approved"
+  notes:
+    - "Validated for SME evidence, provider attribution, English-language sources, and claim-to-source alignment."

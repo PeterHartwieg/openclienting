@@ -1,0 +1,125 @@
+packet_version: 3
+packet_id: "curated-sme-c-003-healthserve"
+
+problem_owner_organization:
+  name: "HealthServe"
+  website: "https://healthserve.org.sg/"
+  short_description: "Singapore nonprofit providing medical, counselling, and social support services for low-wage migrant workers."
+  country: "Singapore"
+  sme_evidence:
+    text: "The public Zoho Desk case study lists HealthServe in the 11-50 employee band, and the organization describes itself as a focused charity serving low-wage migrant workers in Singapore."
+    citation_refs: ["cite_healthserve_zoho", "cite_healthserve_site"]
+  existing_org_match:
+    matched: false
+    organization_id: null
+    match_note: ""
+
+problem_statement:
+  title: "Needs structured intake and follow-up workflows for rising migrant-worker support demand"
+  title_citation_refs: ["cite_healthserve_zoho"]
+  description: "HealthServe expanded beyond clinic care into counselling, casework, and mental health support, then saw a major spike in incoming calls during COVID-19. The public case study says the organization needed a system that could manage every call, log each grievance, and help a small team and volunteer network follow through until support had been provided."
+  description_citation_refs: ["cite_healthserve_zoho", "cite_healthserve_site"]
+  proposed_tags:
+    - "health services"
+    - "case management"
+    - "intake workflow"
+    - "support operations"
+  requirements:
+    - text: "Log every incoming support request in a structured workflow."
+      source_basis: "direct"
+      citation_refs: ["cite_healthserve_zoho"]
+      note: "The source directly says every call is logged as a ticket and reviewed for follow-up."
+    - text: "Support follow-up by a small core team working alongside volunteers and specialists."
+      source_basis: "direct"
+      citation_refs: ["cite_healthserve_zoho"]
+      note: "The source directly describes the staffing model and follow-up process."
+    - text: "Coordinate counselling and case-management workflows so each migrant worker receives contact and a plan."
+      source_basis: "direct"
+      citation_refs: ["cite_healthserve_zoho"]
+      note: "The source directly says the team reviews each ticket, reaches out, and charts a plan."
+    - text: "Maintain service continuity as demand spikes or the service scope expands."
+      source_basis: "inference"
+      citation_refs: ["cite_healthserve_zoho", "cite_healthserve_site"]
+      note: "Inferred from the call-volume surge and expansion into broader support services."
+  pilot_framework:
+    scope:
+      text: "Pilot the workflow on counselling and case-intake requests, from first contact through assignment, follow-up, and documented support planning."
+      source_basis: "inference"
+      citation_refs: ["cite_healthserve_zoho", "cite_healthserve_site"]
+      note: "Scoped from the exact intake and follow-up pattern described in the sources."
+    suggested_kpis:
+      text: "Track percentage of incoming requests logged, time to first follow-up, percentage of cases with a documented support plan, and open-ticket aging."
+      source_basis: "inference"
+      citation_refs: ["cite_healthserve_zoho"]
+      note: "KPIs are inferred from the organization's intake and follow-through needs."
+    success_criteria:
+      text: "The pilot succeeds if every inbound request is captured, follow-up is more reliable, and staff can see whether a migrant worker has been contacted and supported."
+      source_basis: "inference"
+      citation_refs: ["cite_healthserve_zoho"]
+      note: "Success criteria are conservative inferences from the source's emphasis on making sure each migrant worker is contacted and helped."
+    common_pitfalls:
+      text: "Common pitfalls include incomplete handoff between counselling and case-management teams, inconsistent volunteer documentation, and ticket backlogs during demand spikes."
+      source_basis: "inference"
+      citation_refs: ["cite_healthserve_zoho"]
+      note: "Risks are inferred from the multi-step support model and surge conditions described."
+    duration:
+      text: "A 4- to 6-week pilot is appropriate for one intake and follow-up workflow with a small core team and repeat review cycles."
+      source_basis: "inference"
+      citation_refs: ["cite_healthserve_zoho"]
+      note: "The source describes the need and operating model, not a pilot timeline."
+    resource_commitment:
+      text: "Requires a service lead, a small case or counselling team, and limited volunteer participation to test intake discipline, assignment rules, and follow-up review."
+      source_basis: "inference"
+      citation_refs: ["cite_healthserve_zoho"]
+      note: "Resource estimate is inferred from the staffing model described in the source."
+
+tag_resolution:
+  status: "pending"
+  resolved_tags: []
+  unresolved_proposed_tags: []
+  note: ""
+
+citations:
+  - citation_key: "cite_healthserve_site"
+    source_url: "https://healthserve.org.sg/our-belief/"
+    source_title: "Our Belief - HealthServe"
+    publisher: "HealthServe"
+    source_type: "primary"
+    source_language: "en"
+    access_date: "2026-04-17"
+    evidence_note: "Supports the organization's mission, founding context, and expansion from clinic services into broader medical, counselling, and casework support."
+  - citation_key: "cite_healthserve_zoho"
+    source_url: "https://www.zoho.com/desk/customers/healthserve.html"
+    source_title: "Zoho Desk supports HealthServe to aid migrant workers on time."
+    publisher: "Zoho Desk"
+    source_type: "secondary"
+    source_language: "en"
+    access_date: "2026-04-17"
+    evidence_note: "Supports employee band, the call-volume spike, the intake and follow-up workflow, and the small-team-plus-volunteer operating model."
+
+solution_provider_organization:
+  present: true
+  name: "Zoho Desk"
+  website: "https://www.zoho.com/desk/"
+  short_description: ""
+  country: ""
+  provider_evidence:
+    text: "The public case study identifies Zoho Desk as the intake and ticketing platform HealthServe uses to log and follow up migrant-worker support requests."
+    citation_refs: ["cite_healthserve_zoho"]
+  existing_org_match:
+    matched: false
+    organization_id: null
+    match_note: ""
+
+provenance:
+  authored_by_profile: "system"
+  content_origin: "curated"
+  curator_note: "Phase 2 packet drafted from approved Phase 1 research candidate C-003."
+
+inference_notes:
+  - "The pilot framework is inferred from the documented intake, counselling, and case-management workflow rather than from an explicit published pilot plan."
+
+validation:
+  status: "approved"
+  notes:
+    - "Validated for SME evidence, provider attribution, English-language sources, and claim-to-source alignment."

@@ -1,0 +1,134 @@
+{
+  "packet_id": "curated-sme-c-001-curantis-solutions",
+  "problem_owner_org": {
+    "organization_id": null,
+    "name": "Curantis Solutions",
+    "website": "https://curantissolutions.com/",
+    "description": "US healthcare software company focused on hospice and palliative care.",
+    "country": "United States"
+  },
+  "solution_provider_org": {
+    "organization_id": null,
+    "name": "AWS",
+    "website": "https://aws.amazon.com/",
+    "description": "",
+    "country": ""
+  },
+  "problem": {
+    "title": "Needs unified, analyzable clinical data to support interoperability and decision-making",
+    "description": "Curantis had valuable healthcare data but faced the challenge of making it interoperable, easier to analyze, and more useful to internal teams and customers. The AWS case study says the SMB needed to address FHIR-related compliance and that, before its new setup, its data was difficult to access and analyze for leaders who needed timely insight.",
+    "source_language": "en",
+    "tag_ids": [
+      "4a38b7b8-5af8-413a-a3aa-9563598ebe08",
+      "c0ac22e3-d753-4c96-807d-e646c3a4672c",
+      "02bb6ae2-908c-4990-9222-b62b9ea5df5a"
+    ]
+  },
+  "requirements": [
+    {
+      "body": "Centralize healthcare data in a format that supports interoperability requirements.",
+      "citations": [
+        {
+          "source_url": "https://aws.amazon.com/smart-business/case-studies/healthcare-smb-transforms-data-analytics-with-aws-healthlake/",
+          "source_title": "Healthcare SMB transforms data analytics with AWS HealthLake",
+          "publisher": "AWS",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports explicit SMB labeling, the interoperability and analytics problem, FHIR-related requirements, and the need for easier data access and decision support.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Make data easier to query and analyze for internal teams and customers.",
+      "citations": [
+        {
+          "source_url": "https://aws.amazon.com/smart-business/case-studies/healthcare-smb-transforms-data-analytics-with-aws-healthlake/",
+          "source_title": "Healthcare SMB transforms data analytics with AWS HealthLake",
+          "publisher": "AWS",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports explicit SMB labeling, the interoperability and analytics problem, FHIR-related requirements, and the need for easier data access and decision support.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Support near-real-time reporting so leaders can make decisions without manually reviewing large volumes of data.",
+      "citations": [
+        {
+          "source_url": "https://aws.amazon.com/smart-business/case-studies/healthcare-smb-transforms-data-analytics-with-aws-healthlake/",
+          "source_title": "Healthcare SMB transforms data analytics with AWS HealthLake",
+          "publisher": "AWS",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports explicit SMB labeling, the interoperability and analytics problem, FHIR-related requirements, and the need for easier data access and decision support.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Create a data foundation that can support future analytics and predictive capabilities.",
+      "citations": [
+        {
+          "source_url": "https://aws.amazon.com/smart-business/case-studies/healthcare-smb-transforms-data-analytics-with-aws-healthlake/",
+          "source_title": "Healthcare SMB transforms data analytics with AWS HealthLake",
+          "publisher": "AWS",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports explicit SMB labeling, the interoperability and analytics problem, FHIR-related requirements, and the need for easier data access and decision support.",
+          "is_sourced_fact": true
+        }
+      ]
+    }
+  ],
+  "pilot_framework": {
+    "scope": "Pilot the data-unification workflow on a defined set of clinical and operational datasets used for analytics and interoperable exchange.",
+    "suggested_kpis": "Track time to access reportable data, number of data sources unified, report latency, and analyst or leadership time spent preparing routine insight requests.",
+    "success_criteria": "The pilot succeeds if data becomes easier to analyze, interoperable datasets are centralized, and leadership can answer operational questions with less manual effort.",
+    "common_pitfalls": "Common pitfalls include incomplete source mapping, weak governance around healthcare data standards, and dashboards that still require technical mediation to answer business questions.",
+    "duration": "An 8- to 10-week pilot is appropriate for one bounded analytics and interoperability use case in a regulated healthcare software environment.",
+    "resource_commitment": "Requires a product or data lead, engineering support, and limited business-user participation to validate reporting and workflow usefulness.",
+    "citations": [
+      {
+        "source_url": "https://aws.amazon.com/smart-business/case-studies/healthcare-smb-transforms-data-analytics-with-aws-healthlake/",
+        "source_title": "Healthcare SMB transforms data analytics with AWS HealthLake",
+        "publisher": "AWS",
+        "source_type": "secondary",
+        "access_date": "2026-04-17",
+        "evidence_note": "Supports explicit SMB labeling, the interoperability and analytics problem, FHIR-related requirements, and the need for easier data access and decision support.",
+        "is_sourced_fact": false
+      },
+      {
+        "source_url": "https://curantissolutions.com/",
+        "source_title": "Reimagining Hospice & Palliative Care Software",
+        "publisher": "Curantis Solutions",
+        "source_type": "primary",
+        "access_date": "2026-04-17",
+        "evidence_note": "Supports organization identity, website, and hospice and palliative care software focus.",
+        "is_sourced_fact": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "source_url": "https://curantissolutions.com/",
+      "source_title": "Reimagining Hospice & Palliative Care Software",
+      "publisher": "Curantis Solutions",
+      "source_type": "primary",
+      "access_date": "2026-04-17",
+      "evidence_note": "Supports organization identity, website, and hospice and palliative care software focus.",
+      "is_sourced_fact": true
+    },
+    {
+      "source_url": "https://aws.amazon.com/smart-business/case-studies/healthcare-smb-transforms-data-analytics-with-aws-healthlake/",
+      "source_title": "Healthcare SMB transforms data analytics with AWS HealthLake",
+      "publisher": "AWS",
+      "source_type": "secondary",
+      "access_date": "2026-04-17",
+      "evidence_note": "Supports explicit SMB labeling, the interoperability and analytics problem, FHIR-related requirements, and the need for easier data access and decision support.",
+      "is_sourced_fact": true
+    }
+  ],
+  "curator_note": "Phase 2 packet drafted from approved Phase 1 research candidate C-001."
+}

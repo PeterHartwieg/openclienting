@@ -1,4 +1,3 @@
-import { unstable_cache } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
 export interface ModerationEvent {
@@ -12,19 +11,19 @@ export interface ModerationEvent {
   reviewer_id: string;
 }
 
-export const getModerationHistoryFor = (targetType: string, targetId: string) =>
-  unstable_cache(
-    async () => {
-      const supabase = await createClient();
-      const { data, error } = await supabase
-        .from("moderation_event")
-        .select("id, action, decision, notes, before_status, after_status, created_at, reviewer_id")
-        .eq("target_type", targetType)
-        .eq("target_id", targetId)
-        .order("created_at", { ascending: true });
-      if (error) throw error;
-      return (data ?? []) as ModerationEvent[];
-    },
-    ["moderation-history", targetType, targetId],
-    { revalidate: 3600, tags: ["moderation_events"] },
-  )();
+// createClient() calls cookies() which cannot be used inside unstable_cache().
+// Using a plain async function here is correct — moderation history is
+// moderator-only and changes on every moderation action, so cross-request
+// caching would also risk leaking stale state. Per-request React.cache
+// deduplication is applied by the call sites.
+export const getModerationHistoryFor = async (targetType: string, targetId: string): Promise<ModerationEvent[]> => {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("moderation_event")
+    .select("id, action, decision, notes, before_status, after_status, created_at, reviewer_id")
+    .eq("target_type", targetType)
+    .eq("target_id", targetId)
+    .order("created_at", { ascending: true });
+  if (error) throw error;
+  return (data ?? []) as ModerationEvent[];
+};

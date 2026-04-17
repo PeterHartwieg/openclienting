@@ -1,0 +1,125 @@
+packet_version: 3
+packet_id: "curated-sme-c-001-curantis-solutions"
+
+problem_owner_organization:
+  name: "Curantis Solutions"
+  website: "https://curantissolutions.com/"
+  short_description: "US healthcare software company focused on hospice and palliative care."
+  country: "United States"
+  sme_evidence:
+    text: "AWS explicitly describes Curantis Solutions as an SMB based in Texas, and the company presents itself as a focused hospice and palliative care software provider."
+    citation_refs: ["cite_curantis_aws", "cite_curantis_site"]
+  existing_org_match:
+    matched: false
+    organization_id: null
+    match_note: ""
+
+problem_statement:
+  title: "Needs unified, analyzable clinical data to support interoperability and decision-making"
+  title_citation_refs: ["cite_curantis_aws"]
+  description: "Curantis had valuable healthcare data but faced the challenge of making it interoperable, easier to analyze, and more useful to internal teams and customers. The AWS case study says the SMB needed to address FHIR-related compliance and that, before its new setup, its data was difficult to access and analyze for leaders who needed timely insight."
+  description_citation_refs: ["cite_curantis_aws"]
+  proposed_tags:
+    - "healthcare technology"
+    - "data interoperability"
+    - "analytics"
+    - "clinical data"
+  requirements:
+    - text: "Centralize healthcare data in a format that supports interoperability requirements."
+      source_basis: "direct"
+      citation_refs: ["cite_curantis_aws"]
+      note: "The source directly discusses centralizing FHIR-compliant data and responding to interoperability requirements."
+    - text: "Make data easier to query and analyze for internal teams and customers."
+      source_basis: "direct"
+      citation_refs: ["cite_curantis_aws"]
+      note: "The source directly says Curantis's data had been difficult to access and analyze."
+    - text: "Support near-real-time reporting so leaders can make decisions without manually reviewing large volumes of data."
+      source_basis: "direct"
+      citation_refs: ["cite_curantis_aws"]
+      note: "The source directly links the new environment to near-real-time access and decision support."
+    - text: "Create a data foundation that can support future analytics and predictive capabilities."
+      source_basis: "direct"
+      citation_refs: ["cite_curantis_aws"]
+      note: "The source directly mentions AI, analytics, business intelligence, and predictive capabilities."
+  pilot_framework:
+    scope:
+      text: "Pilot the data-unification workflow on a defined set of clinical and operational datasets used for analytics and interoperable exchange."
+      source_basis: "inference"
+      citation_refs: ["cite_curantis_aws", "cite_curantis_site"]
+      note: "Scoped from the interoperability and analytics problem described in the source."
+    suggested_kpis:
+      text: "Track time to access reportable data, number of data sources unified, report latency, and analyst or leadership time spent preparing routine insight requests."
+      source_basis: "inference"
+      citation_refs: ["cite_curantis_aws"]
+      note: "KPIs are inferred from the documented challenges around access, analysis, and decision support."
+    success_criteria:
+      text: "The pilot succeeds if data becomes easier to analyze, interoperable datasets are centralized, and leadership can answer operational questions with less manual effort."
+      source_basis: "inference"
+      citation_refs: ["cite_curantis_aws"]
+      note: "Success criteria are conservative inferences from the stated business outcomes."
+    common_pitfalls:
+      text: "Common pitfalls include incomplete source mapping, weak governance around healthcare data standards, and dashboards that still require technical mediation to answer business questions."
+      source_basis: "inference"
+      citation_refs: ["cite_curantis_aws"]
+      note: "Risks are inferred from the source's emphasis on difficult-to-access data and interoperability requirements."
+    duration:
+      text: "An 8- to 10-week pilot is appropriate for one bounded analytics and interoperability use case in a regulated healthcare software environment."
+      source_basis: "inference"
+      citation_refs: ["cite_curantis_aws"]
+      note: "The source does not provide a pilot timeline."
+    resource_commitment:
+      text: "Requires a product or data lead, engineering support, and limited business-user participation to validate reporting and workflow usefulness."
+      source_basis: "inference"
+      citation_refs: ["cite_curantis_aws"]
+      note: "Resource estimate is inferred from the technical and operational context in the source."
+
+tag_resolution:
+  status: "pending"
+  resolved_tags: []
+  unresolved_proposed_tags: []
+  note: ""
+
+citations:
+  - citation_key: "cite_curantis_site"
+    source_url: "https://curantissolutions.com/"
+    source_title: "Reimagining Hospice & Palliative Care Software"
+    publisher: "Curantis Solutions"
+    source_type: "primary"
+    source_language: "en"
+    access_date: "2026-04-17"
+    evidence_note: "Supports organization identity, website, and hospice and palliative care software focus."
+  - citation_key: "cite_curantis_aws"
+    source_url: "https://aws.amazon.com/smart-business/case-studies/healthcare-smb-transforms-data-analytics-with-aws-healthlake/"
+    source_title: "Healthcare SMB transforms data analytics with AWS HealthLake"
+    publisher: "AWS"
+    source_type: "secondary"
+    source_language: "en"
+    access_date: "2026-04-17"
+    evidence_note: "Supports explicit SMB labeling, the interoperability and analytics problem, FHIR-related requirements, and the need for easier data access and decision support."
+
+solution_provider_organization:
+  present: true
+  name: "AWS"
+  website: "https://aws.amazon.com/"
+  short_description: ""
+  country: ""
+  provider_evidence:
+    text: "The public case study identifies AWS services including HealthLake, Kinesis, and QuickSight as the solution stack Curantis used to address its data-unification and analytics challenge."
+    citation_refs: ["cite_curantis_aws"]
+  existing_org_match:
+    matched: false
+    organization_id: null
+    match_note: ""
+
+provenance:
+  authored_by_profile: "system"
+  content_origin: "curated"
+  curator_note: "Phase 2 packet drafted from approved Phase 1 research candidate C-001."
+
+inference_notes:
+  - "Pilot structure, KPIs, duration, and resource commitment are inferred from the interoperability and analytics problem described in the AWS case study."
+
+validation:
+  status: "approved"
+  notes:
+    - "Validated for SME evidence, provider attribution, English-language sources, and claim-to-source alignment."

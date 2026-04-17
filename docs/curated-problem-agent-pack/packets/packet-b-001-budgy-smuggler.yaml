@@ -1,0 +1,125 @@
+packet_version: 3
+packet_id: "curated-sme-b-001-budgy-smuggler"
+
+problem_owner_organization:
+  name: "Budgy Smuggler"
+  website: "https://budgysmuggler.com/"
+  short_description: "Australian swimwear brand operating retail stores, ecommerce, and custom design workflows."
+  country: "Australia"
+  sme_evidence:
+    text: "The public monday.com customer story says Budgy Smuggler had grown to 30+ employees across Australia, England, and France while still managing the business centrally."
+    citation_refs: ["cite_budgy_monday"]
+  existing_org_match:
+    matched: false
+    organization_id: null
+    match_note: ""
+
+problem_statement:
+  title: "Needs a scalable workflow for custom retail orders, leads, and customer updates"
+  title_citation_refs: ["cite_budgy_monday"]
+  description: "Budgy Smuggler outgrew spreadsheets as its order volume grew from tens of orders a week to hundreds and then thousands. The case study says expansion added staff, manufacturers, and locations, making it harder to manage the growing custom-design division, keep customers updated, and streamline incoming leads and website orders."
+  description_citation_refs: ["cite_budgy_monday"]
+  proposed_tags:
+    - "retail operations"
+    - "ecommerce"
+    - "custom orders"
+    - "order workflow"
+  requirements:
+    - text: "Replace spreadsheet-based order and workflow tracking with a system that scales as order volume increases."
+      source_basis: "direct"
+      citation_refs: ["cite_budgy_monday"]
+      note: "The source directly contrasts early spreadsheet use with later operational complexity."
+    - text: "Reduce manual work involved in keeping customers updated on order progress."
+      source_basis: "direct"
+      citation_refs: ["cite_budgy_monday"]
+      note: "The case study explicitly says the business wanted to reduce manual customer-update work."
+    - text: "Improve management of the growing custom-design division."
+      source_basis: "direct"
+      citation_refs: ["cite_budgy_monday"]
+      note: "The case study explicitly identifies this need."
+    - text: "Streamline management of leads and website orders across locations."
+      source_basis: "direct"
+      citation_refs: ["cite_budgy_monday"]
+      note: "The case study explicitly identifies this need."
+  pilot_framework:
+    scope:
+      text: "Pilot the workflow on custom-order intake, lead handling, website-order routing, and customer update processes for one region or business line."
+      source_basis: "inference"
+      citation_refs: ["cite_budgy_monday"]
+      note: "Scoped from the exact operational pain points stated in the source."
+    suggested_kpis:
+      text: "Track time to process custom orders, percentage of customer updates sent automatically, lead-to-order response time, and order-routing accuracy by region."
+      source_basis: "inference"
+      citation_refs: ["cite_budgy_monday"]
+      note: "KPIs are inferred from the source's stated workflow bottlenecks."
+    success_criteria:
+      text: "The pilot succeeds if the team can manage high-volume orders without spreadsheets, reduce manual customer-update work, and give staff clearer visibility into leads and orders."
+      source_basis: "inference"
+      citation_refs: ["cite_budgy_monday"]
+      note: "Success criteria are conservative operational inferences from the documented problem."
+    common_pitfalls:
+      text: "Common pitfalls include keeping separate local processes by office, incomplete routing rules for orders, and failing to standardize updates for custom-design customers."
+      source_basis: "inference"
+      citation_refs: ["cite_budgy_monday"]
+      note: "These risks are inferred from the multi-office growth and central workflow issues described."
+    duration:
+      text: "A 6- to 8-week pilot is appropriate for one high-volume order workflow with cross-functional staff involvement."
+      source_basis: "inference"
+      citation_refs: ["cite_budgy_monday"]
+      note: "No explicit pilot timing is given in the source."
+    resource_commitment:
+      text: "Requires an operations lead, sales or ecommerce staff, and light configuration support to map workflows, routing rules, and customer communications."
+      source_basis: "inference"
+      citation_refs: ["cite_budgy_monday"]
+      note: "Resource estimate is inferred from the source's process-management context."
+
+tag_resolution:
+  status: "pending"
+  resolved_tags: []
+  unresolved_proposed_tags: []
+  note: ""
+
+citations:
+  - citation_key: "cite_budgy_site"
+    source_url: "https://budgysmuggler.com/pages/about-us"
+    source_title: "About Us"
+    publisher: "Budgy Smuggler"
+    source_type: "primary"
+    source_language: "en"
+    access_date: "2026-04-17"
+    evidence_note: "Supports the organization identity, website, and Australian swimwear brand background."
+  - citation_key: "cite_budgy_monday"
+    source_url: "https://monday.com/customers/budgy-smuggler"
+    source_title: "How Budgy Smuggler streamlines its custom retail processes on monday.com"
+    publisher: "monday.com"
+    source_type: "secondary"
+    source_language: "en"
+    access_date: "2026-04-17"
+    evidence_note: "Supports employee count, multi-office operations, growth from spreadsheet use, and the need to manage custom design, customer updates, leads, and orders."
+
+solution_provider_organization:
+  present: true
+  name: "monday.com"
+  website: "https://monday.com/"
+  short_description: ""
+  country: ""
+  provider_evidence:
+    text: "The public customer story identifies monday.com as the workflow platform Budgy Smuggler uses to manage growing retail and custom-order processes."
+    citation_refs: ["cite_budgy_monday"]
+  existing_org_match:
+    matched: false
+    organization_id: null
+    match_note: ""
+
+provenance:
+  authored_by_profile: "system"
+  content_origin: "curated"
+  curator_note: "Phase 2 packet drafted from approved Phase 1 research candidate B-001."
+
+inference_notes:
+  - "Pilot scope, KPIs, duration, and resource commitment are inferred from the documented growth-related workflow problems rather than directly stated as a formal implementation plan."
+
+validation:
+  status: "approved"
+  notes:
+    - "Validated for SME evidence, provider attribution, English-language sources, and claim-to-source alignment."

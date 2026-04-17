@@ -1,0 +1,125 @@
+packet_version: 3
+packet_id: "curated-sme-b-005-rade-street"
+
+problem_owner_organization:
+  name: "Rade Street"
+  website: "https://radestreet.in/"
+  short_description: "Indian apparel retailer operating a large-format menswear showroom."
+  country: "India"
+  sme_evidence:
+    text: "The public Zoho POS customer story says Rade Street's flagship branch is supported by more than 25 employees."
+    citation_refs: ["cite_rade_zoho"]
+  existing_org_match:
+    matched: false
+    organization_id: null
+    match_note: ""
+
+problem_statement:
+  title: "Needs to eliminate pen-and-paper billing risks in a high-volume retail environment"
+  title_citation_refs: ["cite_rade_zoho"]
+  description: "Rade Street was using pen and paper for billing more than 500 customers per day. The public case study says that approach left the business exposed to billing manipulation, strategic gaming, hidden losses, and longer billing times that disrupted operational flow."
+  description_citation_refs: ["cite_rade_zoho"]
+  proposed_tags:
+    - "retail checkout"
+    - "point of sale"
+    - "billing control"
+    - "store operations"
+  requirements:
+    - text: "Replace manual billing with a controlled workflow that reduces manipulation risk."
+      source_basis: "direct"
+      citation_refs: ["cite_rade_zoho"]
+      note: "The source directly links pen-and-paper billing to manipulation and strategic gaming."
+    - text: "Shorten billing time in a store handling more than 500 customers per day."
+      source_basis: "direct"
+      citation_refs: ["cite_rade_zoho"]
+      note: "The source directly states that bargaining and manual billing prolonged billing periods."
+    - text: "Improve profitability visibility by reducing unnoticed losses in high-volume sales."
+      source_basis: "direct"
+      citation_refs: ["cite_rade_zoho"]
+      note: "The source directly says losses went unnoticed despite high sales volume."
+    - text: "Capture and manage customer data in a more structured way for future engagement."
+      source_basis: "direct"
+      citation_refs: ["cite_rade_zoho"]
+      note: "The source directly says customer data became more manageable after the POS change."
+  pilot_framework:
+    scope:
+      text: "Pilot the improved workflow at the flagship store across billing, customer record capture, and daily checkout control."
+      source_basis: "inference"
+      citation_refs: ["cite_rade_site", "cite_rade_zoho"]
+      note: "Scoped from the flagship-branch context and the billing problems described."
+    suggested_kpis:
+      text: "Track average billing time, percentage of transactions processed digitally, rate of billing discrepancies, and percentage of transactions linked to customer records."
+      source_basis: "inference"
+      citation_refs: ["cite_rade_zoho"]
+      note: "KPIs are inferred from the documented billing, loss, and customer-data issues."
+    success_criteria:
+      text: "The pilot succeeds if manual billing is removed from routine checkout, transaction control improves, and store staff can process customers faster with fewer unexplained losses."
+      source_basis: "inference"
+      citation_refs: ["cite_rade_zoho"]
+      note: "Success criteria are conservative inferences from the stated business problems."
+    common_pitfalls:
+      text: "Common pitfalls include inconsistent staff use at peak times, retaining side calculations outside the system, and weak controls around discounting or negotiated pricing."
+      source_basis: "inference"
+      citation_refs: ["cite_rade_zoho"]
+      note: "Risks are inferred from the source's discussion of bargaining and manual transaction handling."
+    duration:
+      text: "A 4- to 6-week pilot is appropriate for one store checkout workflow with daily performance review."
+      source_basis: "inference"
+      citation_refs: ["cite_rade_zoho"]
+      note: "The source supports the need but not an explicit pilot timeline."
+    resource_commitment:
+      text: "Requires a store manager, a small cashier or sales-team cohort, and light admin support for configuration, training, and daily exception review."
+      source_basis: "inference"
+      citation_refs: ["cite_rade_zoho"]
+      note: "Resource estimate is inferred from the storefront billing context."
+
+tag_resolution:
+  status: "pending"
+  resolved_tags: []
+  unresolved_proposed_tags: []
+  note: ""
+
+citations:
+  - citation_key: "cite_rade_site"
+    source_url: "https://radestreet.in/"
+    source_title: "Rade Street"
+    publisher: "Rade Street"
+    source_type: "primary"
+    source_language: "en"
+    access_date: "2026-04-17"
+    evidence_note: "Supports organization identity and storefront website."
+  - citation_key: "cite_rade_zoho"
+    source_url: "https://www.zoho.com/en-in/pos/customers/rade-street.html"
+    source_title: "Zoho POS's impact on Rade Street's daily business operations"
+    publisher: "Zoho POS"
+    source_type: "secondary"
+    source_language: "en"
+    access_date: "2026-04-17"
+    evidence_note: "Supports employee count, 500+ customers per day, pen-and-paper billing, manipulation risk, hidden losses, and prolonged billing periods."
+
+solution_provider_organization:
+  present: true
+  name: "Zoho POS"
+  website: "https://www.zoho.com/pos/"
+  short_description: ""
+  country: ""
+  provider_evidence:
+    text: "The public customer story identifies Zoho POS as the billing and customer-data platform Rade Street adopted."
+    citation_refs: ["cite_rade_zoho"]
+  existing_org_match:
+    matched: false
+    organization_id: null
+    match_note: ""
+
+provenance:
+  authored_by_profile: "system"
+  content_origin: "curated"
+  curator_note: "Phase 2 packet drafted from approved Phase 1 research candidate B-005."
+
+inference_notes:
+  - "Pilot scope, KPIs, duration, and resource commitment are inferred from the documented checkout-control and billing-risk problem."
+
+validation:
+  status: "approved"
+  notes:
+    - "Validated for SME evidence, provider attribution, English-language sources, and claim-to-source alignment."

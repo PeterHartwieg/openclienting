@@ -1,0 +1,115 @@
+{
+  "packet_id": "curated-sme-a-004-lakeside-cnc-group",
+  "problem_owner_org": {
+    "organization_id": null,
+    "name": "Lakeside CNC Group",
+    "website": "https://fanuccontrolrepair.com/",
+    "description": "US-based FANUC CNC repair and maintenance specialist.",
+    "country": "United States"
+  },
+  "solution_provider_org": {
+    "organization_id": null,
+    "name": "Zoho Desk",
+    "website": "https://www.zoho.com/desk/",
+    "description": "",
+    "country": ""
+  },
+  "problem": {
+    "title": "Needs to replace spreadsheet-based CNC repair intake with a scalable service workflow",
+    "description": "Lakeside CNC Group outgrew spreadsheets and basic email-based tracking as its repair-management workload increased. The case study says customer questions and service requests were still being recorded in spreadsheets, which limited visibility and made it harder to manage a growing technical repair operation.",
+    "source_language": "en",
+    "tag_ids": [
+      "7facd157-fd0a-4e75-9fda-53cc3e8c336a",
+      "02bb6ae2-908c-4990-9222-b62b9ea5df5a"
+    ]
+  },
+  "requirements": [
+    {
+      "body": "Centralize incoming repair requests and customer communications in one system instead of spreadsheets and inboxes.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/desk/customers/lakesidecncgroup.html",
+          "source_title": "Desk Casestudy - Lakeside CNC Group",
+          "publisher": "Zoho Desk",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports the growth from a two-person repair shop, spreadsheet-based request handling, and the need to redesign repair management and improve data visibility.",
+          "is_sourced_fact": false
+        }
+      ]
+    },
+    {
+      "body": "Improve visibility into open jobs, request status, and internal follow-up responsibility.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/desk/customers/lakesidecncgroup.html",
+          "source_title": "Desk Casestudy - Lakeside CNC Group",
+          "publisher": "Zoho Desk",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports the growth from a two-person repair shop, spreadsheet-based request handling, and the need to redesign repair management and improve data visibility.",
+          "is_sourced_fact": false
+        }
+      ]
+    },
+    {
+      "body": "Support a growing repair workload without relying on ad hoc manual processes.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/desk/customers/lakesidecncgroup.html",
+          "source_title": "Desk Casestudy - Lakeside CNC Group",
+          "publisher": "Zoho Desk",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports the growth from a two-person repair shop, spreadsheet-based request handling, and the need to redesign repair management and improve data visibility.",
+          "is_sourced_fact": false
+        }
+      ]
+    },
+    {
+      "body": "Preserve a customer-service process that can respond consistently as operational complexity increases.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/desk/customers/lakesidecncgroup.html",
+          "source_title": "Desk Casestudy - Lakeside CNC Group",
+          "publisher": "Zoho Desk",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports the growth from a two-person repair shop, spreadsheet-based request handling, and the need to redesign repair management and improve data visibility.",
+          "is_sourced_fact": false
+        }
+      ]
+    }
+  ],
+  "pilot_framework": {
+    "scope": "Pilot the new workflow on incoming repair inquiries, ticket intake, technician assignment, and customer status updates for the FANUC repair operation.",
+    "suggested_kpis": "Track time to log a new request, percentage of requests handled without spreadsheet use, average response time to customer inquiries, and visibility of open repair jobs.",
+    "success_criteria": "The pilot succeeds if intake and follow-up are consistently handled in the centralized workflow, staff can see current repair status without spreadsheet lookups, and customer communications are easier to track.",
+    "common_pitfalls": "Common pitfalls include keeping parallel spreadsheet processes alive, incomplete technician adoption, and failing to define consistent status updates for customer communication.",
+    "duration": "A 6- to 8-week pilot is appropriate for one service workflow covering request intake through repair-status communication.",
+    "resource_commitment": "Requires a service lead, one or two technicians or coordinators, and limited admin support to define statuses, migrate active work, and review workflow adoption.",
+    "citations": [
+      {
+        "source_url": "https://www.zoho.com/desk/customers/lakesidecncgroup.html",
+        "source_title": "Desk Casestudy - Lakeside CNC Group",
+        "publisher": "Zoho Desk",
+        "source_type": "secondary",
+        "access_date": "2026-04-17",
+        "evidence_note": "Supports the growth from a two-person repair shop, spreadsheet-based request handling, and the need to redesign repair management and improve data visibility.",
+        "is_sourced_fact": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "source_url": "https://www.zoho.com/desk/customers/lakesidecncgroup.html",
+      "source_title": "Desk Casestudy - Lakeside CNC Group",
+      "publisher": "Zoho Desk",
+      "source_type": "secondary",
+      "access_date": "2026-04-17",
+      "evidence_note": "Supports the growth from a two-person repair shop, spreadsheet-based request handling, and the need to redesign repair management and improve data visibility.",
+      "is_sourced_fact": true
+    }
+  ],
+  "curator_note": "Phase 2 packet drafted from approved Phase 1 research candidate A-004."
+}

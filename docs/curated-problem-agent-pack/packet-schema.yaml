@@ -1,0 +1,101 @@
+packet_version: 3
+packet_id: "replace-with-stable-id"
+
+problem_owner_organization:
+  name: ""
+  website: ""
+  short_description: ""
+  country: ""
+  sme_evidence:
+    text: ""
+    citation_refs: []
+  existing_org_match:
+    matched: false
+    organization_id: null
+    match_note: ""
+
+problem_statement:
+  title: ""
+  title_citation_refs: []
+  description: ""
+  description_citation_refs: []
+  proposed_tags:
+    - ""
+  requirements:
+    - text: ""
+      source_basis: "direct|inference"
+      citation_refs: []
+      note: ""
+  pilot_framework:
+    scope:
+      text: ""
+      source_basis: "direct|inference"
+      citation_refs: []
+      note: ""
+    suggested_kpis:
+      text: ""
+      source_basis: "direct|inference"
+      citation_refs: []
+      note: ""
+    success_criteria:
+      text: ""
+      source_basis: "direct|inference"
+      citation_refs: []
+      note: ""
+    common_pitfalls:
+      text: ""
+      source_basis: "direct|inference"
+      citation_refs: []
+      note: ""
+    duration:
+      text: ""
+      source_basis: "direct|inference"
+      citation_refs: []
+      note: ""
+    resource_commitment:
+      text: ""
+      source_basis: "direct|inference"
+      citation_refs: []
+      note: ""
+
+tag_resolution:
+  status: "pending"
+  resolved_tags: []
+  unresolved_proposed_tags: []
+  note: ""
+
+citations:
+  - citation_key: ""
+    source_url: ""
+    source_title: ""
+    publisher: ""
+    source_type: "primary|secondary"
+    source_language: "en"
+    access_date: "YYYY-MM-DD"
+    evidence_note: ""
+
+solution_provider_organization:
+  present: false
+  name: ""
+  website: ""
+  short_description: ""
+  country: ""
+  provider_evidence:
+    text: ""
+    citation_refs: []
+  existing_org_match:
+    matched: false
+    organization_id: null
+    match_note: ""
+
+provenance:
+  authored_by_profile: "system"
+  content_origin: "curated"
+  curator_note: ""
+
+inference_notes:
+  - ""
+
+validation:
+  status: "pending"
+  notes: []

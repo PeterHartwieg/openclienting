@@ -64,9 +64,11 @@ export default async function ModerateProblemPage({
       <div className="flex items-center gap-3 mb-6">
         <StatusBadge status={problem.status} />
         <span className="text-sm text-muted-foreground">
-          {t("byUser", {
-            name: problem.profiles?.display_name ?? t("unknown"),
-          })}
+          {problem.content_origin === "editorial_curated"
+            ? `Editorial import · ${problem.packet_id ?? ""}`
+            : t("byUser", {
+                name: problem.profiles?.display_name ?? t("unknown"),
+              })}
           {" — "}
           {t("problem.personVisibility", { visibility: personVisibility })}
           {", "}

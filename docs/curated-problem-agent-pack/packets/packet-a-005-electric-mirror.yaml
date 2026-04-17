@@ -1,0 +1,125 @@
+packet_version: 3
+packet_id: "curated-sme-a-005-electric-mirror"
+
+problem_owner_organization:
+  name: "Electric Mirror"
+  website: "https://www.electricmirror.com/"
+  short_description: "US manufacturer of lighted mirrors and related hospitality-focused mirror products."
+  country: "United States"
+  sme_evidence:
+    text: "The public customer story says Electric Mirror grew from a garage startup into a manufacturing company headquartered in Everett, Washington with approximately 70 employees."
+    citation_refs: ["cite_electric_zoho"]
+  existing_org_match:
+    matched: false
+    organization_id: null
+    match_note: ""
+
+problem_statement:
+  title: "Needs a lower-friction CRM and operations stack than its legacy Salesforce setup"
+  title_citation_refs: ["cite_electric_zoho"]
+  description: "Electric Mirror was using Salesforce but needed a system that was easier to implement, easier for staff to learn, and better aligned to day-to-day operational efficiency. The case study says the manufacturer wanted a quick implementation with minimal training and viewed its previous setup as a poor fit for how the business needed to run."
+  description_citation_refs: ["cite_electric_zoho"]
+  proposed_tags:
+    - "manufacturing"
+    - "crm modernization"
+    - "sales operations"
+    - "operational efficiency"
+  requirements:
+    - text: "Reduce the training burden for staff using customer and sales workflow tools."
+      source_basis: "inference"
+      citation_refs: ["cite_electric_zoho"]
+      note: "Inferred from the source describing the need for minimal training and easier implementation."
+    - text: "Support lead-to-deal tracking, customer information management, and quote documentation in one workflow."
+      source_basis: "direct"
+      citation_refs: ["cite_electric_zoho"]
+      note: "The case study directly says the deployed system is used to manage customer information, track the lead-to-deal pipeline, and document sales quotes."
+    - text: "Improve operational efficiency without extending implementation timelines or adding unnecessary system complexity."
+      source_basis: "inference"
+      citation_refs: ["cite_electric_zoho"]
+      note: "Inferred from the documented need for a faster-to-adopt alternative to Salesforce."
+    - text: "Give the business an extensible foundation for broader process integration over time."
+      source_basis: "inference"
+      citation_refs: ["cite_electric_zoho"]
+      note: "Inferred from the source noting plans to expand usage across the wider Zoho ecosystem."
+  pilot_framework:
+    scope:
+      text: "Pilot the replacement workflow across customer record management, lead-to-deal tracking, marketing campaigns, and quote documentation for a defined sales segment."
+      source_basis: "inference"
+      citation_refs: ["cite_electric_zoho"]
+      note: "Scoped directly from the business functions described in the case study."
+    suggested_kpis:
+      text: "Track user onboarding time, quote turnaround time, percentage of active opportunities updated in the system, and time spent on manual customer record administration."
+      source_basis: "inference"
+      citation_refs: ["cite_electric_zoho"]
+      note: "KPIs are inferred from the documented focus on efficiency, usability, and core CRM workflows."
+    success_criteria:
+      text: "The pilot succeeds if teams can manage core customer and sales workflows with less training friction, faster routine execution, and stronger use of shared records and quotes."
+      source_basis: "inference"
+      citation_refs: ["cite_electric_zoho"]
+      note: "Success criteria are inferred from the source's emphasis on implementation ease and efficiency."
+    common_pitfalls:
+      text: "Common pitfalls include incomplete migration of customer data, leaving quoting outside the system, and undertraining teams on the new workflow."
+      source_basis: "inference"
+      citation_refs: ["cite_electric_zoho"]
+      note: "These risks are inferred from the migration away from a legacy CRM environment."
+    duration:
+      text: "A 6-week pilot is appropriate for one sales and customer-management team using a narrower production workflow before wider rollout."
+      source_basis: "inference"
+      citation_refs: ["cite_electric_zoho"]
+      note: "The source supports a quick implementation, but not a formal pilot duration."
+    resource_commitment:
+      text: "Requires a sales operations lead, a small group of end users, and admin support for migration, workflow setup, and adoption review."
+      source_basis: "inference"
+      citation_refs: ["cite_electric_zoho"]
+      note: "Resource commitment is inferred from the kind of CRM replacement described."
+
+tag_resolution:
+  status: "pending"
+  resolved_tags: []
+  unresolved_proposed_tags: []
+  note: ""
+
+citations:
+  - citation_key: "cite_electric_site"
+    source_url: "https://www.electricmirror.com/"
+    source_title: "Electric Mirror | Luxury Lighted Mirrors & Vanities"
+    publisher: "Electric Mirror"
+    source_type: "primary"
+    source_language: "en"
+    access_date: "2026-04-17"
+    evidence_note: "Supports the organization identity, website, and product focus."
+  - citation_key: "cite_electric_zoho"
+    source_url: "https://www.zoho.com/crm/crmplus/customers/electric-mirror.html"
+    source_title: "US-based manufacturer replaces Salesforce with Zoho CRM Plus and says they will never go back"
+    publisher: "Zoho CRM Plus"
+    source_type: "secondary"
+    source_language: "en"
+    access_date: "2026-04-17"
+    evidence_note: "Supports employee count, company background, the previous Salesforce setup, and the need for easier implementation and operational efficiency."
+
+solution_provider_organization:
+  present: true
+  name: "Zoho CRM Plus"
+  website: "https://www.zoho.com/crm/crmplus/"
+  short_description: ""
+  country: ""
+  provider_evidence:
+    text: "The customer story publicly identifies Zoho CRM Plus as the system Electric Mirror adopted in place of Salesforce."
+    citation_refs: ["cite_electric_zoho"]
+  existing_org_match:
+    matched: false
+    organization_id: null
+    match_note: ""
+
+provenance:
+  authored_by_profile: "system"
+  content_origin: "curated"
+  curator_note: "Phase 2 packet drafted from approved Phase 1 research candidate A-005."
+
+inference_notes:
+  - "Requirements and pilot framework are conservative inferences based on the documented CRM replacement drivers and operational workflow uses described in the case study."
+
+validation:
+  status: "approved"
+  notes:
+    - "Validated for SME evidence, provider attribution, English-language sources, and claim-to-source alignment."

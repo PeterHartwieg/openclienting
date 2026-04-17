@@ -7,6 +7,8 @@ import {
   Lightbulb,
   CheckCircle2,
   MessageCircle,
+  Wrench,
+  BookMarked,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
@@ -30,6 +32,10 @@ interface ProblemHeroProps {
   orgName: string | null;
   orgSlug?: string | null;
   orgVerificationStatus?: string | null;
+  providerOrgName?: string | null;
+  providerOrgSlug?: string | null;
+  providerOrgVerificationStatus?: string | null;
+  contentOrigin?: string | null;
   createdAt: string;
   updatedAt: string | null;
   tags: Tag[];
@@ -50,6 +56,10 @@ export async function ProblemHero({
   orgName,
   orgSlug,
   orgVerificationStatus,
+  providerOrgName,
+  providerOrgSlug,
+  providerOrgVerificationStatus,
+  contentOrigin,
   createdAt,
   updatedAt,
   tags,
@@ -70,7 +80,15 @@ export async function ProblemHero({
     <div className="relative overflow-hidden rounded-2xl border bg-gradient-to-br from-primary/[0.06] via-background to-background p-6 sm:p-8">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
 
-      <SolutionStatusBadge status={status} />
+      <div className="flex flex-wrap items-center gap-2">
+        <SolutionStatusBadge status={status} />
+        {contentOrigin === "editorial_curated" && (
+          <span className="inline-flex items-center gap-1 rounded-full border border-violet-300 bg-violet-50 px-2.5 py-0.5 text-xs font-medium text-violet-700 dark:border-violet-700 dark:bg-violet-950/50 dark:text-violet-300">
+            <BookMarked className="h-3 w-3" />
+            Editorially Curated
+          </span>
+        )}
+      </div>
 
       <h1 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight leading-tight text-balance">
         {title}
@@ -88,6 +106,17 @@ export async function ProblemHero({
               name={orgName}
               slug={orgSlug}
               verificationStatus={orgVerificationStatus}
+              locale={locale}
+            />
+          </span>
+        )}
+        {providerOrgName && (
+          <span className="inline-flex items-center gap-1.5">
+            <Wrench className="h-4 w-4" />
+            <OrgLink
+              name={providerOrgName}
+              slug={providerOrgSlug}
+              verificationStatus={providerOrgVerificationStatus}
               locale={locale}
             />
           </span>

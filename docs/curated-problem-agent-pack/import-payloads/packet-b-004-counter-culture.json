@@ -1,0 +1,126 @@
+{
+  "packet_id": "curated-sme-b-004-counter-culture",
+  "problem_owner_org": {
+    "organization_id": null,
+    "name": "Counter Culture Coffee",
+    "website": "https://counterculturecoffee.com/",
+    "description": "US specialty coffee roaster with retail, ecommerce, and education operations.",
+    "country": "United States"
+  },
+  "solution_provider_org": {
+    "organization_id": null,
+    "name": "Zoho One",
+    "website": "https://www.zoho.com/one/",
+    "description": "",
+    "country": ""
+  },
+  "problem": {
+    "title": "Needs a unified, data-driven operating system instead of fragmented business tools",
+    "description": "Counter Culture needed better visibility across customers, distributors, suppliers, and internal processes. The public Zoho case study says the company had been relying on Salesforce plus a patchwork of software, email, and spreadsheets, and wanted a unified and data-driven system that would support more proactive operations.",
+    "source_language": "en",
+    "tag_ids": [
+      "6ddafadc-942e-4b42-a05b-9b7c3adbdd52",
+      "02bb6ae2-908c-4990-9222-b62b9ea5df5a",
+      "c0ac22e3-d753-4c96-807d-e646c3a4672c",
+      "7facd157-fd0a-4e75-9fda-53cc3e8c336a"
+    ]
+  },
+  "requirements": [
+    {
+      "body": "Centralize customer, distributor, and supplier information in one system with real-time visibility.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/one/customers/counter-culture.html",
+          "source_title": "Counter Culture Coffee grows across the country with Zoho One",
+          "publisher": "Zoho One",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee count, multi-city expansion, the fragmented-tool problem, and the need for a unified, data-driven operating system.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Reduce dependence on fragmented tools, email, and spreadsheets.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/one/customers/counter-culture.html",
+          "source_title": "Counter Culture Coffee grows across the country with Zoho One",
+          "publisher": "Zoho One",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee count, multi-city expansion, the fragmented-tool problem, and the need for a unified, data-driven operating system.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Enable employees to spend more time on higher-value work instead of low-value manual coordination.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/one/customers/counter-culture.html",
+          "source_title": "Counter Culture Coffee grows across the country with Zoho One",
+          "publisher": "Zoho One",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee count, multi-city expansion, the fragmented-tool problem, and the need for a unified, data-driven operating system.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Support a more proactive operating model as the company grows across locations.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/one/customers/counter-culture.html",
+          "source_title": "Counter Culture Coffee grows across the country with Zoho One",
+          "publisher": "Zoho One",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee count, multi-city expansion, the fragmented-tool problem, and the need for a unified, data-driven operating system.",
+          "is_sourced_fact": false
+        }
+      ]
+    }
+  ],
+  "pilot_framework": {
+    "scope": "Pilot the unified workflow across customer records, distributor and supplier visibility, support workflows, and core reporting for one operating segment.",
+    "suggested_kpis": "Track time spent on manual coordination, completeness of shared customer and partner records, reporting latency, and employee time freed for higher-value work.",
+    "success_criteria": "The pilot succeeds if staff can work from shared records instead of disconnected tools, visibility improves across commercial relationships, and routine coordination effort declines.",
+    "common_pitfalls": "Common pitfalls include partial data migration, leaving supplier or distributor processes outside the workflow, and failing to standardize cross-functional data ownership.",
+    "duration": "A 6- to 8-week pilot is appropriate for one business segment covering shared records and reporting workflows.",
+    "resource_commitment": "Requires an operations or commercial lead, a small cross-functional user group, and admin support for migration, reporting, and workflow standardization.",
+    "citations": [
+      {
+        "source_url": "https://www.zoho.com/one/customers/counter-culture.html",
+        "source_title": "Counter Culture Coffee grows across the country with Zoho One",
+        "publisher": "Zoho One",
+        "source_type": "secondary",
+        "access_date": "2026-04-17",
+        "evidence_note": "Supports employee count, multi-city expansion, the fragmented-tool problem, and the need for a unified, data-driven operating system.",
+        "is_sourced_fact": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "source_url": "https://counterculturecoffee.com/",
+      "source_title": "Counter Culture Coffee",
+      "publisher": "Counter Culture Coffee",
+      "source_type": "primary",
+      "access_date": "2026-04-17",
+      "evidence_note": "Supports organization identity and coffee retail and roasting context.",
+      "is_sourced_fact": true
+    },
+    {
+      "source_url": "https://www.zoho.com/one/customers/counter-culture.html",
+      "source_title": "Counter Culture Coffee grows across the country with Zoho One",
+      "publisher": "Zoho One",
+      "source_type": "secondary",
+      "access_date": "2026-04-17",
+      "evidence_note": "Supports employee count, multi-city expansion, the fragmented-tool problem, and the need for a unified, data-driven operating system.",
+      "is_sourced_fact": true
+    }
+  ],
+  "curator_note": "Phase 2 packet drafted from approved Phase 1 research candidate B-004."
+}

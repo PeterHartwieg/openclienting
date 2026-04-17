@@ -1,0 +1,117 @@
+packet_version: 3
+packet_id: "curated-sme-a-004-lakeside-cnc-group"
+
+problem_owner_organization:
+  name: "Lakeside CNC Group"
+  website: "https://fanuccontrolrepair.com/"
+  short_description: "US-based FANUC CNC repair and maintenance specialist."
+  country: "United States"
+  sme_evidence:
+    text: "The public case study says Lakeside CNC Group is a FANUC-focused repair and maintenance business that began as a small repair shop with two employees before scaling its technical service operation."
+    citation_refs: ["cite_lakeside_zoho"]
+  existing_org_match:
+    matched: false
+    organization_id: null
+    match_note: ""
+
+problem_statement:
+  title: "Needs to replace spreadsheet-based CNC repair intake with a scalable service workflow"
+  title_citation_refs: ["cite_lakeside_zoho"]
+  description: "Lakeside CNC Group outgrew spreadsheets and basic email-based tracking as its repair-management workload increased. The case study says customer questions and service requests were still being recorded in spreadsheets, which limited visibility and made it harder to manage a growing technical repair operation."
+  description_citation_refs: ["cite_lakeside_zoho"]
+  proposed_tags:
+    - "industrial services"
+    - "repair operations"
+    - "service workflow"
+    - "customer request management"
+  requirements:
+    - text: "Centralize incoming repair requests and customer communications in one system instead of spreadsheets and inboxes."
+      source_basis: "inference"
+      citation_refs: ["cite_lakeside_zoho"]
+      note: "Inferred from the documented use of spreadsheets and email for customer questions and requests."
+    - text: "Improve visibility into open jobs, request status, and internal follow-up responsibility."
+      source_basis: "inference"
+      citation_refs: ["cite_lakeside_zoho"]
+      note: "Inferred from the stated need to redesign the repair management system and increase data visibility."
+    - text: "Support a growing repair workload without relying on ad hoc manual processes."
+      source_basis: "inference"
+      citation_refs: ["cite_lakeside_zoho"]
+      note: "Inferred from the business scaling beyond the tools it originally relied on."
+    - text: "Preserve a customer-service process that can respond consistently as operational complexity increases."
+      source_basis: "inference"
+      citation_refs: ["cite_lakeside_zoho"]
+      note: "Inferred from the company's growth and the documented limitations of its prior tools."
+  pilot_framework:
+    scope:
+      text: "Pilot the new workflow on incoming repair inquiries, ticket intake, technician assignment, and customer status updates for the FANUC repair operation."
+      source_basis: "inference"
+      citation_refs: ["cite_lakeside_zoho"]
+      note: "Scoped to the repair-management pain points and the FANUC-focused business described in the case study."
+    suggested_kpis:
+      text: "Track time to log a new request, percentage of requests handled without spreadsheet use, average response time to customer inquiries, and visibility of open repair jobs."
+      source_basis: "inference"
+      citation_refs: ["cite_lakeside_zoho"]
+      note: "KPIs are inferred from the documented shift away from spreadsheets toward a more visible repair-management process."
+    success_criteria:
+      text: "The pilot succeeds if intake and follow-up are consistently handled in the centralized workflow, staff can see current repair status without spreadsheet lookups, and customer communications are easier to track."
+      source_basis: "inference"
+      citation_refs: ["cite_lakeside_zoho"]
+      note: "Success criteria are inferred from the stated goal of redesigning repair management and increasing data visibility."
+    common_pitfalls:
+      text: "Common pitfalls include keeping parallel spreadsheet processes alive, incomplete technician adoption, and failing to define consistent status updates for customer communication."
+      source_basis: "inference"
+      citation_refs: ["cite_lakeside_zoho"]
+      note: "Operational risks inferred from the company's migration away from spreadsheet-based processes."
+    duration:
+      text: "A 6- to 8-week pilot is appropriate for one service workflow covering request intake through repair-status communication."
+      source_basis: "inference"
+      citation_refs: ["cite_lakeside_zoho"]
+      note: "Duration is editorially inferred because the source describes the problem and system change need but not a pilot timeline."
+    resource_commitment:
+      text: "Requires a service lead, one or two technicians or coordinators, and limited admin support to define statuses, migrate active work, and review workflow adoption."
+      source_basis: "inference"
+      citation_refs: ["cite_lakeside_zoho"]
+      note: "Resource estimate is inferred from the repair-management context and the company's specialist service model."
+
+tag_resolution:
+  status: "pending"
+  resolved_tags: []
+  unresolved_proposed_tags: []
+  note: ""
+
+citations:
+  - citation_key: "cite_lakeside_zoho"
+    source_url: "https://www.zoho.com/desk/customers/lakesidecncgroup.html"
+    source_title: "Desk Casestudy - Lakeside CNC Group"
+    publisher: "Zoho Desk"
+    source_type: "secondary"
+    source_language: "en"
+    access_date: "2026-04-17"
+    evidence_note: "Supports the growth from a two-person repair shop, spreadsheet-based request handling, and the need to redesign repair management and improve data visibility."
+
+solution_provider_organization:
+  present: true
+  name: "Zoho Desk"
+  website: "https://www.zoho.com/desk/"
+  short_description: ""
+  country: ""
+  provider_evidence:
+    text: "The public case study names Zoho Desk as the help desk platform Lakeside CNC Group used to redesign its repair management system."
+    citation_refs: ["cite_lakeside_zoho"]
+  existing_org_match:
+    matched: false
+    organization_id: null
+    match_note: ""
+
+provenance:
+  authored_by_profile: "system"
+  content_origin: "curated"
+  curator_note: "Phase 2 packet drafted from approved Phase 1 research candidate A-004."
+
+inference_notes:
+  - "Requirements and pilot framework are conservative operational inferences based on the documented spreadsheet-based intake, low visibility, and repair-management redesign need."
+
+validation:
+  status: "approved-with-minor-fixes"
+  notes:
+    - "Primary website citation removed during validation because the cited root URL returned 503 at validation time; packet now relies on the live Zoho case study for supported claims."

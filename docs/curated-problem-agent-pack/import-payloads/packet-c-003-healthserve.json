@@ -1,0 +1,142 @@
+{
+  "packet_id": "curated-sme-c-003-healthserve",
+  "problem_owner_org": {
+    "organization_id": null,
+    "name": "HealthServe",
+    "website": "https://healthserve.org.sg/",
+    "description": "Singapore nonprofit providing medical, counselling, and social support services for low-wage migrant workers.",
+    "country": "Singapore"
+  },
+  "solution_provider_org": {
+    "organization_id": null,
+    "name": "Zoho Desk",
+    "website": "https://www.zoho.com/desk/",
+    "description": "",
+    "country": ""
+  },
+  "problem": {
+    "title": "Needs structured intake and follow-up workflows for rising migrant-worker support demand",
+    "description": "HealthServe expanded beyond clinic care into counselling, casework, and mental health support, then saw a major spike in incoming calls during COVID-19. The public case study says the organization needed a system that could manage every call, log each grievance, and help a small team and volunteer network follow through until support had been provided.",
+    "source_language": "en",
+    "tag_ids": [
+      "4a38b7b8-5af8-413a-a3aa-9563598ebe08",
+      "7facd157-fd0a-4e75-9fda-53cc3e8c336a"
+    ]
+  },
+  "requirements": [
+    {
+      "body": "Log every incoming support request in a structured workflow.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/desk/customers/healthserve.html",
+          "source_title": "Zoho Desk supports HealthServe to aid migrant workers on time.",
+          "publisher": "Zoho Desk",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee band, the call-volume spike, the intake and follow-up workflow, and the small-team-plus-volunteer operating model.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Support follow-up by a small core team working alongside volunteers and specialists.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/desk/customers/healthserve.html",
+          "source_title": "Zoho Desk supports HealthServe to aid migrant workers on time.",
+          "publisher": "Zoho Desk",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee band, the call-volume spike, the intake and follow-up workflow, and the small-team-plus-volunteer operating model.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Coordinate counselling and case-management workflows so each migrant worker receives contact and a plan.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/desk/customers/healthserve.html",
+          "source_title": "Zoho Desk supports HealthServe to aid migrant workers on time.",
+          "publisher": "Zoho Desk",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee band, the call-volume spike, the intake and follow-up workflow, and the small-team-plus-volunteer operating model.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Maintain service continuity as demand spikes or the service scope expands.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/desk/customers/healthserve.html",
+          "source_title": "Zoho Desk supports HealthServe to aid migrant workers on time.",
+          "publisher": "Zoho Desk",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee band, the call-volume spike, the intake and follow-up workflow, and the small-team-plus-volunteer operating model.",
+          "is_sourced_fact": false
+        },
+        {
+          "source_url": "https://healthserve.org.sg/our-belief/",
+          "source_title": "Our Belief - HealthServe",
+          "publisher": "HealthServe",
+          "source_type": "primary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports the organization's mission, founding context, and expansion from clinic services into broader medical, counselling, and casework support.",
+          "is_sourced_fact": false
+        }
+      ]
+    }
+  ],
+  "pilot_framework": {
+    "scope": "Pilot the workflow on counselling and case-intake requests, from first contact through assignment, follow-up, and documented support planning.",
+    "suggested_kpis": "Track percentage of incoming requests logged, time to first follow-up, percentage of cases with a documented support plan, and open-ticket aging.",
+    "success_criteria": "The pilot succeeds if every inbound request is captured, follow-up is more reliable, and staff can see whether a migrant worker has been contacted and supported.",
+    "common_pitfalls": "Common pitfalls include incomplete handoff between counselling and case-management teams, inconsistent volunteer documentation, and ticket backlogs during demand spikes.",
+    "duration": "A 4- to 6-week pilot is appropriate for one intake and follow-up workflow with a small core team and repeat review cycles.",
+    "resource_commitment": "Requires a service lead, a small case or counselling team, and limited volunteer participation to test intake discipline, assignment rules, and follow-up review.",
+    "citations": [
+      {
+        "source_url": "https://www.zoho.com/desk/customers/healthserve.html",
+        "source_title": "Zoho Desk supports HealthServe to aid migrant workers on time.",
+        "publisher": "Zoho Desk",
+        "source_type": "secondary",
+        "access_date": "2026-04-17",
+        "evidence_note": "Supports employee band, the call-volume spike, the intake and follow-up workflow, and the small-team-plus-volunteer operating model.",
+        "is_sourced_fact": false
+      },
+      {
+        "source_url": "https://healthserve.org.sg/our-belief/",
+        "source_title": "Our Belief - HealthServe",
+        "publisher": "HealthServe",
+        "source_type": "primary",
+        "access_date": "2026-04-17",
+        "evidence_note": "Supports the organization's mission, founding context, and expansion from clinic services into broader medical, counselling, and casework support.",
+        "is_sourced_fact": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "source_url": "https://healthserve.org.sg/our-belief/",
+      "source_title": "Our Belief - HealthServe",
+      "publisher": "HealthServe",
+      "source_type": "primary",
+      "access_date": "2026-04-17",
+      "evidence_note": "Supports the organization's mission, founding context, and expansion from clinic services into broader medical, counselling, and casework support.",
+      "is_sourced_fact": true
+    },
+    {
+      "source_url": "https://www.zoho.com/desk/customers/healthserve.html",
+      "source_title": "Zoho Desk supports HealthServe to aid migrant workers on time.",
+      "publisher": "Zoho Desk",
+      "source_type": "secondary",
+      "access_date": "2026-04-17",
+      "evidence_note": "Supports employee band, the call-volume spike, the intake and follow-up workflow, and the small-team-plus-volunteer operating model.",
+      "is_sourced_fact": true
+    }
+  ],
+  "curator_note": "Phase 2 packet drafted from approved Phase 1 research candidate C-003."
+}

@@ -1,0 +1,135 @@
+{
+  "packet_id": "curated-sme-b-005-rade-street",
+  "problem_owner_org": {
+    "organization_id": null,
+    "name": "Rade Street",
+    "website": "https://radestreet.in/",
+    "description": "Indian apparel retailer operating a large-format menswear showroom.",
+    "country": "India"
+  },
+  "solution_provider_org": {
+    "organization_id": null,
+    "name": "Zoho POS",
+    "website": "https://www.zoho.com/pos/",
+    "description": "",
+    "country": ""
+  },
+  "problem": {
+    "title": "Needs to eliminate pen-and-paper billing risks in a high-volume retail environment",
+    "description": "Rade Street was using pen and paper for billing more than 500 customers per day. The public case study says that approach left the business exposed to billing manipulation, strategic gaming, hidden losses, and longer billing times that disrupted operational flow.",
+    "source_language": "en",
+    "tag_ids": [
+      "6ddafadc-942e-4b42-a05b-9b7c3adbdd52",
+      "c0ac22e3-d753-4c96-807d-e646c3a4672c",
+      "101a20de-f7ba-4988-ae4e-88f46ca1c33e",
+      "7facd157-fd0a-4e75-9fda-53cc3e8c336a"
+    ]
+  },
+  "requirements": [
+    {
+      "body": "Replace manual billing with a controlled workflow that reduces manipulation risk.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/en-in/pos/customers/rade-street.html",
+          "source_title": "Zoho POS's impact on Rade Street's daily business operations",
+          "publisher": "Zoho POS",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee count, 500+ customers per day, pen-and-paper billing, manipulation risk, hidden losses, and prolonged billing periods.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Shorten billing time in a store handling more than 500 customers per day.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/en-in/pos/customers/rade-street.html",
+          "source_title": "Zoho POS's impact on Rade Street's daily business operations",
+          "publisher": "Zoho POS",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee count, 500+ customers per day, pen-and-paper billing, manipulation risk, hidden losses, and prolonged billing periods.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Improve profitability visibility by reducing unnoticed losses in high-volume sales.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/en-in/pos/customers/rade-street.html",
+          "source_title": "Zoho POS's impact on Rade Street's daily business operations",
+          "publisher": "Zoho POS",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee count, 500+ customers per day, pen-and-paper billing, manipulation risk, hidden losses, and prolonged billing periods.",
+          "is_sourced_fact": true
+        }
+      ]
+    },
+    {
+      "body": "Capture and manage customer data in a more structured way for future engagement.",
+      "citations": [
+        {
+          "source_url": "https://www.zoho.com/en-in/pos/customers/rade-street.html",
+          "source_title": "Zoho POS's impact on Rade Street's daily business operations",
+          "publisher": "Zoho POS",
+          "source_type": "secondary",
+          "access_date": "2026-04-17",
+          "evidence_note": "Supports employee count, 500+ customers per day, pen-and-paper billing, manipulation risk, hidden losses, and prolonged billing periods.",
+          "is_sourced_fact": true
+        }
+      ]
+    }
+  ],
+  "pilot_framework": {
+    "scope": "Pilot the improved workflow at the flagship store across billing, customer record capture, and daily checkout control.",
+    "suggested_kpis": "Track average billing time, percentage of transactions processed digitally, rate of billing discrepancies, and percentage of transactions linked to customer records.",
+    "success_criteria": "The pilot succeeds if manual billing is removed from routine checkout, transaction control improves, and store staff can process customers faster with fewer unexplained losses.",
+    "common_pitfalls": "Common pitfalls include inconsistent staff use at peak times, retaining side calculations outside the system, and weak controls around discounting or negotiated pricing.",
+    "duration": "A 4- to 6-week pilot is appropriate for one store checkout workflow with daily performance review.",
+    "resource_commitment": "Requires a store manager, a small cashier or sales-team cohort, and light admin support for configuration, training, and daily exception review.",
+    "citations": [
+      {
+        "source_url": "https://radestreet.in/",
+        "source_title": "Rade Street",
+        "publisher": "Rade Street",
+        "source_type": "primary",
+        "access_date": "2026-04-17",
+        "evidence_note": "Supports organization identity and storefront website.",
+        "is_sourced_fact": false
+      },
+      {
+        "source_url": "https://www.zoho.com/en-in/pos/customers/rade-street.html",
+        "source_title": "Zoho POS's impact on Rade Street's daily business operations",
+        "publisher": "Zoho POS",
+        "source_type": "secondary",
+        "access_date": "2026-04-17",
+        "evidence_note": "Supports employee count, 500+ customers per day, pen-and-paper billing, manipulation risk, hidden losses, and prolonged billing periods.",
+        "is_sourced_fact": false
+      }
+    ]
+  },
+  "citations": [
+    {
+      "source_url": "https://radestreet.in/",
+      "source_title": "Rade Street",
+      "publisher": "Rade Street",
+      "source_type": "primary",
+      "access_date": "2026-04-17",
+      "evidence_note": "Supports organization identity and storefront website.",
+      "is_sourced_fact": false
+    },
+    {
+      "source_url": "https://www.zoho.com/en-in/pos/customers/rade-street.html",
+      "source_title": "Zoho POS's impact on Rade Street's daily business operations",
+      "publisher": "Zoho POS",
+      "source_type": "secondary",
+      "access_date": "2026-04-17",
+      "evidence_note": "Supports employee count, 500+ customers per day, pen-and-paper billing, manipulation risk, hidden losses, and prolonged billing periods.",
+      "is_sourced_fact": true
+    }
+  ],
+  "curator_note": "Phase 2 packet drafted from approved Phase 1 research candidate B-005."
+}
