@@ -218,7 +218,13 @@
     "paginationPrevious": "पिछला",
     "paginationNext": "अगला",
     "paginationPage": "पृष्ठ",
-    "paginationOf": "का"
+    "paginationOf": "का",
+    "resultsCount": "{count, plural, one {1 समस्या} other {# समस्याएँ}}",
+    "resultsCountFiltered": "आपके फ़िल्टर से मेल खाती {count, plural, one {1 समस्या} other {# समस्याएँ}}",
+    "appliedFiltersLabel": "सक्रिय फ़िल्टर:",
+    "removeFilter": "{filter} फ़िल्टर हटाएँ",
+    "noResultsTitle": "इन फ़िल्टर से कोई समस्या मेल नहीं खाती",
+    "noResultsResetCta": "फ़िल्टर रीसेट करें"
   },
   "problemDetail": {
     "metaTitleFallback": "समस्या — OpenClienting",

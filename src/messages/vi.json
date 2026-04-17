@@ -218,7 +218,13 @@
     "paginationPrevious": "Trước",
     "paginationNext": "Tiếp theo",
     "paginationPage": "Trang",
-    "paginationOf": "trên"
+    "paginationOf": "trên",
+    "resultsCount": "{count, plural, one {1 vấn đề} other {# vấn đề}}",
+    "resultsCountFiltered": "{count, plural, one {1 vấn đề} other {# vấn đề}} phù hợp với bộ lọc của bạn",
+    "appliedFiltersLabel": "Bộ lọc đang áp dụng:",
+    "removeFilter": "Xóa bộ lọc {filter}",
+    "noResultsTitle": "Không có vấn đề nào khớp với các bộ lọc này",
+    "noResultsResetCta": "Đặt lại bộ lọc"
   },
   "problemDetail": {
     "metaTitleFallback": "Vấn Đề — OpenClienting",

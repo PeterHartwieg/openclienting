@@ -218,7 +218,13 @@
     "paginationPrevious": "הקודם",
     "paginationNext": "הבא",
     "paginationPage": "עמוד",
-    "paginationOf": "מתוך"
+    "paginationOf": "מתוך",
+    "resultsCount": "{count, plural, one {בעיה אחת} other {# בעיות}}",
+    "resultsCountFiltered": "{count, plural, one {בעיה אחת} other {# בעיות}} התואמות את הסינון שלך",
+    "appliedFiltersLabel": "מסננים פעילים:",
+    "removeFilter": "הסר את מסנן {filter}",
+    "noResultsTitle": "לא נמצאו בעיות התואמות לסינונים אלה",
+    "noResultsResetCta": "אפס מסננים"
   },
   "problemDetail": {
     "metaTitleFallback": "בעיה — OpenClienting",

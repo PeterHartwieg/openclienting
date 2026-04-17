@@ -218,7 +218,13 @@
     "paginationPrevious": "Forrige",
     "paginationNext": "Neste",
     "paginationPage": "Side",
-    "paginationOf": "av"
+    "paginationOf": "av",
+    "resultsCount": "{count, plural, one {1 problem} other {# problemer}}",
+    "resultsCountFiltered": "{count, plural, one {1 problem} other {# problemer}} som samsvarer med filtrene dine",
+    "appliedFiltersLabel": "Aktive filtre:",
+    "removeFilter": "Fjern {filter}-filter",
+    "noResultsTitle": "Ingen problemer samsvarer med disse filtrene",
+    "noResultsResetCta": "Tilbakestill filtre"
   },
   "problemDetail": {
     "metaTitleFallback": "Problem — OpenClienting",

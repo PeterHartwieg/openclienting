@@ -218,7 +218,13 @@
     "paginationPrevious": "ก่อนหน้า",
     "paginationNext": "ถัดไป",
     "paginationPage": "หน้า",
-    "paginationOf": "จาก"
+    "paginationOf": "จาก",
+    "resultsCount": "{count, plural, one {1 ปัญหา} other {# ปัญหา}}",
+    "resultsCountFiltered": "{count, plural, one {1 ปัญหา} other {# ปัญหา}} ที่ตรงกับตัวกรองของคุณ",
+    "appliedFiltersLabel": "ตัวกรองที่ใช้งานอยู่:",
+    "removeFilter": "ลบตัวกรอง {filter}",
+    "noResultsTitle": "ไม่มีปัญหาที่ตรงกับตัวกรองเหล่านี้",
+    "noResultsResetCta": "รีเซ็ตตัวกรอง"
   },
   "problemDetail": {
     "metaTitleFallback": "ปัญหา — OpenClienting",

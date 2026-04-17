@@ -218,7 +218,13 @@
     "paginationPrevious": "Назад",
     "paginationNext": "Далі",
     "paginationPage": "Сторінка",
-    "paginationOf": "з"
+    "paginationOf": "з",
+    "resultsCount": "{count, plural, one {1 проблема} few {# проблеми} other {# проблем}}",
+    "resultsCountFiltered": "{count, plural, one {1 проблема} few {# проблеми} other {# проблем}}, що відповідають вашим фільтрам",
+    "appliedFiltersLabel": "Активні фільтри:",
+    "removeFilter": "Видалити фільтр {filter}",
+    "noResultsTitle": "Жодна проблема не відповідає цим фільтрам",
+    "noResultsResetCta": "Скинути фільтри"
   },
   "problemDetail": {
     "metaTitleFallback": "Проблема — OpenClienting",

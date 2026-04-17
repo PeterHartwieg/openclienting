@@ -218,7 +218,13 @@
     "paginationPrevious": "이전",
     "paginationNext": "다음",
     "paginationPage": "페이지",
-    "paginationOf": "/"
+    "paginationOf": "/",
+    "resultsCount": "{count, plural, one {1개 문제} other {#개 문제}}",
+    "resultsCountFiltered": "필터에 맞는 {count, plural, one {1개 문제} other {#개 문제}}",
+    "appliedFiltersLabel": "적용된 필터:",
+    "removeFilter": "{filter} 필터 제거",
+    "noResultsTitle": "이 필터에 맞는 문제가 없습니다",
+    "noResultsResetCta": "필터 초기화"
   },
   "problemDetail": {
     "metaTitleFallback": "문제 — OpenClienting",

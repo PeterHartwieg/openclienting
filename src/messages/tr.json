@@ -218,7 +218,13 @@
     "paginationPrevious": "Önceki",
     "paginationNext": "Sonraki",
     "paginationPage": "Sayfa",
-    "paginationOf": "/"
+    "paginationOf": "/",
+    "resultsCount": "{count, plural, one {1 sorun} other {# sorun}}",
+    "resultsCountFiltered": "Filtrelerinizle eşleşen {count, plural, one {1 sorun} other {# sorun}}",
+    "appliedFiltersLabel": "Etkin filtreler:",
+    "removeFilter": "{filter} filtresini kaldır",
+    "noResultsTitle": "Bu filtrelerle eşleşen sorun yok",
+    "noResultsResetCta": "Filtreleri sıfırla"
   },
   "problemDetail": {
     "metaTitleFallback": "Sorun — OpenClienting",

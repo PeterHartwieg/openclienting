@@ -218,7 +218,13 @@
     "paginationPrevious": "Sebelumnya",
     "paginationNext": "Berikutnya",
     "paginationPage": "Halaman",
-    "paginationOf": "dari"
+    "paginationOf": "dari",
+    "resultsCount": "{count, plural, one {1 masalah} other {# masalah}}",
+    "resultsCountFiltered": "{count, plural, one {1 masalah} other {# masalah}} yang cocok dengan filter Anda",
+    "appliedFiltersLabel": "Filter aktif:",
+    "removeFilter": "Hapus filter {filter}",
+    "noResultsTitle": "Tidak ada masalah yang cocok dengan filter ini",
+    "noResultsResetCta": "Reset filter"
   },
   "problemDetail": {
     "metaTitleFallback": "Masalah — OpenClienting",

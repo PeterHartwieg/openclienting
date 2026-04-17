@@ -218,7 +218,13 @@
     "paginationPrevious": "পূর্ববর্তী",
     "paginationNext": "পরবর্তী",
     "paginationPage": "পৃষ্ঠা",
-    "paginationOf": "এর মধ্যে"
+    "paginationOf": "এর মধ্যে",
+    "resultsCount": "{count, plural, one {১টি সমস্যা} other {# টি সমস্যা}}",
+    "resultsCountFiltered": "আপনার ফিল্টার অনুযায়ী {count, plural, one {১টি সমস্যা} other {# টি সমস্যা}}",
+    "appliedFiltersLabel": "সক্রিয় ফিল্টার:",
+    "removeFilter": "{filter} ফিল্টার সরান",
+    "noResultsTitle": "এই ফিল্টারগুলির সাথে কোনো সমস্যা মেলেনি",
+    "noResultsResetCta": "ফিল্টার রিসেট করুন"
   },
   "problemDetail": {
     "metaTitleFallback": "সমস্যা — OpenClienting",

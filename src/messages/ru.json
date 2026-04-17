@@ -218,7 +218,13 @@
     "paginationPrevious": "Назад",
     "paginationNext": "Вперёд",
     "paginationPage": "Страница",
-    "paginationOf": "из"
+    "paginationOf": "из",
+    "resultsCount": "{count, plural, one {1 проблема} few {# проблемы} other {# проблем}}",
+    "resultsCountFiltered": "{count, plural, one {1 проблема} few {# проблемы} other {# проблем}}, соответствующих вашим фильтрам",
+    "appliedFiltersLabel": "Активные фильтры:",
+    "removeFilter": "Удалить фильтр «{filter}»",
+    "noResultsTitle": "Ни одна проблема не соответствует этим фильтрам",
+    "noResultsResetCta": "Сбросить фильтры"
   },
   "problemDetail": {
     "metaTitleFallback": "Проблема — OpenClienting",

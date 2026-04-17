@@ -218,7 +218,13 @@
     "paginationPrevious": "Anterior",
     "paginationNext": "Următor",
     "paginationPage": "Pagina",
-    "paginationOf": "din"
+    "paginationOf": "din",
+    "resultsCount": "{count, plural, one {1 problemă} other {# probleme}}",
+    "resultsCountFiltered": "{count, plural, one {1 problemă} other {# probleme}} care corespund filtrelor dvs.",
+    "appliedFiltersLabel": "Filtre active:",
+    "removeFilter": "Elimină filtrul {filter}",
+    "noResultsTitle": "Nicio problemă nu corespunde acestor filtre",
+    "noResultsResetCta": "Resetează filtrele"
   },
   "problemDetail": {
     "metaTitleFallback": "Problemă — OpenClienting",

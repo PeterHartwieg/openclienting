@@ -11,10 +11,18 @@
  *                          subscription's session/rate limits.
  *
  * Usage:
- *   node scripts/translate-messages.mjs
+ *   node scripts/translate-messages.mjs                # gap-fill mode
  *   node scripts/translate-messages.mjs --locale fr
  *   node scripts/translate-messages.mjs --locale fr,es,ja
+ *   node scripts/translate-messages.mjs --full         # force full retranslate
  *   ANTHROPIC_API_KEY=sk-... node scripts/translate-messages.mjs
+ *
+ * Default behavior is **gap-fill**: if a locale file already exists, the
+ * script diffs it against en.json and asks Claude to translate ONLY the
+ * keys that are missing, then merges them in. Existing translations are
+ * preserved. Pass --full to force a complete retranslation that overwrites
+ * the file (useful when you want the model to re-do everything in a
+ * consistent voice).
  *
  * Processes locales in parallel batches of 5.
  */
@@ -154,7 +162,10 @@ const ALL_LOCALES = {
 };
 
 // Locales that already have complete translation files — skip by default.
-const SKIP_BY_DEFAULT = new Set(["en", "de"]);
+// Only English is skipped (it's the source). German used to be hand-
+// maintained and skipped here; it's now part of the auto-translated set
+// so new keys don't drift out of sync.
+const SKIP_BY_DEFAULT = new Set(["en"]);
 
 // ---------------------------------------------------------------------------
 // CLI argument parsing
@@ -162,6 +173,7 @@ const SKIP_BY_DEFAULT = new Set(["en", "de"]);
 const args = process.argv.slice(2);
 const localeArg = args.find((a) => a.startsWith("--locale="))?.split("=")[1]
   ?? args[args.indexOf("--locale") + 1];
+const fullMode = args.includes("--full");
 
 let targetLocales;
 if (localeArg) {
@@ -183,7 +195,58 @@ const enMessages = JSON.parse(readFileSync(enPath, "utf8"));
 const enJson = JSON.stringify(enMessages, null, 2);
 
 // ---------------------------------------------------------------------------
-// Translation prompt
+// Flatten / unflatten — used by gap-fill mode to diff against the existing
+// locale file and merge translations back without disturbing untouched keys.
+// Arrays are leaf values (we don't recurse into them), which matches the
+// shape of next-intl message files.
+// ---------------------------------------------------------------------------
+function flatten(obj, prefix = "") {
+  const out = {};
+  for (const [key, value] of Object.entries(obj)) {
+    const path = prefix ? `${prefix}.${key}` : key;
+    if (value !== null && typeof value === "object" && !Array.isArray(value)) {
+      Object.assign(out, flatten(value, path));
+    } else {
+      out[path] = value;
+    }
+  }
+  return out;
+}
+
+function setDeep(obj, path, value) {
+  const parts = path.split(".");
+  let cur = obj;
+  for (let i = 0; i < parts.length - 1; i++) {
+    if (cur[parts[i]] == null || typeof cur[parts[i]] !== "object") {
+      cur[parts[i]] = {};
+    }
+    cur = cur[parts[i]];
+  }
+  cur[parts[parts.length - 1]] = value;
+}
+
+// Reorder `target` to match the key order of `template` (en.json) so diffs
+// stay clean even after a gap-fill merge.
+function reorderLike(template, target) {
+  if (template === null || typeof template !== "object" || Array.isArray(template)) {
+    return target;
+  }
+  const out = {};
+  for (const key of Object.keys(template)) {
+    if (key in target) {
+      out[key] = reorderLike(template[key], target[key]);
+    }
+  }
+  // Preserve any extra keys present in target but absent from template, at
+  // the end. (Shouldn't happen in practice, but defensive.)
+  for (const key of Object.keys(target)) {
+    if (!(key in out)) out[key] = target[key];
+  }
+  return out;
+}
+
+// ---------------------------------------------------------------------------
+// Translation prompts
 // ---------------------------------------------------------------------------
 function buildPrompt(locale, englishName) {
   return `You are a professional localisation engineer. Translate the following Next.js i18n JSON message file from English into ${englishName} (locale code: "${locale}").
@@ -216,53 +279,151 @@ INPUT JSON:
 ${enJson}`;
 }
 
-// ---------------------------------------------------------------------------
-// Translate one locale
-// ---------------------------------------------------------------------------
-async function translateLocale(locale) {
-  const englishName = ALL_LOCALES[locale];
-  const outPath = resolve(ROOT, `src/messages/${locale}.json`);
+// Gap-fill prompt: given a flat map of dotted-path → English string, ask
+// for a JSON object with the same dotted-path keys mapped to translations.
+// Much smaller payload than the full file, so verbose locales don't risk
+// hitting the response token cap.
+function buildGapFillPrompt(locale, englishName, missingFlat) {
+  return `You are a professional localisation engineer. Translate the following message strings into ${englishName} (locale code: "${locale}") for a B2B SaaS platform.
 
-  console.log(`  [${locale}] Translating into ${englishName}…`);
+STRICT RULES — follow every rule exactly:
+1. Return ONLY valid JSON. No markdown, no code fences, no explanations.
+2. The JSON must be a flat object keyed by the EXACT dotted paths shown below. Do NOT nest, do NOT rename, do NOT drop any keys.
+3. Preserve ALL ICU MessageFormat patterns character-for-character:
+   - Placeholders like {name}, {date}, {count} — keep the variable name.
+   - Plural selectors like {count, plural, =0 {…} one {…} other {…}} — keep the ICU syntax and keywords (plural, =0, one, other); only translate the human-readable text inside the curly braces.
+   - Select selectors like {status, select, …} — same rule.
+4. Do NOT translate these specific strings (keep them in English / their original form):
+   - "OpenClienting" (brand name)
+   - "GitHub" (brand name)
+   - "Google Tag Manager" (brand name)
+   - "Google Analytics" (brand name)
+   - "Google Analytics 4" (brand name)
+   - "CC BY-SA 4.0" (license identifier)
+   - "Impressum" (German legal term, keep as-is in all locales)
+   - "you@example.com" (example email placeholder)
+   - "SME" / "SMEs" (industry acronym — keep as-is)
+   - URL slugs in help text (e.g. "my-new-article")
+   - "Q: ... A: ..." format hints
+   - "PKCE", "RFP" (technical/acronym terms)
+5. Use natural, professional business language appropriate for ${englishName}.
+6. Numbers, punctuation characters used as separators, and HTML entities (like &mdash;) should remain as-is.
+7. Escape any inner double quotes inside string values as \\". Do NOT leave bare " characters inside a string value — they will break JSON parsing. If the source uses quotes for emphasis, prefer the locale's native quotation marks (e.g. „…" in German, « … » in French, “…” in English-style, 「…」 in CJK) or escape them as \\".
 
-  const raw = (await callClaude(buildPrompt(locale, englishName))).trim();
+INPUT (English source, flat object):
+${JSON.stringify(missingFlat, null, 2)}`;
+}
 
-  // Strip accidental markdown fences if the model added them
+function parseClaudeJson(raw, locale, outPath) {
   const jsonText = raw.replace(/^```(?:json)?\n?/, "").replace(/\n?```$/, "").trim();
-
-  let parsed;
   try {
-    parsed = JSON.parse(jsonText);
+    return JSON.parse(jsonText);
   } catch (err) {
     console.error(`  [${locale}] ⚠  JSON parse failed — writing raw output to ${locale}.raw.txt`);
     writeFileSync(outPath.replace(".json", ".raw.txt"), raw, "utf8");
     throw err;
   }
+}
 
+// ---------------------------------------------------------------------------
+// Translate one locale — gap-fill if existing file present, full otherwise
+// ---------------------------------------------------------------------------
+async function translateLocale(locale) {
+  const englishName = ALL_LOCALES[locale];
+  const outPath = resolve(ROOT, `src/messages/${locale}.json`);
+  const exists = existsSync(outPath);
+
+  if (exists && !fullMode) {
+    // Gap-fill: figure out which keys are missing, translate just those.
+    const existing = JSON.parse(readFileSync(outPath, "utf8"));
+    const enFlat = flatten(enMessages);
+    const existingFlat = flatten(existing);
+    const missingFlat = {};
+    for (const [key, value] of Object.entries(enFlat)) {
+      if (!(key in existingFlat)) missingFlat[key] = value;
+    }
+    const missingCount = Object.keys(missingFlat).length;
+    if (missingCount === 0) {
+      console.log(`  [${locale}] ✓ Already up to date, skipping`);
+      return;
+    }
+    console.log(`  [${locale}] Gap-fill: ${missingCount} missing key(s) → ${englishName}…`);
+
+    const raw = (
+      await callClaude(buildGapFillPrompt(locale, englishName, missingFlat))
+    ).trim();
+    const translatedFlat = parseClaudeJson(raw, locale, outPath);
+
+    // Defensive: only merge keys we asked for, skip anything extra.
+    const merged = JSON.parse(JSON.stringify(existing));
+    let mergedCount = 0;
+    for (const key of Object.keys(missingFlat)) {
+      if (key in translatedFlat) {
+        setDeep(merged, key, translatedFlat[key]);
+        mergedCount++;
+      }
+    }
+    if (mergedCount < missingCount) {
+      console.warn(
+        `  [${locale}] ⚠  model returned ${mergedCount}/${missingCount} keys; missing ones stay English fallback`,
+      );
+    }
+
+    const reordered = reorderLike(enMessages, merged);
+    writeFileSync(outPath, JSON.stringify(reordered, null, 2) + "\n", "utf8");
+    console.log(`  [${locale}] ✓ Merged ${mergedCount} key(s) into src/messages/${locale}.json`);
+    return;
+  }
+
+  // Full translation (no existing file, or --full passed)
+  console.log(`  [${locale}] Full translation → ${englishName}…`);
+  const raw = (await callClaude(buildPrompt(locale, englishName))).trim();
+  const parsed = parseClaudeJson(raw, locale, outPath);
   writeFileSync(outPath, JSON.stringify(parsed, null, 2) + "\n", "utf8");
   console.log(`  [${locale}] ✓ Written to src/messages/${locale}.json`);
 }
 
 // ---------------------------------------------------------------------------
-// Process in parallel batches of 5
+// Process in parallel batches of 5. allSettled so one bad locale doesn't
+// abort the whole run; failures are reported in the summary.
 // ---------------------------------------------------------------------------
 async function runBatch(batch) {
-  await Promise.all(batch.map(translateLocale));
+  const results = await Promise.allSettled(batch.map(translateLocale));
+  const failures = [];
+  results.forEach((r, i) => {
+    if (r.status === "rejected") {
+      failures.push({ locale: batch[i], error: r.reason });
+    }
+  });
+  return failures;
 }
 
 async function main() {
   console.log(`\nTranslating UI messages into ${targetLocales.length} locale(s):`);
   console.log(`  ${targetLocales.join(", ")}\n`);
 
+  const allFailures = [];
   const BATCH_SIZE = 5;
   for (let i = 0; i < targetLocales.length; i += BATCH_SIZE) {
     const batch = targetLocales.slice(i, i + BATCH_SIZE);
     console.log(`Batch ${Math.floor(i / BATCH_SIZE) + 1}: ${batch.join(", ")}`);
-    await runBatch(batch);
+    const failures = await runBatch(batch);
+    allFailures.push(...failures);
     console.log();
   }
 
-  console.log("Done.");
+  if (allFailures.length === 0) {
+    console.log("Done. All locales succeeded.");
+  } else {
+    console.log(`Done with ${allFailures.length} failure(s):`);
+    for (const { locale, error } of allFailures) {
+      console.log(`  - ${locale}: ${error?.message ?? error}`);
+    }
+    console.log(
+      `\nRe-run with --locale=${allFailures.map((f) => f.locale).join(",")} to retry just the failures.`,
+    );
+    process.exit(1);
+  }
 }
 
 main().catch((err) => {

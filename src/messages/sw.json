@@ -218,7 +218,13 @@
     "paginationPrevious": "Iliyotangulia",
     "paginationNext": "Inayofuata",
     "paginationPage": "Ukurasa",
-    "paginationOf": "ya"
+    "paginationOf": "ya",
+    "resultsCount": "{count, plural, one {tatizo 1} other {matatizo #}}",
+    "resultsCountFiltered": "{count, plural, one {tatizo 1} other {matatizo #}} yanayolingana na vichujio vyako",
+    "appliedFiltersLabel": "Vichujio vinavyotumika:",
+    "removeFilter": "Ondoa kichujio cha {filter}",
+    "noResultsTitle": "Hakuna matatizo yanayolingana na vichujio hivi",
+    "noResultsResetCta": "Weka upya vichujio"
   },
   "problemDetail": {
     "metaTitleFallback": "Tatizo — OpenClienting",

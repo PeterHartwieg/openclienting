@@ -218,7 +218,13 @@
     "paginationPrevious": "前へ",
     "paginationNext": "次へ",
     "paginationPage": "ページ",
-    "paginationOf": "/"
+    "paginationOf": "/",
+    "resultsCount": "{count, plural, one {1件の問題} other {#件の問題}}",
+    "resultsCountFiltered": "フィルターに一致する{count, plural, one {1件の問題} other {#件の問題}}",
+    "appliedFiltersLabel": "適用中のフィルター:",
+    "removeFilter": "{filter}フィルターを削除",
+    "noResultsTitle": "このフィルターに一致する問題はありません",
+    "noResultsResetCta": "フィルターをリセット"
   },
   "problemDetail": {
     "metaTitleFallback": "課題 — OpenClienting",

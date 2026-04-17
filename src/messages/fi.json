@@ -218,7 +218,13 @@
     "paginationPrevious": "Edellinen",
     "paginationNext": "Seuraava",
     "paginationPage": "Sivu",
-    "paginationOf": "/ "
+    "paginationOf": "/ ",
+    "resultsCount": "{count, plural, one {1 ongelma} other {# ongelmaa}}",
+    "resultsCountFiltered": "{count, plural, one {1 ongelma} other {# ongelmaa}} suodattimiesi mukaan",
+    "appliedFiltersLabel": "Aktiiviset suodattimet:",
+    "removeFilter": "Poista {filter}-suodatin",
+    "noResultsTitle": "Mikään ongelma ei vastaa näitä suodattimia",
+    "noResultsResetCta": "Nollaa suodattimet"
   },
   "problemDetail": {
     "metaTitleFallback": "Ongelma — OpenClienting",

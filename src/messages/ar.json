@@ -218,7 +218,13 @@
     "paginationPrevious": "السابق",
     "paginationNext": "التالي",
     "paginationPage": "صفحة",
-    "paginationOf": "من"
+    "paginationOf": "من",
+    "resultsCount": "{count, plural, one {مشكلة واحدة} other {# مشاكل}}",
+    "resultsCountFiltered": "{count, plural, one {مشكلة واحدة} other {# مشاكل}} تطابق عوامل التصفية لديك",
+    "appliedFiltersLabel": "عوامل التصفية النشطة:",
+    "removeFilter": "إزالة عامل التصفية {filter}",
+    "noResultsTitle": "لا توجد مشاكل تطابق هذه عوامل التصفية",
+    "noResultsResetCta": "إعادة ضبط عوامل التصفية"
   },
   "problemDetail": {
     "metaTitleFallback": "مشكلة — OpenClienting",

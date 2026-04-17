@@ -218,7 +218,13 @@
     "paginationPrevious": "Předchozí",
     "paginationNext": "Další",
     "paginationPage": "Strana",
-    "paginationOf": "z"
+    "paginationOf": "z",
+    "resultsCount": "{count, plural, one {1 problém} other {# problémů}}",
+    "resultsCountFiltered": "{count, plural, one {1 problém} other {# problémů}} odpovídající vašim filtrům",
+    "appliedFiltersLabel": "Aktivní filtry:",
+    "removeFilter": "Odebrat filtr {filter}",
+    "noResultsTitle": "Žádné problémy neodpovídají těmto filtrům",
+    "noResultsResetCta": "Resetovat filtry"
   },
   "problemDetail": {
     "metaTitleFallback": "Problém — OpenClienting",

@@ -218,7 +218,13 @@
     "paginationPrevious": "Előző",
     "paginationNext": "Következő",
     "paginationPage": "Oldal",
-    "paginationOf": "/"
+    "paginationOf": "/",
+    "resultsCount": "{count, plural, one {1 probléma} other {# probléma}}",
+    "resultsCountFiltered": "{count, plural, one {1 probléma} other {# probléma}} megfelel a szűrőknek",
+    "appliedFiltersLabel": "Aktív szűrők:",
+    "removeFilter": "{filter} szűrő eltávolítása",
+    "noResultsTitle": "Nincs a szűrőknek megfelelő probléma",
+    "noResultsResetCta": "Szűrők visszaállítása"
   },
   "problemDetail": {
     "metaTitleFallback": "Probléma — OpenClienting",

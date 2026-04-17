@@ -218,7 +218,13 @@
     "paginationPrevious": "Προηγούμενο",
     "paginationNext": "Επόμενο",
     "paginationPage": "Σελίδα",
-    "paginationOf": "από"
+    "paginationOf": "από",
+    "resultsCount": "{count, plural, one {1 πρόβλημα} other {# προβλήματα}}",
+    "resultsCountFiltered": "{count, plural, one {1 πρόβλημα} other {# προβλήματα}} που ταιριάζουν με τα φίλτρα σας",
+    "appliedFiltersLabel": "Ενεργά φίλτρα:",
+    "removeFilter": "Κατάργηση φίλτρου {filter}",
+    "noResultsTitle": "Κανένα πρόβλημα δεν ταιριάζει με αυτά τα φίλτρα",
+    "noResultsResetCta": "Επαναφορά φίλτρων"
   },
   "problemDetail": {
     "metaTitleFallback": "Πρόβλημα — OpenClienting",

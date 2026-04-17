@@ -218,7 +218,13 @@
     "paginationPrevious": "上一页",
     "paginationNext": "下一页",
     "paginationPage": "第",
-    "paginationOf": "共"
+    "paginationOf": "共",
+    "resultsCount": "{count, plural, one {1 个问题} other {# 个问题}}",
+    "resultsCountFiltered": "{count, plural, one {1 个问题} other {# 个问题}}符合您的筛选条件",
+    "appliedFiltersLabel": "已启用的筛选条件：",
+    "removeFilter": "移除{filter}筛选条件",
+    "noResultsTitle": "没有问题符合这些筛选条件",
+    "noResultsResetCta": "重置筛选条件"
   },
   "problemDetail": {
     "metaTitleFallback": "问题 — OpenClienting",

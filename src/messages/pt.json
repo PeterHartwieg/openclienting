@@ -218,7 +218,13 @@
     "paginationPrevious": "Anterior",
     "paginationNext": "Seguinte",
     "paginationPage": "Página",
-    "paginationOf": "de"
+    "paginationOf": "de",
+    "resultsCount": "{count, plural, one {1 problema} other {# problemas}}",
+    "resultsCountFiltered": "{count, plural, one {1 problema} other {# problemas}} correspondendo aos seus filtros",
+    "appliedFiltersLabel": "Filtros ativos:",
+    "removeFilter": "Remover filtro {filter}",
+    "noResultsTitle": "Nenhum problema corresponde a estes filtros",
+    "noResultsResetCta": "Redefinir filtros"
   },
   "problemDetail": {
     "metaTitleFallback": "Problema — OpenClienting",
