@@ -218,7 +218,13 @@
     "paginationPrevious": "Zurück",
     "paginationNext": "Weiter",
     "paginationPage": "Seite",
-    "paginationOf": "von"
+    "paginationOf": "von",
+    "resultsCount": "{count, plural, one {1 Problem} other {# Probleme}}",
+    "resultsCountFiltered": "{count, plural, one {1 Problem passt zu deinen Filtern} other {# Probleme passen zu deinen Filtern}}",
+    "appliedFiltersLabel": "Aktive Filter:",
+    "removeFilter": "Filter „{filter}\" entfernen",
+    "noResultsTitle": "Keine Probleme entsprechen diesen Filtern",
+    "noResultsResetCta": "Filter zurücksetzen"
   },
   "problemDetail": {
     "metaTitleFallback": "Problem — OpenClienting",
@@ -386,7 +392,60 @@
     "yourSubmissions": "Deine Einreichungen",
     "yourSolutionApproaches": "Deine Lösungsansätze",
     "noApproaches": "Du hast noch keine Lösungsansätze vorgeschlagen.",
-    "submittedAt": "Eingereicht am {date}"
+    "submittedAt": "Eingereicht am {date}",
+    "overview": {
+      "notifications": {
+        "title": "Benachrichtigungen",
+        "viewAll": "Alle ansehen",
+        "markAllRead": "Alle als gelesen markieren",
+        "empty": "Du bist auf dem neuesten Stand.",
+        "unreadLabel": "{count, plural, one {1 ungelesen} other {# ungelesen}}"
+      },
+      "pendingReview": {
+        "title": "Wartet auf Prüfung",
+        "empty": "Keine deiner Einreichungen wartet derzeit auf Moderation.",
+        "itemCount": "{count, plural, one {1 Eintrag} other {# Einträge}}"
+      },
+      "drafts": {
+        "title": "Entwürfe",
+        "empty": "Du hast keine offenen Entwürfe.",
+        "startDraft": "Entwurf starten",
+        "draftLabel": "Entwurf",
+        "itemCount": "{count, plural, one {1 Entwurf} other {# Entwürfe}}"
+      },
+      "organizations": {
+        "title": "Deine Organisationen",
+        "viewAll": "Alle ansehen",
+        "empty": "Du gehörst noch zu keiner Organisation.",
+        "joinOrCreate": "Beitreten oder erstellen",
+        "verified": "Verifiziert",
+        "pendingMembership": "Mitgliedschaft ausstehend"
+      },
+      "recentSubmissions": {
+        "title": "Letzte Einreichungen",
+        "empty": "Du hast noch nichts veröffentlicht."
+      },
+      "quickActions": {
+        "title": "Schnellaktionen",
+        "submitProblem": "Problem einreichen",
+        "proposeSolution": "Lösung vorschlagen",
+        "createOrg": "Organisation erstellen",
+        "browseProblems": "Probleme entdecken"
+      },
+      "moderation": {
+        "title": "Moderationswarteschlangen",
+        "viewQueues": "Warteschlangen öffnen",
+        "pendingCount": "{count, plural, one {1 Eintrag} other {# Einträge}} warten auf Prüfung"
+      },
+      "kindLabels": {
+        "problem": "Problem",
+        "requirement": "Anforderung",
+        "framework": "Pilot-Framework",
+        "solution": "Lösungsansatz",
+        "successReport": "Erfolgsbericht",
+        "knowledgeArticle": "Wissensartikel"
+      }
+    }
   },
   "settings": {
     "metaTitle": "Einstellungen — OpenClienting",
