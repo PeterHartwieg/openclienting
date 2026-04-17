@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getCurrentUser } from "@/lib/auth/roles";
 import { createClient } from "@/lib/supabase/server";
 import { getDeletionBlockers } from "@/lib/actions/account";
@@ -17,10 +17,18 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export const metadata: Metadata = {
-  title: "Account settings",
-  robots: { index: false, follow: false },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "account" });
+  return {
+    title: t("metaTitle"),
+    robots: { index: false, follow: false },
+  };
+}
 
 export default async function AccountPage({
   params,
@@ -29,6 +37,8 @@ export default async function AccountPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+
+  const t = await getTranslations({ locale, namespace: "account" });
 
   const user = await getCurrentUser();
   if (!user) {
@@ -64,15 +74,13 @@ export default async function AccountPage({
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold tracking-tight">Account</h1>
+      <h1 className="text-3xl font-bold tracking-tight">{t("pageHeading")}</h1>
 
       <div className="mt-8 space-y-6">
         <Card>
           <CardHeader>
-            <CardTitle>Profile</CardTitle>
-            <CardDescription>
-              Information shown next to your submissions and comments.
-            </CardDescription>
+            <CardTitle>{t("profile.title")}</CardTitle>
+            <CardDescription>{t("profile.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <ProfileForm
@@ -89,10 +97,8 @@ export default async function AccountPage({
 
         <Card>
           <CardHeader>
-            <CardTitle>Avatar</CardTitle>
-            <CardDescription>
-              A small profile picture shown next to your name.
-            </CardDescription>
+            <CardTitle>{t("avatar.title")}</CardTitle>
+            <CardDescription>{t("avatar.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <AvatarUpload
@@ -104,11 +110,8 @@ export default async function AccountPage({
 
         <Card id="notifications" className="scroll-mt-24">
           <CardHeader>
-            <CardTitle>Email notifications</CardTitle>
-            <CardDescription>
-              Choose which events trigger an email. You&apos;ll still see
-              everything in your dashboard notifications.
-            </CardDescription>
+            <CardTitle>{t("notifications.title")}</CardTitle>
+            <CardDescription>{t("notifications.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <NotificationSettings
@@ -128,10 +131,8 @@ export default async function AccountPage({
 
         <Card>
           <CardHeader>
-            <CardTitle>Login &amp; security</CardTitle>
-            <CardDescription>
-              Manage how you sign in to OpenClienting.
-            </CardDescription>
+            <CardTitle>{t("security.title")}</CardTitle>
+            <CardDescription>{t("security.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <PasswordSection
@@ -143,10 +144,8 @@ export default async function AccountPage({
 
         <Card className="border-destructive/50">
           <CardHeader>
-            <CardTitle className="text-destructive">Danger zone</CardTitle>
-            <CardDescription>
-              Irreversible account actions. Proceed with care.
-            </CardDescription>
+            <CardTitle className="text-destructive">{t("dangerZone.title")}</CardTitle>
+            <CardDescription>{t("dangerZone.description")}</CardDescription>
           </CardHeader>
           <CardContent>
             <DeleteAccountSection

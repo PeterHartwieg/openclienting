@@ -466,6 +466,107 @@
     "saved": "Nastavení uloženo"
   },
   "account": {
+    "metaTitle": "Account settings — OpenClienting",
+    "pageHeading": "Account",
+    "profile": {
+      "title": "Profile",
+      "description": "Information shown next to your submissions and comments.",
+      "displayNameLabel": "Display name",
+      "displayNamePlaceholder": "How your name appears on submissions",
+      "bioLabel": "Short bio",
+      "bioPlaceholder": "A sentence or two about yourself (optional)",
+      "websiteLabel": "Website",
+      "websitePlaceholder": "https://example.com",
+      "publicEmailLabel": "Public email",
+      "publicEmailPlaceholder": "you@example.com",
+      "publicEmailHint": "Optional — shown on your public profile. Leave blank to keep your sign-in address private.",
+      "localeLabel": "Preferred language (for emails)",
+      "localePlaceholder": "Use the site default",
+      "localeHint": "Determines the language of notification emails. Your browsing language is still controlled by the URL.",
+      "saving": "Saving…",
+      "saveButton": "Save profile",
+      "saved": "Saved"
+    },
+    "avatar": {
+      "title": "Avatar",
+      "description": "A small profile picture shown next to your name.",
+      "altText": "Your avatar",
+      "uploading": "Uploading…",
+      "changeAvatar": "Change avatar",
+      "uploadAvatar": "Upload avatar",
+      "removing": "Removing…",
+      "remove": "Remove",
+      "hint": "JPEG, PNG, or WebP. Up to 2 MB.",
+      "errorTooLarge": "Avatar must be under 2 MB",
+      "errorInvalidType": "Avatar must be JPEG, PNG, or WebP"
+    },
+    "notifications": {
+      "title": "Email notifications",
+      "description": "Choose which events trigger an email. You'll still see everything in your dashboard notifications.",
+      "saving": "Saving…",
+      "saveButton": "Save preferences",
+      "saved": "Saved",
+      "errorFallback": "Could not save preferences.",
+      "groups": {
+        "yourSubmissions": {
+          "heading": "Your submissions",
+          "description": "Emails about content you submitted.",
+          "statusChanges": "A moderator approves or rejects your submission",
+          "successReportDecisions": "A moderator verifies or rejects your success report",
+          "revisionReverted": "A moderator reverts one of your edits"
+        },
+        "activityOnContent": {
+          "heading": "Activity on your content",
+          "description": "Emails when others engage with content you authored.",
+          "commentReplies": "Someone replies to your comment",
+          "suggestedEdits": "Someone suggests an edit to your content",
+          "newSolutionOnProblem": "A new solution is published for your problem",
+          "newSuccessReportOnContent": "A success report is published about your problem or solution"
+        },
+        "organizations": {
+          "heading": "Organizations",
+          "description": "Emails about organizations you created or asked to join.",
+          "verificationOutcomes": "An organization or membership is verified or rejected"
+        }
+      }
+    },
+    "security": {
+      "title": "Login & security",
+      "description": "Manage how you sign in to OpenClienting.",
+      "signInMethodsHeading": "Sign-in methods",
+      "magicLinkOnly": "Magic link (email only)",
+      "providerGoogle": "Google",
+      "providerEmailPassword": "Email + password",
+      "changePasswordHeading": "Change password",
+      "setPasswordHeading": "Set a password",
+      "changePasswordDescription": "Update the password used to sign in with your email.",
+      "setPasswordDescription": "Add a password so you can sign in without waiting for a magic link.",
+      "currentPasswordLabel": "Current password",
+      "newPasswordLabel": "New password",
+      "confirmPasswordLabel": "Confirm new password",
+      "minLengthHint": "At least {min} characters.",
+      "saving": "Saving…",
+      "updatePasswordButton": "Update password",
+      "setPasswordButton": "Set password",
+      "saved": "Saved",
+      "errorPasswordsMismatch": "New passwords do not match",
+      "errorCurrentPasswordRequired": "Current password is required"
+    },
+    "dangerZone": {
+      "title": "Danger zone",
+      "description": "Irreversible account actions. Proceed with care.",
+      "permanentWarning": "Permanently delete your account and all content you authored — submissions, comments, and votes. This cannot be undone.",
+      "blockerHeading": "You're the sole admin of:",
+      "blockerHint": "Transfer admin rights to another member or leave these organizations before deleting your account.",
+      "deleteButton": "Delete my account",
+      "dialogTitle": "Delete your account?",
+      "dialogDescription": "This permanently removes your profile, submissions, comments, and votes. Organizations you created will remain with their remaining members.",
+      "confirmLabel": "Type <email/> to confirm",
+      "confirmPlaceholder": "{email}",
+      "deletingButton": "Deleting…",
+      "confirmDeleteButton": "Delete account permanently",
+      "errorFallback": "Failed to delete account"
+    },
     "password": {
       "resetTitle": "Nastavit nové heslo",
       "resetDescription": "Zvolte nové heslo pro svůj účet. Odkaz, na který jste klikli, vás přihlásil automaticky.",

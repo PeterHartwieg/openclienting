@@ -466,6 +466,107 @@
     "saved": "Einstellungen gespeichert"
   },
   "account": {
+    "metaTitle": "Kontoeinstellungen — OpenClienting",
+    "pageHeading": "Konto",
+    "profile": {
+      "title": "Profil",
+      "description": "Informationen, die neben deinen Einreichungen und Kommentaren angezeigt werden.",
+      "displayNameLabel": "Anzeigename",
+      "displayNamePlaceholder": "So erscheint dein Name bei Einreichungen",
+      "bioLabel": "Kurze Bio",
+      "bioPlaceholder": "Ein oder zwei Sätze über dich (optional)",
+      "websiteLabel": "Webseite",
+      "websitePlaceholder": "https://beispiel.de",
+      "publicEmailLabel": "Öffentliche E-Mail",
+      "publicEmailPlaceholder": "du@beispiel.de",
+      "publicEmailHint": "Optional — wird in deinem öffentlichen Profil angezeigt. Leer lassen, um deine Anmelde-E-Mail-Adresse privat zu halten.",
+      "localeLabel": "Bevorzugte Sprache (für E-Mails)",
+      "localePlaceholder": "Seitenstandard verwenden",
+      "localeHint": "Bestimmt die Sprache der Benachrichtigungs-E-Mails. Die Browserspache wird weiterhin durch die URL gesteuert.",
+      "saving": "Wird gespeichert…",
+      "saveButton": "Profil speichern",
+      "saved": "Gespeichert"
+    },
+    "avatar": {
+      "title": "Avatar",
+      "description": "Ein kleines Profilbild, das neben deinem Namen angezeigt wird.",
+      "altText": "Dein Avatar",
+      "uploading": "Wird hochgeladen…",
+      "changeAvatar": "Avatar ändern",
+      "uploadAvatar": "Avatar hochladen",
+      "removing": "Wird entfernt…",
+      "remove": "Entfernen",
+      "hint": "JPEG, PNG oder WebP. Bis zu 2 MB.",
+      "errorTooLarge": "Avatar muss kleiner als 2 MB sein",
+      "errorInvalidType": "Avatar muss JPEG, PNG oder WebP sein"
+    },
+    "notifications": {
+      "title": "E-Mail-Benachrichtigungen",
+      "description": "Wähle, welche Ereignisse eine E-Mail auslösen. Du siehst weiterhin alles in deinen Dashboard-Benachrichtigungen.",
+      "saving": "Wird gespeichert…",
+      "saveButton": "Einstellungen speichern",
+      "saved": "Gespeichert",
+      "errorFallback": "Einstellungen konnten nicht gespeichert werden.",
+      "groups": {
+        "yourSubmissions": {
+          "heading": "Deine Einreichungen",
+          "description": "E-Mails über Inhalte, die du eingereicht hast.",
+          "statusChanges": "Ein Moderator genehmigt oder lehnt deine Einreichung ab",
+          "successReportDecisions": "Ein Moderator bestätigt oder lehnt deinen Erfolgsbericht ab",
+          "revisionReverted": "Ein Moderator macht eine deiner Bearbeitungen rückgängig"
+        },
+        "activityOnContent": {
+          "heading": "Aktivität auf deinen Inhalten",
+          "description": "E-Mails, wenn andere mit deinen Inhalten interagieren.",
+          "commentReplies": "Jemand antwortet auf deinen Kommentar",
+          "suggestedEdits": "Jemand schlägt eine Änderung an deinen Inhalten vor",
+          "newSolutionOnProblem": "Eine neue Lösung wird für dein Problem veröffentlicht",
+          "newSuccessReportOnContent": "Ein Erfolgsbericht über dein Problem oder deine Lösung wird veröffentlicht"
+        },
+        "organizations": {
+          "heading": "Organisationen",
+          "description": "E-Mails über Organisationen, die du erstellt hast oder beitreten möchtest.",
+          "verificationOutcomes": "Eine Organisation oder Mitgliedschaft wird verifiziert oder abgelehnt"
+        }
+      }
+    },
+    "security": {
+      "title": "Login & Sicherheit",
+      "description": "Verwalte, wie du dich bei OpenClienting anmeldest.",
+      "signInMethodsHeading": "Anmeldemethoden",
+      "magicLinkOnly": "Magic Link (nur E-Mail)",
+      "providerGoogle": "Google",
+      "providerEmailPassword": "E-Mail + Passwort",
+      "changePasswordHeading": "Passwort ändern",
+      "setPasswordHeading": "Passwort festlegen",
+      "changePasswordDescription": "Aktualisiere das Passwort, das du zum Anmelden mit deiner E-Mail verwendest.",
+      "setPasswordDescription": "Füge ein Passwort hinzu, damit du dich ohne Magic Link anmelden kannst.",
+      "currentPasswordLabel": "Aktuelles Passwort",
+      "newPasswordLabel": "Neues Passwort",
+      "confirmPasswordLabel": "Neues Passwort bestätigen",
+      "minLengthHint": "Mindestens {min} Zeichen.",
+      "saving": "Wird gespeichert…",
+      "updatePasswordButton": "Passwort aktualisieren",
+      "setPasswordButton": "Passwort festlegen",
+      "saved": "Gespeichert",
+      "errorPasswordsMismatch": "Die neuen Passwörter stimmen nicht überein",
+      "errorCurrentPasswordRequired": "Aktuelles Passwort ist erforderlich"
+    },
+    "dangerZone": {
+      "title": "Gefahrenzone",
+      "description": "Unwiderrufliche Kontoaktionen. Mit Vorsicht vorgehen.",
+      "permanentWarning": "Lösche dein Konto und alle Inhalte, die du verfasst hast — Einreichungen, Kommentare und Stimmen. Dies kann nicht rückgängig gemacht werden.",
+      "blockerHeading": "Du bist der einzige Admin von:",
+      "blockerHint": "Übertrage Admin-Rechte an ein anderes Mitglied oder verlasse diese Organisationen, bevor du dein Konto löschst.",
+      "deleteButton": "Mein Konto löschen",
+      "dialogTitle": "Konto löschen?",
+      "dialogDescription": "Dadurch werden dein Profil, deine Einreichungen, Kommentare und Stimmen dauerhaft entfernt. Von dir erstellte Organisationen bleiben mit den verbleibenden Mitgliedern bestehen.",
+      "confirmLabel": "Tippe <email/> zur Bestätigung",
+      "confirmPlaceholder": "{email}",
+      "deletingButton": "Wird gelöscht…",
+      "confirmDeleteButton": "Konto dauerhaft löschen",
+      "errorFallback": "Konto konnte nicht gelöscht werden"
+    },
     "password": {
       "resetTitle": "Neues Passwort festlegen",
       "resetDescription": "Wähle ein neues Passwort für dein Konto. Der angeklickte Link hat dich automatisch angemeldet.",

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useTranslations } from "next-intl";
 import { updateNotificationPreferences } from "@/lib/actions/notifications";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
@@ -21,70 +22,71 @@ interface NotificationSettingsProps {
 
 type PrefKey = keyof NotificationSettingsProps["initialPrefs"];
 
-// Toggles are grouped by the recipient's relationship to the content so the
-// user can scan them quickly. Order within each group matches likely importance.
-const GROUPS: Array<{
-  heading: string;
-  description: string;
-  items: Array<{ key: PrefKey; label: string }>;
-}> = [
-  {
-    heading: "Your submissions",
-    description: "Emails about content you submitted.",
-    items: [
-      {
-        key: "emailStatusChanges",
-        label: "A moderator approves or rejects your submission",
-      },
-      {
-        key: "emailSuccessReportDecisions",
-        label: "A moderator verifies or rejects your success report",
-      },
-      {
-        key: "emailRevisionReverted",
-        label: "A moderator reverts one of your edits",
-      },
-    ],
-  },
-  {
-    heading: "Activity on your content",
-    description: "Emails when others engage with content you authored.",
-    items: [
-      {
-        key: "emailCommentReplies",
-        label: "Someone replies to your comment",
-      },
-      {
-        key: "emailSuggestedEdits",
-        label: "Someone suggests an edit to your content",
-      },
-      {
-        key: "emailNewSolutionOnProblem",
-        label: "A new solution is published for your problem",
-      },
-      {
-        key: "emailNewSuccessReportOnContent",
-        label: "A success report is published about your problem or solution",
-      },
-    ],
-  },
-  {
-    heading: "Organizations",
-    description: "Emails about organizations you created or asked to join.",
-    items: [
-      {
-        key: "emailVerificationOutcomes",
-        label: "An organization or membership is verified or rejected",
-      },
-    ],
-  },
-];
-
 export function NotificationSettings({ initialPrefs }: NotificationSettingsProps) {
+  const t = useTranslations("account.notifications");
   const [prefs, setPrefs] = useState(initialPrefs);
   const [isPending, startTransition] = useTransition();
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Toggles are grouped by the recipient's relationship to the content so the
+  // user can scan them quickly. Order within each group matches likely importance.
+  const groups: Array<{
+    heading: string;
+    description: string;
+    items: Array<{ key: PrefKey; label: string }>;
+  }> = [
+    {
+      heading: t("groups.yourSubmissions.heading"),
+      description: t("groups.yourSubmissions.description"),
+      items: [
+        {
+          key: "emailStatusChanges",
+          label: t("groups.yourSubmissions.statusChanges"),
+        },
+        {
+          key: "emailSuccessReportDecisions",
+          label: t("groups.yourSubmissions.successReportDecisions"),
+        },
+        {
+          key: "emailRevisionReverted",
+          label: t("groups.yourSubmissions.revisionReverted"),
+        },
+      ],
+    },
+    {
+      heading: t("groups.activityOnContent.heading"),
+      description: t("groups.activityOnContent.description"),
+      items: [
+        {
+          key: "emailCommentReplies",
+          label: t("groups.activityOnContent.commentReplies"),
+        },
+        {
+          key: "emailSuggestedEdits",
+          label: t("groups.activityOnContent.suggestedEdits"),
+        },
+        {
+          key: "emailNewSolutionOnProblem",
+          label: t("groups.activityOnContent.newSolutionOnProblem"),
+        },
+        {
+          key: "emailNewSuccessReportOnContent",
+          label: t("groups.activityOnContent.newSuccessReportOnContent"),
+        },
+      ],
+    },
+    {
+      heading: t("groups.organizations.heading"),
+      description: t("groups.organizations.description"),
+      items: [
+        {
+          key: "emailVerificationOutcomes",
+          label: t("groups.organizations.verificationOutcomes"),
+        },
+      ],
+    },
+  ];
 
   function setPref(key: PrefKey, value: boolean) {
     setSaved(false);
@@ -100,14 +102,14 @@ export function NotificationSettings({ initialPrefs }: NotificationSettingsProps
         setSaved(true);
         setTimeout(() => setSaved(false), 2000);
       } else {
-        setError(result.error ?? "Could not save preferences.");
+        setError(result.error ?? t("errorFallback"));
       }
     });
   }
 
   return (
     <div className="space-y-6">
-      {GROUPS.map((group) => (
+      {groups.map((group) => (
         <div key={group.heading}>
           <h3 className="text-sm font-semibold">{group.heading}</h3>
           <p className="mt-1 text-xs text-muted-foreground">
@@ -136,11 +138,11 @@ export function NotificationSettings({ initialPrefs }: NotificationSettingsProps
 
       <div className="flex items-center gap-3 border-t pt-4">
         <Button size="sm" onClick={handleSave} disabled={isPending}>
-          {isPending ? "Saving..." : "Save preferences"}
+          {isPending ? t("saving") : t("saveButton")}
         </Button>
         {saved && (
           <span className="text-sm text-green-600 dark:text-green-400">
-            Saved
+            {t("saved")}
           </span>
         )}
         {error && (

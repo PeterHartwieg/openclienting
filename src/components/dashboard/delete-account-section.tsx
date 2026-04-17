@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import type { DeletionBlocker } from "@/lib/actions/account";
 import { Button } from "@/components/ui/button";
@@ -28,6 +28,7 @@ export function DeleteAccountSection({
   email,
   blockers,
 }: DeleteAccountSectionProps) {
+  const t = useTranslations("account.dangerZone");
   const router = useRouter();
   const locale = useLocale();
   const [typed, setTyped] = useState("");
@@ -49,7 +50,7 @@ export function DeleteAccountSection({
       });
       if (!response.ok) {
         const body = await response.json().catch(() => ({}));
-        setError(body.error ?? "Failed to delete account");
+        setError(body.error ?? t("errorFallback"));
         setLoading(false);
         return;
       }
@@ -59,7 +60,7 @@ export function DeleteAccountSection({
       router.replace(`/${locale}`);
       router.refresh();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to delete account");
+      setError(err instanceof Error ? err.message : t("errorFallback"));
       setLoading(false);
     }
   }
@@ -67,14 +68,13 @@ export function DeleteAccountSection({
   return (
     <div className="space-y-4">
       <p className="text-sm text-muted-foreground">
-        Permanently delete your account and all content you authored —
-        submissions, comments, and votes. This cannot be undone.
+        {t("permanentWarning")}
       </p>
 
       {!canDelete && (
         <div className="rounded-md border border-destructive/40 bg-destructive/5 p-3 text-sm">
           <p className="font-medium text-destructive">
-            You&apos;re the sole admin of:
+            {t("blockerHeading")}
           </p>
           <ul className="mt-1 space-y-1">
             {blockers.map((b) => (
@@ -89,8 +89,7 @@ export function DeleteAccountSection({
             ))}
           </ul>
           <p className="mt-2 text-muted-foreground">
-            Transfer admin rights to another member or leave these organizations
-            before deleting your account.
+            {t("blockerHint")}
           </p>
         </div>
       )}
@@ -101,22 +100,22 @@ export function DeleteAccountSection({
             <Button variant="destructive" size="sm" disabled={!canDelete} />
           }
         >
-          Delete my account
+          {t("deleteButton")}
         </DialogTrigger>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Delete your account?</DialogTitle>
+            <DialogTitle>{t("dialogTitle")}</DialogTitle>
             <DialogDescription>
-              This permanently removes your profile, submissions, comments, and
-              votes. Organizations you created will remain with their remaining
-              members.
+              {t("dialogDescription")}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-3">
             <Label htmlFor="delete-confirmation" className="text-sm">
-              Type{" "}
-              <span className="font-mono text-foreground">{email}</span> to
-              confirm
+              {t.rich("confirmLabel", {
+                email: () => (
+                  <span className="font-mono text-foreground">{email}</span>
+                ),
+              })}
             </Label>
             <Input
               id="delete-confirmation"
@@ -133,7 +132,7 @@ export function DeleteAccountSection({
               onClick={handleDelete}
               disabled={!matches || loading}
             >
-              {loading ? "Deleting..." : "Delete account permanently"}
+              {loading ? t("deletingButton") : t("confirmDeleteButton")}
             </Button>
           </DialogFooter>
         </DialogContent>

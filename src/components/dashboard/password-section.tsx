@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useTranslations } from "next-intl";
 import { setOrChangePassword } from "@/lib/actions/account";
 import { validatePassword, MIN_PASSWORD_LENGTH } from "@/lib/auth/password";
 import { Button } from "@/components/ui/button";
@@ -12,27 +13,28 @@ interface PasswordSectionProps {
   linkedProviders: string[]; // e.g. ["google", "email"]
 }
 
-function providerLabel(p: string): string {
-  switch (p) {
-    case "google":
-      return "Google";
-    case "email":
-      return "Email + password";
-    default:
-      return p;
-  }
-}
-
 export function PasswordSection({
   hasPassword,
   linkedProviders,
 }: PasswordSectionProps) {
+  const t = useTranslations("account.security");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [saved, setSaved] = useState(false);
   const [isPending, startTransition] = useTransition();
+
+  function providerLabel(p: string): string {
+    switch (p) {
+      case "google":
+        return t("providerGoogle");
+      case "email":
+        return t("providerEmailPassword");
+      default:
+        return p;
+    }
+  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -44,11 +46,11 @@ export function PasswordSection({
       return;
     }
     if (newPassword !== confirmPassword) {
-      setError("New passwords do not match");
+      setError(t("errorPasswordsMismatch"));
       return;
     }
     if (hasPassword && !currentPassword) {
-      setError("Current password is required");
+      setError(t("errorCurrentPasswordRequired"));
       return;
     }
 
@@ -72,28 +74,28 @@ export function PasswordSection({
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-sm font-medium">Sign-in methods</h3>
+        <h3 className="text-sm font-medium">{t("signInMethodsHeading")}</h3>
         <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
           {linkedProviders.map((p) => (
             <li key={p}>• {providerLabel(p)}</li>
           ))}
-          {linkedProviders.length === 0 && <li>• Magic link (email only)</li>}
+          {linkedProviders.length === 0 && <li>• {t("magicLinkOnly")}</li>}
         </ul>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <h3 className="text-sm font-medium">
-          {hasPassword ? "Change password" : "Set a password"}
+          {hasPassword ? t("changePasswordHeading") : t("setPasswordHeading")}
         </h3>
         <p className="text-sm text-muted-foreground">
           {hasPassword
-            ? "Update the password used to sign in with your email."
-            : "Add a password so you can sign in without waiting for a magic link."}
+            ? t("changePasswordDescription")
+            : t("setPasswordDescription")}
         </p>
 
         {hasPassword && (
           <div className="space-y-1.5">
-            <Label htmlFor="current-password">Current password</Label>
+            <Label htmlFor="current-password">{t("currentPasswordLabel")}</Label>
             <Input
               id="current-password"
               type="password"
@@ -105,7 +107,7 @@ export function PasswordSection({
         )}
 
         <div className="space-y-1.5">
-          <Label htmlFor="new-password">New password</Label>
+          <Label htmlFor="new-password">{t("newPasswordLabel")}</Label>
           <Input
             id="new-password"
             type="password"
@@ -115,12 +117,12 @@ export function PasswordSection({
             onChange={(e) => setNewPassword(e.target.value)}
           />
           <p className="text-xs text-muted-foreground">
-            At least {MIN_PASSWORD_LENGTH} characters.
+            {t("minLengthHint", { min: MIN_PASSWORD_LENGTH })}
           </p>
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="confirm-password">Confirm new password</Label>
+          <Label htmlFor="confirm-password">{t("confirmPasswordLabel")}</Label>
           <Input
             id="confirm-password"
             type="password"
@@ -136,14 +138,14 @@ export function PasswordSection({
         <div className="flex items-center gap-2">
           <Button type="submit" size="sm" disabled={isPending}>
             {isPending
-              ? "Saving..."
+              ? t("saving")
               : hasPassword
-              ? "Update password"
-              : "Set password"}
+              ? t("updatePasswordButton")
+              : t("setPasswordButton")}
           </Button>
           {saved && (
             <span className="text-sm text-green-600 dark:text-green-400">
-              Saved
+              {t("saved")}
             </span>
           )}
         </div>

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { uploadAvatar, removeAvatar } from "@/lib/actions/account";
 import { Button } from "@/components/ui/button";
 
@@ -18,6 +19,7 @@ export function AvatarUpload({
   currentAvatarUrl,
   fallbackInitial,
 }: AvatarUploadProps) {
+  const t = useTranslations("account.avatar");
   const router = useRouter();
   const fileRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(currentAvatarUrl);
@@ -31,11 +33,11 @@ export function AvatarUpload({
     if (!file) return;
 
     if (file.size > MAX_BYTES) {
-      setError("Avatar must be under 2 MB");
+      setError(t("errorTooLarge"));
       return;
     }
     if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
-      setError("Avatar must be JPEG, PNG, or WebP");
+      setError(t("errorInvalidType"));
       return;
     }
 
@@ -77,7 +79,7 @@ export function AvatarUpload({
         {preview ? (
           <Image
             src={preview}
-            alt="Your avatar"
+            alt={t("altText")}
             width={72}
             height={72}
             unoptimized
@@ -92,10 +94,10 @@ export function AvatarUpload({
         <div className="space-y-2">
           <label className="inline-flex items-center rounded-md border border-input bg-background px-3 py-1.5 text-sm font-medium shadow-sm hover:bg-accent hover:text-accent-foreground cursor-pointer disabled:opacity-50">
             {uploading
-              ? "Uploading..."
+              ? t("uploading")
               : preview
-              ? "Change avatar"
-              : "Upload avatar"}
+              ? t("changeAvatar")
+              : t("uploadAvatar")}
             <input
               ref={fileRef}
               type="file"
@@ -112,11 +114,11 @@ export function AvatarUpload({
               onClick={handleRemove}
               disabled={isPending || uploading}
             >
-              {isPending ? "Removing..." : "Remove"}
+              {isPending ? t("removing") : t("remove")}
             </Button>
           )}
           <p className="text-xs text-muted-foreground">
-            JPEG, PNG, or WebP. Up to 2 MB.
+            {t("hint")}
           </p>
         </div>
       </div>
